@@ -1,0 +1,66 @@
+.mui-content {
+	padding: 0 1.875% 2rem;
+	background: #fff;
+}
+/*帐号部分*/
+.msg {
+	margin-top: 2rem;;
+}
+.msg img {
+	float: left;
+	margin-left: 1rem;
+	margin-right: 2rem;
+	width: 20%;
+	/*height: 4rem;*/
+}
+.msg .text {
+	line-height: 2rem;
+	margin-top: 1rem;
+}
+.text p {
+		font-size: 1.2rem;
+		color: #a5a5a5;
+}
+.text p strong {
+	font-size: 1.4rem;
+	color: #f08519;
+}
+
+.mui-row {
+	margin-top: 1rem;
+}
+.mui-row button {
+	width: 80%;
+}
+.mui-row button{
+	margin-left: 10%;
+}
+
+.mui-segmented-control {
+	margin-top: 3rem;
+}
+.mui-table-view {
+	margin-top: 0.2rem;
+}
+
+/*列表部分*/
+
+.mui-table-view .list {
+	border-bottom: 1px solid #e4e4e4;
+}
+.mui-table-view li span {
+	display:block;
+	float: left;
+	width: 20%;
+	text-align: center;
+	font-size: 1rem;
+	line-height: 3rem;
+}
+.mui-table-view li:first-child {
+	background-color: #f3f3f3;
+	color: #333333;
+}
+.mui-table-view li:first-child span {
+	color: #f08519;
+	font-size: 1.1rem;
+}

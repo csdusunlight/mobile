@@ -1,0 +1,120 @@
+
+.mui-content .top {
+	padding: 2rem 0;
+	width: 100%;
+	/*height: 10rem;*/
+	background: url(../images/bg-user.png);
+	background-size: auto 100%;
+}
+.top img {
+	display: block;
+	width: 20%;
+	margin: 0 auto;
+}
+.top p {
+	text-align: center;
+	font-size: 1.4rem;
+	margin-top: 1rem;
+	color: #fff;
+}
+
+.mui-row {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	background: #fff;
+	box-shadow: 0 1px 3px #e4e4e4;
+	margin-bottom: 1rem;
+}
+.mui-row li {
+	list-style: none;
+}
+.mui-row li a {
+	text-align: center;
+	font-size: 1rem;
+	color: #a5a5a5 !important;
+}
+.mui-row li a span {
+	color: #ff1230;
+	font-size: 1.6rem;
+	font-weight: bold;
+}
+.mui-row li:not(.first) {
+	/*background: red;*/
+	border-left: 1px solid #e4e4e4;
+}
+.mui-table-view {
+	margin-top: 0.6rem;
+	box-shadow: 0 1px 3px #e4e4e4;
+}
+.mui-table-view:before {
+	background-color: transparent;
+}
+.mui-table-view li {
+	position: relative;
+}
+.mui-table-view li span {
+	font-size: 14px;
+	position: absolute;
+	right: 32px;
+	top: 13px;
+}
+.mui-table-view .icon-01 {
+	padding-left: 5rem !important;
+	background: url(../images/sin-picon-01.png) 2rem center no-repeat;
+}
+.mui-table-view .icon-02 {
+	padding-left: 5rem !important;
+	background: url(../images/sin-picon-02.png) 2rem center no-repeat;
+}
+.mui-table-view .icon-03 {
+	padding-left: 5rem !important;
+	background: url(../images/sin-picon-03.png) 2rem center no-repeat;
+}
+.mui-table-view .icon-04 {
+	padding-left: 5rem !important;
+	background: url(../images/sin-picon-04.png) 2rem center no-repeat;
+}
+.mui-table-view .icon-05 {
+	padding-left: 5rem !important;
+	background: url(../images/sin-picon-05.png) 2rem center no-repeat;
+}
+.mui-table-view .icon-06 {
+	padding-left: 5rem !important;
+	background: url(../images/sin-picon-06.png) 2rem center no-repeat;
+}
+
+.mui-content button {
+	padding: 0;
+	width: 60%;
+	height: 3.4rem;
+	margin-top: 2rem;
+	margin-left: 20%;
+	font-size: 1.2rem;
+}
+/*底部导航部分*/
+footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	background: #fff;
+	z-index: 1000;
+	border-top: 1px solid #e4e4e4;
+}
+footer li {
+	width: 25%;
+	float: left;
+}
+footer li img {
+	width: 2.8rem;
+	height: auto;
+}
+footer li span {
+	display: block;
+	font-size: 1rem;
+	color: #4d4d4d;
+	margin-bottom: 3px;
+	margin-top: -3px;
+}
+footer li.on span {
+	color: #f08519;
+}

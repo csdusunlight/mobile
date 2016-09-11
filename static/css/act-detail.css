@@ -1,0 +1,43 @@
+.mui-content {
+	padding: 0 1.875% 2rem;
+	background: #fff;
+}
+.mui-content div {
+	margin-top: 1rem;
+	border-bottom: 1px solid #e4e4e4;
+}
+h3 {
+	padding-top: 2px;
+	width: 24%;
+	font-size: 1.6rem;
+	color: #008fd7;
+	line-height: 2.6rem;
+	border-bottom: 2px solid #008fd7;
+}
+.mui-content img {
+	width: 100%;
+	margin: 2rem 0;
+}
+h4 {
+	font-size: 1.4rem;
+	color: #F08519;
+	margin: 2rem 0 1rem;
+}
+p.prompt {
+	color: #FF1230;
+}
+.mui-row {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background: #fff;
+	box-shadow: 0 -1px 3px #a2b5fc;
+}
+.mui-row button {
+	width: 100%;
+	border-radius: 0;
+	height: 3rem !important;
+}
+.mui-row button:nth-of-type(2) {
+	border: 0 !important;
+}

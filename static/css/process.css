@@ -1,0 +1,51 @@
+.mui-content {
+	padding: 0 1.875% 0;
+}
+.mui-content .top {
+	color: #f08519;
+	font-size: 1.4rem;
+	line-height: 2.4rem;
+}
+.mui-content h3 {
+	margin-top: 3rem;
+	font-size: 1.4rem;
+	line-height: 0;
+	color: #0a0a0a;
+	/*font-weight: bold;*/
+}
+.mui-content p {
+	margin-top: 1.8rem;
+}
+.mui-content h5 {
+	font-size: 2rem
+	text-align: center;
+	width: 100%;
+	line-height: 2rem;
+	margin:2rem auto 0;
+	color: #fb3456;
+}
+.mui-content h5:before {
+	content: "";
+	display: inline-block;
+	width: 30%;
+	height: 2px;
+	background: #e4e4e4;
+	position: relative;
+	bottom: 0.3rem;
+	margin-left: 2rem;
+}
+.mui-content h5:after {
+	content: "";
+	display: inline-block;
+	width: 30%;
+	height: 2px;
+	background: #e4e4e4;
+	position: relative;
+	bottom: 0.3rem;
+	margin-right:2rem
+}
+.mui-content .notice {
+	margin-top: 1rem;
+	text-align: center;
+	font-size: 1rem;
+}

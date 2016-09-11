@@ -1,0 +1,24 @@
+
+.ad img {
+	width: 100%;
+}
+.left-icon1 {
+	padding-left: 6rem !important;
+	background: url(../images/left-icon1.png) 1rem center no-repeat;
+	background-size: auto 40%;
+}
+.left-icon2 {
+	padding-left: 6rem !important;
+	background: url(../images/left-icon2.png) 1rem center no-repeat;
+	background-size: auto 40%;
+}
+.left-icon3 {
+	padding-left: 6rem !important;
+	background: url(../images/left-icon3.png) 1rem center no-repeat;
+	background-size: auto 60%;
+}
+.left-icon4 {
+	padding-left: 6rem !important;
+	background: url(../images/left-icon4.png) 1rem center no-repeat;
+	background-size: auto 50%;
+}

@@ -1,0 +1,21 @@
+.mui-content {
+	padding: 0 1.875% 0;
+}
+.mui-input-group {
+	margin-top: 3rem;
+}
+.mui-input-row label {
+	font-size: 1.2rem;
+	margin-top: 2px;
+}
+.beizhu {
+	margin-top: 2rem !important;
+}
+.beizhu p {
+	font-size: 1.4rem;
+	line-height: 2rem;
+}
+.mui-content button {
+	width: 50%;
+	margin-left: 25%;
+}

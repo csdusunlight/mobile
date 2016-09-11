@@ -1,0 +1,122 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户中心</title>
+<link href="{% static 'images/favicon.ico'%}" rel="shortcut icon"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/User.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style-i.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<script type="text/javascript" src="{% static 'js/jquery-1.11.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/accounts/refresh.js' %}"></script>
+<script type="text/javascript" >
+var coderefresh_url = "{% url 'captcha-refresh' %}";
+$.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+});
+$(function(){
+	$('.back-a9').parent().toggleClass("on");
+	$("#submit").click(function(){
+		varicode = $("#input_varicode").val();
+		amount = $("#withdraw_amount").val();
+		hashkey = $("#id_hashkey").val();
+		if (!amount || !varicode){
+			alert("不能为空");
+			return;
+		}
+		var post_url = "{%url 'account_withdraw' %}";
+		$.ajax({
+			url: post_url,
+			dataType:"json",
+			type:'POST',
+			data : {
+				'amount': amount,
+				'varicode': varicode,
+				'hashkey':hashkey,
+			},
+			success:function(ret){
+				if(ret.code==0){
+					alert("提现申请提交成功！");
+					window.location.href = "{% url 'account_money' %}";
+				}
+				else {
+					new_cptch_key = ret['key'];
+			        new_cptch_image = ret['image_url'];
+					key = $("#id_hashkey");
+			        img = $("#id_checkImg");
+			        key.attr("value", new_cptch_key);
+			        img.attr("src", new_cptch_image);
+					alert(ret.res_msg);
+				}
+			},
+			error:function(){
+				alert("请检查网络连接");
+			}
+		});
+	});
+});
+</script>
+</head>
+
+<body>
+	<div class="Max">
+    	<!--头部-->
+    	{% include "header.html" %}
+    	<!--内容-->
+    	<div class="Content">
+        	<div class="w1100">
+            	{% include "account/left.html" %}
+                <div class="RightCont">
+                	<div class="binding" style=" min-height:515px">
+                    	<div class="Binding-Top">
+                        	<h2>提现</h2>
+                        </div>
+                        <div class="Cash-box">
+                        	<div class="Cash-info"><span>可提现金额：</span><i>{{user.balance}}</i></div>
+
+                            	<div class="Cash-input">
+                                	<span>提现金额：</span>
+                                    <input id="withdraw_amount" type="text" />
+                                    <i>（最低提现金额为10元）</i>
+                                </div>
+                                <div class="Cash-input">
+                                	<span>提现账户：</span>
+                                	{%if not user.zhifubao %}
+                                    <p>您还未绑定任何支付宝账户，请 <a target="_blank" href="{%url 'account_alipay'%}#update">绑定</a>
+                                  		，然后刷新本页面
+                                    </p>
+                                    {%else%}
+                                    <strong>{{user.zhifubao_name}}（{{user.zhifubao}}）</strong>
+                                    <a target="_blank" href="{%url 'account_alipay'%}#update">更换账号</a>
+                                    {%endif%}
+                                </div>
+                                
+                                <div class="Cash-input2">
+                                	<span>验证码：</span>
+                                    <input id="input_varicode" type="text" />
+                                    <div class="info-con">
+                                    	<div class="Yzin">
+                                    	<img width="111" height="34" src="{{ codimg_url }}" id="id_checkImg" class="imageCheckRefresh"> 
+       									<input id="id_hashkey" name="hashkey" type="hidden" value="{{ hashkey }}">
+                                    	</div>
+                                    </div>
+                                </div>
+                                <input id="submit" type="submit" value="确  定" />
+
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    	<!--底部-->
+  {% include "footer.html" %}
+  <!--浮动窗口-->  
+  {% include "outline.html" %}
+    </div>
+
+</body>
+</html>

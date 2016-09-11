@@ -1,0 +1,171 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户中心</title>
+<link href="{% static 'images/favicon.ico'%}" rel="shortcut icon"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/User.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style-i.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+<script type="text/javascript" src="{% static 'js/jquery-1.11.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/accounts/send.js' %}"></script>
+<script type="text/javascript">
+var phoneNum = "{{user.mobile}}";
+var this_url = "{%url 'account_alipay' %}";
+var get_code_url = "{% url 'phoneImageV' %}";
+$.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+});
+$(function(){
+	$('.back-a6').parent().toggleClass("on");
+	$("#submit").click(function(){
+		account = $("#zhifubao").val();
+		name = $("#zhifubao_name").val();
+		if (!account || !name){
+			alert("不能为空");
+			return;
+		}
+		var post_url = "{%url 'bind_zhifubao' %}";
+		$.ajax({
+			url: post_url,
+			dataType:"json",
+			type:'GET',
+			data : {
+				'account': account,
+				'name': name,
+			},
+			success:function(ret){
+				if(ret.code==1){
+					alert("请重新登录！")
+					window.location.href = ret.url;
+				}
+				else if(ret.code==0){
+					alert("绑定支付宝账号成功！");
+					window.location.href = this_url;
+				}
+			},
+			error:function(){
+				alert("请检查网络连接");
+			}
+		});
+	});
+	$("#submit2").click(function(){
+		account = $("#zhifubao").val();
+		name = $("#zhifubao_name").val();
+		code = $("#yanzhengma").val();
+		if (!account || !name || !code){
+			alert("不能为空");
+			return;
+		}
+		var post_url = "{%url 'bind_zhifubao' %}";
+		$.ajax({
+			url: post_url,
+			dataType:"json",
+			type:'POST',
+			data : {
+				'account': account,
+				'name': name,
+				'code':code,
+			},
+			success:function(ret){
+				if(ret.code==1){
+					alert("请重新登录！")
+					window.location.href = ret.url;
+				}
+				else if(ret.code==0){
+					alert("更改支付宝账号成功！");
+					window.location.href = this_url;
+				}
+				else {
+					alert(ret.res_msg);
+				}
+			},
+			error:function(){
+				alert("请检查网络连接");
+			}
+		});
+	});
+
+});
+</script>
+</head>
+
+<body>
+	<div class="Max">
+    	<!--头部-->
+    	{% include "header.html" %}
+    	<!--内容-->
+    	<div class="Content">
+        	<div class="w1100">
+            	{% include "account/left.html" %}
+                <div class="RightCont">
+                	{% if user.zhifubao %}
+                	<div class="binding">
+                    	<div class="Binding-Top">
+                        	<h2>支付宝绑定</h2>
+                        </div>
+                        <div class="Binding-Box">
+                        	<div class="Bin-info">
+                            	<p class="bing-name">支付宝姓名：{{user.zhifubao_name}}</p>
+                                <p><span>支付宝帐号：{{user.zhifubao}}</span><a href="#update">修改</a></p>
+                            </div>
+                        </div>
+                        <div class="update" id="update">
+                        	<h6>更换支付宝账号：</h6>
+                            	<div class="Inout-box">
+                                	<span>支付宝姓名：</span>
+                                    <input id='zhifubao_name' maxlength="15" type="text" />
+                                </div>
+                            	<div class="Inout-box">
+                                	<span>支付宝帐号：</span>
+                                    <input id='zhifubao' maxlength="35" type="text" />
+                                </div>
+                            	<div class="Inout-yz">
+                                	<span>验证码：</span>
+                                    <input id="yanzhengma" type="text" maxlength="6"/>
+                                    <input id="yanzhengma_button" type="button" value="获取手机验证码" />
+                                </div>
+                                <input id="submit2" type="submit" value="确  定" />
+                        </div>
+                    </div>
+                	{% else %}
+                	<div class="binding">
+                    	<div class="Binding-Top">
+                        	<h2>支付宝绑定</h2>
+                        </div>
+                        <div class="Binding-Box">
+                        	<div class="Bin-info">
+                            	<a href="#update" id="Bin-new"></a>
+                            </div>
+                        </div>
+                        <div class="update" id="update">
+                        	<h6>绑定新的支付宝：</h6>
+
+                            	<div class="Inout-box">
+                                	<span>支付宝姓名：</span>
+                                    <input id='zhifubao_name' maxlength="15" type="text" />
+                                </div>
+                            	<div class="Inout-box">
+                                	<span>支付宝帐号：</span>
+                                    <input id='zhifubao' maxlength="35" type="text" />
+                                </div>
+                                <input id="submit" type="submit" value="确  定" />
+
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+
+<!--底部-->
+  {% include "footer.html" %}
+  <!--浮动窗口-->  
+  {% include "outline.html" %}
+    </div>
+</body>
+</html>

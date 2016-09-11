@@ -1,0 +1,63 @@
+.mui-content {
+	padding: 0 1.875% 2rem;
+	background: #fff;
+}
+/*提示消息部分*/
+.msg {
+	margin-top: 2rem;;
+}
+.msg img {
+	float: left;
+	margin-right: 1rem;
+	width: 15%;
+}
+.msg .text {
+	line-height: 2rem;
+}
+.text p {
+		color: #f08519;
+		font-size: 1.2rem;
+}
+.text a {
+	color: #008fd7;
+	font-size: 1.3rem;
+}
+
+/*优惠券部分*/
+.benefit {
+	margin-top: 2rem;
+	background: #efb31d;
+	padding: 1rem 0;
+	border-radius: 0.4rem 0.4rem 0 0 ;
+}
+.benefit img {
+	float: left;
+	margin-left: 0.6rem;
+	margin-right: 1rem;
+	width: 15%;
+}
+.benefit p {
+	line-height: 2rem;
+	font-size: 1.2rem;
+	color: #fff;
+}
+
+.mui-content>p {
+	text-align: center;
+	font-size: 2rem;
+	line-height: 7rem;
+	border: 1px solid #e4e4e4;
+	
+}
+
+.btn {
+	padding: 2rem 0;
+	text-align: center;
+	border: 1px solid #e4e4e4 ;
+	border-top: none;
+	border-radius: 0 0 0.4rem 0.4rem;
+}
+.btn button {
+	width: 44%;
+	height: 3rem;
+}

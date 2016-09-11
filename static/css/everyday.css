@@ -1,0 +1,163 @@
+
+.mui-content {
+	width: 100%;
+	height: 100%;
+	padding: 0 1.875% 14rem;
+	background: url(../images/bg-every.png) no-repeat top center;
+	background-size: auto 100%;
+	background-color: transparent !important;
+	margin-bottom: 0 !important;
+}
+/*帐号部分*/
+.msg {
+	margin-top: 2rem;;
+}
+.msg img {
+	float: left;
+	margin-left: 1rem;
+	margin-right: 1rem;
+	width: 20%;
+	/*height: 4rem;*/
+}
+.msg .text {
+	
+	float: left;
+	margin-top: 1rem;
+}
+.text p {
+		font-size: 1.2rem;
+		line-height: 2rem;
+		color: #f08519;
+}
+.text p span {
+	color: #a5a5a5;
+	font-size: 1rem;
+}
+
+
+.table {
+	padding: 1rem;
+	margin-top: 2rem;
+	border-radius: 0.4rem;
+	background: #fff;
+}
+.table h6 {
+	color: #00d6b3;
+	font-weight: bold;
+}
+table {
+	width: 100%;
+	margin-top: 1rem;
+}
+table tr {
+	height: 4rem;
+}
+table th {
+	background: #f08519;
+	color: #fff;
+	border: 1px solid #e4e4e4;
+}
+table td {
+	vertical-align: top;
+	color: #8f8f8f;
+	border: 1px solid #e4e4e4;
+}
+table .yes {
+	background: url(../images/bg-yes.png) center center no-repeat;
+	background-size: 80%;
+}
+table .no {
+	background: url(../images/bg-no.png) center center no-repeat;
+	background-size: 80%;
+}
+
+/*底部导航部分*/
+footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	padding: 1rem 0 0.4rem;
+	background: url(../images/juchi.png) top center;
+	/*background-size: 80%;*/
+	/*background-color: #14b1ff;*/
+	z-index: 1000;
+	/*border-top: 1px solid #e4e4e4;*/
+}
+footer li {
+	width: 33.3333%;
+	float: left;
+}
+footer li img {
+	width: 2.8rem;
+	height: auto;
+}
+footer li span {
+	display: block;
+	font-size: 1.2rem;
+	line-height: 1.8rem;
+	color: #fff;
+	margin-bottom: 3px;
+	margin-top: -3px;
+}
+/*弹出部分*/
+.delete {
+	position: absolute;
+	top: 0;
+	z-index: 10000;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.7);
+}
+.delete>div {
+	width: 80%;
+	height: 36rem;
+	margin: 0 auto;
+	margin-top: 10rem;
+	padding: 4rem 0;
+	border-radius: 0.4rem;
+	background: #fff;
+}
+.delete div p:first-child {
+	width: 14rem;
+	height: 14rem;
+	margin: 2rem auto;
+	border-radius: 50%;
+	font-size: 2.2rem;
+	text-align: center;
+	line-height: 14rem;
+	color: #fff;
+	background: #2caced;
+} 
+.delete div p:last-child {
+	margin-top: 4rem;
+	text-align: center;
+	font-size: 1.6rem;
+	color: #8f8f8f;
+}
+.close {
+	position: absolute;
+	top: 10.4rem;
+	left: 3.6rem;
+	z-index: 10009;
+	font-size:3rem;
+	cursor: pointer;
+	color: #8f8f8f;
+}
+/*.close:hover{
+	display: none;
+}
+.close:hover + div{
+	display: none;
+}*/
+.close:active{
+	display: none;
+}
+.close:active + div{
+	display: none;
+}
+.close:visited{
+	display: none;
+}
+.close:visited + div{
+	display: none;
+}

@@ -1,0 +1,6 @@
+*.pyc
+media/
+*.rar
+debug.log
+migrations/
+db.sqlite3

@@ -1,0 +1,148 @@
+header {
+		background-color: #fff;
+		padding: 0 1.875% 0;
+		padding-bottom: 0.6rem;
+}
+header img {
+	width: 60%;
+	margin-top: 2rem;
+}
+header a {
+	display: block;
+	color: #8f8f8f;
+	margin-top: 3.6rem;
+	font-size: 1rem;
+}
+
+/*提示消息部分*/
+/*.news {
+	width: 100%; 
+	height: 2.4rem;
+	padding: 0 1.875% 0;
+	background-color: #fff;
+	box-shadow: 0 1px 1px #e4e4e4;
+	margin-bottom: 1rem;
+}
+.news span {
+	display: block;
+	padding: 0;
+	margin: 0;
+	font-size: 1rem;
+	line-height: 2.4rem;
+	width: 50%;
+}
+.news span:first-child {
+		background: url(../images/notice.png) left center no-repeat; background-size:1.4rem  auto;
+		overflow-x: scroll;
+		padding-left: 1.8rem;
+}
+.news span:last-child {
+		color:#d31f1f
+}*/
+.notice { float:left; width:100%; height:auto; box-sizing:border-box; padding:0 1.875%; background:#fff;margin-bottom: 0.6rem; box-shadow: 0 1px 3px #e4e4e4;}
+
+.qimo8{ overflow:hidden; float:left; width:55%; margin-left:1.5%;}
+.qimo8 .qimo {/*width:99999999px;*/width:8000%; height:2rem; line-height:2rem;}
+.qimo8 .qimo div{ float:left;}
+.qimo8 .qimo ul{float:left; height:2rem; overflow:hidden; zoom:1; }
+.qimo8 .qimo ul li{float:left; line-height:2rem; list-style:none; margin-right:5rem;}
+.qimo8 .qimo ul li span { font-size:1rem; color:#000000; line-height:2rem;}
+.qimo8 .qimo ul li i { font-size:1rem; color:#8c8c8c; line-height:2rem; margin-left:2rem;}
+.notice strong { float:right; font-size:1rem; color:#fb3456; line-height:2rem;}
+.notice>img { float:left; width:1.3rem; height:1.3rem; margin-top:0.35rem;}
+
+/*选项卡部分*/
+
+.mui-table-view-cell {padding: 1rem 1.2rem 1.2rem;}
+.mui-segmented-control-inverted {
+	background-color: #fff;
+}
+.mui-slider-indicator a {
+	padding-top: 2px !important;
+	border-right: 1px solid #e4e4e4 !important;
+}
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+	border: none;
+}
+
+.mui-table-view-cell:after {
+	height: 1rem;
+	background: #efeff4;
+	left: 0;
+}
+.mui-table-view-cell .title {
+	border-bottom: 1px solid #ececec;
+	line-height: 2.2rem;
+	margin-top: -0.4rem;
+} 
+.mui-table-view-cell .title strong {
+	display: inline-block;
+	/*width: 40%;*/
+	font-size: 1.4rem;
+	color: #222;
+	border-bottom: 2px solid #f3a156;
+}
+.mui-table-view-cell .title span {
+	display: inline-block;
+	/*width: 100%;*/
+	float: right;
+	text-align: right;
+	font-size: 1.2rem;
+	color: #222;
+}
+.mui-table-view-cell .title span font {
+	font-size: 1.4rem;
+	font-weight: bold;
+	color: #f3a156;
+}
+.container {
+	margin-top: 1rem;
+}
+.container img {
+	width: 50% !important;
+	float: left;
+	background: url(../images/business-logo.png) center center no-repeat;
+	border: 1px solid #ececec;
+}
+
+.container .inc2 {
+	float: right;
+	width:40%;
+	height: auto;
+	/*line-height: 2.2rem;*/
+	margin-top: 1.4rem;
+}
+.container .inc2 p {
+	font-size: 1.2rem;
+	line-height: 2.2rem;
+}
+.container .inc2 p:first-child {
+	color: #f08519;
+}
+/*底部导航部分*/
+footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	background: #fff;
+	z-index: 1000;
+	border-top: 1px solid #e4e4e4;
+}
+footer li {
+	width: 25%;
+	float: left;
+}
+footer li img {
+	width: 2.8rem;
+	height: auto;
+}
+footer li span {
+	display: block;
+	font-size: 1.2rem;
+	color: #4d4d4d;
+	margin-bottom: 3px;
+	margin-top: -3px;
+}
+footer li.on span {
+	color: #f08519;
+}

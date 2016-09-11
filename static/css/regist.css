@@ -1,0 +1,19 @@
+.mui-content {
+	background: #fff;
+}
+.mui-content img {
+	width: 30%;
+	margin:2rem 35%;
+	text-align: center;
+}
+.mui-content-padded {
+	margin-top: 2rem;
+}
+.mui-content-padded button {
+	padding: 0;
+	width: 60%;
+	height: 3.4rem;
+	margin-top: 2rem;
+	margin-left: 20%;
+	font-size: 1.2rem;
+}

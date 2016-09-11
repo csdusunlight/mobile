@@ -1,0 +1,56 @@
+.mui-content {
+	margin-top: 44px;
+}
+.ad img {
+	border: none;
+	width: 100%;
+}
+.mui-table-view-cell {padding: 1rem 1.2rem 0.4rem;}
+.mui-segmented-control-inverted {
+	background-color: #fff;
+}
+.mui-slider-indicator a:not(:last-child) {
+	border-right: 1px solid #e4e4e4 !important;
+}
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+	border: none;
+}
+
+.mui-table-view-cell:after {
+	/*background-color: transparent;*/
+}
+.mui-table-view-cell {
+	padding: 1rem 0 1rem 1.2rem;
+}
+
+.mui-table-view-cell {
+	margin-top: 1px;
+}
+.mui-table-view-cell img {
+	float: left;
+	margin-right: 6.5%;
+	width: 44% !important;
+}
+.mui-table-view-cell .li-info {
+	width: 49.5%;
+	float: left;
+	height: auto;
+}
+.li-info>h6 {
+	width: 90%;
+	line-height: 2rem;
+	font-size: 1.2rem;
+	color: #222;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.li-info p {
+	display: block;
+	width: 90%;
+	height: 7rem;
+	line-height: 1.8rem;
+	white-space: normal;
+	overflow: hidden;
+}
+

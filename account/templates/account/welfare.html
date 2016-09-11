@@ -1,0 +1,155 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户中心</title>
+<link href="{% static 'images/favicon.ico'%}" rel="shortcut icon"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/User.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style-i.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/page.css' %}" />
+<script type="text/javascript" src="{% static 'js/jquery-1.11.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/page.js' %}"></script>
+
+<script type="text/javascript">
+var data = '<table width="100%"><thead><tr><th width="20%">项目</th><th width="20%">提交手机号</th>'+
+	'<th width="20%">提交时间</th><th width="20%">状态</th><th width="20%">备注</th></tr></thead><tbody>'+
+	'[data]<tr><td>{title}</td><td>{username}</td><td>{time}</td><td>{state}</td><td>{reason}</td></tr>[/data]'
+	+ '</tbody></table>';
+var data2 = '<table width="100%"><thead><tr><th width="20%">项目</th><th width="20%">提交手机号</th>'+
+	'<th width="20%">提交时间</th><th width="20%">状态</th><th width="20%">拒绝原因</th></tr></thead><tbody>'+
+	'[data]<tr><td>{title}</td><td>{username}</td><td>{time}</td><td>{state}</td><td>{reason}</td></tr>[/data]'
+	+ '</tbody></table>';
+var turl = "{% url 'get_user_wel_page' %}" + "?tpage={page}&size={pageSize}&filter=";
+var furl = "{% url 'get_user_wel_page' %}" + "?fpage={page}&size={pageSize}&filter=";
+function emptydisplay(obj){
+	pic_url = "{%static 'images/picin.png' %}";
+	obj.html('<div class="Defa-in"><img src="' + pic_url + '">'+
+			'<h2>咦~~ 您还没有相关记录~~</h2></div>');
+}
+$(function(){
+	$('.back-a2').parent().toggleClass("on");
+	$("#pagedata1").ajaxPage({
+	    url:turl+0, 
+	    pageId:$("#page1"),
+	    pageSize:6,
+	    run:true,
+	    content:data,
+	});
+	$("#pagedata2").ajaxPage({
+	    url:furl+0, 
+	    pageId:$("#page2"),
+	    pageSize:6,
+	    run:true,
+	    content:data,
+	});
+	$("#Swi-Top li").click(function(){
+		if($(this).attr("class")!="on"){
+			$(this).toggleClass("on").siblings().removeClass("on")
+			var index = $(this).index();
+			var pdata = data;
+			if (index==3){
+				pdata = data2;
+			}
+			$("#page1").empty();
+			$("#pagedata1").ajaxPage({
+			    url:turl+index, 
+			    pageId:$("#page1"),
+			    pageSize:6,
+			    run:true,
+			    content:pdata,
+			});
+		}						
+	});
+	$("#Swi-Top2 li").click(function(){
+		if($(this).attr("class")!="on"){
+			$(this).toggleClass("on").siblings().removeClass("on")
+			var index = $(this).index();
+			var pdata = data;
+			if (index==3){
+				pdata = data2;
+			}
+			$("#page2").empty();
+			$("#pagedata2").ajaxPage({
+			    url:furl+index, 
+			    pageId:$("#page2"),
+			    pageSize:6,
+			    run:true,
+			    content:pdata,
+			});
+		}						
+	});
+});
+</script>
+</head>
+
+<body>
+<!--头部-->
+{% include "header.html" %}
+<!--内容-->
+<div class="Content">
+   	<div class="w1100">
+       	{% include "account/left.html" %}
+           <div class="RightCont">
+           	<div class="Online">
+               	<strong>当前在线</strong>
+                   <div class="Online-M">
+                   	<p>体验福利：{{statis.tcount}}个，今日参与人数：{{statis.tsum}}人  <a href="{%url 'task' %}">  点击查看 ></a></p>
+                       <p>理财福利：{{statis.fcount}}个，今日参与人数：{{statis.fsum}}人  <a href="{%url 'finance' %}">  点击查看 ></a></p>
+                   </div>
+                   <div class="Online-R">
+                   	<h6>您已完成</h6>
+                       <span>体验福利：<font>{{statis.tcount_u}}</font> 个</span>
+                       <span>理财福利：<font>{{statis.fcount_u}}</font> 个</span>
+                   </div>
+               </div>
+               <div class="Welfare">
+               	<div class="Welfare-T">
+                   	<strong>体验福利</strong>
+                       <ul class="Welfare-li" id="Swi-Top">
+                       	<li class="on">全部</li>
+                       	<li>已通过</li>
+                       	<li>审核中</li>
+                       	<li>已拒绝</li>
+                       </ul>
+                   </div>
+                   <div class="Welfare-td">
+                       <div id="pagedata1">
+                       </div>
+                       <div class="Page-in">
+                       	<div class="page"  id="page1">
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="Welfare">
+               	<div class="Welfare-T">
+                   	<strong>理财福利</strong>
+                       <ul class="Welfare-li" id="Swi-Top2">
+                       	<li class="on">全部</li>
+                       	<li>已通过</li>
+                       	<li>审核中</li>
+                       	<li>已拒绝</li>
+                       </ul>
+                   </div>
+                   <div class="Welfare-td">
+					<div id="pagedata2">
+                       </div>
+                       <div class="Page-in">
+                       	<div class="page"  id="page2">
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+<!--底部-->
+  {% include "footer.html" %}
+  <!--浮动窗口-->  
+  {% include "outline.html" %}
+</body>
+</html>

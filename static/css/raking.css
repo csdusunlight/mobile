@@ -1,0 +1,26 @@
+.mui-content {
+	padding:0 1.875% 0;
+}
+.list-box .list {
+	border-bottom: 1px solid #e4e4e4;
+}
+.list-box li span {
+	display:block;
+	float: left;
+	width: 25%;
+	text-align: center;
+	font-size: 1rem;
+	line-height: 3rem;
+}
+.list-box li:first-child {
+	background-color: #f08519;
+	color: #333333;
+	border-radius: 0 0 0.8rem 0.8rem;
+}
+.list-box li:first-child span {
+	color: #fff;
+}
+.list span:nth-child(3) {
+	color: #ff1230;
+	font-weight: bold;
+}

@@ -1,0 +1,69 @@
+.ad img {
+	width: 100%;
+}
+.ad h5 {
+	padding: 0 1.875% 0;
+	font-size: 1.3rem;
+	line-height: 3rem;
+	border-bottom: 1px solid #e9e8e8;
+}
+.taste {
+	padding: 0 1.875% 0;
+}
+.taste h3, .prompt h3 {
+	margin-top: 1rem;
+	padding-left: 2.6rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	color: #222;
+	font-size: 1.6rem;
+	/*line-height: 5rem;;*/
+}
+.taste h3{
+	background: url(../images/task-04.png) left center no-repeat;
+	background-size: 2rem; auto;
+}
+.taste h3.reward {
+	background: url(../images/task-03.png) left center no-repeat;
+	background-size: 2rem; auto;
+}
+.prompt h3 {
+	background: url(../images/task-05.png) left center no-repeat;
+	background-size: 2rem; auto;
+}
+.taste h4 {
+	color: #333;
+	font-size: 1.4rem;
+	line-height: 3rem;
+}
+p a {
+	color: #008FD7;
+}
+.prompt{
+	color: #FB3456 !important;
+}
+.prompt .contact strong {
+	font-size: 1.2rem;
+	color: #f29840;
+	line-height: 2rem;;
+}
+/*立即体验部分*/
+.mui-row {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	margin-top: 1rem;
+	background: #fff;
+}
+
+.mui-row button {
+	/*margin-bottom: 1rem;*/
+	width: 100%;
+	border-radius: 0;;
+}
+.mui-row button:first {
+	border: 0 !important;
+}
+.right{
+	/*margin-left: 10%;*/
+}

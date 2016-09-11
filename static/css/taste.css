@@ -1,0 +1,110 @@
+header {
+		background-color: #fff;
+		padding: 0 1.875% 0;
+		padding-bottom: 0.4rem;
+}
+header img {
+	width: 20%;
+	margin-top: 1rem;
+}
+header a {
+	display: block;
+	width: 1.6rem;
+	height: 1.6rem;
+	margin-top: 1.4rem;
+}
+header a img {
+	width: 100%;
+	margin: 0;
+}
+/*提示消息部分*/
+.notice { float:left; width:100%; height:auto; box-sizing:border-box; padding:0 1.875%; background:#fff;margin-bottom: 0.6rem; box-shadow: 0 1px 3px #e4e4e4;}
+
+.qimo8{ overflow:hidden; float:left; width:94%; margin-left:1.5%;}
+.qimo8 .qimo {/*width:99999999px;*/width:8000%; height:2rem; line-height:2rem;}
+.qimo8 .qimo div{ float:left;}
+.qimo8 .qimo ul{float:left; height:2rem; overflow:hidden; zoom:1; }
+.qimo8 .qimo ul li{float:left; line-height:2rem; list-style:none; margin-right:5rem;}
+.qimo8 .qimo ul li span { font-size:1rem; color:#000000; line-height:2rem;}
+.qimo8 .qimo ul li i { font-size:1rem; color:#8c8c8c; line-height:2rem; margin-left:1rem;}
+.notice strong { /*float:right;*/ font-size:1rem; color:#fb3456;/* line-height:2rem;*/}
+.notice>img { float:left; width:1.3rem; height:1.3rem; margin-top:0.35rem;}
+
+/*选项卡部分*/
+
+.mui-table-view-cell {padding: 1rem 1.2rem;}
+.mui-segmented-control-inverted {
+	/*padding: 0 1.875% 0;*/
+	background-color: #fff;
+}
+.mui-slider-indicator a:not(:last-child) {
+	border-right: 1px solid #e4e4e4 !important;
+}
+.mui-table-view-cell img {
+	float: left;
+	margin-left: 8%;
+	margin-right: 16%;
+	width: 26% !important;
+	border-radius:200px;
+	border:0.2rem solid #e4e4e4;
+	vertical-align: middle;
+}
+.mui-table-view-cell .li-info {
+	width: 49%;
+	float: left;
+	height: auto;
+}
+.li-info h6 {
+	font-size: 1.3rem;
+	color: #0a0a0a;
+	margin-top: 4px;
+}
+.li-info span {
+	font-size: 1rem;
+	line-height: 1.8rem;
+	padding-left: 2.4rem;
+	display: block;
+}
+.li-info span.s1 {
+	margin-top: 0.8rem;
+}
+.li-info .s1 {
+	background:url(../images/s1.png) left center no-repeat; background-size:1.5rem auto;
+}
+.li-info .s2 {
+	background:url(../images/s2.png) left center no-repeat; background-size:1.5rem auto;
+}
+.li-info .s3 {
+	background:url(../images/s3.png) left center no-repeat; background-size:1.5rem auto;
+}
+
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+	border: none;
+}
+/*底部导航部分*/
+footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	background: #fff;
+	z-index: 1000;
+	border-top: 1px solid #e4e4e4;
+}
+footer li {
+	width: 25%;
+	float: left;
+}
+footer li img {
+	width: 2.8rem;
+	height: auto;
+}
+footer li span {
+	display: block;
+	font-size: 1rem;
+	color: #4d4d4d;
+	margin-bottom: 3px;
+	margin-top: -3px;
+}
+footer li.on span {
+	color: #f08519;
+}

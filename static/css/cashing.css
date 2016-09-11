@@ -1,0 +1,22 @@
+.mui-content {
+	padding: 0 1.875% 0;
+	background: #fff;
+	padding-bottom: 2rem;
+}
+.mui-input-group {
+	margin-top: 3rem;
+}
+.mui-input-group label span {
+	font-size: 1rem !important;
+	color: #8f8f8f;
+}
+.mui-input-row label {
+	font-size: 1.2rem;
+	color: #f08519;
+}
+.bottom {
+	margin-left: 5%;
+	margin-top: 2rem;
+	width: 90%;
+	/*height: 5rem;*/
+}

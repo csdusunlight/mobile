@@ -1,0 +1,117 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册</title>
+<meta name="keywords" content="注册" />
+<meta name="description" content="注册" />
+<link href="{% static 'images/favicon.ico'%}" rel="shortcut icon"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<script type="text/javascript" src="{% static 'js/jquery-1.11.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/accounts/user-validate.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/accounts/refresh.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/accounts/send.js' %}"></script>
+<script type="text/javascript">
+	var coderefresh_url = "{% url 'captcha-refresh' %}";
+	var phoneimageV_url = "{% url 'phoneImageV' %}";
+	var verifyemail_url = "{% url 'verifyemail' %}";
+	var verifymobile_url = "{% url 'verifymobile' %}";
+	var verifyusername_url = "{% url 'verifyusername' %}";
+	var verifyinviter_url = "{% url 'verifyinviter' %}";
+	var get_code_url = "{% url 'phoneImageV' %}";
+	var register_url = "{% url 'register' %}";
+	var index_url = "{% url 'freshman_introduction' %}";
+	var login_url = "{% url 'login' %}";
+	$.ajaxSetup({
+	    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+	});
+$(function(){
+	$(".g-checkbox,.g-lab-txt").click(function(){
+		if($(this).parent().find("input").attr("checked")!="checked"){
+			$(this).parent().find("input").attr("checked","checked");
+			$(this).parent().find(".g-checkbox").css("background-position","0 0");
+		}else{
+			$(this).parent().find("input").attr("checked",false);
+			$(this).parent().find(".g-checkbox").css("background-position","0 -18px")
+		}
+	});
+});
+  </script>
+</head>
+<body>
+{% include "header.html" %}
+	<div class="heg">
+    <div class="contant">
+    	<div class="co-left" style="width:45%;margin-left: 6.85em;">
+
+            <!--<form  name="myform">-->
+        	<div class="re-d">
+            <p class="re-ti">用户名<span style="color:#DF2B2A;font-size:14px;">（6-16位字符，支持数字及字母，不能纯数字）</span></p>
+            <!--<input type="text" class="re-input" id="txtUserName"/>-->
+            <input type="text" class="re-input" name="username" /><span class="tips" id="divname"></span>
+            </div>
+            <div class="re-d">
+            <p class="re-ti re-dti">E-mail<span style="color:#DF2B2A;font-size:14px;">（用于密码找回）</span></p>
+            <!--<input type="text" class="re-input" id="email"/>-->
+            <input type="text" class="re-input" name="email" required/><span class="tips" id="divmail"></span>
+            </div>
+            <div class="re-d">
+            <p class="re-ti re-dti">验证码<span style="color:#DF2B2A;font-size:14px;">（请填写右侧的算术结果）</span></p>
+            <input type="text" class="re-input" id="x_yanzhengma" name="x_yanzhengma"/>
+            <img width="87" height="32" src="{{ codimg_url }}" id="id_checkImg" class="imageCheckRefresh yzm-img"> 
+       		<input id="id_hashkey" name="hashkey" type="hidden" value="{{ hashkey }}">
+       		<span class="tips" id="divyzm"></span>
+            </div>
+            <div class="re-d">
+            <p class="re-ti re-dti">手机号</p>
+            <input type="text" class="re-input" name="mobile"/><span class="tips" id="divphone"></span>
+            </div>
+            <div class="re-d">
+            <p class="re-ti re-dti">手机验证码</p>
+            <input type="text" class="re-input" name="code"/> 
+            <button id="action-send-code-imagvalidate" class="re-huo">获取手机验证码</button>
+            <span class="tips" id="divcode"></span>
+            </div>
+            <div class="re-d">
+            <p class="re-ti re-dti">登录密码<span style="color:#DF2B2A;font-size:14px;">（6-16位，至少包含数字、字母和特殊符号中的两种）</span></p>
+           <!-- <input type="password" class="re-input" id="txtPassWord1"/>-->
+           <input type="password" class="re-input" name="password1" />
+           <span class="tips" id="divpd"></span>
+            </div>
+            <div class="re-d">
+            <p class="re-ti re-dti" id="txtPassWord2">确认密码</p>
+            <!--<input type="password" class="re-input"/>-->
+            <input type="password" class="re-input" name="password2"/>
+            <span class="tips" id="divspd"></span>
+            </div>
+            <div class="re-d">
+            <p class="re-ti re-dti">推荐人ID<span style="color:#DF2B2A;font-size:14px;">（可不填写）</span></p>
+            <input type="text" name="invite" class="re-input" value="{{icode}}"/>
+            <span class="tips" id="divinvite"></span>
+            </div>
+            <div class="re-d">
+					<span class="moni-checked allvert rel">
+						<span class="g-checkbox"></span>
+						<input type="checkbox" class="x_input_ck abs" checked="checked" style="left:-9999px" id="agreeChk"/>
+						<span class="g-lab-txt">我接受</span>
+					</span>
+				<a href="/press/19/" target="_blank" class="blue" id="btn_xieyi">《注册协议》</a> 、<a class="blue" target="_blank" href="/press/20/">《免责声明》</a>
+							
+			</div>
+            <input type="button" class="g-btn-reg2 re-liji" id="btnSubmit" name='registSubmit' value="立即注册"/>
+
+        </div>
+        <div class="co-left" style="text-align:left;width:45%">
+       		<div class="re-pad"><p style="font-size:16px;color:#111;">已有账号？<span><a href="{%url 'login'%}" class="ljdl">立即登录</a></span></p></div>
+            <a href="{%url 'account_invite'%}"><div class="re-ret"><img src="{% static 'images/re-img.png' %}" style="margin:3rem;"/></div></a>
+        </div>
+    </div>
+	
+</div>
+<div style="clear:both"></div>
+<div style="margin-top:1rem;">Copyright&nbsp; &copy; 2015-2024&nbsp; 挖福利 版权所有 备案号：湘ICP备15015815号-2</div>
+</body>
+</html>
