@@ -62,7 +62,7 @@ class News(Base):
             raise ValidationError({'exp_url': u'请输入活动体验地址'})
         elif self.isonMobile == True and self.exp_code == '':
             raise ValidationError({'exp_code': u'请上传手机扫描二维码'})
-        if self.pic.size > 30000:
+        if self.pic and self.pic.size > 30000:
             raise ValidationError({'pic': u'图片大小不能超过30k'})
     def is_expired(self):
         return self.state == '2'
@@ -376,6 +376,8 @@ class Press(Base):
 class Advertisement(Base):
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', blank=False,
                              verbose_name=u"banner图片上传(1920*300)，小于100k")
+    mpic = models.ImageField(upload_to='photos/%Y/%m/%d', blank=False,
+                             verbose_name=u"移动端banner图片上传(414*160)，小于30k")
     location = models.CharField(u"广告位置", max_length=2, choices=ADLOCATION)
     is_hidden = models.BooleanField(u"是否隐藏",default=False)
     navigation = models.CharField(u"banner导航文字", max_length=6)
@@ -384,8 +386,23 @@ class Advertisement(Base):
         verbose_name = u"横幅广告"
         verbose_name_plural = u"横幅广告"
     def clean(self):
-        if self.pic.size > 100000:
+        if self.pic and self.pic.size > 100000:
             raise ValidationError({'pic': u'图片大小不能超过100k'})
+        if self.mpic and self.mpic.size > 30000:
+            raise ValidationError({'pic': u'图片大小不能超过30k'})
+class MAdvert(Base):
+    pic = models.ImageField(upload_to='photos/%Y/%m/%d', blank=False,
+                             verbose_name=u"banner图片上传(1920*300)，小于100k")
+    location = models.CharField(u"广告位置", max_length=2, choices=MADLOCATION)
+    is_hidden = models.BooleanField(u"是否隐藏",default=False)
+    navigation = models.CharField(u"banner导航文字", max_length=6)
+    class Meta:
+        ordering = ["-news_priority","-pub_date"]
+        verbose_name = u"普通广告"
+        verbose_name_plural = u"普通广告"
+    def clean(self):
+        if self.pic and self.pic.size > 30000:
+            raise ValidationError({'pic': u'图片大小不能超过30k'})
 class UserWelfare(models.Model):
     user = models.ForeignKey(MyUser, related_name="submited_welfare")
     title = models.CharField(max_length=200, verbose_name=u"标题")

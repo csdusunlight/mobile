@@ -24,8 +24,10 @@ def index(request):
     last_adv = adv_list[-1]
     last_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by("-startTime")[0:3]
     hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
-    context = {'adv_list':adv_list, 
+    context = {'adv_list':adv_list,
                'last_wel_list': last_wel_list,
+               'first_adv':first_adv,
+               'last_adv':last_adv,
     }
     try:
         statis = DayStatis.objects.get(date=date.today())
