@@ -827,3 +827,11 @@ header .mui-btn-blue {
 .mui-popup-button {
 	color: #008FD7;
 }
+
+.mui-pull-bottom-tips{
+	text-align:center;
+	background-color:#efeff4;
+	font-size:15px;
+	line-height:40px;
+	color:#777;
+}

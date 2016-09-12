@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 
@@ -24,19 +25,18 @@
 		<title></title>
 		<script src="{%static 'js/mui.min.js'%}"></script>
 		<script src="{%static 'js/mui.pullToRefresh.js'%}"></script>
+		<script src="{%static 'js/mui.pullToRefresh.material.js'%}"></script>
 		<link href="{%static 'css/mui.min.css'%}" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}" />
 		<link rel="stylesheet" type="text/css" href="{%static 'css/m_finance.css'%}" />
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">理财福利</h1>
+		</header>
 		<div class="mui-content">
-
-			<header class="clearfix">
-				<img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
-				<a class="fr" href="#"><img src="{%static 'images/go-pc.png'%}" alt="前往pc端" /></a>
-			</header>
-
 			<!--banner部分-->
 			<div id="slider" class="mui-slider" >
 			 <div class="mui-slider-group mui-slider-loop">
@@ -67,26 +67,9 @@
 			    {%endfor%}
 			  </div>
 			</div>
-			<!--提示消息部分-->
-			<div class="notice">
-				<img src="{%static 'images/notice.png'%}" />
-				<div id="demo" class="qimo8">
-					<div class="qimo">
-						<div id="demo1">
-							<ul>
-								<li><span>wuli*****</span><i>1分钟前体验了</i>&nbsp;&nbsp;<strong>恒大金服最高返现1万积分</strong></li>
-								<li><span>wuli*****</span><i>1分钟前体验了</i>&nbsp;&nbsp;<strong>恒大金服最高返现1万积分</strong></li>
-								<li><span>wuli*****</span><i>1分钟前体验了</i>&nbsp;&nbsp;<strong>恒大金服最高返现1万积分</strong></li>
-							</ul>
-						</div>
-						<div id="demo2"></div>
-					</div>
-				</div>
-
-			</div>
 
 			<!--选项卡部分-->
-			<div class="mui-slider mui-fullscreen">
+			<div id="finance_slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<a class="mui-control-item" href="#item1">最新</a>
 					<a class="mui-control-item" href="#item2">高收益</a>
@@ -99,86 +82,6 @@
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view">
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -187,86 +90,6 @@
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view">
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -275,86 +98,6 @@
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view">
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell">
-										<a href="#">
-											<div class="title">
-												<strong>智富360一期</strong>
-												<span>官网利息：<font>13%</font></span>
-											</div>
-											<div class="container clearfix">
-												<img src="{%static 'images/ic.png'%}" />
-												<div class="inc1">
-													<p>挖福利补贴：</p>
-													<span>+投资额2.0%</span>
-												</div>
-												<div class="inc2">
-													<p>起投金额：10000</p>
-													<p>标期长度：直投项目</p>
-													<p>赠送积分：+100</p>
-												</div>
-											</div>
-										</a>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -369,7 +112,7 @@
 		<footer>
 			<ul class="clearfix tc">
 				<li>
-					<a href="index.html">
+					<a href="{%url 'index'%}">
 						<img src="{%static 'images/nav1.png'%}" />
 						<span>免费福利</span>
 					</a>
@@ -381,7 +124,7 @@
 					</a>
 				</li>
 				<li class="on">
-					<a href="finacing.html">
+					<a href="{%url 'finance'%}">
 						<img src="{%static 'images/nav3s.png'%}" />
 						<span>理财福利</span>
 					</a>
@@ -396,6 +139,7 @@
 		</footer>
 
 		<script>
+			var get_finance_url = "{% url 'finance_json' %}"
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
@@ -404,63 +148,65 @@
 				//阻尼系数
 				var deceleration = mui.os.ios?0.003:0.0009;
 				$('.mui-scroll-wrapper').scroll({
-					bounce: false,
+					bounce: true,
 					indicators: true, //是否显示滚动条
 					deceleration:deceleration
 				});
 				$.ready(function() {
-					var demo = document.getElementById("demo");
-					var demo1 = document.getElementById("demo1");
-					var demo2 = document.getElementById("demo2");
-					demo2.innerHTML = document.getElementById("demo1").innerHTML;
-		
-					function Marquee() {
-						if(demo.scrollLeft - demo2.offsetWidth >= 0) {
-							demo.scrollLeft -= demo1.offsetWidth;
-						} else {
-							demo.scrollLeft++;
-						}
-					}
-					var myvar = setInterval(Marquee, 30);
-					demo.onmouseout = function() {
-						myvar = setInterval(Marquee, 30);
-					}
-					demo.onmouseover = function() {
-						clearInterval(myvar);
-					}
 					//循环初始化所有上拉加载
 					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						var count = 0;
 						$(pullRefreshEl).pullToRefresh({
 							up: {
 								auto:true,
 								callback: function() {
 									var self = this;
-									setTimeout(function() {
-										var ul = self.element.querySelector('.mui-table-view');
-										ul.appendChild(createFragment(ul, index, 5));
-										self.endPullUpToRefresh(true);
-									}, 1000);
+									var ul = self.element.querySelector('.mui-table-view');
+									get_finance_list(this,ul,count++,index);
+								//		ul.appendChild(createFragment(ul, index, 5));
+									//	self.endPullUpToRefresh(true);
 								}
 							}
 						});
 					});
-					var createFragment = function(ul, index, count, reverse) {
-						var length = ul.querySelectorAll('li').length;
-						var fragment = document.createDocumentFragment();
-						var li;
-						for (var i = 0; i < count; i++) {
-							li = document.createElement('li');
-							li.className = 'mui-table-view-cell';
-							li.innerHTML = '<a href="#"><div class="title"><strong>'+index+'智富360一期</strong>'+
-									'<span>官网利息：<font>13%</font></span></div>'+
-									'<div class="container clearfix"><img src="{%static 'images/ic.png'%}" /><div class="inc1">'+
-									'<p>挖福利补贴：</p>'+
-									'<span>+投资额2.0%</span></div>'+
-									'<div class="inc2"><p>起投金额：10000</p><p>标期长度：直投项目</p><p>赠送积分：+100</p></div></div></a>';
-							fragment.appendChild(li);
-						}
-						return fragment;
-					};
+					
+					function get_finance_list(obj,ul,n,index){
+						mui.ajax(get_finance_url,{
+							data:{
+								count:n,
+								type:index,
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+//							headers:{'Content-Type':'application/json'},	              
+							success:function(data){
+								if (!data.length){
+									obj.endPullUpToRefresh(true);
+								}
+								else {
+									obj.endPullUpToRefresh(false);//参数为true代表没有更多数据了。
+									var table = document.body.querySelector('.mui-table-view');
+//									var cells = document.body.querySelectorAll('.mui-table-view-cell');
+									for (var i in data) {
+										var wel = data[i];
+										var li = document.createElement('li');
+										li.className = 'mui-table-view-cell';
+										li.innerHTML = '<a href="' + wel.url + '"><div class="title"><strong>'+ wel.title +
+											'</strong><span>官网利息：<font>' + wel.interest + '</font></span></div>'+
+											'<div class="container clearfix"><img src="' + wel.picurl + '" /><div class="inc1">'+
+											'<p>挖福利补贴：</p><span>+' + wel.benefit + '</span></div>'+
+											'<div class="inc2"><p>起投金额：' + wel.amount + 
+											'</p><p>标期长度：' + wel.time + '</p><p>赠送积分：+' + wel.scores + '</p></div></div></a>';
+										ul.appendChild(li);
+									}
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								alert(type);
+							}
+						});
+					}
 				});
 			})(mui);
 			var gallery = mui('#slider');

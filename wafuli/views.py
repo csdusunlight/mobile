@@ -46,20 +46,12 @@ def index(request):
 
 def finance(request, id=None):
     if id is None:
-        ad_list = Advertisement.objects.filter(location__in=['0','4'],is_hidden=False)[0:8]
-        strategy_list = Press.objects.filter(type='2')[0:10]
-        context = {'ad_list':ad_list,'strategy_list':strategy_list}
-        rank_users = MyUser.objects.order_by('-accu_income')[0:6]
-        for i in range(len(rank_users)):
-            key = 'rank'+str(i+1)
-            username = rank_users[i].username
-            if len(username) > 4:
-                username = username[0:4] + '****'
-            else:
-                username = username + '****'
-            income = rank_users[i].accu_income
-            context.update({key:{'username':username,'income':str(income)}})
-        return render(request, 'finance.html',context)
+        adv_list = list(Advertisement.objects.filter(location__in=['0','4'],is_hidden=False)[0:8])
+        first_adv = adv_list[0]
+        last_adv = adv_list[-1]
+#         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
+        context = {'adv_list':adv_list, }
+        return render(request, 'm_finance.html', context)
     else:
         id = int(id)
         news = None

@@ -231,3 +231,32 @@ def welfare_json(request):
             'marks':mlist,
         })
     return JsonResponse(data,safe=False)
+
+def finance_json(request):
+    count = request.GET.get('count', 0)
+    type = request.GET.get('type', '0')
+    if not request.is_ajax():
+        logger.warning("Experience refused no-ajax request!!!")
+        raise Http404
+    data = []
+    count = int(count)
+    type = str(type)
+    start = 6*count
+    wel_list = Finance.objects.filter(state='1')
+    if type == '0':
+        wel_list = wel_list.order_by('-pub_date')[start:start+6]
+    if type == '1' or type == '2':
+        wel_list = wel_list.filter(f_type=type).order_by('-view_count')[start:start+6]
+    for wel in wel_list:
+        print wel.url
+        data.append({
+            "title":wel.title,
+            "interest":wel.interest,
+            "amount":wel.amount_to_invest,
+            "time":wel.investTime,
+            "scores":wel.scrores,
+            "benefit":wel.benefit,
+            "url":wel.url,
+            'picurl':wel.pic.url,
+        })
+    return JsonResponse(data,safe=False)

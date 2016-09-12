@@ -162,3 +162,8 @@ footer li span {
 footer li.on span {
 	color: #f08519;
 }
+
+div#finance_slider{
+	top:150px;
+	bottom:20px;
+}
