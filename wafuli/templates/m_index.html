@@ -43,20 +43,20 @@
 	    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 	    <div class="mui-slider-item mui-slider-item-duplicate">
 	      <a href="{{last_adv.url}}">
-	        <img src="{{last_adv.pic.url}}">
+	        <img src="{{last_adv.mpic.url}}">
 	      </a>
 	    </div>
 		{% for adv in adv_list %}
 	    <div class="mui-slider-item">
 	      <a href="{{adv.url}}">
-	        <img src="{{adv.pic.url}}">
+	        <img src="{{adv.mpic.url}}">
 	      </a>
 	    </div>
 	    {%endfor%}
 	    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 	    <div class="mui-slider-item mui-slider-item-duplicate">
 	      <a href="{{first_adv.url}}">
-	        <img src="{{first_adv.pic.url}}">
+	        <img src="{{first_adv.mpic.url}}">
 	      </a>
 	    </div>
 	  </div>
