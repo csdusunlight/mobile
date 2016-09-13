@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http.response import Http404
 from wafuli.models import Welfare, Task, Finance, Commodity, Information, \
     ExchangeRecord, Press, UserEvent, Advertisement, Activity, Company,\
-    CouponProject, Baoyou, Hongbao
+    CouponProject, Baoyou, Hongbao, MAdvert
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
@@ -23,11 +23,16 @@ def index(request):
     first_adv = adv_list[0]
     last_adv = adv_list[-1]
     last_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by("-startTime")[0:3]
-    hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
+    adv_today1 = MAdvert.objects.filter(location='1',is_hidden=False).first()
+    adv_today2 = MAdvert.objects.filter(location='2',is_hidden=False).first()
+    adv_today3 = MAdvert.objects.filter(location='3',is_hidden=False).first()
     context = {'adv_list':adv_list,
                'last_wel_list': last_wel_list,
                'first_adv':first_adv,
                'last_adv':last_adv,
+               'adv_today1':adv_today1,
+               'adv_today2':adv_today2,
+               'adv_today3':adv_today3,
     }
     try:
         statis = DayStatis.objects.get(date=date.today())
