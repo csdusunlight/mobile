@@ -1,27 +1,35 @@
 header {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		height: 4rem;
 		background-color: #fff;
 		padding: 0 1.875% 0;
 		padding-bottom: 0.4rem;
 		background: #52c5ff;
 }
-header img {
-	width: 20%;
-	margin-top: 0.6rem;
+header>img {
+	height: 2rem;
+	margin-top: 1rem;
 }
 header a {
 	display: block;
 	width: 1.6rem;
 	height: 1.6rem;
-	margin-top: 1.2rem;
+	margin-top: 1.7rem;
 }
 header a img {
+
 	width: 100%;
 	margin: 0;
+}
+.mui-fullscreen {
+	top: 4rem;
 }
 
 /*提示消息部分*/
 /*.news {
-	width: 100%; 
+	width: 100%;
 	height: 2.4rem;
 	padding: 0 1.875% 0;
 	background-color: #fff;
@@ -82,7 +90,7 @@ header a img {
 	border-bottom: 1px solid #ececec;
 	line-height: 2.2rem;
 	margin-top: -0.4rem;
-} 
+}
 .mui-table-view-cell .title strong {
 	display: inline-block;
 	/*width: 40%;*/
@@ -120,6 +128,7 @@ header a img {
 }
 .container img {
 	width: 12rem !important;
+	max-height: 8rem;
 	float: left;
 	background: url(../images/business-logo.png) center center no-repeat;
 	border: 1px solid #ececec;
@@ -130,7 +139,7 @@ header a img {
 	width:auto;
 	height: auto;
 	/*line-height: 2.2rem;*/
-	margin-top: 0.5rem;
+	margin-top: 0.4rem;
 }
 .container .inc2 p {
 	font-size: 1.2rem;
