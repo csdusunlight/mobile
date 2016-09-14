@@ -6,7 +6,8 @@ Created on 2016年8月13日
 @author: lch
 '''
 import logging
-from wafuli.models import UserEvent, ZeroPrice, Hongbao, Welfare, Baoyou
+from wafuli.models import UserEvent, ZeroPrice, Hongbao, Welfare, Baoyou, Task,\
+    Finance
 import time as ttime
 from django.core.management.base import BaseCommand
 from django.db.models import Sum
@@ -18,7 +19,14 @@ from django.db.models import F
 logger = logging.getLogger("wafuli")
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        wels = Welfare.objects.update(startTime=F('pub_date'))
+        free_wels = Welfare.objects.all()
+        tasks = Task.objects.all()
+        finance = Finance.objects.all()
+        wels = list(free_wels)+list(tasks)+list(finance)
+        for wel in wels:
+            wel.seo_title = wel.seo_title + u" - 挖福利"
+            wel.save(update_fields=['seo_title']);
+#         wels = Welfare.objects.update(startTime=F('pub_date'))
 #         baoyou = Baoyou.objects.all()
 #         for wel in baoyou:
 #             wel.url = reverse('exp_welfare_openwindow') + '?id=' + str(wel.id)+ "&type=Welfare"

@@ -254,7 +254,7 @@ def finance_json(request):
             "interest":wel.interest,
             "amount":wel.amount_to_invest,
             "time":wel.investTime,
-            "scores":wel.scrores,
+            "category":wel.get_filter_display(),
             "benefit":wel.benefit,
             "url":wel.url,
             'picurl':wel.pic.url,

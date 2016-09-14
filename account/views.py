@@ -40,7 +40,7 @@ from django.db import connection
 @sensitive_post_parameters()
 @csrf_protect
 @never_cache
-def login(request, template_name='registration/login.html',
+def login(request, template_name='registration/m_login.html',
           redirect_field_name=REDIRECT_FIELD_NAME,
           authentication_form=AuthenticationForm,
           current_app=None, extra_context=None):
@@ -51,8 +51,8 @@ def login(request, template_name='registration/login.html',
                                    request.GET.get(redirect_field_name, ''))
     if request.method == "POST":
         form = authentication_form(request, data=request.POST)
+        result = {}
         if form.is_valid():
-
             # Ensure the user-originating redirection url is safe.
             if not is_safe_url(url=redirect_to, host=request.get_host()):
                 redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
@@ -65,25 +65,26 @@ def login(request, template_name='registration/login.html',
             user.this_login_time = datetime.now()
             Userlogin.objects.create(user=user,)
             user.save(update_fields=["last_login_time", "this_login_time"])
-            return HttpResponseRedirect(redirect_to)
+            result.update(code=0, url=redirect_to)
+        else:
+            result.update(code=1)
+        return JsonResponse(result);
     else:
         form = authentication_form(request)
-
-    current_site = get_current_site(request)
-
-    context = {
-        'form': form,
-        redirect_field_name: redirect_to,
-        'site': current_site,
-        'site_name': current_site.name,
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-
-    if current_app is not None:
-        request.current_app = current_app
-
-    return TemplateResponse(request, template_name, context)
+        current_site = get_current_site(request)
+        context = {
+            'form': form,
+            redirect_field_name: redirect_to,
+            'site': current_site,
+            'site_name': current_site.name,
+        }
+        if extra_context is not None:
+            context.update(extra_context)
+    
+        if current_app is not None:
+            request.current_app = current_app
+    
+        return TemplateResponse(request, template_name, context)
 import logging
 logger = logging.getLogger('wafuli')
 def register(request):
@@ -280,41 +281,7 @@ def phoneImageV(request):
 
 @login_required
 def account(request):
-    task_type = ContentType.objects.get_for_model(Task)
-    finance_type = ContentType.objects.get_for_model(Finance)
-    task_list = UserEvent.objects.filter(user=request.user, content_type = task_type)[0:3]
-    finance_list = UserEvent.objects.filter(user=request.user, content_type = finance_type)[0:3]
-    recomm_list1 = Task.objects.order_by("-view_count")[0:4]
-    recomm_list2 = Finance.objects.order_by("-view_count")[0:4]
-    recomm_list = list(recomm_list1) + list(recomm_list2)
-    recomm_list.sort(key=lambda x:x.view_count, reverse=True)
-    signin_last = UserSignIn.objects.filter(user=request.user).first()
-    isSigned = False
-    signed_conse_days = 0
-    if signin_last:
-        if signin_last.date >= date.today() - timedelta(days=1):
-            signed_conse_days = signin_last.signed_conse_days
-            if signin_last.date == date.today():
-                isSigned = True
-    coupons = Coupon.objects.filter(user=request.user, is_used=False)
-    coupon_not_used = 0
-    for coupon in coupons:
-        if not coupon.is_expired():
-            coupon_not_used += 1
-    coupon_to_expired = 0
-    coupons = Coupon.objects.filter(user=request.user, is_used=False)
-    for coupon in coupons:
-        if coupon.is_to_expired():
-            coupon_to_expired += 1
-    return render(request, 'account/account_index.html', 
-                    {    
-                        'task_list':task_list, 'finance_list':finance_list,
-                         'recomm_list':recomm_list[0:4], 'coupon_not_used':coupon_not_used,
-                        'isSigned':isSigned, 'signed_conse_days':signed_conse_days,
-                        'coupon_to_expired':coupon_to_expired,
-                    }
-                                                          
-                  )
+    return render(request, 'account/m_account_index.html', )
 
 def signin(request):
     

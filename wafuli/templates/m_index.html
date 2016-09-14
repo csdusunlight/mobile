@@ -172,7 +172,7 @@
                 </a>
             </li>
         	<li>
-            	<a href="#">
+            	<a href="{%url 'task'%}">
                 <img src="{%static 'images/nav2.png'%}"/>
             	<span>体验福利</span>
                 </a>
@@ -184,7 +184,7 @@
                 </a>
             </li>
         	<li>
-            	<a href="#">
+            	<a href="{%url 'account_index'%}">
                 <img src="{%static 'images/nav4.png'%}"/>
             	<span>个人中心</span>
                 </a>
@@ -203,6 +203,7 @@
 					}
 				}
 		});
+      	
 		/**
 		 * 上拉加载具体业务实现
 		 */
@@ -245,6 +246,7 @@
 							table.appendChild(li);
 						}
 					}
+					
 				},
 				error:function(xhr,type,errorThrown){
 					alert(type);
@@ -252,9 +254,12 @@
 			});
 		}
 		function pullupRefresh() {
+			if (count == 0){
+				mui('#pullrefresh').pullRefresh().scrollTo(0,0);
+			}
 			get_wel_list(count++);
 		}
-		mui('#slider,#hot,#today,#nav,footer').on('tap', 'a', function() {
+		mui('#pullrefresh').on('tap', 'a', function() {
             var id = this.getAttribute('href');
             mui.openWindow({
                 url: this.href,
