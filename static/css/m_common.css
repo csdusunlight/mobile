@@ -622,8 +622,12 @@ body {
 	/*font-family: "黑体";*/
 	font-family: "DroidSansFallback";
 	color: #8f8f8f;
+	/*background: #fff;*/
 }
-
+number,
+.english {
+	font-family: helvetica;
+}
 ol,
 ul {
 	list-style: none;
@@ -631,7 +635,7 @@ ul {
 
 p {
 	font-size: 1.2rem;
-	line-height: 1.8rem;
+	line-height: 2.4rem;
 }
 
 
@@ -703,7 +707,12 @@ p {
 .mui-bar .mui-btn-link {
 	color: #333;
 }
-
+.mui-icon-back:before, .mui-icon-left-nav:before {
+	color: #333;
+}
+.mui-title {
+	color: #333;
+}
 a {
 	color: #008FD7;
 }
@@ -754,6 +763,9 @@ header .share {
 
 .mui-segmented-control {
 	border: 1px solid #008fd7;
+}
+.mui-table-view-cell:after {
+	left: 0;
 }
 /*按钮部分*/
 
@@ -827,11 +839,49 @@ header .mui-btn-blue {
 .mui-popup-button {
 	color: #008FD7;
 }
+.mui-popup-inner {
+	padding: 30px 15px;
+}
 
-.mui-pull-bottom-tips{
-	text-align:center;
-	background-color:#efeff4;
-	font-size:15px;
-	line-height:40px;
-	color:#777;
+.mui-input-row label,
+.mui-row li h5 {
+	color: #777;
+}
+
+
+/*登录样式部分*/
+.mui-input-group:before {
+	height: 0;
+}
+.mui-input-group:after {
+	left: 15px;
+}
+/*test-part*/
+/*body
+{
+    background-color: #f7f7f7;
+
+}
+
+.mui-content
+{
+    background-color: #f7f7f7;
+}*/
+
+/*返回顶部部分*/
+.backTop { 
+	position: fixed;
+	right: 0;
+	bottom: 6rem;
+	width: 3rem;
+	height: 3rem;
+	padding-top: 0.5rem;
+	text-align: center;
+	font-size: 2rem;
+	font-weight: 900 !important;
+	border-radius: 50%;
+	z-index: 1000;
+	background: #000 !important; 
+	color: #fff;
+	opacity: 0.4;
 }

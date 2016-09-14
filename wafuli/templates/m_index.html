@@ -168,7 +168,7 @@
                 </a>
             </li>
         	<li>
-            	<a href="#">
+            	<a href="{%url 'task'%}">
                 <img src="{%static 'images/nav2.png'%}"/>
             	<span>体验福利</span>
                 </a>
@@ -180,7 +180,7 @@
                 </a>
             </li>
         	<li>
-            	<a href="#">
+            	<a href="{%url 'account_index'%}">
                 <img src="{%static 'images/nav4.png'%}"/>
             	<span>个人中心</span>
                 </a>
@@ -255,7 +255,7 @@
 			}
 			get_wel_list(count++);
 		}
-		mui('#slider,#hot,#today,#nav,footer').on('tap', 'a', function() {
+		mui('#pullrefresh').on('tap', 'a', function() {
             var id = this.getAttribute('href');
             mui.openWindow({
                 url: this.href,

@@ -37,37 +37,6 @@
 		    <h1 class="mui-title">理财福利</h1>
 		</header>
 		<div class="mui-content">
-			<!--banner部分-->
-			<div id="slider" class="mui-slider" >
-			 <div class="mui-slider-group mui-slider-loop">
-			   <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-			   <div class="mui-slider-item mui-slider-item-duplicate">
-			     <a href="{{last_adv.url}}">
-			       <img src="{{last_adv.mpic.url}}">
-			     </a>
-			   </div>
-			{% for adv in adv_list %}
-			   <div class="mui-slider-item">
-			     <a href="{{adv.url}}">
-			       <img src="{{adv.mpic.url}}">
-			     </a>
-			   </div>
-			   {%endfor%}
-			   <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-			    <div class="mui-slider-item mui-slider-item-duplicate">
-			      <a href="{{first_adv.url}}">
-			        <img src="{{first_adv.mpic.url}}">
-			      </a>
-			    </div>
-			  </div>
-			  <div class="mui-slider-indicator">
-			    <div class="mui-indicator mui-active"></div>
-			    {% for adv in adv_list|slice:":-1" %}
-			    <div class="mui-indicator"></div>
-			    {%endfor%}
-			  </div>
-			</div>
-
 			<!--选项卡部分-->
 			<div id="finance_slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
@@ -81,6 +50,36 @@
 					<div id="item1" class="mui-slider-item mui-control-content mui-active" value="1">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
+								<!--banner部分-->
+								<div id="slider" class="mui-slider" >
+								 <div class="mui-slider-group mui-slider-loop">
+								   <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+								   <div class="mui-slider-item mui-slider-item-duplicate">
+								     <a href="{{last_adv.url}}">
+								       <img src="{{last_adv.mpic.url}}">
+								     </a>
+								   </div>
+								{% for adv in adv_list %}
+								   <div class="mui-slider-item">
+								     <a href="{{adv.url}}">
+								       <img src="{{adv.mpic.url}}">
+								     </a>
+								   </div>
+								   {%endfor%}
+								   <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+								    <div class="mui-slider-item mui-slider-item-duplicate">
+								      <a href="{{first_adv.url}}">
+								        <img src="{{first_adv.mpic.url}}">
+								      </a>
+								    </div>
+								  </div>
+								  <div class="mui-slider-indicator">
+								    <div class="mui-indicator mui-active"></div>
+								    {% for adv in adv_list|slice:":-1" %}
+								    <div class="mui-indicator"></div>
+								    {%endfor%}
+								  </div>
+								</div>
 								<ul class="mui-table-view">
 								</ul>
 							</div>
@@ -194,10 +193,11 @@
 										li.className = 'mui-table-view-cell';
 										li.innerHTML = '<a href="' + wel.url + '"><div class="title"><strong>'+ wel.title +
 											'</strong><span>官网利息：<font>' + wel.interest + '</font></span></div>'+
-											'<div class="container clearfix"><img src="' + wel.picurl + '" /><div class="inc1">'+
-											'<p>挖福利补贴：</p><span>+' + wel.benefit + '</span></div>'+
-											'<div class="inc2"><p>起投金额：' + wel.amount + 
-											'</p><p>标期长度：' + wel.time + '</p><p>赠送积分：+' + wel.scores + '</p></div></div></a>';
+											'<div class="container clearfix">'+
+											'<div><img src="' + wel.picurl + '" /><span>' + wel.category + '</span>'+
+											'</div><div class="inc2"><p>补贴收益：<number>+' + wel.benefit + 
+											'</number></p><p>起投金额：' + wel.amount + 
+											'</p><p>标期长度：' + wel.time + '</p></div></div></a>';
 										ul.appendChild(li);
 									}
 								}
