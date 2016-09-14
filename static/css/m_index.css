@@ -177,7 +177,7 @@ header a img {
 	transform: rotate(-15deg) translateY(-0.8rem);
 	-webkit-transform: rotate(-15deg) translateY(-0.8rem);
 }
-li-info p {
+.li-info p {
 	line-height: 1.8rem;
 }
 .li-info p.first {
