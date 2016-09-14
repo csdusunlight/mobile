@@ -280,6 +280,10 @@
 	    	setCookie('mode', 'pc', 1, 'wafuli.cn');
 	    	window.location.href = "http://old.wafuli.cn";
 	    });
+		var gallery = mui('#slider');
+		gallery.slider({
+			interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
+		});
     </script>
     <script src="{%static 'js/cookie.js'%}"></script>
     <script>

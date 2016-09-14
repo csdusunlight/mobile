@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^$', 'wafuli.views.index', name='index'),
     url(r'^welfare_json/$', 'wafuli.welfare.welfare_json', name='welfare_json'),
     url(r'^finance_json/$', 'wafuli.welfare.finance_json', name='finance_json'),
+    url(r'^task_json/$', 'wafuli.welfare.task_json', name='task_json'),
 #    url(r'^(?P<board>\S+)/$', 'wafuli.views.board', name='board'),
     url(r'^finance/$', 'wafuli.views.finance', name='finance'),
     url(r'^finance/(?P<id>[0-9]*)/$', 'wafuli.views.finance', name='finance_detail'),

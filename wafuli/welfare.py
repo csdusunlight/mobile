@@ -248,7 +248,6 @@ def finance_json(request):
     if type == '1' or type == '2':
         wel_list = wel_list.filter(f_type=type).order_by('-view_count')[start:start+6]
     for wel in wel_list:
-        print wel.url
         data.append({
             "title":wel.title,
             "interest":wel.interest,
@@ -258,5 +257,33 @@ def finance_json(request):
             "benefit":wel.benefit,
             "url":wel.url,
             'picurl':wel.pic.url,
+        })
+    return JsonResponse(data,safe=False)
+def task_json(request):
+    count = request.GET.get('count', 0)
+    type = request.GET.get('type', '0')
+    if not request.is_ajax():
+        logger.warning("Experience refused no-ajax request!!!")
+        raise Http404
+    data = []
+    count = int(count)
+    type = str(type)
+    start = 6*count
+    item_list = Task.objects.filter(state='1')
+    if type == '1':
+        item_list = item_list.filter(amount_to_invest=0)
+    elif type == '2':
+        item_list = item_list.filter(amount_to_invest__lte=100, amount_to_invest__gt=0)
+    elif type == '3':
+        item_list = item_list.filter(amount_to_invest__gt=100)
+    item_list = item_list[start:start+6]
+    for wel in item_list:
+        data.append({
+            "title":wel.title,
+            "time":wel.time_limit,
+            "view_count":wel.view_count,
+            "url":wel.url,
+            'picurl':wel.pic.url,
+            'provider':wel.provider,
         })
     return JsonResponse(data,safe=False)

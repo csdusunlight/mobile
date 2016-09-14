@@ -57,7 +57,7 @@ def finance(request, id=None):
         first_adv = adv_list[0]
         last_adv = adv_list[-1]
 #         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
-        context = {'adv_list':adv_list, }
+        context = {'adv_list':adv_list, 'first_adv':first_adv, 'last_adv':last_adv,}
         return render(request, 'm_finance.html', context)
     else:
         id = int(id)
@@ -72,22 +72,12 @@ def finance(request, id=None):
         
 def task(request, id=None):
     if id is None:
-        ad_list = Advertisement.objects.filter(location__in=['0','3'],is_hidden=False)[0:8]
-        strategy_list = Press.objects.filter(type='2')[0:10]
-        context = {'ad_list':ad_list,'strategy_list':strategy_list}
-        task_type = ContentType.objects.get_for_model(Task)
-        event_list = UserEvent.objects.filter(event_type='1',content_type = task_type.id)[0:6]
-        exps = []
-        for event in event_list:
-            username = event.user.username
-            task = event.content_object
-            if len(username) > 4:
-                username = username[0:4] + '****'
-            else:
-                username = username + '****'
-            exps.append({'username':username,'title':task.title})
-        context.update({'exps':exps})
-        return render(request, 'taskWelfare.html', context)
+        adv_list = list(Advertisement.objects.filter(location__in=['0','3'],is_hidden=False)[0:8])
+        first_adv = adv_list[0]
+        last_adv = adv_list[-1]
+#         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
+        context = {'adv_list':adv_list, 'first_adv':first_adv, 'last_adv':last_adv,}
+        return render(request, 'm_task.html', context)
     else:
         id = int(id)
         news = None

@@ -117,7 +117,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="taste.html">
+					<a href="{%url 'task'%}">
 						<img src="{%static 'images/nav2.png'%}" />
 						<span>体验福利</span>
 					</a>
@@ -129,7 +129,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="个人中心.html">
+					<a href="{%url 'account_index'%}">
 						<img src="{%static 'images/nav4.png'%}" />
 						<span>个人中心</span>
 					</a>
@@ -138,7 +138,7 @@
 		</footer>
 
 		<script>
-			var get_finance_url = "{% url 'finance_json' %}"
+			var get_finance_url = "{% url 'finance_json' %}";
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
