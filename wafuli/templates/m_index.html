@@ -28,14 +28,18 @@
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_index.css'%}"/>
 </head>
 <body>
-<header class="clearfix">
+<!-- <header class="clearfix">
 	<img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
 	<a id="switch_device" class="fr"><img src="{%static 'images/go-pc.png'%}" alt="前往pc端" /></a>
-</header>
+</header> -->
 <div id="pullrefresh" class="mui-scroll-wrapper">
-	
+
 
 <div class="mui-content">
+    <header class="clearfix">
+        <img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
+        <a  class="fr" href="#"><img src="{%static 'images/diannao.png'%}" alt="前往pc端" /></a>
+    </header>
 	<!--banner部分-->
 	<div id="slider" class="mui-slider" >
 	  <div class="mui-slider-group mui-slider-loop">
@@ -68,8 +72,8 @@
 	</div>
 	<!--提示消息部分-->
 	<div class="news clearfix">
-		<span class="fl">今日上线福利 <b>{{new_wel_num}}</b> 个</span>
-		<span class="tr fr">累计上线福利 <b>{{all_wel_num}}</b>个</span>
+		<span class="fl">今日上线福利 <b><number>{{new_wel_num}}</number></b> 个</span>
+		<span class="tr fr">累计上线福利 <b><number>{{all_wel_num}}</number></b>个</span>
 	</div>
 	<!--图标导航部分-->
 	<div id="nav" class="icon-nav">
@@ -113,7 +117,7 @@
             	<li>
                 	<a href="#">
                     	<img src="{%static 'images/nav-pic7.png'%}" />
-                        <span>9.9包邮</span>
+                        <span><number>9.9</number>包邮</span>
                     </a>
                 </li>
             	<li>
@@ -124,7 +128,7 @@
                 </li>
             </ul>
     </div>
-    
+
     <!--今日推荐部分-->
     <div id="today" class="today">
         	<div class="today-tittle">
@@ -136,28 +140,28 @@
                 <a href="{{adv_today3.url}}" class="ti-right ti-03 fr"><img src="{{adv_today3.pic.url}}"/></a>
             </div>
     </div>
-    
+
     <!--选项卡部分-->
     <div id="hot" class="recent today">
     	<div class="today-tittle">
         	<h3>福利精选</h3>
         </div>
-        
-        
-        
+
+
+
         <ul class="mui-table-view">
 
 
         </ul>
-	    
-            
+
+
 	</div>
-        
-    
+
+
 </div>
     <!--测试-->
-    
-</div>	
+
+</div>
     <!--底部导航-->
 	<footer>
     	<ul class="clearfix tc">
@@ -212,7 +216,7 @@
 				dataType:'json',//服务器返回json格式数据
 				type:'get',//HTTP请求类型
 				timeout:10000,//超时时间设置为10秒；
-//				headers:{'Content-Type':'application/json'},	              
+//				headers:{'Content-Type':'application/json'},
 				success:function(data){
 					if (!data.length){
 						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
@@ -274,7 +278,7 @@
     </script>
     <script src="{%static 'js/cookie.js'%}"></script>
     <script>
-    
+
     </script>
 </body>
 </html>

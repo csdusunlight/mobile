@@ -2,16 +2,17 @@ header {
 		background-color: #fff;
 		padding: 0 1.875% 0;
 		padding-bottom: 0.4rem;
+		background: #52c5ff;
 }
 header img {
 	width: 20%;
-	margin-top: 1rem;
+	margin-top: 0.6rem;
 }
 header a {
 	display: block;
 	width: 1.6rem;
 	height: 1.6rem;
-	margin-top: 1.4rem;
+	margin-top: 1.2rem;
 }
 header a img {
 	width: 100%;
@@ -37,7 +38,7 @@ header a img {
 }
 .news span b {
 	font-weight: bold;
-	color: #fb3456;
+	color: #ff6767;
 }
 .news span:first-child {
 		background: url(../images/news-left-icon.png) left center no-repeat; background-size:1.4rem  auto;
@@ -124,7 +125,7 @@ header a img {
 .mui-table-view-cell {
 	/*padding: 1rem 0 1rem 1.2rem;*/
 	padding: 0;
-	margin-top: 1px;
+	/*margin-top: 1px;*/
 }
 
 .mui-table-view-cell>a:not(.mui-btn) {
@@ -134,10 +135,13 @@ header a img {
 .mui-table-view-cell img {
 	float: left;
 	/*margin-right: 6.5%;*/
-	width: 12rem !important;
+	width: 13rem !important;
+	max-height: 7.5rem;
+	border-radius: 4px;
+	border: 1px solid #e4e4e4;
 }
 .mui-table-view-cell .li-info {
-	width: 16rem;
+	width: 15rem;
 	float: right;
 	height: auto;
 }
@@ -151,7 +155,9 @@ header a img {
 	display: inline-block;
 	padding-left: 0.2rem;
 	font-size: 1rem;
-	color: #fb3456;
+	font-family: helvetica;
+	letter-spacing: 3px;
+	color: #ff6767;
 	transform: rotate(-15deg) translateY(-0.8rem);
 	-webkit-transform: rotate(-15deg) translateY(-0.8rem);
 }
@@ -160,9 +166,14 @@ header a img {
 	display: inline-block;
 	padding-left: 0.2rem;
 	font-size: 1rem;
-	color: #fb3456;
+	font-family: helvetica;
+	letter-spacing: 3px;
+	color: #ff6767;
 	transform: rotate(-15deg) translateY(-0.8rem);
 	-webkit-transform: rotate(-15deg) translateY(-0.8rem);
+}
+.li-info p {
+	line-height: 1.8rem;
 }
 .li-info p.first span {
 	padding-left: 0;
@@ -192,17 +203,17 @@ header a img {
 }
 .li-info .s3 {
 	float: left;
-	width: 11.8rem;
+	width: 10.5rem;
 }
 .li-info .s2 {
 	float: left;
 }
 .li-info .s1 {
 	margin-top: 0.5rem;
-	background:url(../images/s1.png) left center no-repeat; background-size:1.4rem auto;
+	background:url(../images/s1.png) left center no-repeat; background-size:1.5rem auto;
 }
 .li-info .s2 {
-	background:url(../images/s2.png) left center no-repeat; background-size:1.4rem auto;
+	background:url(../images/s2.png) left center no-repeat; background-size:1.5rem auto;
 }
 .li-info .s3 {
 	background:url(../images/s3.png) left center no-repeat; background-size:1.4rem auto;
@@ -233,8 +244,4 @@ footer li span {
 }
 footer li.on span {
 	color: #f08519;
-}
-
-.mui-scroll-wrapper{
-	bottom:20px;
 }
