@@ -16,6 +16,7 @@ encoding//captcha/helpers.py=utf-8
 encoding//captcha/tests/tests.py=utf-8
 encoding//static/css/m_finance.css=UTF-8
 encoding//static/css/m_index.css=UTF-8
+encoding//static/css/m_youhuiquan.css=UTF-8
 encoding//static/wafuli_admin/css/admin-user.css=UTF-8
 encoding//templates/footer.html=UTF-8
 encoding//templates/header.html=UTF-8

@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^login/$', 'account.views.login', {'template_name': 'registration/m_login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'template_name': 'registration/logged_out.html', 'next_page':'login'}, name='logout'),
     url(r'signin/$', 'account.views.signin', name='signin'),
+    url(r'signin_record/$', 'account.views.signin_record', name='signin_record'),
     url(r'^password_change/$', 'account.views.password_change', name='password_change'),
     url(r'^change_pay_password/$', 'account.views.change_pay_password', name='change_pay_password'),
     url(r'^active_email/$', 'account.views.active_email', name='active_email'),

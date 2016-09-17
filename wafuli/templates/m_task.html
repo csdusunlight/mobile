@@ -1,7 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-
 	<head lang="en">
 		<meta charset="UTF-8">
 		<!-- 优先使用 IE 最新版本和 Chrome -->
@@ -22,32 +21,32 @@
 		<meta http-equiv="Pragma" content="no-cache">
 		<meta http-equiv="Cache-Control" content="no-cache">
 		<meta http-equiv="Expires" content="0">
-		<title></title>
+		<title>体验福利</title>
 		<script src="{%static 'js/mui.min.js'%}"></script>
 		<script src="{%static 'js/mui.pullToRefresh.js'%}"></script>
 		<script src="{%static 'js/mui.pullToRefresh.material.js'%}"></script>
 		<link href="{%static 'css/mui.min.css'%}" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}" />
-		<link rel="stylesheet" type="text/css" href="{%static 'css/m_finance.css'%}" />
+		<link rel="stylesheet" type="text/css" href="{%static 'css/m_task.css'%}" />
 	</head>
 
 	<body>
-		<header class="clearfix">
-        <img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
-        <a  class="fr" href="#"><img src="{%static 'images/diannao.png'%}" alt="前往pc端" /></a>
-    </header>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">理财福利</h1>
+		</header>
 		<div class="mui-content">
 			<!--选项卡部分-->
-			<div id="finance_slider" class="mui-slider mui-fullscreen">
+			<div id="task_slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<a class="mui-control-item" href="#item1">最新</a>
-					<a class="mui-control-item" href="#item2">高收益</a>
-					<a class="mui-control-item" href="#item3">低风险</a>
-					<!--<a class="mui-control-item" href="#item5">优惠券</a>-->
+		            <a class="mui-control-item" href="#item2"><number>0</number>投资</a>
+		            <a class="mui-control-item" href="#item3">投资<number>≤100</number></a>
+		            <a class="mui-control-item" href="#item4">投资<number>>100</number></a>
 				</div>
-				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
 				<div class="mui-slider-group">
-					<div id="item1" class="mui-slider-item mui-control-content mui-active" value="1">
+					<div id="item1" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<!--banner部分-->
@@ -85,7 +84,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="item2" class="mui-slider-item mui-control-content" value="2">
+					<div id="item2" class="mui-slider-item mui-control-content">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view">
@@ -93,7 +92,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="item3" class="mui-slider-item mui-control-content" value="3">
+					<div id="item3" class="mui-slider-item mui-control-content">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view">
@@ -101,11 +100,18 @@
 							</div>
 						</div>
 					</div>
-
+					<div id="item4" class="mui-slider-item mui-control-content">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
-
+				
 			</div>
-
+		
 		</div>
 		<!--底部导航-->
 		<footer>
@@ -116,15 +122,15 @@
 						<span>免费福利</span>
 					</a>
 				</li>
-				<li>
+				<li class="on">
 					<a href="{%url 'task'%}">
-						<img src="{%static 'images/nav2.png'%}" />
+						<img src="{%static 'images/nav2s.png'%}" />
 						<span>体验福利</span>
 					</a>
 				</li>
-				<li class="on">
+				<li>
 					<a href="{%url 'finance'%}">
-						<img src="{%static 'images/nav3s.png'%}" />
+						<img src="{%static 'images/nav3.png'%}" />
 						<span>理财福利</span>
 					</a>
 				</li>
@@ -138,11 +144,11 @@
 		</footer>
 
 		<script>
-			var get_finance_url = "{% url 'finance_json' %}"
+			var get_task_url = "{% url 'task_json' %}";
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-
+			
 			(function($) {
 				//阻尼系数
 				var deceleration = mui.os.ios?0.003:0.0009;
@@ -168,9 +174,9 @@
 							}
 						});
 					});
-
+					
 					function get_finance_list(obj,ul,n,index){
-						mui.ajax(get_finance_url,{
+						mui.ajax(get_task_url,{
 							data:{
 								count:n,
 								type:index,
@@ -178,7 +184,7 @@
 							dataType:'json',//服务器返回json格式数据
 							type:'get',//HTTP请求类型
 							timeout:10000,//超时时间设置为10秒；
-//							headers:{'Content-Type':'application/json'},
+//							headers:{'Content-Type':'application/json'},	              
 							success:function(data){
 								if (!data.length){
 									obj.endPullUpToRefresh(true);
@@ -191,13 +197,12 @@
 										var wel = data[i];
 										var li = document.createElement('li');
 										li.className = 'mui-table-view-cell';
-										li.innerHTML = '<a href="' + wel.url + '"><div class="title"><strong>'+ wel.title +
-											'</strong><span>官网利息：<font>' + wel.interest + '</font></span></div>'+
-											'<div class="container clearfix">'+
-											'<div><img src="' + wel.picurl + '" /><span>' + wel.category + '</span>'+
-											'</div><div class="inc2"><p>补贴收益：<number>+' + wel.benefit +
-											'</number></p><p>起投金额：' + wel.amount +
-											'</p><p>标期长度：' + wel.time + '</p></div></div></a>';
+										li.innerHTML = '<a href="' + wel.url + '"><img src="' +
+											wel.picurl + '" /><div class="li-info"><h6>' + wel.title +
+											'</h6><span class="s1">' + wel.provider +
+											'</span><span class="s2"><number>' + wel.view_count +
+											'</number></span><span class="s3"><number>' + wel.time +
+											'</number></span></div></a>';
 										ul.appendChild(li);
 									}
 								}
