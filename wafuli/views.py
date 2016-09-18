@@ -88,6 +88,7 @@ def task(request, id=None):
         update_view_count(news)
         other_wel_list = Task.objects.filter(state='1').order_by('-view_count')[0:10]
         return render(request, 'detail-taskandfinance.html',{'news':news,'type':'Task','other_wel_list':other_wel_list})
+    
 def commodity(request, id):
     id = int(id)
     try:

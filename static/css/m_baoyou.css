@@ -1,0 +1,106 @@
+.mui-content {
+	margin-top: 44px;
+	/*background: #fff;*/
+	
+}
+/*内容部分*/
+.mui-content .box {
+	padding: 0 1.875% 0;
+	background: #fff;
+}
+.mui-content .box .tittle {
+	border-bottom: 1px solid #e4e4e4;
+		
+}
+.mui-content .box .tittle h3 {
+	padding-top: 2px;
+	width: 22%;
+	font-size: 1.4rem;
+	color: #008fd7;
+	line-height: 2.6rem;
+	border-bottom: 2px solid #008fd7;
+} 
+
+.mui-content ul {
+	padding: 0 1.875% 0;
+}
+.mui-content ul li {
+	padding: 1rem 0;
+	/*border-bottom: 1px solid #ececec;*/
+}
+.mui-content ul li>a {
+	display: block;
+}
+.mui-content ul li a {
+	display: block;
+}
+.mui-content li img {
+	float: left;
+	width: 13rem;
+	margin-right: 4%;
+	max-height: 7.5rem;
+	border-radius: 4px;
+	border: 1px solid #e4e4e4;
+}
+
+.mui-content .con-info {
+	position: relative;
+	float: left;
+	width: 52%;
+}
+.con-info h6 {
+	width: 100%;
+	padding-top: 0.2rem;
+	/*line-height: 2rem;*/
+	font-size: 1.2rem;
+	color: #222;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.con-info p {
+	margin-top: 0.4rem;
+	font-size: 1.2rem;
+	line-height: 1.6rem;
+}
+.con-info .c-money {
+	display: inline-block;
+}
+.c-money strong {
+	display: inline-block;
+	font-size: 2rem;
+	/*line-height: 3rem;*/
+	font-weight: bold;
+	color: #f08519;
+	word-spacing: -1rem;
+	margin-top: 0.6rem;
+}
+.c-money s {
+	font-size: 1rem;
+	color: #dedede;
+}
+.c-money button {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+	font-size: 1rem;
+	display: inline-block;
+	width: 7rem;
+	padding:0.2rem 0rem;
+}
+/*样式替换*/
+.mui-btn-warning {
+	color: #fff;
+	border: 1px solid #52c5ff;
+	background-color: #52c5ff;
+}
+.mui-btn-warning:enabled:active,
+.mui-btn-warning.mui-active:enabled {
+	color: #fff;
+	border: 1px solid #49b1e5;
+	background-color: #49b1e5;
+}
+.mui-table-view:before {
+	background-color: transparent;
+}

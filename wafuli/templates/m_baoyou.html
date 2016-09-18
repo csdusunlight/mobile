@@ -1,0 +1,128 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title></title>
+	<script src="{%static 'js/mui.min.js'%}"></script>
+	<script src="{%static 'js/mui.pullToRefresh.js'%}"></script>
+	<script src="{%static 'js/mui.pullToRefresh.material.js'%}"></script>
+	<link href="{%static 'css/mui.min.css'%}" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}" />
+	<link rel="stylesheet" type="text/css" href="{%static 'css/m_baoyou.css'%}" />
+
+</head>
+
+	<body>	
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"><number>9.9</number>包邮</h1>
+		</header>
+		<div id="pullrefresh" class="mui-scroll-wrapper">
+			<div class="mui-content">
+				<div class="box">
+					<div class="tittle">
+						<h3>最新推荐</h3>
+					</div>
+				</div>
+				<ul class="mui-table-view">
+				</ul>
+			</div>
+		</div>
+		<script>
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				up: {
+					auto:true,
+					contentrefresh: '正在加载...',
+					contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+					callback: pullupRefresh
+				}
+			}
+		});
+  	
+	/**
+	 * 上拉加载具体业务实现
+	 */
+		var count = 0;
+		var get_baoyou_url = "{% url 'baoyou_json' %}"
+		function get_wel_list(n){
+			mui.ajax(get_baoyou_url,{
+				data:{
+					count:n,
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+	//			headers:{'Content-Type':'application/json'},
+				success:function(data){
+					if (!data.length){
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+					}
+					else {
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
+						var table = document.body.querySelector('.mui-table-view');
+	//					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+						for (var i in data) {
+							var wel = data[i];
+							var li = document.createElement('li');
+							li.innerHTML = '<div class="clearfix"><img src="' + wel.picurl +
+								'" /><div class="con-info"><h6>' + wel.title + 
+								'</h6><p>' + wel.desc + '</p><div class="c-money">' + 
+								'<strong><number>￥' + wel.nprice + '</number></strong>' +
+								'<s><number>￥' + wel.mprice + '</number></s>' +
+								'<button href="' + wel.url + '" class="mui-btn mui-btn-warning">' +
+								'立即抢购</button></div></div></div>';
+							table.appendChild(li);
+						}
+					}
+					
+				},
+				error:function(xhr,type,errorThrown){
+					alert(type);
+				}
+			});
+		}
+		function pullupRefresh() {
+			get_wel_list(count++);
+		}
+		mui('.mui-table-view').on('tap', 'button', function() {
+	        var href = this.getAttribute('href');
+	        mui.openWindow({
+	            url: href,
+	            styles: {
+	                top: 0,
+	                bottom: 0
+	            },
+	            show: {
+	                aniShow: 'slide-in-right',
+	            },
+	            waiting: {
+	                autoShow: false, //自动显示等待框
+	                title: '正在加载...', //等待对话框上显示的提示内容
+	            }
+	        });
+	    });
+		</script>
+	</body>
+
+</html>

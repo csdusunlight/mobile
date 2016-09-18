@@ -32,10 +32,10 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">理财福利</h1>
-		</header>
+		<header class="clearfix">
+        <img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
+        <a  class="fr" href="#"><img src="{%static 'images/diannao.png'%}" alt="前往pc端" /></a>
+    </header>
 		<div class="mui-content">
 			<!--选项卡部分-->
 			<div id="finance_slider" class="mui-slider mui-fullscreen">
@@ -103,9 +103,9 @@
 					</div>
 
 				</div>
-				
+
 			</div>
-		
+
 		</div>
 		<!--底部导航-->
 		<footer>
@@ -142,7 +142,7 @@
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-			
+
 			(function($) {
 				//阻尼系数
 				var deceleration = mui.os.ios?0.003:0.0009;
@@ -168,7 +168,7 @@
 							}
 						});
 					});
-					
+
 					function get_finance_list(obj,ul,n,index){
 						mui.ajax(get_finance_url,{
 							data:{
@@ -178,7 +178,7 @@
 							dataType:'json',//服务器返回json格式数据
 							type:'get',//HTTP请求类型
 							timeout:10000,//超时时间设置为10秒；
-//							headers:{'Content-Type':'application/json'},	              
+//							headers:{'Content-Type':'application/json'},
 							success:function(data){
 								if (!data.length){
 									obj.endPullUpToRefresh(true);
@@ -195,8 +195,8 @@
 											'</strong><span>官网利息：<font>' + wel.interest + '</font></span></div>'+
 											'<div class="container clearfix">'+
 											'<div><img src="' + wel.picurl + '" /><span>' + wel.category + '</span>'+
-											'</div><div class="inc2"><p>补贴收益：<number>+' + wel.benefit + 
-											'</number></p><p>起投金额：' + wel.amount + 
+											'</div><div class="inc2"><p>补贴收益：<number>+' + wel.benefit +
+											'</number></p><p>起投金额：' + wel.amount +
 											'</p><p>标期长度：' + wel.time + '</p></div></div></a>';
 										ul.appendChild(li);
 									}

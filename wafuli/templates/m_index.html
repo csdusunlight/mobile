@@ -30,16 +30,15 @@
 <body>
 <!-- <header class="clearfix">
 	<img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
-	<a id="switch_device" class="fr"><img src="{%static 'images/go-pc.png'%}" alt="前往pc端" /></a>
+	<a  class="fr"><img src="{%static 'images/go-pc.png'%}" alt="前往pc端" /></a>
 </header> -->
 <div id="pullrefresh" class="mui-scroll-wrapper">
 
-
 <div class="mui-content">
-    <header class="clearfix">
-        <img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
-        <a  class="fr" href="#"><img src="{%static 'images/diannao.png'%}" alt="前往pc端" /></a>
-    </header>
+	<header class="clearfix">
+	    <img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
+	    <a class="fr" id="switch_device"><img src="{%static 'images/diannao.png'%}" alt="前往pc端" /></a>
+	</header>
 	<!--banner部分-->
 	<div id="slider" class="mui-slider" >
 	  <div class="mui-slider-group mui-slider-loop">
@@ -79,7 +78,7 @@
 	<div id="nav" class="icon-nav">
         	<ul class="nav-list clearfix">
             	<li>
-                	<a href="#">
+                	<a href="{% url 'signin' %}">
                     	<img src="{%static 'images/nav-pic1.png'%}" />
                         <span>每日签到</span>
                     </a>
@@ -97,25 +96,25 @@
                     </a>
                 </li>
             	<li>
-                	<a href="#">
+                	<a href="{% url 'signin' %}">
                     	<img src="{%static 'images/nav-pic4.png'%}" />
                         <span>我有故事</span>
                     </a>
                 </li>
             	<li>
-                	<a href="#">
+                	<a href="{% url 'welfare_list' type='hb' %}">
                     	<img src="{%static 'images/nav-pic5.png'%}" />
                         <span>红包</span>
                     </a>
                 </li>
             	<li>
-                	<a href="#">
+                	<a href="{% url 'welfare_list' type='yhq' %}">
                     	<img src="{%static 'images/nav-pic6.png'%}" />
                         <span>优惠券</span>
                     </a>
                 </li>
             	<li>
-                	<a href="#">
+                	<a href="{% url 'welfare_list' type='by' %}">
                     	<img src="{%static 'images/nav-pic7.png'%}" />
                         <span><number>9.9</number>包邮</span>
                     </a>
@@ -259,7 +258,7 @@
 			}
 			get_wel_list(count++);
 		}
-		mui('#pullrefresh').on('tap', 'a', function() {
+		mui('.mui-content div').on('tap', 'a', function() {
             var id = this.getAttribute('href');
             mui.openWindow({
                 url: this.href,

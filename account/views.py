@@ -37,6 +37,9 @@ from django.db.models import Sum, Count
 from .transaction import charge_money, charge_score
 from account.tools import send_mail, get_client_ip
 from django.db import connection
+import logging
+logger = logging.getLogger('wafuli')
+
 @sensitive_post_parameters()
 @csrf_protect
 @never_cache
@@ -85,8 +88,7 @@ def login(request, template_name='registration/m_login.html',
             request.current_app = current_app
     
         return TemplateResponse(request, template_name, context)
-import logging
-logger = logging.getLogger('wafuli')
+
 def register(request):
     if request.method == 'POST':
         if not request.is_ajax():
@@ -282,31 +284,34 @@ def phoneImageV(request):
 @login_required
 def account(request):
     return render(request, 'account/m_account_index.html', )
-
+@login_required
 def signin(request):
-    
+    user = request.user
+    signin_last = UserSignIn.objects.filter(user=user).first()
+    flag = None
+    today = date.today()
+    if signin_last and signin_last.date == today:
+        flag = 0
+    else:
+        flag = 1
+        signed_conse_days = 1
+        if signin_last and signin_last.date == today - timedelta(days=1):
+            signed_conse_days += signin_last.signed_conse_days
+        UserSignIn.objects.create(user=user, date=today, signed_conse_days=signed_conse_days)
+        charge_score(user, '0', 5, u"签到奖励")
+        if signed_conse_days%7 == 0:
+            charge_score(user, '0', 20, u"连续签到7天奖励")
+    return render(request, 'account/m_signin.html',{'flag':flag})
+def signin_record(request):
     if not request.is_ajax():
         raise Http404
-    
-    result={'code':-1, 'url':''}
-    if not request.user.is_authenticated():
-        result['code'] = -1
-        result['url'] = reverse('login') + "?next=" + reverse('account_index')
-    else:
-        signin_last = UserSignIn.objects.filter(user=request.user).first()
-        if signin_last and signin_last.date == date.today():
-            result['code'] = 1
-        else:
-            signed_conse_days = 1
-            if signin_last and signin_last.date == date.today() - timedelta(days=1):
-                signed_conse_days += signin_last.signed_conse_days
-            UserSignIn.objects.create(user=request.user, date=date.today(), signed_conse_days=signed_conse_days)
-            charge_score(request.user, '0', 5, u"签到奖励")
-            if signed_conse_days%7 == 0:
-                charge_score(request.user, '0', 20, u"连续签到7天奖励")
-            result['code'] = 0
-    return JsonResponse(result)
-
+    today = date.today()
+    first_day_of_month = today - timedelta(today.day-1)
+    sign_days = UserSignIn.objects.filter(user=request.user,date__gte=first_day_of_month).values('date');
+    records = []
+    for day in sign_days:
+        records.append(day.get('date').day);
+    return JsonResponse(records,safe=False)
 @login_required
 def welfare(request):
     tcount = Task.objects.filter(state='1').count()

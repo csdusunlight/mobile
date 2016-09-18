@@ -133,6 +133,7 @@ class Hongbao(Welfare):
 class Baoyou(Welfare):
     mprice = models.CharField(u"市场价", max_length=10)
     nprice = models.CharField(u"现价", max_length=10)
+    desc = models.CharField(u"描述", max_length=20)
     isonMobile = models.BooleanField(u'是否为移动端活动', default= False)
     exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
     def clean(self):
