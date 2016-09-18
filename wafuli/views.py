@@ -20,8 +20,8 @@ import re
 
 def index(request):
     adv_list = list(Advertisement.objects.filter(location__in=['0','1'],is_hidden=False)[0:8])
-    first_adv = adv_list[0]
-    last_adv = adv_list[-1]
+    first_adv = adv_list[0] if adv_list else None
+    last_adv = adv_list[-1] if adv_list else None
     last_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by("-startTime")[0:3]
     adv_today1 = MAdvert.objects.filter(location='1',is_hidden=False).first()
     adv_today2 = MAdvert.objects.filter(location='2',is_hidden=False).first()
@@ -54,8 +54,8 @@ def index(request):
 def finance(request, id=None):
     if id is None:
         adv_list = list(Advertisement.objects.filter(location__in=['0','4'],is_hidden=False)[0:8])
-        first_adv = adv_list[0]
-        last_adv = adv_list[-1]
+        first_adv = adv_list[0] if adv_list else None
+        last_adv = adv_list[-1] if adv_list else None
 #         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
         context = {'adv_list':adv_list, 'first_adv':first_adv, 'last_adv':last_adv,}
         return render(request, 'm_finance.html', context)
@@ -73,8 +73,8 @@ def finance(request, id=None):
 def task(request, id=None):
     if id is None:
         adv_list = list(Advertisement.objects.filter(location__in=['0','3'],is_hidden=False)[0:8])
-        first_adv = adv_list[0]
-        last_adv = adv_list[-1]
+        first_adv = adv_list[0] if adv_list else None
+        last_adv = adv_list[-1] if adv_list else None
 #         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
         context = {'adv_list':adv_list, 'first_adv':first_adv, 'last_adv':last_adv,}
         return render(request, 'm_task.html', context)

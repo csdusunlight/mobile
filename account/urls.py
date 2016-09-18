@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^invitepage/$', 'account.views.get_user_invite_page', name='get_user_invite_page'),
     url(r'^message/$', 'account.views.message', name='account_message'),
     url(r'^messagepage/$', 'account.views.get_user_message_page', name='get_user_message_page'),
+    url(r'^user-guide/$', 'account.views.user_guide', name='user_guide'),
     url(r'^register/$', 'account.views.register', name='register'),
     url(r'^login/$', 'account.views.login', {'template_name': 'registration/m_login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'template_name': 'registration/logged_out.html', 'next_page':'login'}, name='logout'),

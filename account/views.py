@@ -40,6 +40,26 @@ from django.db import connection
 import logging
 logger = logging.getLogger('wafuli')
 
+def user_guide(request):
+    if not request.is_ajax():
+        return render(request, 'registration/m_user_guide.html',)
+    else:
+        url = ''
+        mobile = request.GET.get('mobile', '')
+        is_exist = 1
+        try:
+            MyUser.objects.get(mobile=mobile)
+        except MyUser.DoesNotExist:
+             is_exist = 0
+        if is_exist == 1:
+            redirect_field_name=REDIRECT_FIELD_NAME
+            redirect_to = request.GET.get(redirect_field_name, '')
+            if not is_safe_url(url=redirect_to, host=request.get_host()):
+                redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
+            url = reverse('login') + '?' + redirect_field_name + '=' + redirect_to
+        else:
+            url = reverse('register') + '?mobile=' + mobile
+        return JsonResponse({'url':url})
 @sensitive_post_parameters()
 @csrf_protect
 @never_cache
@@ -94,13 +114,11 @@ def register(request):
         if not request.is_ajax():
             raise Http404
         result = {}
-        username = request.POST.get('username', None)
         telcode = request.POST.get('code', None)
         mobile = request.POST.get('mobile', None)
-        email = request.POST.get('email', None)
         password = request.POST.get('password', None)
         invite_code = request.POST.get('invite', None)
-        if not (telcode and mobile and email and password and username):
+        if not (telcode and mobile and password):
             result['code'] = '3'
             result['res_msg'] = u'传入参数不足！'
             return JsonResponse(result)
@@ -123,8 +141,8 @@ def register(request):
                 result['res_msg'] = u'该邀请码不存在，请检查'
                 return JsonResponse(result)
         try:
-            user = MyUser(email=email, mobile=mobile,
-                    username=username, inviter=inviter)
+            username = 'm' + str(mobile)
+            user = MyUser(mobile=mobile, username=username, inviter=inviter)
             user.set_password(password)
             user.save()
             logger.info('Creating User:' + mobile + ' succeed!')
@@ -161,11 +179,10 @@ def register(request):
                 pass
         return JsonResponse(result)
     else:
-        hashkey = CaptchaStore.generate_key()
-        codimg_url = captcha_image_url(hashkey)
+        mobile = request.GET.get('mobile','')
         icode = request.GET.get('icode','')
-        return render(request,'registration/register.html',
-                  {'hashkey':hashkey, 'codimg_url':codimg_url, 'icode':icode})
+        return render(request,'registration/m_register.html',
+              {'mobile':mobile, 'icode':icode})
 @login_required
 def get_nums(request):
     coupon_num = Coupon.objects.filter(user=request.user, is_used=False).count()

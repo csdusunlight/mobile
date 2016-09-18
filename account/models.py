@@ -37,14 +37,11 @@ class MyUserManager(BaseUserManager):
         return self._create_user(email, mobile, username, password, True, True)
     def get_by_natural_key(self, username):
         try:
-            return self.get(**{'username': username})
+            return self.get(**{'mobile': username})
         except MyUser.DoesNotExist:
-            try:
-                return self.get(**{'mobile': username})
-            except MyUser.DoesNotExist:
-                return self.get(**{'email': username})
+            return self.get(**{'username': username})
 class MyUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField('email address', max_length=255, unique=True,)
+    email = models.EmailField('email address', max_length=255)
     mobile = models.CharField('mobile number', max_length=11, unique=True,)
     username = models.CharField(u'用户昵称', max_length=30, unique=True)
     inviter = models.ForeignKey('self', related_name = 'invitees', 
@@ -76,8 +73,8 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         related_name="user_set", related_query_name="user")
     objects = MyUserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['mobile', 'username']
+    USERNAME_FIELD = 'mobile'
+    REQUIRED_FIELDS = ['username']
     
     def set_pay_password(self, raw_password):
         self.pay_password = make_password(raw_password)

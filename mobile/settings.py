@@ -122,7 +122,7 @@ MEDIA_ROOT = os.path.join(os.path.dirname(__file__), '..', 'media').replace('\\'
 # STATIC_ROOT = os.path.join(os.path.dirname(__file__), '..', 'static').replace('\\','/')
 MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'account.MyUser'
-LOGIN_URL = 'login'
+LOGIN_URL = 'user_guide'
 LOGIN_REDIRECT_URL = 'index'
 
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'

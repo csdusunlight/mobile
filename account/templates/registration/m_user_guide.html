@@ -1,0 +1,61 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>注册/登录</title>
+		<link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/m_user_guide.css' %}"/>
+		<link href="{% static 'css/m_style.css' %}" rel="stylesheet" />
+		<script src="{%static 'js/accounts/user-validate.js'%}"></script>
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<script src="{% static 'js/app.js' %}"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">登录注册</h1>
+		</header>
+		<div class="mui-content">
+			<img src="{% static 'images/bg-logo.png' %}"/>
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<!--<label><span class="mui-icon mui-icon-phone"></span></label>-->
+					<input id='account' type="text" class="mui-input" placeholder="请输入手机号">
+				</div>
+				
+				
+			</form>
+			<div class="mui-content-padded">
+				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">确定</button>
+			</div>
+			
+		</div>
+		<!--弹窗部分-->
+		<script type="text/javascript" charset="utf-8">
+		      	mui.init({
+					swipeBack:true //启用右滑关闭功能
+				});
+				document.getElementById("reg").addEventListener('tap', function() {
+					var mobile = document.getElementById("account").value;
+					if(!validatePhone(mobile)) {
+						mui.alert('您输入的手机号格式有误，请重新输入！', '抱歉');
+					}
+					else {
+						mui.getJSON('',{mobile:mobile},function(data){
+							if (data.url){
+								window.location.href = data.url;
+							}
+							else{
+								mui.alert('服务器错误，请联系客服！', '抱歉');
+							}
+						});
+					}
+				});
+		</script>
+	</body>
+
+</html>
