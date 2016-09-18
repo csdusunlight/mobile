@@ -1,3 +1,9 @@
+body {
+	background: #fff;
+}
+.mui-content {
+	background: #fff;
+}
 .area {
 	margin: 20px auto 0px auto;
 }
@@ -49,4 +55,7 @@
 }
 .link-area {
 	font-size: 1.2rem;
+}
+.mui-input-group:after {
+	height: 0;
 }

@@ -1,10 +1,6 @@
 .mui-content {
 	margin-top: 44px;
 }
-.ad img {
-	border: none;
-	width: 100%;
-}
 .mui-table-view-cell {padding: 1rem 1.2rem 0.4rem;}
 .mui-segmented-control-inverted {
 	background-color: #fff;
@@ -20,25 +16,28 @@
 	/*background-color: transparent;*/
 }
 .mui-table-view-cell {
-	padding: 1rem 0 1rem 1.2rem;
+	padding: 0 1.875%;
+}
+.mui-table-view-cell>a:not(.mui-btn) {
+	margin: 0.8rem 0;
+	overflow: visible;
 }
 
-.mui-table-view-cell {
-	margin-top: 1px;
-}
 .mui-table-view-cell img {
 	float: left;
-	margin-right: 6.5%;
-	width: 44% !important;
+	/*margin-right: 6.5%;*/
+	width: 13rem !important;
+	height: 8rem;
 }
 .mui-table-view-cell .li-info {
-	width: 49.5%;
-	float: left;
-	height: auto;
+	width: 15.4rem;
+	float: right;
+	height: 5rem;
 }
 .li-info>h6 {
-	width: 90%;
-	line-height: 2rem;
+	width: 100%;
+	padding-top: 0.4rem;
+	/*line-height: 2rem;*/
 	font-size: 1.2rem;
 	color: #222;
 	overflow: hidden;
@@ -47,10 +46,28 @@
 }
 .li-info p {
 	display: block;
-	width: 90%;
-	height: 7rem;
+	height: 5rem;
+	width: 100%;
+	margin-top: 0.4rem;
+	text-indent: 2.2rem;
+	font-size: 1.1rem;
 	line-height: 1.8rem;
 	white-space: normal;
 	overflow: hidden;
 }
 
+/*样式替换*/
+.mui-table-view-cell:after {
+	left: 1.875%;
+	right: 1.875%;
+}
+.mui-table-view-cell>a:not(.mui-btn) {
+	padding: 0;
+}
+.mui-slider .mui-slider-group .mui-slider-item>a:not(.mui-control-item) {
+	display: inline;
+}
+.mui-pull-bottom-wrapper {
+	padding: 1rem 0;
+	text-align: center;
+}

@@ -292,3 +292,30 @@ def baoyou_json(request):
             'desc':wel.desc,
         })
     return JsonResponse(data,safe=False)
+
+def information_json(request):
+    count = int(request.GET.get('count', 0))
+    type = request.GET.get('type', 0)
+    type = int(type)
+    data = []
+    count = int(count)
+    start = 6*count
+    info_list = Information.objects.filter(is_display=True)
+    if type == 0:
+        info_list = info_list.filter(type="washuju")
+    if type == 1:
+        info_list = info_list.filter(type="wahangqing")
+    if type == 2:
+        info_list = info_list.filter(type="wahuodong")
+    if type == 3:
+        info_list = info_list.filter(type="wagushi")
+    info_list = info_list[start:start+6]
+    for info in info_list:
+        data.append({
+            'url':info.url,
+            'picurl':info.pic.url,
+            'title':info.title,
+            'summary':info.summary,
+            'view_count':info.view_count,
+        })
+    return JsonResponse(data,safe=False)

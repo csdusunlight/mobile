@@ -57,6 +57,6 @@ urlpatterns = [
     url(r'^activity/lottery/get_lottery/$', 'wafuli.activity.get_lottery', name='get_lottery'),
      
     url(r'^business/(?:list-page(?P<page>[0-9]*)/)?$', 'wafuli.views.business', name='business_list'),
-#     url(r'^information/(?:(?P<id>[0-9]*)/)?$', 'wafuli.views.information', name='information'),
-#     url(r'^information/(?:(?P<type>wahangqing|wagushi|washuju|wahuodong)/)?(?:list-page(?P<page>[0-9]*)/)?$', 'wafuli.views.information', name='information_list'),
+    url(r'^information/(?:(?P<id>[0-9]*)/)?$', 'wafuli.views.information', name='information'),
+    url(r'^information_json/$', 'wafuli.welfare.information_json', name='information_json'),
 ]
