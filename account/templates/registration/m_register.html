@@ -21,13 +21,14 @@
 		</header>
 		<div class="mui-content">
 			<form class="mui-input-group">
+				{% csrf_token %}
 				<div class="mui-input-row">
 					<label><span class="mui-icon mui-icon-person"></span></label>
 					<input id='mobile' type="text" maxlength=11 class="mui-input" placeholder="11位手机号" value={{mobile}}>
 				</div>
 				<div class="mui-input-row mui-password">
 					<label><span class="mui-icon mui-icon-locked"></span></label>
-					<input id='password' type="password" class="mui-input-password " placeholder="8-16位密码，字母和数字组合">
+					<input id='password' type="password" class="mui-input-password " placeholder="6-16位密码，字母和数字组合">
 				</div>
 				<div class="yanzhengma mui-input-row">
 					<label><span class="mui-icon mui-icon-image"></span></label>
@@ -69,7 +70,7 @@
 				}
 				var password = document.getElementById("password").value;
 				if(!validatePassport(password)) {
-					mui.alert('您输入的密码格式有误，请重新输入！（8-18位，至少包含字母、数字和特殊字符中的两种）', '抱歉');
+					mui.alert('您输入的密码格式有误，请重新输入！（6-18位，至少包含字母、数字和特殊字符中的两种）', '抱歉');
 					return;
 				}
 				var telcode = document.getElementById("telcode").value;
@@ -77,7 +78,8 @@
 					mui.alert('您输入的手机验证码格式有误，请重新输入！', '抱歉');
 					return;
 				}
-				var invite = document.getElementById("invite").value;
+				var invite = document.getElementById("icode").value;
+				var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 				mui.ajax({
 					url : register_url,
 					data : {
@@ -85,6 +87,7 @@
 						code : telcode,
 						mobile : mobile,
 						invite: invite,
+						csrfmiddlewaretoken:csrfmiddlewaretoken
 					},
 					type:'POST',
 					timeout : 3000,
@@ -93,7 +96,7 @@
 							window.location.href = index_url;
 						}
 						else {
-							alert(data.res_msg);
+							mui.alert(data.res_msg);
 						}
 					},
 					error:function(xhr,type,errorThrown){

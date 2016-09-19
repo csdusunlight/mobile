@@ -128,7 +128,7 @@ class MobileCode(models.Model):
     identifier = models.CharField('identifier', max_length=10, blank=True,)
     rand_code = models.CharField('random code', max_length=6)
     create_at = models.DateTimeField("created at", auto_now_add=True, editable=True)
-    remote_ip = models.CharField('remote_ip', max_length=15, blank=True, null=True)
+    remote_ip = models.CharField('remote_ip', max_length=15, blank=True)
     def __unicode__(self):
         return self.identifier + ':' + self.mobile + ':' + self.remote_ip
     class Meta:

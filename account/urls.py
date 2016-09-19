@@ -3,7 +3,8 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^$', 'account.views.account', name='account_index'),
-    url(r'^get_nums$', 'account.views.get_nums', name='get_nums'),
+    url(r'^account_settings/$', 'account.views.account_settings', name='account_settings'),
+    url(r'^get_nums/$', 'account.views.get_nums', name='get_nums'),
     url(r'^welfare/$', 'account.views.welfare', name='account_welfare'),
     url(r'^welpage/$', 'account.views.get_user_wel_page', name='get_user_wel_page'),
     url(r'^score/$', 'account.views.score', name='account_score'),

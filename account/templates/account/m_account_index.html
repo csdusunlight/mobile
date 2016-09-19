@@ -32,7 +32,7 @@
 		<div class="mui-content">
 			<div class="top">
 				<img src="{% static 'images/user.png' %}" alt="用户头像" />
-				<a href="#"><number>123456789</number></a>
+				<a href="{% url 'account_settings' %}"><number>{{user.mobile}}</number></a>
 			</div>
 			
 			<div class="mui-row">

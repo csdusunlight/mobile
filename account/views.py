@@ -113,6 +113,10 @@ def register(request):
             result['code'] = '3'
             result['res_msg'] = u'传入参数不足！'
             return JsonResponse(result)
+        if MyUser.objects.filter(mobile=mobile).exists():
+            result['code'] = '1'
+            result['res_msg'] = u'该手机号码已被注册，请直接登录！'
+            return JsonResponse(result)
         ret = verifymobilecode(mobile,telcode)
         if ret != 0:
             result['code'] = '2'
@@ -160,7 +164,6 @@ def register(request):
                     inviter.save(update_fields=['invite_scores'])
                 else:
                     logger.debug('Inviting Award scores is failed to pay!!!')
-            result['code'] = '0'
             try:
                 userl = authenticate(username=username, password=password)
                 auth_login(request, userl)
@@ -309,6 +312,9 @@ def phoneImageV(request):
 @login_required
 def account(request):
     return render(request, 'account/m_account_index.html', )
+@login_required
+def account_settings(request):
+    return render(request, 'account/m_account_settings.html', )
 @login_required
 def signin(request):
     user = request.user
