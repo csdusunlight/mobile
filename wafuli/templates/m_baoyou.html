@@ -31,18 +31,18 @@
 
 </head>
 
-	<body>	
+	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title"><number>9.9</number>包邮</h1>
 		</header>
 		<div id="pullrefresh" class="mui-scroll-wrapper">
 			<div class="mui-content">
-				<div class="box">
+				<!-- <div class="box">
 					<div class="tittle">
 						<h3>最新推荐</h3>
 					</div>
-				</div>
+				</div> -->
 				<ul class="mui-table-view">
 				</ul>
 			</div>
@@ -59,7 +59,7 @@
 				}
 			}
 		});
-  	
+
 	/**
 	 * 上拉加载具体业务实现
 	 */
@@ -86,8 +86,8 @@
 							var wel = data[i];
 							var li = document.createElement('li');
 							li.innerHTML = '<div class="clearfix"><img src="' + wel.picurl +
-								'" /><div class="con-info"><h6>' + wel.title + 
-								'</h6><p>' + wel.desc + '</p><div class="c-money">' + 
+								'" /><div class="con-info"><h6>' + wel.title +
+								'</h6><p>' + wel.desc + '</p><div class="c-money">' +
 								'<strong><number>￥' + wel.nprice + '</number></strong>' +
 								'<s><number>￥' + wel.mprice + '</number></s>' +
 								'<button href="' + wel.url + '" class="mui-btn mui-btn-warning">' +
@@ -95,7 +95,7 @@
 							table.appendChild(li);
 						}
 					}
-					
+
 				},
 				error:function(xhr,type,errorThrown){
 					alert(type);

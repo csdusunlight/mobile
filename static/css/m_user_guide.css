@@ -21,6 +21,9 @@
 	width: 64%;
 	left: 18%;
 }
+form {
+	margin-left: 0;
+}
 .mui-input-group input{
 	text-align: center;
 	/*text-indent: 24%;*/

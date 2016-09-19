@@ -134,9 +134,11 @@
 					var close = document.getElementById("close"),
 						login = document.getElementById("login");
 					//监听点击事件
-					close.addEventListener("tap",function () {
-					  	login.style.display="none";
-					});
+					if(close){
+						close.addEventListener("tap",function () {
+						  	login.style.display="none";
+						});
+					}
 		</script>
 	</body>
 
