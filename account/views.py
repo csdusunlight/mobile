@@ -56,7 +56,8 @@ def user_guide(request):
             redirect_to = request.GET.get(redirect_field_name, '')
             if not is_safe_url(url=redirect_to, host=request.get_host()):
                 redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
-            url = reverse('login') + '?' + redirect_field_name + '=' + redirect_to
+            url = reverse('login') + '?' + redirect_field_name + '=' + redirect_to  + \
+                    '&mobile=' + mobile
         else:
             url = reverse('register') + '?mobile=' + mobile
         return JsonResponse({'url':url})
@@ -93,21 +94,11 @@ def login(request, template_name='registration/m_login.html',
             result.update(code=1)
         return JsonResponse(result);
     else:
-        form = authentication_form(request)
-        current_site = get_current_site(request)
+        mobile = request.GET.get('mobile','')
         context = {
-            'form': form,
-            redirect_field_name: redirect_to,
-            'site': current_site,
-            'site_name': current_site.name,
+            'mobile':mobile,
         }
-        if extra_context is not None:
-            context.update(extra_context)
-    
-        if current_app is not None:
-            request.current_app = current_app
-    
-        return TemplateResponse(request, template_name, context)
+        return render(request, template_name, context)
 
 def register(request):
     if request.method == 'POST':
@@ -181,8 +172,16 @@ def register(request):
     else:
         mobile = request.GET.get('mobile','')
         icode = request.GET.get('icode','')
-        return render(request,'registration/m_register.html',
-              {'mobile':mobile, 'icode':icode})
+        hashkey = CaptchaStore.generate_key()
+        codimg_url = captcha_image_url(hashkey)
+        icode = request.GET.get('icode','')
+        context = {
+            'hashkey':hashkey, 
+            'codimg_url':codimg_url, 
+            'icode':icode,
+            'mobile':mobile,
+        }
+        return render(request,'registration/m_register.html', context)
 @login_required
 def get_nums(request):
     coupon_num = Coupon.objects.filter(user=request.user, is_used=False).count()
@@ -251,21 +250,23 @@ def phoneImageV(request):
     if not request.is_ajax():
         raise Http404
     action = request.GET.get('action', None)
-    result = {'code':'0', 'message':'hi!'}
+    result = {'code':-1, 'message':'error!'}
     phone = request.GET.get('phone', None)
     if action=='register':
         hashkey = request.GET.get('hashkey', None)
         response = request.GET.get('response', None)
-        if not (phone and hashkey and response):
-            raise Http404
+        if not (phone and hashkey):
+            return JsonResponse(result)
         ret = imageV(hashkey, response)
         if ret != 0:
+            result['code'] = 1
             result['message'] = u'图形验证码输入错误！'
             result.update(generateCap())
             return JsonResponse(result)
         users = MyUser.objects.filter(mobile=phone)
         if users.exists():
-            result['message'] = u'该手机号码已被占用！'
+            result['code'] = 1
+            result['message'] = u'该手机号码已被注册，请直接登录！'
             result.update(generateCap())
             return JsonResponse(result)
     stamp = str(phone)
@@ -274,6 +275,7 @@ def phoneImageV(request):
     if lasttime:
         dif = now - int(lasttime)
         if dif < 60:
+            result['code'] = 2
             result['message'] = u'请不要频繁提交！'
             result.update(generateCap())
             return JsonResponse(result)
@@ -281,21 +283,27 @@ def phoneImageV(request):
     remote_ip = get_client_ip(request)
     count_ip = MobileCode.objects.filter(remote_ip=remote_ip, create_at__gt=today).count()
     if count_ip >= 30:
+        result['code'] = 3
         result['message'] = u'该IP当日发送短信请求已超上限，请明日再来！'
+        result.update(generateCap())
         return JsonResponse(result)
     count_mobile = MobileCode.objects.filter(mobile=phone, create_at__gt=today).count()
     if count_mobile >= 5:
+        result['code'] = 3
         result['message'] = u'该手机号当日短信发送请求已超上限，请明日再来！'
+        result.update(generateCap())
         return JsonResponse(result)
     ret = sendmsg_bydhst(phone)
     if ret:
         logger.info('Varifing code has been send to:' + phone)
-        result['code'] = '1'
+        result['code'] = 0
         MobileCode.objects.create(mobile=phone,rand_code=ret,remote_ip=remote_ip)
         request.session[stamp] = now
     else:
         logger.error('Sending Varifing code to ' + phone + ' is failed!!!')
+        result['code'] = 1
         result['message'] = u"发送验证码失败！"
+        result.update(generateCap())
     return JsonResponse(result)
 
 @login_required

@@ -45,7 +45,7 @@
 						mui.alert('您输入的手机号格式有误，请重新输入！', '抱歉');
 					}
 					else {
-						mui.getJSON('',{mobile:mobile},function(data){
+						mui.getJSON(window.location.href,{mobile:mobile},function(data){
 							if (data.url){
 								window.location.href = data.url;
 							}
