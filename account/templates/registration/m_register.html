@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/m_register.css' %}"/>
 		<script src="{% static 'js/mui.min.js' %}"></script>
+		<script src="{%static 'js/accounts/user-validate.js'%}"></script>
 	</head>
 
 	<body>
@@ -22,54 +23,155 @@
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label><span class="mui-icon mui-icon-person"></span></label>
-					<input id='account' type="text" class="mui-input" placeholder="请输入手机号" value={{mobile}}>
+					<input id='mobile' type="text" maxlength=11 class="mui-input" placeholder="11位手机号" value={{mobile}}>
 				</div>
 				<div class="mui-input-row mui-password">
 					<label><span class="mui-icon mui-icon-locked"></span></label>
-					<input id='password' type="password" class="mui-input-password " placeholder="请输入密码">
+					<input id='password' type="password" class="mui-input-password " placeholder="8-16位密码，字母和数字组合">
+				</div>
+				<div class="yanzhengma mui-input-row">
+					<label><span class="mui-icon mui-icon-image"></span></label>
+					<input id='x_yanzhengma' type="text" maxlength=4 class="mui-input" placeholder="图形验证码">
+					<img src="{{ codimg_url }}" id="id_checkImg"  alt="验证码图片" class="yanzheng "> 
+       				<input id="id_hashkey" name="hashkey" type="hidden" value="{{ hashkey }}">
 				</div>
 				<div class="yanzhengma mui-input-row">
 					<label><span class="mui-icon mui-icon-email"></span></label>
-					<input id='password_confirm' type="password" class="mui-input" placeholder="验证码">
-					<button type="button" class=" huoqu mui-btn-blue mui-btn-outlined" onclick="settime(this)">获取验证码</button>
+					<input id='telcode' type="text" maxlength=6 class="mui-input" placeholder="手机验证码">
+					<button type="button" id="gettelcode" class=" huoqu mui-btn-blue mui-btn-outlined">获取验证码</button>
 				</div>
 				<div class="mui-input-row">
 					<label><span class="mui-icon mui-icon-personadd"></span></label>
-					<input id='email' type="email" class="mui-input" placeholder="邀请码（可不填写）" value={{icode}}>
+					<input id='icode' type="email" maxlength=20 class="mui-input" placeholder="邀请码（可不填写）" value={{icode}}>
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+				<button id='register' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
 				<p class="link-area tc">已有账号？<span class="spliter">|</span> <a href="#">请登录</a></p>
 				</div>
 			</div>
 		</div>
 		<script type="text/javascript" charset="utf-8">
-		      	mui.init({
-					swipeBack:true //启用右滑关闭功能
+	      	mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+	      	var countdown=60;
+			var coderefresh_url = "{% url 'captcha-refresh' %}";
+			var phoneimageV_url = "{% url 'phoneImageV' %}";
+			var sendtelcode_url = "{% url 'phoneImageV' %}";
+			var register_url = "{% url 'register' %}";
+			var index_url = "{% url 'account_index' %}";
+			document.getElementById("register").addEventListener('tap', function() {
+				var mobile = document.getElementById("mobile").value;
+				if(!validatePhone(mobile)) {
+					mui.alert('您输入的手机号格式有误，请重新输入！', '抱歉');
+					return;
+				}
+				var password = document.getElementById("password").value;
+				if(!validatePassport(password)) {
+					mui.alert('您输入的密码格式有误，请重新输入！（8-18位，至少包含字母、数字和特殊字符中的两种）', '抱歉');
+					return;
+				}
+				var telcode = document.getElementById("telcode").value;
+				if(!validatetelcode(telcode)) {
+					mui.alert('您输入的手机验证码格式有误，请重新输入！', '抱歉');
+					return;
+				}
+				var invite = document.getElementById("invite").value;
+				mui.ajax({
+					url : register_url,
+					data : {
+						password: password,
+						code : telcode,
+						mobile : mobile,
+						invite: invite,
+					},
+					type:'POST',
+					timeout : 3000,
+					success : function(data) {
+						if (data.code == '0') {				
+							window.location.href = index_url;
+						}
+						else {
+							alert(data.res_msg);
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						mui.alert(type);
+					}
 				});
-					document.getElementById("reg").addEventListener('tap', function() {
-						mui.alert('您输入的验证码有误，请重新输入！', '抱歉', function() {
-						});
-					});
-		</script>
-		<script type="text/javascript">
-			  var countdown=60;
-			  function settime(val) {
+			});
+			document.getElementById("gettelcode").addEventListener('tap', function() {
+				var mobile = document.getElementById("mobile").value;
+				if(!validatePhone(mobile)) {
+					mui.alert('您输入的手机号格式有误，请重新输入！', '抱歉');
+				}
+				else{
+					sendTelVerifyCodeImageV(mobile);
+					settime(this);
+				}
+			});
+			function settime(val) {
 			    if (countdown == 0) {
-			    val.removeAttribute("disabled");
-			    val.innerText="获取验证码";
-			    countdown = 60;
-			    return;
-			  } else {
-			    val.setAttribute("disabled", true);
-			    val.innerText="重新发送(" + countdown + ")";
-			    countdown--;
-			  }
-			  setTimeout(function() {
-			    settime(val)
+				    val.removeAttribute("disabled");
+				    val.innerText="获取验证码";
+				    countdown = 60;
+				    return;
+			  	} else {
+				    val.setAttribute("disabled", true);
+				    val.innerText="重新发送(" + countdown + ")";
+				    countdown--;
+			  	}
+			  	setTimeout(function() {
+			    	settime(val);
 			    },1000)
-			  }
+			}
+			document.getElementById("id_checkImg").addEventListener('tap',function(){
+				mui.getJSON(coderefresh_url, null, function(data) {
+					var new_cptch_key = data.key;
+					var new_cptch_image = data.image_url;
+					key = document.getElementById("id_hashkey");
+					img = document.getElementById("id_checkImg");
+					key.value = new_cptch_key;
+					img.src = new_cptch_image;
+				});	      
+			});
+			var sendTelVerifyCodeImageV = function(mobile) {
+				var hashkey = document.getElementById("id_hashkey").value;
+				var response = document.getElementById("x_yanzhengma").value;
+				if (!response){
+					mui.alert("请输入图形验证码!");
+					countdown = 0;
+					return;
+				}
+				mui.ajax({
+					url : sendtelcode_url,
+					data : {
+						'phone' : mobile,
+						'action' : 'register',
+						'hashkey': hashkey,
+						'response': response,
+						},
+					timeout : 3000,
+					success : function(data) {
+						if (data.code != 0) {
+							mui.alert(data.message);
+							var new_cptch_key = data.key;
+					        var new_cptch_image = data.image_url;
+					        key = document.getElementById("id_hashkey");
+							img = document.getElementById("id_checkImg");
+							key.value = new_cptch_key;
+							img.src = new_cptch_image;
+						}
+						if (data.code == 1){
+							countdown = 0;
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						mui.alert(type);
+					}
+				});
+			};
 		</script>
 	</body>
 

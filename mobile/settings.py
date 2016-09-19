@@ -123,7 +123,7 @@ MEDIA_ROOT = os.path.join(os.path.dirname(__file__), '..', 'media').replace('\\'
 MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'account.MyUser'
 LOGIN_URL = 'user_guide'
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'account_index'
 
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 #CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
