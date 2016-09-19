@@ -117,7 +117,10 @@ footer li.on span {
 	padding: 1rem 0;
 	text-align: center;
 }
-
+.mui-table-view-cell:after {
+	left: 1.875%;
+	right: 1.875%;
+}
 #task_slider{
 	bottom:20px;
 }

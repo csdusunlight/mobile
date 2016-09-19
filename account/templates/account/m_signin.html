@@ -27,7 +27,7 @@
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_signin.css'%}"/>
 </head>
-	<body>	
+	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">每日签到</h1>
@@ -53,12 +53,12 @@
 		        	<span>更多积分</span>
 		            </a>
 		        </li>
-		    	
+
 		    </ul>
 		</footer>
 		<div class="mui-content">
 			<!--帐号部分-->
-			
+
 				<div class="msg clearfix">
 					<img src="{%static 'images/user.png'%}" alt="提示图标" />
 					<div class="text">
@@ -71,13 +71,13 @@
 							<script>
 							Date.prototype.format = function (fmt) {
 							    var o = {
-							        "M+": this.getMonth() + 1, //月份 
-							        "d+": this.getDate(), //日 
-							        "h+": this.getHours(), //小时 
-							        "m+": this.getMinutes(), //分 
-							        "s+": this.getSeconds(), //秒 
-							        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-							        "S": this.getMilliseconds() //毫秒 
+							        "M+": this.getMonth() + 1, //月份
+							        "d+": this.getDate(), //日
+							        "h+": this.getHours(), //小时
+							        "m+": this.getMinutes(), //分
+							        "s+": this.getSeconds(), //秒
+							        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+							        "S": this.getMilliseconds() //毫秒
 							    };
 							    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
 							    for (var k in o)
@@ -89,7 +89,7 @@
 						</number>
 					</h6>
 					<table id="calendar" border="" cellspacing="" cellpadding="">
-						
+
 						<tr>
 							<th>日</th>
 							<th>一</th>
@@ -100,19 +100,19 @@
 							<th>六</th>
 						</tr>
 						<script src="{%static 'js/calendar.js'%}"></script>
-					</table>        
-				</div>        		
+					</table>
+				</div>
 		</div>	<!--mui-content-->
 		{%if flag == 1%}
-		<a href="#" class="close mui-icon mui-icon-close"></a>
-		<div class="delete">
+		<div id="login" class="delete">
+			<a href="#" id="close" class="close mui-icon mui-icon-close"></a>
 			<div>
 				<p>签到成功</p>
 				<p>今日已签到，奖励<number>5</number>积分</p>
 			</div>
 		</div>
 		{%endif%}
-		
+
 	<script>
 		url = "{% url 'signin_record' %}"
 		mui.init();
@@ -130,6 +130,14 @@
 		);
 		});
 	</script>
+	<script type="text/javascript" charset="utf-8">
+					var close = document.getElementById("close"),
+						login = document.getElementById("login");
+					//监听点击事件
+					close.addEventListener("tap",function () {
+					  	login.style.display="none";
+					});
+		</script>
 	</body>
 
 </html>

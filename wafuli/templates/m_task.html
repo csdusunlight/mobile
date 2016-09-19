@@ -31,10 +31,10 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<!-- <header class="mui-bar mui-bar-nav">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <h1 class="mui-title">理财福利</h1>
-		</header>
+		</header> -->
 		<div class="mui-content">
 			<!--选项卡部分-->
 			<div id="task_slider" class="mui-slider mui-fullscreen">
@@ -109,9 +109,9 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
-		
+
 		</div>
 		<!--底部导航-->
 		<footer>
@@ -148,7 +148,7 @@
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-			
+
 			(function($) {
 				//阻尼系数
 				var deceleration = mui.os.ios?0.003:0.0009;
@@ -174,7 +174,7 @@
 							}
 						});
 					});
-					
+
 					function get_finance_list(obj,ul,n,index){
 						mui.ajax(get_task_url,{
 							data:{
@@ -184,7 +184,7 @@
 							dataType:'json',//服务器返回json格式数据
 							type:'get',//HTTP请求类型
 							timeout:10000,//超时时间设置为10秒；
-//							headers:{'Content-Type':'application/json'},	              
+//							headers:{'Content-Type':'application/json'},
 							success:function(data){
 								if (!data.length){
 									obj.endPullUpToRefresh(true);

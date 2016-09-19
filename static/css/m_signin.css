@@ -20,7 +20,7 @@
 	/*height: 4rem;*/
 }
 .msg .text {
-	
+
 	float: left;
 	margin-top: 1rem;
 }
@@ -110,7 +110,7 @@ footer li span {
 	height: 100%;
 	background: rgba(0,0,0,0.7);
 }
-.delete>div {
+.delete div {
 	width: 80%;
 	height: 36rem;
 	margin: 0 auto;
@@ -129,7 +129,7 @@ footer li span {
 	line-height: 14rem;
 	color: #fff;
 	background: #2caced;
-} 
+}
 .delete div p:last-child {
 	margin-top: 4rem;
 	text-align: center;
@@ -145,13 +145,8 @@ footer li span {
 	cursor: pointer;
 	color: #8f8f8f;
 }
-/*.close:hover{
-	display: none;
-}
-.close:hover + div{
-	display: none;
-}*/
-.close:active{
+
+/*.close:active{
 	display: none;
 }
 .close:active + div{
@@ -162,4 +157,4 @@ footer li span {
 }
 .close:visited + div{
 	display: none;
-}
+}*/
