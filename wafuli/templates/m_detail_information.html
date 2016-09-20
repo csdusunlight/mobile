@@ -1,0 +1,85 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title></title>
+    <script src="{% static 'js/mui.min.js' %}"></script>
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_detail_information.css' %}"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+
+	<body>	
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">挖故事</h1>
+			<a class="share"></a>
+		</header>
+		<div class="mui-content">
+			<div class="story">
+				<h1>六月，我与挖福利的故事</h1>
+				<h6>挖福利<number>&nbsp;&nbsp;08-16&nbsp;&nbsp;14:23</number></h6>
+				<p>最近有一个直男朋友，<number>26</number>岁了，谈过两次恋爱，基本时间不超过三个月，在一起的时候，对女方各种好，什么都给买，一天发无数次信心想你爱你，但是最后都只得到一些好人卡，那我们现在来看看他都给女孩子送过一些啥?</p>
+				<p>第一个女朋友是个护士妹妹，有天跟他说，科室里的医生在上班的时候有人给他送了锦旗，动静可大了。这个直男从女朋友平淡无奇的一句话中听到了浓浓的羡慕。但是他莫不作甚。恰逢女朋友做生日，天赐良机。马上定制了一个特别的礼物给女朋友送去!</p>
+			</div>
+			<div class="related">
+				 <h5>&nbsp;&nbsp;相关推荐&nbsp;&nbsp;</h5>
+				<ul class="content">
+				    <li class="list">
+				        <a class=" box clearfix" href="#">
+				            <div class="text">
+								<h3>七夕，给还没追到的女孩子送什么礼物比较好</h3>
+				                <p class="">挖故事</p>
+				            </div>
+				            <img class="" src="" alt="相关推荐图片">
+				        </a>
+				    </li>
+				    <li class="list">
+				        <a class=" box clearfix" href="#">
+				            <div class="text">
+								<h3>七夕，给还没追到的女孩子送什么礼物比较好</h3>
+				                <p class="">挖故事</p>
+				            </div>
+				            <img class="" src="" alt="相关推荐图片">
+				        </a>
+				    </li>
+				    <li class="list">
+				        <a class=" box clearfix" href="#">
+				            <div class="text">
+								<h3>七夕，给还没追到的女孩子送什么礼物比较好</h3>
+				                <p class="">挖故事</p>
+				            </div>
+				            <img class="" src="" alt="相关推荐图片">
+				        </a>
+				    </li>
+				    
+				    
+				    
+				</ul>
+			</div>
+		</div>
+	</body>
+
+</html>

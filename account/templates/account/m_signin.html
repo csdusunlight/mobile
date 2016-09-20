@@ -130,16 +130,30 @@
 		);
 		});
 	</script>
-	<script type="text/javascript" charset="utf-8">
-					var close = document.getElementById("close"),
-						login = document.getElementById("login");
-					//监听点击事件
-					if(close){
-						close.addEventListener("tap",function () {
-						  	login.style.display="none";
-						});
-					}
-		</script>
+	<script>
+		var close = document.getElementById("close"),
+			login = document.getElementById("login");
+		//监听点击事件
+		if(close){
+			close.addEventListener("tap",function () {
+			  	login.style.display="none";
+			});
+		}
+	</script>
+	{%if back %}
+	<script>
+	mui.back = function(){
+		var history = window.history;
+		if (history.length > 3 ){
+			history.go(-3);
+		}
+		else{
+			history.back();
+		}
+	};
+	</script>
+	{%endif%}
+		
 	</body>
 
 </html>

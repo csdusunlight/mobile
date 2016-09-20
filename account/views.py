@@ -311,7 +311,11 @@ def phoneImageV(request):
 
 @login_required
 def account(request):
-    return render(request, 'account/m_account_index.html', )
+    ref_url = request.META.get('HTTP_REFERER',"")
+    context={}
+    if 'next=' in ref_url:
+        context.update({'back':True})
+    return render(request, 'account/m_account_index.html', context)
 @login_required
 def account_settings(request):
     return render(request, 'account/m_account_settings.html', )
@@ -332,7 +336,11 @@ def signin(request):
         charge_score(user, '0', 5, u"签到奖励")
         if signed_conse_days%7 == 0:
             charge_score(user, '0', 20, u"连续签到7天奖励")
-    return render(request, 'account/m_signin.html',{'flag':flag})
+    context = {'flag':flag}
+    ref_url = request.META.get('HTTP_REFERER',"")
+    if 'next=' in ref_url:
+        context.update({'back':True})
+    return render(request, 'account/m_signin.html',context)
 def signin_record(request):
     if not request.is_ajax():
         raise Http404
