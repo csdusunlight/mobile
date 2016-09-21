@@ -28,49 +28,50 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_person.css' %}"/>
 </head>
 
-	<body>	
+	<body>
 		<div class="mui-content">
 			<div class="top">
+        <a class="diannao" href="#">切换到电脑版</a>
 				<img src="{% static 'images/user.png' %}" alt="用户头像" />
 				<a href="{% url 'account_settings' %}"><number>{{user.mobile}}</number></a>
 			</div>
-			
+
 			<div class="mui-row">
 		        <div class="mui-col-sm-4 mui-col-xs-4">
 		            <li class="first mui-table-view-cell">
 		                <a>
-		                    	累计收益（元）<br /><br /><span><number>{{user.accu_income}}</number></span>  
+		                    	累计收益（元）<br /><br /><span><number>{{user.accu_income}}</number></span>
 		                </a>
 		            </li>
 		        </div>
 		        <div class="mui-col-sm-4 mui-col-xs-4">
 		            <li class="mui-table-view-cell">
 		                <a>
-		                    	现金余额（元）<br /><br /><span><number>{{user.balance}}</number></span> 
+		                    	现金余额（元）<br /><br /><span><number>{{user.balance}}</number></span>
 		                </a>
 		            </li>
 		        </div>
 		        <div class="mui-col-sm-4 mui-col-xs-4">
 		            <li class="mui-table-view-cell">
 		                <a>
-		                    	剩余积分<br /><br /><span><number>{{user.scores}}</number></span> 
+		                    	剩余积分<br /><br /><span><number>{{user.scores}}</number></span>
 		                </a>
 		            </li>
 		        </div>
     		</div>
-    		
+
 			<ul class="mui-table-view">
 			        <li class="mui-table-view-cell">
 			            <a class="icon-02 mui-navigate-right">
-			                 资金管理			              
+			                 资金管理
 			            </a>
 			        </li>
 			        <li class="mui-table-view-cell">
 			            <a class="icon-03 mui-navigate-right">
 			                 	积分管理
 			            </a>
-			        </li>	
-			       
+			        </li>
+
 			</ul>
 			<ul class="mui-table-view">
 
@@ -93,9 +94,9 @@
 			            </a>
 			        </li>
 			</ul>
-			
+
 		</div>
-		
+
 		<!--底部导航-->
 	<footer>
     	<ul class="clearfix tc">

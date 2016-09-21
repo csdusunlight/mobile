@@ -1,7 +1,7 @@
 
 .mui-content {
 	/*background: #fff;*/
-	padding-bottom: 2rem;
+	/*padding-bottom: 2rem;*/
 }
 .mui-content .top {
 	padding: 2rem 0;
@@ -34,4 +34,19 @@
 	position: absolute;
 	right: 32px;
 	top: 13px;
+}
+.mui-content button {
+	padding: 0;
+	width: 60%;
+	height: 3.4rem;
+	margin-top: 2rem;
+	margin-left: 20%;
+	font-size: 1.2rem;
+}
+/*样式覆盖*/
+.mui-table-view:before {
+	height: 0;
+}
+.mui-table-view-cell {
+	padding: 14px 15px;
 }
