@@ -38,13 +38,15 @@ def welfare(request, id=None, type=None):
         except Welfare.DoesNotExist:
             raise Http404(u"该页面不存在")
         other_wel_list = Welfare.objects.filter(is_display=True, state='1').order_by('-view_count')[0:10]
-        template = 'detail-common.html'
+        template = ''
         if wel.type == "youhuiquan":
-            template = 'detail-youhuiquan.html'
+            template = 'm_detail_youhuiquan.html'
             wel = wel.couponproject
         elif wel.type == "hongbao":
+            template = 'm_detail_hongbao.html'
             wel = wel.hongbao
         elif wel.type == "baoyou":
+            template = 'm_detail_hongbao.html'
             wel = wel.baoyou
         return render(request, template,{'news':wel,'type':'Welfare', 'other_wel_list':other_wel_list})
     

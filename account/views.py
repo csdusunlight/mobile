@@ -54,9 +54,11 @@ def user_guide(request):
         if is_exist == 1:
             redirect_field_name=REDIRECT_FIELD_NAME
             redirect_to = request.GET.get(redirect_field_name, '')
+            print '1',redirect_to
             if not is_safe_url(url=redirect_to, host=request.get_host()):
                 redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
-            url = reverse('login') + '?' + redirect_field_name + '=' + redirect_to  + \
+            print '2',redirect_to
+            url = reverse('login') + '?' + redirect_field_name + '=' + redirect_to.urlencode(safe='/')  + \
                     '&mobile=' + mobile
         else:
             url = reverse('register') + '?mobile=' + mobile
@@ -92,6 +94,7 @@ def login(request, template_name='registration/m_login.html',
             result.update(code=0, url=redirect_to)
         else:
             result.update(code=1)
+        print redirect_to
         return JsonResponse(result);
     else:
         mobile = request.GET.get('mobile','')

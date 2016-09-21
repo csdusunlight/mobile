@@ -1,0 +1,109 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title></title>
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_detail_hongbao.css' %}"/>
+</head>
+	<body>	
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我提交的福利</h1>
+			<a class="share"></a>
+		</header>
+		<div class="mui-content">
+			<div class="ad">
+				<img src="{% static 'images/banner1.jpg' %}">
+				<h5>菜鸟果果每周六免费寄包裹</h5>
+			</div>
+			<!--体验步骤部分-->
+			<div class="taste">
+				<h3>体验步骤</h3>
+				
+				<h4>一、平台背景</h4>
+				<p>大众点评网于<number>2003</number>年<number>4</number>月成立于上海。大众点评是中国领先的本地生活信息及交易平台，也是全球最早建立的独立第三方消费点评网站。大众点评不仅为用户提供商户信息、消费点评及消费优惠等信息服务，同时亦提供团购、餐厅预订、外卖及电子会员卡等<span class="english">O2O（Online To Offline）</span>交易服务。大众点评是国内最早开发本地生活移动应用的企业，目前已成长为一家移动互联网公司，大众点评移动客户端已成为本地生活必备工具。</p>
+				
+				<h4>二、活动内容</h4>
+				<p><number>1、</number>点击“立即体验”扫二维码；</p>
+				<p><number>2、</number>参加活力吃货节；</p>
+				<p><number>3、</number>在大众点评手机APP使用该券即可。</p>
+				
+				<h4>三、活动步骤</h4>
+				<p><number>1、</number>这是首单券，需要输入没有注册过大众点评的手机号码才能领到，且这个券需要新设备（也就是没有用过大众点评的手机）才可以使用，不然用不了券。</p>
+				
+				<h4>四、活动备注</h4>
+				<p>使用菜鸟裹裹<span class="english">PP</span>A，选择上门取件服务；<br />
+					活动仅限首重范围内包裹免单，预约到第二天的订单不享受活动优惠；<br />
+					同一手机号、移动设备视为同一账号，每位用户仅限免除一单。</p>
+				
+			</div>
+			<!--温馨提示部分-->
+			<div class="prompt">
+				<h3>温馨提示</h3>
+				<p><number>1、</number>为了让您畅快的享受福利，请您务必按照体验步骤详情操作,并在完成后返回该页面提交相关数据，获取相应福利；</p>
+				<p><number>2、</number>投资有风险，入市需谨慎；挖福利尽最大可能的提供最优质的理财渠道、筛选有诚信的合作平台，但是挖福利不对合作平台提供任何的风险担保；</p>
+				<p><number>3、</number>挖福利对福利数据的审核具有最终解释权。</p>
+				<p class="contact">如有疑问请联系<strong>在线客服</strong>或拨打 <strong>服务热线：0734-8344414</strong></p>
+			</div>
+			<!--立即体验部分-->
+			<div class="try">
+				<div class="shuju">
+					<span>体验人数：<number>328</number></span>
+				    <span>活动日期：<number>2016.08.10-2016.08.21</number></span>
+				</div>
+				<button id="Btn" type="button" class="mui-btn mui-btn-blue mui-btn-block">立即体验</button>
+				
+			</div>
+		</div>
+		<!--弹出二维码部分-->
+		<div id="ding_yue" class="er-wei-ma">
+			<div class="box">
+				<span id="close_01" class="mui-icon mui-icon-close"></span>
+				<p>长安识别图中二维码</p>
+				<img src="{% static 'images/gongzhong.jpg' %}"/>
+				<p>这里是标题</p>
+			</div>		
+		</div>
+		
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<!--弹窗部分-->
+		<script type="text/javascript" charset="utf-8">
+		      	mui.init({
+					swipeBack:true //启用右滑关闭功能
+				});
+				var btn_01 = document.getElementById("Btn"),
+				close_01 = document.getElementById("close_01"),
+				login_01 = document.getElementById("ding_yue");
+				//监听点击事件
+				btn_01.addEventListener("tap",function () {
+				  login_01.style.display="block";
+				});
+
+				close_01.addEventListener("tap",function () {
+				  login_01.style.display="none";
+				});
+		</script>
+	</body>
+
+</html>
