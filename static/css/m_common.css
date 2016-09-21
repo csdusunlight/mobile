@@ -869,7 +869,7 @@ header .mui-btn-blue {
 }*/
 
 /*返回顶部部分*/
-.backTop { 
+.backTop {
 	position: fixed;
 	right: 0;
 	bottom: 6rem;
@@ -881,7 +881,51 @@ header .mui-btn-blue {
 	font-weight: 900 !important;
 	border-radius: 50%;
 	z-index: 1000;
-	background: #000 !important; 
+	background: #000 !important;
 	color: #fff;
 	opacity: 0.4;
+}
+/*输入框部分样式更改*/
+.mui-input-group .mui-input-row {
+	margin-top: 10px;
+}
+form {
+	width: 84%;
+	margin-left: 8%;
+}
+form.mui-input-group .mui-input-row:after {
+	left: 0;
+}
+.mui-input-group:after {
+	height: 0;
+}
+input::-webkit-input-placeholder {
+	opacity: 0.4;
+	font-size: 12px;
+}
+input:-moz-placeholder {
+	opacity: 0.4;
+	font-size: 12px;
+}
+input::-moz-placeholder {
+	opacity: 0.4;
+	font-size: 12px;
+}
+input:-ms-input-placeholder {
+	opacity: 0.4;
+	font-size: 12px;
+}
+
+/*边框分割线颜色部分*/
+img {
+	border-color: #f0f0f0 !important;
+}
+.mui-table-view-cell:after {
+	background-color: #f0f0f0 !important;
+}
+.mui-table-view:after {
+	height: 0;
+}
+.list {
+	border-color: #f0f0f0 !important;
 }

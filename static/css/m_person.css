@@ -1,10 +1,22 @@
 
 .mui-content .top {
+	position: relative;
 	padding: 2rem 0;
 	width: 100%;
 	/*height: 10rem;*/
 	background: url(../images/bg-user.png);
 	background-size: auto 100%;
+}
+.top .diannao {
+	position: absolute;
+	top: 0.6rem;
+	right: 0.4rem;
+	padding-left: 1.6rem;
+	margin-top: 0;
+	display: block;
+	font-size: 1rem;
+	/*background: url(../images/diannao.png) left center no-repeat;
+	background-size: 1.2rem auto;*/
 }
 .top img {
 	display: block;
@@ -16,7 +28,7 @@
 	text-align: center;
 	font-size: 1.4rem;
 	margin-top: 1rem;
-	color: #fff;	
+	color: #fff;
 }
 .top number {
 	padding-right: 2rem;
@@ -71,29 +83,30 @@
 	right: 32px;
 	top: 13px;
 }
-.mui-table-view .icon-01 {
-	padding-left: 5rem !important;
-	background: url(../images/sin-picon-01.png) 2rem center no-repeat;
-}
 .mui-table-view .icon-02 {
 	padding-left: 5rem !important;
-	background: url(../images/sin-picon-02.png) 2rem center no-repeat;
+	background: url(../images/sin-picon-03.jpg) 2rem center no-repeat;
+	background-size: 24px auto;
 }
 .mui-table-view .icon-03 {
 	padding-left: 5rem !important;
-	background: url(../images/sin-picon-03.png) 2rem center no-repeat;
+	background: url(../images/sin-picon-02.png) 2rem center no-repeat;
+	background-size: 24px auto;
 }
 .mui-table-view .icon-04 {
 	padding-left: 5rem !important;
-	background: url(../images/sin-picon-04.png) 2rem center no-repeat;
+	background: url(../images/sin-picon-04.jpg) 2rem center no-repeat;
+	background-size: 24px auto;
 }
 .mui-table-view .icon-05 {
 	padding-left: 5rem !important;
-	background: url(../images/sin-picon-05.png) 2rem center no-repeat;
+	background: url(../images/sin-picon-05.jpg) 2rem center no-repeat;
+	background-size: 24px auto;
 }
 .mui-table-view .icon-06 {
 	padding-left: 5rem !important;
-	background: url(../images/sin-picon-06.png) 2rem center no-repeat;
+	background: url(../images/sin-picon-06.jpg) 2rem center no-repeat;
+	background-size: 24px auto;
 }
 
 
@@ -123,4 +136,11 @@ footer li span {
 }
 footer li.on span {
 	color: #f08519;
+}
+/*样式覆盖*/
+.mui-table-view-cell {
+	padding: 14px 15px;
+}
+.mui-row .mui-table-view-cell>a:not(.mui-btn):active {
+	background: none;
 }
