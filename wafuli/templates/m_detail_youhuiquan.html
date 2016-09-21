@@ -29,7 +29,7 @@
 	<body>	
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">我提交的福利</h1>
+			<h1 class="mui-title">优惠券-内容页</h1>
 			<a class="share"></a>
 		</header>
 		<div class="mui-content">
@@ -40,23 +40,7 @@
 			<!--体验步骤部分-->
 			<div class="taste">
 				<h3>体验步骤</h3>
-				
-				<h4>一、平台背景</h4>
-				<p>大众点评网于<number>2003</number>年<number>4</number>月成立于上海。大众点评是中国领先的本地生活信息及交易平台，也是全球最早建立的独立第三方消费点评网站。大众点评不仅为用户提供商户信息、消费点评及消费优惠等信息服务，同时亦提供团购、餐厅预订、外卖及电子会员卡等<span class="english">O2O（Online To Offline）</span>交易服务。大众点评是国内最早开发本地生活移动应用的企业，目前已成长为一家移动互联网公司，大众点评移动客户端已成为本地生活必备工具。</p>
-				
-				<h4>二、活动内容</h4>
-				<p><number>1、</number>点击“立即体验”扫二维码；</p>
-				<p><number>2、</number>参加活力吃货节；</p>
-				<p><number>3、</number>在大众点评手机APP使用该券即可。</p>
-				
-				<h4>三、活动步骤</h4>
-				<p><number>1、</number>这是首单券，需要输入没有注册过大众点评的手机号码才能领到，且这个券需要新设备（也就是没有用过大众点评的手机）才可以使用，不然用不了券。</p>
-				
-				<h4>四、活动备注</h4>
-				<p>使用菜鸟裹裹<span class="english">PP</span>A，选择上门取件服务；<br />
-					活动仅限首重范围内包裹免单，预约到第二天的订单不享受活动优惠；<br />
-					同一手机号、移动设备视为同一账号，每位用户仅限免除一单。</p>
-				
+				<div class="detail-html">{{news.strategy|safe}}</div>
 			</div>
 			<!--温馨提示部分-->
 			<div class="prompt">
@@ -69,8 +53,8 @@
 			<!--立即体验部分-->
 			<div class="try">
 				<div class="shuju">
-					<span>体验人数：<number>328</number></span>
-				    <span>活动日期：<number>2016.08.10-2016.08.21</number></span>
+					<span>体验人数：<number>{{news.view_count}}</number></span>
+				    <span>活动日期：<number>{{news.time_limit}}</number></span>
 				</div>
 				<button id="Btn" type="button" class="mui-btn mui-btn-blue mui-btn-block">立即体验</button>
 				

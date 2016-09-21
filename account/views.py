@@ -38,6 +38,7 @@ from .transaction import charge_money, charge_score
 from account.tools import send_mail, get_client_ip
 from django.db import connection
 import logging
+from urllib import urlencode
 logger = logging.getLogger('wafuli')
 
 def user_guide(request):
@@ -54,12 +55,14 @@ def user_guide(request):
         if is_exist == 1:
             redirect_field_name=REDIRECT_FIELD_NAME
             redirect_to = request.GET.get(redirect_field_name, '')
-            print '1',redirect_to
             if not is_safe_url(url=redirect_to, host=request.get_host()):
                 redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
-            print '2',redirect_to
-            url = reverse('login') + '?' + redirect_field_name + '=' + redirect_to.urlencode(safe='/')  + \
-                    '&mobile=' + mobile
+            url_params = {
+                redirect_field_name:redirect_to,
+                'mobile':mobile,
+            }
+            pa = urlencode(url_params)
+            url = reverse('login')+'?'+pa
         else:
             url = reverse('register') + '?mobile=' + mobile
         return JsonResponse({'url':url})
@@ -94,7 +97,6 @@ def login(request, template_name='registration/m_login.html',
             result.update(code=0, url=redirect_to)
         else:
             result.update(code=1)
-        print redirect_to
         return JsonResponse(result);
     else:
         mobile = request.GET.get('mobile','')
@@ -954,7 +956,6 @@ def invite(request):
             else:
                 result['code'] = -2
                 result['res_msg'] = u'操作失败，请联系客服！'
-        print result
         return JsonResponse(result)
     
 def get_user_invite_page(request):

@@ -109,7 +109,7 @@
 		function pullupRefresh() {
 			get_wel_list(count++);
 		}
-		mui('.mui-content div').on('tap', 'a', function() {
+		mui('.mui-content').on('tap', 'a', function() {
 	        var id = this.getAttribute('href');
 	        mui.openWindow({
 	            url: this.href,
