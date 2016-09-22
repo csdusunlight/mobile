@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^exp_wel_erweima/$', 'wafuli.welfare.exp_welfare_erweima', name='exp_welfare_erweima'),
     url(r'^exp_wel_openwindow/$', 'wafuli.welfare.exp_welfare_openwindow', name='exp_welfare_openwindow'),
     url(r'^exp_wel_youhuiquan/$', 'wafuli.welfare.exp_welfare_youhuiquan', name='exp_welfare_youhuiquan'),
+    url(r'^get_coupon_success/$', 'wafuli.welfare.get_coupon_success', name='get_coupon_success'),
     url(r'^expsubmit/$', 'wafuli.views.expsubmit', name='expsubmit'),
     url(r'^lookup_order/$', 'wafuli.views.lookup_order', name='lookup_order'),
     url(r'^submit_order/$', 'wafuli.views.submit_order', name='submit_order'),

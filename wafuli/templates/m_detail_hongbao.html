@@ -100,8 +100,8 @@
 									document.getElementById("ding_yue").style.display="block";
 								}
 							},
-							error:function(){
-								alert("请检查网络连接");
+							error:function(xhr,type,errorThrown){
+								mui.alert(type);
 							}
 						});
 					}
@@ -114,5 +114,18 @@
 				document.getElementById("ding_yue").style.display="none";
 			});
 		</script>
-
+	{%if back %}
+		<script>
+		mui.back = function(){
+			var history = window.history;
+			if (history.length > 3 ){
+				history.go(-3);
+			}
+			else{
+				history.back();
+			}
+		};
+		</script>
+	{%endif%}
+	</body>
 </html>

@@ -48,7 +48,11 @@ def welfare(request, id=None, type=None):
         elif wel.type == "baoyou":
             template = 'm_detail_hongbao.html'
             wel = wel.baoyou
-        return render(request, template,{'news':wel,'type':'Welfare', 'other_wel_list':other_wel_list})
+        context = {'news':wel,'type':'Welfare', 'other_wel_list':other_wel_list}
+        ref_url = request.META.get('HTTP_REFERER',"")
+        if 'next=' in ref_url:
+            context.update({'back':True})
+        return render(request, template, context)
     
 def exp_welfare_erweima(request):
     if not request.is_ajax():
@@ -117,9 +121,11 @@ def exp_welfare_youhuiquan(request):
         result['code'] = '4'
         return JsonResponse(result)
     draw_count = user.user_coupons.filter(project=wel).count()
+    print draw_count, wel.claim_limit
     if draw_count >= wel.claim_limit:
         result['code'] = '2'
         return JsonResponse(result)
+    coupon = None
     if wel.ctype == '2':
         coupon = Coupon.objects.filter(project=wel,user__isnull=True).first()
         if coupon is None:
@@ -129,9 +135,17 @@ def exp_welfare_youhuiquan(request):
         coupon.time = datetime.datetime.now()
         coupon.save(update_fields=['user','time'])
     else:
-        Coupon.objects.create(user=user, project=wel)
+        coupon = Coupon.objects.create(user=user, project=wel)
     result['code'] = '3'
+    result['coupon_id'] = coupon.id
     return JsonResponse(result)
+
+def get_coupon_success(request):
+    id = request.GET.get('id',None)
+    if not id:
+        raise Http404
+    coupon = Coupon.objects.get(id=id)
+    return render(request, 'm_get_coupon_success.html', {'coupon':coupon})
 
 def welfare_json(request):
     count = int(request.GET.get('count', 0))

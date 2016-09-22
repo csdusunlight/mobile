@@ -68,7 +68,11 @@ def finance(request, id=None):
             raise Http404(u"该页面不存在")
         update_view_count(news)
         other_wel_list = Finance.objects.filter(state='1').order_by('-view_count')[0:10]
-        return render(request, 'm_detail_taskandfinance.html',{'news':news,'type':'Finance','other_wel_list':other_wel_list})
+        context = {'news':news,'type':'Finance','other_wel_list':other_wel_list}
+        ref_url = request.META.get('HTTP_REFERER',"")
+        if 'next=' in ref_url:
+            context.update({'back':True})
+        return render(request, 'm_detail_taskandfinance.html',context)
         
 def task(request, id=None):
     if id is None:
@@ -87,7 +91,11 @@ def task(request, id=None):
             raise Http404(u"该页面不存在")
         update_view_count(news)
         other_wel_list = Task.objects.filter(state='1').order_by('-view_count')[0:10]
-        return render(request, 'm_detail_taskandfinance.html',{'news':news,'type':'Task','other_wel_list':other_wel_list})
+        context = {'news':news,'type':'Task','other_wel_list':other_wel_list}
+        ref_url = request.META.get('HTTP_REFERER',"")
+        if 'next=' in ref_url:
+            context.update({'back':True})
+        return render(request, 'm_detail_taskandfinance.html', context)
     
 def commodity(request, id):
     id = int(id)

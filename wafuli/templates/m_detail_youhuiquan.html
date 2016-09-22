@@ -60,34 +60,69 @@
 				
 			</div>
 		</div>
-		<!--弹出二维码部分-->
-		<div id="ding_yue" class="er-wei-ma">
-			<div class="box">
-				<span id="close_01" class="mui-icon mui-icon-close"></span>
-				<p>长安识别图中二维码</p>
-				<img src="{% static 'images/gongzhong.jpg' %}"/>
-				<p>这里是标题</p>
-			</div>		
-		</div>
+		
 		
 		<script src="{% static 'js/mui.min.js' %}"></script>
 		<!--弹窗部分-->
 		<script type="text/javascript" charset="utf-8">
-		      	mui.init({
-					swipeBack:true //启用右滑关闭功能
-				});
-				var btn_01 = document.getElementById("Btn"),
-				close_01 = document.getElementById("close_01"),
-				login_01 = document.getElementById("ding_yue");
-				//监听点击事件
-				btn_01.addEventListener("tap",function () {
-				  login_01.style.display="block";
-				});
-
-				close_01.addEventListener("tap",function () {
-				  login_01.style.display="none";
-				});
+				var id = '{{news.id}}'
+		      	mui.init();
+		      	mui.ready(function(){
+			      	document.getElementById("Btn").addEventListener('tap', function() {
+			    		mui.ajax({
+			    			url:"{%url 'exp_welfare_youhuiquan' %}?id=" + id,
+			    			dataType:"json",
+			    			success:function(ret){
+			    				if(ret.code==0){
+			    					window.location.href = ret.url;
+			    				}
+			    				else if(ret.code==1){
+			    					mui.alert("抱歉，该优惠券已被领取完了");
+			    				}
+			    				else if(ret.code==2){
+			    					mui.alert("抱歉，您已达到领取次数上限");
+			    				}
+			    				else if(ret.code==3){
+			    					var coupon_id = ret.coupon_id;
+			    					mui.openWindow({
+			    			            url: "{% url 'get_coupon_success' %}?id=" + coupon_id,
+			    			            styles: {
+			    			                top: 0,
+			    			                bottom: 0
+			    			            },
+			    			            show: {
+			    			                aniShow: 'slide-in-right',
+			    			            },
+			    			            waiting: {
+			    			                autoShow: false, //自动显示等待框
+			    			                title: '正在加载...', //等待对话框上显示的提示内容
+			    			            }
+			    			        });
+			    				}
+			    				else if(ret.code==4){
+			    					mui.alert("抱歉，该项目已结束");
+			    				}
+			    			},
+			    			error:function(xhr,type,errorThrown){
+								mui.alert(type);
+							}
+			    		});
+			    	});
+		      	});
 		</script>
+	{%if back %}
+		<script>
+		mui.back = function(){
+			var history = window.history;
+			if (history.length > 3 ){
+				history.go(-3);
+			}
+			else{
+				history.back();
+			}
+		};
+		</script>
+	{%endif%}
 	</body>
 
 </html>

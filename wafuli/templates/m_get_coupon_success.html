@@ -1,0 +1,83 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title></title>
+    <script src="{% static 'js/mui.min.js' %}"></script>
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_get_coupon_success.css' %}"/>
+</head>
+
+	<body>	
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">优惠券</h1>
+			<a class="share"></a>
+		</header>
+		<div class="mui-content">
+			<!--提示消息部分-->
+			<div class="msg clearfix">
+				<img src="{% static 'images/yes.png' %}" alt="提示图标" />
+				<div class="text">
+					<p>恭喜您，已成功领取优惠券<br />
+					<span>可在<a href="{% url 'account_index' %}">个人中心</a>—<a href="#">我的优惠券</a>—<a href="#">使用券</a>中查看</span></p>
+				</div>
+			</div>
+			<!--优惠券部分-->
+			<div class="box">
+				<div class="benefit clearfix">
+					<img src="{{coupon.project.pic.url}}" alt="提示图标" />
+					<p>{{coupon.project.title}}<br />
+						有效日期：<number>{{coupon.project.time_limit}}</number></p>	
+				</div>
+				<p>优惠券代码：<number>{{coupon.project.exchange_code}}</number></p>
+				<!--查看使用部分-->
+				<div class="btn">
+					<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">查看优惠券</button>&nbsp;
+					<button id="useCoupon" type="button" class="mui-btn mui-btn-blue" href="{{coupon.project.exp_url}}">马上使用</button>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+		mui.init();
+		document.getElementById('useCoupon').addEventListener('tap',function(){
+			var url = this.getAttribute('href');
+			mui.openWindow({
+	            url: url,
+	            styles: {
+	                top: 0,
+	                bottom: 0
+	            },
+	            show: {
+	                aniShow: 'slide-in-right',
+	            },
+	            waiting: {
+	                autoShow: false, //自动显示等待框
+	                title: '正在加载...', //等待对话框上显示的提示内容
+	            }
+	        });
+		});
+    </script>
+	</body>
+
+</html>

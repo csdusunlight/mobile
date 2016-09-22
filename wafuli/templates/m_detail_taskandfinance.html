@@ -110,11 +110,20 @@
 					  login_01.style.display="none";
 					});
 					
-//				document.getElementById("Btn").addEventListener('tap', function() {
-//					mui.alert('您来慢了一步，该优惠券已被领完了！', '抱歉', function() {
-//					});
-//				});
 		</script>
+	{%if back %}
+		<script>
+		mui.back = function(){
+			var history = window.history;
+			if (history.length > 3 ){
+				history.go(-3);
+			}
+			else{
+				history.back();
+			}
+		};
+		</script>
+	{%endif%}
 	</body>
 
 </html>
