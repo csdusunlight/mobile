@@ -6,24 +6,30 @@
 	font-size: 1.3rem;
 	line-height: 3rem;
 	border-bottom: 1px solid #e9e8e8;
+	background: #fff;
 }
-.taste {
+.taste,
+.taste-02,
+.prompt {
 	padding: 0 1.875% 0;
+	background: #fff;
 }
-.taste h3, .prompt h3 {
+.taste h3, 
+.taste-02 h3,
+.prompt h3 {
 	margin-top: 1rem;
 	padding-left: 2.6rem;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 	color: #222;
 	font-size: 1.6rem;
-	/*line-height: 5rem;;*/
+	color: #008fd7;
 }
-.taste h3{
+.taste-02 h3{
 	background: url(../images/task-04.png) left center no-repeat;
 	background-size: 2rem; auto;
 }
-.taste h3.reward {
+.taste h3 {
 	background: url(../images/task-03.png) left center no-repeat;
 	background-size: 2rem; auto;
 }
@@ -66,4 +72,56 @@ p a {
 }
 .right{
 	/*margin-left: 10%;*/
+}
+/*弹出层部分*/
+.er-wei-ma {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	display: none;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 1000;
+}
+.er-wei-ma .box {
+	position: relative;
+	width: 90% !important;
+	/*height: 40rem;*/
+	padding: 10% 0;
+	margin-top: 30%;
+	margin-left: 5%;
+	background: #fff;
+}
+.er-wei-ma .box p {
+	font-size: 1.6rem;
+	color: #333;
+	text-align: center;
+}
+.er-wei-ma .box img {
+	text-align: center;
+	width: 90%;
+	margin-left: 5%;
+}
+.er-wei-ma span {
+	position: absolute;
+	left: 0.4rem;
+	top: 0.4rem;
+	font-size: 3rem;
+}
+.er-wei-ma span:active {
+	color: #ff6767;
+}
+/*样式替换*/
+.mui-btn-blue {
+	color: #fff;
+	border: none;
+	border: 1px solid #e4e4e4;
+}
+.left-btn button {
+	border-right: none;
+}
+/*.mui-btn-blue:enabled:active,
+.mui-btn-blue.mui-active:enabled {
+	color: #fff;
+	border: 1px solid #008fd7;
+	background-color: #008fd7;*/
 }

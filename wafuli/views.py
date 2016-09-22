@@ -14,6 +14,7 @@ from wafuli_admin.models import DayStatis, GlobalStatis, RecommendRank
 from account.models import MyUser
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
+from django.contrib.auth.decorators import login_required
 logger = logging.getLogger('wafuli')
 from .tools import listing, update_view_count
 import re
@@ -141,58 +142,57 @@ def aboutus(request):
 #         url = news.exp_url
 #     result = {'code':code, 'url':url}
 #     return JsonResponse(result)
+@login_required
 def expsubmit(request):
-    if not request.is_ajax():
-        logger.warning("Expsubmit refused no-ajax request!!!")
-        raise Http404
-    code = '0'
-    url = ''
-    if not request.user.is_authenticated():
-        url = reverse('login') + '?next=' + request.META['HTTP_REFERER']
-        result = {'code':code, 'url':url}
-        return JsonResponse(result)
-    news_id = request.POST.get('id', None)
-    news_type = request.POST.get('type', None)
-    is_futou = request.POST.get('is_futou', '0')
-    telnum = request.POST.get('telnum', None)
-    telnum = str(telnum).strip()
-    remark = request.POST.get('remark', '')
-    if not (news_id and news_type and telnum):
-        logger.error("news_id or news_type is missing!!!")
-        raise Http404
-    if len(telnum)>100 or len(remark)>200:
-        code = '3'
-        msg = u'账号或备注过长！'
+    if request.method == 'POST':
+        if not request.is_ajax():
+            logger.warning("Expsubmit refused no-ajax request!!!")
+            raise Http404
+        code = '0'
+        url = ''
+        news_id = request.POST.get('id', None)
+        news_type = request.POST.get('type', None)
+        is_futou = request.POST.get('is_futou', '0')
+        telnum = request.POST.get('telnum', None)
+        telnum = str(telnum).strip()
+        remark = request.POST.get('remark', '')
+        if not (news_id and news_type and telnum):
+            logger.error("news_id or news_type is missing!!!")
+            raise Http404
+        if len(telnum)>100 or len(remark)>200:
+            code = '3'
+            msg = u'账号或备注过长！'
+            result = {'code':code, 'msg':msg}
+            return JsonResponse(result)
+        news = None
+        model = globals()[news_type]
+    #     if news.state != '1':
+    #         code = '4'
+    #         msg = u'该项目已结束或未开始！'
+    #         result = {'code':code, 'msg':msg}
+    #         return JsonResponse(result)
+        if str(is_futou)=='1':
+            remark = u"复投：" + remark
+        try:
+            with transaction.atomic():
+                news = model.objects.get(pk=news_id)
+                info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + is_futou
+                logger.info(info_str)
+                if str(is_futou)!='1' and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+                    raise ValueError('This invest_account is repective in project:' + str(news.id))
+                else:
+                    UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum,
+                                     content_object=news, audit_state='1',remark=remark,)
+                    code = '1'
+                    msg = u'提交成功，请通过用户中心查询！'
+        except Exception, e:
+            logger.info(e)
+            code = '2'
+            msg = u'该注册手机号已被提交过，请不要重复提交！'
         result = {'code':code, 'msg':msg}
         return JsonResponse(result)
-    news = None
-    model = globals()[news_type]
-#     if news.state != '1':
-#         code = '4'
-#         msg = u'该项目已结束或未开始！'
-#         result = {'code':code, 'msg':msg}
-#         return JsonResponse(result)
-    if str(is_futou)=='1':
-        remark = u"复投：" + remark
-    try:
-        with transaction.atomic():
-            news = model.objects.get(pk=news_id)
-            info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + is_futou
-            logger.info(info_str)
-            if str(is_futou)!='1' and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
-                raise ValueError('This invest_account is repective in project:' + str(news.id))
-            else:
-                UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum,
-                                 content_object=news, audit_state='1',remark=remark,)
-                code = '1'
-                msg = u'提交成功，请通过用户中心查询！'
-    except Exception, e:
-        logger.info(e)
-        code = '2'
-        msg = u'该注册手机号已被提交过，请不要重复提交！'
-    result = {'code':code, 'msg':msg}
-    return JsonResponse(result)
-
+    else:
+        return render(request, 'm_expsubmit.html',)
 def mall(request):
     ad_list = Advertisement.objects.filter(location__in=['0','5'],is_hidden=False)[0:8]
     help_list = Press.objects.filter(type='5')[0:10]

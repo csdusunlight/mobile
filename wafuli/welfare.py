@@ -218,6 +218,7 @@ def task_json(request):
         item_list = item_list.filter(amount_to_invest__gt=100)
     item_list = item_list[start:start+6]
     for wel in item_list:
+        print wel.url
         data.append({
             "title":wel.title,
             "time":wel.time_limit,

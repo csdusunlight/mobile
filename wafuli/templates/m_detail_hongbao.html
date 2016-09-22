@@ -58,7 +58,7 @@
 					<span>体验人数：<number>{{news.view_count}}</number></span>
 				    <span>活动日期：<number>{{news.time_limit}}</number></span>
 				</div>
-				<button id="Btn" type="button" class="mui-btn mui-btn-blue mui-btn-block">立即体验</button>
+				<button id="exp_btn" type="button" class="mui-btn mui-btn-blue mui-btn-block">立即体验</button>
 				
 			</div>
 		</div>
@@ -85,14 +85,13 @@
 			var url_openwindow = "{% url 'exp_welfare_openwindow' %}";
 			{%endif%}
 			mui.ready(function(){
-				document.getElementById("Btn").addEventListener('tap', function() {
+				document.getElementById("exp_btn").addEventListener('tap', function() {
 					if(ismobile){
 						mui.ajax({
 							url:url_get_erweima + "?id=" + id + "&type=" + type,
 							dataType:"json",
 							success:function(ret){
 								if(ret.code==0){
-									mui.alert("请先登录！")
 									window.location.href = ret.url;
 								}
 								else if(ret.code==1){
@@ -109,9 +108,9 @@
 						window.open(url_openwindow + "?id=" + id + "&type=" + type);
 					}
 				});
-			});
-			document.getElementById("close_01").addEventListener('tap', function() {
-				document.getElementById("ding_yue").style.display="none";
+				document.getElementById("close_01").addEventListener('tap', function() {
+					document.getElementById("ding_yue").style.display="none";
+				});
 			});
 		</script>
 	{%if back %}
