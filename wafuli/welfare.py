@@ -108,7 +108,7 @@ def exp_welfare_youhuiquan(request):
         raise Http404
     result = {}
     if not user.is_authenticated():
-        url = reverse('login') + '?next=' + request.META['HTTP_REFERER']
+        url = reverse('user_guide') + '?next=' + request.META['HTTP_REFERER']
         result['url'] = url
         result['code'] = '0'
         return JsonResponse(result)
