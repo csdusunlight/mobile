@@ -36,10 +36,10 @@
 		</header>
 		<div class="mui-content">
 			<form class="mui-input-group">
-				
+				{% csrf_token %}
 				<div class="mui-input-row">
 					<label>注册手机号</label>
-					<input type="text" placeholder="请输入注册手机号">
+					<input id="telnum" type="text" maxlength=11 placeholder="请输入注册手机号">
 				</div>
 				
 				    <!--<label>是否复投：</label>-->
@@ -54,16 +54,16 @@
 			        <div class="mui-col-sm-4 mui-col-xs-4">
 			            <li class="mui-table-view-cell" style="padding-left:0;">
 			            	<span class="mui-radio">
-				    		<input name="radio" type="radio" >
-			                <label>是</label>
+				    		<input name="radio" type="radio" checked="checked">
+			                <label>否</label>
 			                </span>
 			            </li>
 			        </div>
 			        <div class="mui-col-sm-4 mui-col-xs-4">
 			            <li class="mui-table-view-cell" style="padding-left:0;">
 			            	<span class="mui-radio">
-				    		<input name="radio" type="radio" >
-			                <label>否</label>
+				    		<input name="radio" type="radio">
+			                <label>是</label>
 			                </span>
 			            </li>
 			        </div>
@@ -72,21 +72,69 @@
 			</form>
 			<div class="mui-input-row beizhu" style="margin: 10px 5px;">
 				<p>备注:</p>
-				<textarea id="textarea" rows="3" placeholder="请输入备注信息"></textarea>
+				<textarea id="remark" rows="3" placeholder="请输入备注信息"></textarea>
 			</div>
-			<button id="Btn" type="button" class="mui-btn mui-btn-blue">确认提交</button>
+			<button id="submit_btn" type="button" class="mui-btn mui-btn-blue">确认提交</button>
 		</div>
 		<script src="{%static 'js/mui.min.js'%}"></script>
 		<!--弹窗部分-->
 		<script type="text/javascript" charset="utf-8">
+				var id = '{{id}}';
+				var type = '{{type}}';
 		      	mui.init({
 					swipeBack:true //启用右滑关闭功能
 				});
-					document.getElementById("Btn").addEventListener('tap', function() {
-						mui.alert('您输入的注册手机号有误，请重新输入', '抱歉', function() {
-						});
+				document.getElementById("submit_btn").addEventListener('tap', function() {
+					var telnum = document.getElementById('telnum').value;
+					var remark = document.getElementById('remark').value;
+					var re=/^1[1,2,3,4,6,5,7,8,9]\d{9}$/;
+					if(!re.test(telnum)){
+						mui.alert("手机号格式不正确！");
+						return;
+					}
+					var is_futou = 0;
+					var chkObjs = document.getElementsByName("radio");
+	                for(var i=0;i<chkObjs.length;i++){
+	                    if(chkObjs[i].checked){
+	                    	is_futou = i;
+	                        break;
+	                    }
+	                }
+	                var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+					mui.ajax({
+						url:"{%url 'expsubmit' %}",
+						type:'post',
+						data:{
+							'type':type,
+							'id':id,
+							'is_futou':is_futou,
+							'telnum':telnum,
+							'remark':remark,
+							csrfmiddlewaretoken:csrfmiddlewaretoken
+						},
+						dataType:"json",
+						success:function(ret){
+							mui.alert(ret.msg);
+						},
+						error:function(){
+							alert("请检查网络连接");
+						}
 					});
+				});
 		</script>
+	{%if back %}
+		<script>
+		mui.back = function(){
+			var history = window.history;
+			if (history.length > 3 ){
+				history.go(-3);
+			}
+			else{
+				history.back();
+			}
+		};
+		</script>
+	{%endif%}
 	</body>
 
 </html>

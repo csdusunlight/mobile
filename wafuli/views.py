@@ -156,8 +156,9 @@ def expsubmit(request):
         telnum = request.POST.get('telnum', None)
         telnum = str(telnum).strip()
         remark = request.POST.get('remark', '')
+        print news_id , news_type , telnum
         if not (news_id and news_type and telnum):
-            logger.error("news_id or news_type is missing!!!")
+            logger.error("news_id or news_type or telnum is missing!!!")
             raise Http404
         if len(telnum)>100 or len(remark)>200:
             code = '3'
@@ -192,7 +193,13 @@ def expsubmit(request):
         result = {'code':code, 'msg':msg}
         return JsonResponse(result)
     else:
-        return render(request, 'm_expsubmit.html',)
+        wel_type = request.GET.get('type', '')
+        wel_id = request.GET.get('id', '')
+        context = {'id':wel_id, 'type':wel_type}
+        ref_url = request.META.get('HTTP_REFERER',"")
+        if 'next=' in ref_url:
+            context.update({'back':True})
+        return render(request, 'm_expsubmit.html', context)
 def mall(request):
     ad_list = Advertisement.objects.filter(location__in=['0','5'],is_hidden=False)[0:8]
     help_list = Press.objects.filter(type='5')[0:10]
