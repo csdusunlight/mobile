@@ -29,11 +29,17 @@
 .mui-table-view li {
 	position: relative;
 }
+.mui-table-view-cell a {
+	color: #222 !important;
+}
+.mui-table-view-cell a span {
+	color: #bbb;
+}
 .mui-table-view li span {
 	font-size: 14px;
 	position: absolute;
 	right: 32px;
-	top: 13px;
+	top: 15px;
 }
 .mui-content button {
 	padding: 0;

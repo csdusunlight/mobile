@@ -41,7 +41,7 @@
 	padding-bottom: 2rem;
 	background: #fff;
 	box-shadow: 0 1px 3px #e4e4e4;
-	margin-bottom: 1rem;
+	/*margin-bottom: 1rem;*/
 }
 .mui-row li {
 	list-style: none;
@@ -60,7 +60,7 @@
 .mui-row li:not(.first):after {
 	position: absolute;
 	left: 0px;
-	top: -1.2rem;
+	top: -0.4rem;
 	width: 1px;
 	height: 7rem;
 	display: inline-block;
@@ -68,7 +68,7 @@
 /*	border-left: 1px solid #e4e4e4;*/
 }
 .mui-table-view {
-	margin-top: 0.6rem;
+	margin-top: 1rem;
 	box-shadow: 0 1px 3px #e4e4e4;
 }
 .mui-table-view:before {
@@ -76,6 +76,9 @@
 }
 .mui-table-view li {
 	position: relative;
+}
+.mui-table-view li a {
+	color: #222 !important;
 }
 .mui-table-view li span {
 	font-size: 14px;
@@ -108,7 +111,11 @@
 	background: url(../images/sin-picon-06.jpg) 2rem center no-repeat;
 	background-size: 24px auto;
 }
-
+.mui-table-view .icon-07 {
+	padding-left: 5rem !important;
+	background: url(../images/sin-picon-07.png) 2rem center no-repeat;
+	background-size: 22px auto;
+}
 
 /*底部导航部分*/
 footer {

@@ -14,7 +14,7 @@
 	padding: 0 1.875% 0;
 	background: #fff;
 }
-.taste h3, 
+.taste h3,
 .taste-02 h3,
 .prompt h3 {
 	margin-top: 1rem;
@@ -78,6 +78,7 @@ p a {
 	position: fixed;
 	top: 0;
 	bottom: 0;
+	width: 100%;
 	display: none;
 	background-color: rgba(0,0,0,0.5);
 	z-index: 1000;
