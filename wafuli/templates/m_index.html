@@ -35,10 +35,10 @@
 <div id="pullrefresh" class="mui-scroll-wrapper">
 
 <div class="mui-content">
-	<header class="clearfix">
+<!-- 	<header class="clearfix">
 	    <img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
 	    <a class="fr" id="switch_device"><img src="{%static 'images/diannao.png'%}" alt="前往pc端" /></a>
-	</header>
+	</header> -->
 	<!--banner部分-->
 	<div id="slider" class="mui-slider" >
 	  <div class="mui-slider-group mui-slider-loop">
@@ -119,7 +119,7 @@
                         <span><number>9.9</number>包邮</span>
                     </a>
                 </li>
-            	<li>
+            	<li id="Btn">
                 	<a href="#">
                     	<img src="{%static 'images/nav-pic8.png'%}" />
                         <span>微信公众号</span>
@@ -190,6 +190,15 @@
             </li>
         </ul>
    </footer>
+   <!--弹出二维码部分-->
+    <div id="gong_zhong" class="er-wei-ma">
+        <div class="box">
+            <span id="close_01" class="mui-icon mui-icon-closeempty"></span>
+            <p>长安识别图中二维码</p>
+            <img src="images/gongzhong.jpg"/>
+            <p>微信公众号</p>
+        </div>
+    </div>
     <script type="text/javascript" charset="utf-8">
       	mui.init({
 				pullRefresh: {
@@ -283,10 +292,22 @@
 		gallery.slider({
 			interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
 		});
-    </script>
-    <script src="{%static 'js/cookie.js'%}"></script>
-    <script>
 
     </script>
+    <script>
+        var btn_01 = document.getElementById("Btn"),
+            close_01 = document.getElementById("close_01"),
+            gong_zhong = document.getElementById("gong_zhong");
+        //监听点击事件
+        btn_01.addEventListener("tap",function () {
+          gong_zhong.style.display="block";
+        });
+
+        close_01.addEventListener("tap",function () {
+          gong_zhong.style.display="none";
+        });
+    </script>
+    <script src="{%static 'js/cookie.js'%}"></script>
+
 </body>
 </html>

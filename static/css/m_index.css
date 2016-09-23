@@ -78,7 +78,7 @@ header a img {
 	padding: 0.4rem 0 0.6rem;
 	display: block;
 	font-size: 1.2rem;
-	color: #777;
+	color: #333;
 }
 
 /*今日推荐部分*/
@@ -253,6 +253,44 @@ footer li span {
 }
 footer li.on span {
 	color: #f08519;
+}
+/*弹出层部分*/
+.er-wei-ma {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	display: none;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 1000;
+}
+.er-wei-ma .box {
+	position: relative;
+	width: 90% !important;
+	/*height: 40rem;*/
+	padding: 10% 0;
+	margin-top: 30%;
+	margin-left: 5%;
+	background: #fff;
+}
+.er-wei-ma .box p {
+	font-size: 1.6rem;
+	color: #333;
+	text-align: center;
+}
+.er-wei-ma .box img {
+	text-align: center;
+	width: 90%;
+	margin-left: 5%;
+}
+.er-wei-ma span {
+	position: absolute;
+	left: 0.4rem;
+	top: 0.4rem;
+	font-size: 3rem;
+}
+.er-wei-ma span:active {
+	color: #ff6767;
 }
 <<<<<<< HEAD
 =======
