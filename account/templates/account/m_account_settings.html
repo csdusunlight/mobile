@@ -58,20 +58,14 @@
 			</div>
 			<ul class="mui-table-view">
 		        <li class="mui-table-view-cell">
-		            <a>
-		                手机绑定 <number>（{{user.mobile}}）</number>
-		                
-		            </a>
+		            <a>手机绑定 <number>（{{user.mobile}}）</number></a>
 		        </li>
 		        <li class="mui-table-view-cell">
-		            <a class="mui-navigate-right">
-						支付宝绑定
-			             {%if user.zhifubao %}
-			             <number>（{{user.zhifubao}}）</number><span>更换</span>   	
-			             {%else%}
-			             <number>（未绑定）</number><span>绑定</span>
-			             {%endif%}
-		            </a>
+		             {%if user.zhifubao %}
+		             <a class="mui-navigate-right" href="{%url 'change_zhifubao'%}">支付宝绑定<number>（{{user.zhifubao}}）</number><span>更换</span></a>
+		             {%else%}
+		             <a class="mui-navigate-right" href="{%url 'bind_zhifubao'%}">支付宝绑定<number>（未绑定）</number><span>绑定</span></a>
+		             {%endif%}
 		        </li>
 		        
 		    </ul>

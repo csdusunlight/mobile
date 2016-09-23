@@ -498,10 +498,6 @@ def get_user_score_page(request):
 @login_required
 def security(request):
     return render(request, 'account/account_security.html', {})
-@login_required
-def alipay(request):
-    return render(request, 'account/account_alipay.html', {})
-
 def password_change(request):
     if not request.is_ajax():
         raise Http404
@@ -576,22 +572,41 @@ def active_email(request):
         except Exception, e:
             logger.error(str(e))
             raise Http404
+
+@login_required
 def bind_zhifubao(request):
-    result={'code':-1, 'url':''}
-    if not request.is_ajax():
-        raise Http404
-    user = request.user
-    if not user.is_authenticated():
-        result['code'] = 1
-        result['url'] = reverse('login') + "?next=" + reverse('bind_zhifubao')
-        return JsonResponse(result)
     if request.method == 'POST':
+        if not request.is_ajax():
+            raise Http404
+        result={'code':-1, 'url':''}
+        user = request.user
+        zhifubao = request.POST.get("account", '')
+        zhifubao_name = request.POST.get("name", '')
+        if not user.zhifubao:
+            user.zhifubao = zhifubao
+            user.zhifubao_name = zhifubao_name
+            user.save(update_fields=["zhifubao","zhifubao_name",])
+            result['code'] = 0
+        else:
+           result['code'] = 3 
+           result['res_msg'] = u'您已绑定过支付宝，请通过账户管理功能查看！'
+        return JsonResponse(result)
+    else:
+        return render(request, 'account/m_account_bind_zhifubao.html')
+
+@login_required
+def change_zhifubao(request):
+    if request.method == 'POST':
+        if not request.is_ajax():
+            raise Http404
+        result={'code':-1, 'url':''}
+        user = request.user
         zhifubao = request.POST.get("account", '')
         zhifubao_name = request.POST.get("name", '')
         telcode = request.POST.get("code", '')
         ret = verifymobilecode(user.mobile,telcode)
         if ret != 0:
-            result['code'] = '2'
+            result['code'] = 2
             if ret == -1:
                 result['res_msg'] = u'请先获取手机验证码'
             elif ret == 1:
@@ -603,16 +618,9 @@ def bind_zhifubao(request):
         user.zhifubao_name = zhifubao_name
         user.save(update_fields=["zhifubao","zhifubao_name",])
         result['code'] = 0
-    elif request.method == 'GET':
-        if user.zhifubao:
-            raise Http404
-        zhifubao = request.GET.get("account", '')
-        zhifubao_name = request.GET.get("name", '')
-        user.zhifubao = zhifubao
-        user.zhifubao_name = zhifubao_name
-        user.save(update_fields=["zhifubao","zhifubao_name",])
-        result['code'] = 0
-    return JsonResponse(result)
+        return JsonResponse(result)
+    else:
+        return render(request, 'account/m_account_change_zhifubao.html')
 
 @login_required
 def money(request):
@@ -736,7 +744,7 @@ def coupon(request):
         'exc_num' : coupons.filter(project__ctype='2').count()
     }
     return render(request, 'account/account_coupon.html', {'dict':dict})
-def get_user_coupon_page(request):
+def user_coupon_json(request):
     res={'code':0,}
     if not request.user.is_authenticated():
         res['code'] = -1
@@ -762,7 +770,7 @@ def get_user_coupon_page(request):
     # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
     data = []
-    for con in contacts:  
+    for con in contacts:
         project = con.project
         i = {"title":project.title,
              "amount":project.amount,
