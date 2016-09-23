@@ -45,7 +45,7 @@
     </script>
 </head>
 
-	<body>	
+	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">账户管理</h1>
@@ -58,25 +58,25 @@
 			</div>
 			<ul class="mui-table-view">
 		        <li class="mui-table-view-cell">
-		            <a>
+		            <a class="mui-navigate-right">
 		                手机绑定 <number>（{{user.mobile}}）</number>
-		                
+		                <span>绑定</span>
 		            </a>
 		        </li>
 		        <li class="mui-table-view-cell">
 		            <a class="mui-navigate-right">
 						支付宝绑定
 			             {%if user.zhifubao %}
-			             <number>（{{user.zhifubao}}）</number><span>更换</span>   	
+			             <number>（{{user.zhifubao}}）</number><span>更换</span>
 			             {%else%}
 			             <number>（未绑定）</number><span>绑定</span>
 			             {%endif%}
 		            </a>
 		        </li>
-		        
+
 		    </ul>
 			<ul class="mui-table-view">
-			       
+
 		        <li class="mui-table-view-cell">
 		            <a class="mui-navigate-right">
 		                 登录密码

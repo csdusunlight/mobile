@@ -292,21 +292,22 @@
 		gallery.slider({
 			interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
 		});
+
+    </script>
+    <script>
         var btn_01 = document.getElementById("Btn"),
             close_01 = document.getElementById("close_01"),
-            login_01 = document.getElementById("gong_zhong");
+            gong_zhong = document.getElementById("gong_zhong");
         //监听点击事件
         btn_01.addEventListener("tap",function () {
-          login_01.style.display="block";
+          gong_zhong.style.display="block";
         });
 
         close_01.addEventListener("tap",function () {
-          login_01.style.display="none";
+          gong_zhong.style.display="none";
         });
     </script>
     <script src="{%static 'js/cookie.js'%}"></script>
-    <script>
 
-    </script>
 </body>
 </html>
