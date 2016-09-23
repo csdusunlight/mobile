@@ -16,15 +16,14 @@
 	width: 20%;
 	margin: 0 auto;
 }
-.top p {
+.top a {
+	display: block;
 	text-align: center;
 	font-size: 1.4rem;
 	margin-top: 1rem;
-	color: #fff !important;
+	color: #fff;
 }
-.top p number {
-	color: #fff !important;
-}
+
 .mui-table-view {
 	margin-top: 1rem;
 	box-shadow: 0 1px 3px #e4e4e4;
