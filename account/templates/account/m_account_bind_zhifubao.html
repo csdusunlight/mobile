@@ -79,13 +79,10 @@
 							csrfmiddlewaretoken:csrfmiddlewaretoken
 						},
 						success:function(ret){
-							if(ret.code==0){
-								alert("更改支付宝账号成功！");
-								window.location.href = this_url;
-							}
-							else {
-								alert(ret.res_msg);
-							}
+							mui.alert(ret.res_msg,callback=function(){
+								window.history.back();
+								return;
+							});
 						},
 						error:function(){
 							alert("请检查网络连接");

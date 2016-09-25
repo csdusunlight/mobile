@@ -35,20 +35,19 @@
 		<div class="mui-content">
 			<img src="{% static 'images/zhifubao.png' %}" alt="支付宝图片" />
 			<form class="mui-input-group">
-				
+					{% csrf_token %}
 					<div class="mui-input-row">
 						<label>支付宝姓名</label>
-						<input type="text" placeholder="请输入支付宝姓名">
+						<input id="zhifubao_name" type="text" placeholder="请输入支付宝姓名">
 					</div>
 					<div class="mui-input-row">
 						<label>支付宝帐号</label>
-						<input type="text" placeholder="请输入支付宝帐号">
+						<input id="zhifubao" type="text" placeholder="请输入支付宝帐号">
 					</div>
 					<div class="mui-input-row">
 						<label>手机验证码</label>
-						<input type="text" placeholder="请输入验证码">
-						<!--<a href="#" class=" huoqu">获取验证码</a>-->
-						<button id="yan_zheng_ma" type="button" class=" huoqu mui-btn-blue mui-btn-outlined" onclick="settime(this)">获取验证码</button>
+						<input id="telcode" type="text" placeholder="请输入验证码">
+						<button id="gettelcode" type="button" class=" huoqu mui-btn-blue mui-btn-outlined">获取验证码</button>
 					</div>
 					
 					
@@ -59,34 +58,91 @@
 		</div>
 		
 		<script src="{% static 'js/mui.min.js' %}"></script>
-		<!--弹窗部分-->
-		<script type="text/javascript" charset="utf-8">
-		      	mui.init({
-					swipeBack:true //启用右滑关闭功能
-				});
-				document.getElementById("Btn").addEventListener('tap', function() {
-					mui.alert('您输入的注册手机号有误，请重新输入', '抱歉', function() {
-					});
-				});
-				
-		</script>
 	    <script type="text/javascript">
-			  var countdown=60;
-			  function settime(val) {
-			    if (countdown == 0) {
-			    val.removeAttribute("disabled");
-			    val.innerText="获取验证码";
-			    countdown = 60;
-			    return;
-			  } else {
-			    val.setAttribute("disabled", true);
-			    val.innerText="重新发送(" + countdown + ")";
-			    countdown--;
-			  }
-			  setTimeout(function() {
-			    settime(val)
-			    },1000)
-			  }
+	    	var sendtelcode_url = "{% url 'phoneImageV' %}";
+		    mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			var countdown=60;
+			function settime(val) {
+				if (countdown == 0) {
+					val.removeAttribute("disabled");
+					val.innerText="获取验证码";
+					countdown = 60;
+					return;
+				} 
+				else {
+					val.setAttribute("disabled", true);
+					val.innerText="重新发送(" + countdown + ")";
+					countdown--;
+				}
+				setTimeout(function() {
+					settime(val)
+				},1000);
+			}
+			document.getElementById("gettelcode").addEventListener('tap', function() {
+				sendTelVerifyCodeImageV();
+				settime(this);
+			});
+			document.getElementById("Btn").addEventListener('tap', function() {
+				var zhifubao = document.getElementById('zhifubao').value;
+				var zhifubao_name = document.getElementById('zhifubao_name').value;
+				if (!zhifubao || !zhifubao_name){
+					mui.alert("支付宝账号或姓名不能为空！", '提示');
+					return;
+				}
+				var telcode = document.getElementById("telcode").value;
+				if(!telcode) {
+					mui.alert('请输入手机验证码！', '提示');
+					return;
+				}
+				if(telcode.length!=6) {
+					mui.alert('您输入的手机验证码格式有误，请重新输入！', '提示');
+					return;
+				}
+				var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+				mui.ajax({
+					url: '',
+					dataType:"json",
+					type:'POST',
+					data : {
+						account: zhifubao,
+						name: zhifubao_name,
+						telcode: telcode,
+						csrfmiddlewaretoken:csrfmiddlewaretoken
+					},
+					success:function(ret){
+						mui.alert(ret.res_msg,callback=function(){
+							if (ret.code==0){
+								window.history.back();
+							}
+						});
+					},
+					error:function(){
+						alert("请检查网络连接");
+					}
+				});
+			});
+			var sendTelVerifyCodeImageV = function() {
+				mui.ajax({
+					url : sendtelcode_url,
+					data : {
+						'action' : 'change_zhifubao',
+						},
+					timeout : 3000,
+					success : function(data) {
+						if (data.code != 0) {
+							mui.alert(data.message);
+						}
+						if (data.code == 1){
+							countdown = 0;
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						mui.alert(type);
+					}
+				});
+			};
 		</script>
 	</body>
 

@@ -259,8 +259,9 @@ def phoneImageV(request):
         raise Http404
     action = request.GET.get('action', None)
     result = {'code':-1, 'message':'error!'}
-    phone = request.GET.get('phone', None)
+    phone = ''
     if action=='register':
+        phone = request.GET.get('phone', None)
         hashkey = request.GET.get('hashkey', None)
         response = request.GET.get('response', None)
         if not (phone and hashkey):
@@ -277,6 +278,12 @@ def phoneImageV(request):
             result['message'] = u'该手机号码已被注册，请直接登录！'
             result.update(generateCap())
             return JsonResponse(result)
+    elif action=="change_zhifubao":
+        if not request.user.is_authenticated():
+            result['code'] = 1
+            result['message'] = u"尚未登录"
+            return JsonResponse(result)
+        phone = request.user.mobile
     stamp = str(phone)
     lasttime = request.session.get(stamp, None)
     now = int(ttime.time())
@@ -578,7 +585,7 @@ def bind_zhifubao(request):
     if request.method == 'POST':
         if not request.is_ajax():
             raise Http404
-        result={'code':-1, 'url':''}
+        result={}
         user = request.user
         zhifubao = request.POST.get("account", '')
         zhifubao_name = request.POST.get("name", '')
@@ -587,9 +594,10 @@ def bind_zhifubao(request):
             user.zhifubao_name = zhifubao_name
             user.save(update_fields=["zhifubao","zhifubao_name",])
             result['code'] = 0
+            result['res_msg'] = u'绑定成功！'
         else:
            result['code'] = 3 
-           result['res_msg'] = u'您已绑定过支付宝，请通过账户管理功能查看！'
+           result['res_msg'] = u'您已绑定过支付宝！'
         return JsonResponse(result)
     else:
         return render(request, 'account/m_account_bind_zhifubao.html')
@@ -599,32 +607,34 @@ def change_zhifubao(request):
     if request.method == 'POST':
         if not request.is_ajax():
             raise Http404
-        result={'code':-1, 'url':''}
+        result={}
         user = request.user
         zhifubao = request.POST.get("account", '')
         zhifubao_name = request.POST.get("name", '')
-        telcode = request.POST.get("code", '')
+        telcode = request.POST.get("telcode", '')
         ret = verifymobilecode(user.mobile,telcode)
         if ret != 0:
             result['code'] = 2
             if ret == -1:
-                result['res_msg'] = u'请先获取手机验证码'
+                result['res_msg'] = u'请先获取手机验证码！'
             elif ret == 1:
                 result['res_msg'] = u'手机验证码输入错误！'
             elif ret == 2:
                 result['res_msg'] = u'手机验证码已过期，请重新获取'
             return JsonResponse(result)
-        user.zhifubao = zhifubao
-        user.zhifubao_name = zhifubao_name
-        user.save(update_fields=["zhifubao","zhifubao_name",])
-        result['code'] = 0
+        else:
+            user.zhifubao = zhifubao
+            user.zhifubao_name = zhifubao_name
+            user.save(update_fields=["zhifubao","zhifubao_name",])
+            result['code'] = 0
+            result['res_msg'] = u"支付宝账号更改成功！"
         return JsonResponse(result)
     else:
         return render(request, 'account/m_account_change_zhifubao.html')
 
 @login_required
 def money(request):
-    return render(request, 'account/money.html', {})
+    return render(request, 'account/m_account_money.html', {})
 
 def get_user_money_page(request):
     user = request.user
