@@ -164,51 +164,72 @@
 		<script src="{%static 'js/mui.pullToRefresh.material.js'%}"></script>
 		<script>
 			mui.init();
+			var get_task_url = "{% url 'task_json' %}";
 			(function($) {
 				//阻尼系数
 				var deceleration = mui.os.ios?0.003:0.0009;
 				$('.mui-scroll-wrapper').scroll({
-					bounce: false,
+					bounce: true,
 					indicators: true, //是否显示滚动条
 					deceleration:deceleration
 				});
 				$.ready(function() {
-					//循环初始化所有下拉刷新，上拉加载。
+					//循环初始化所有上拉加载
 					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						var count = 0;
 						$(pullRefreshEl).pullToRefresh({
 							up: {
+								auto:true,
 								callback: function() {
 									var self = this;
-									setTimeout(function() {
-										var ul = self.element.querySelector('.mui-table-view');
-										ul.appendChild(createFragment(ul, index, 3));
-										self.endPullUpToRefresh();
-									}, 1000);
+									var ul = self.element.querySelector('.mui-table-view');
+									get_finance_list(this,ul,count++,index);
+								//		ul.appendChild(createFragment(ul, index, 5));
+									//	self.endPullUpToRefresh(true);
 								}
 							}
 						});
 					});
-					var createFragment = function(ul, index, count, reverse) {
-						var length = ul.querySelectorAll('li').length;
-						var fragment = document.createDocumentFragment();
-						var li;
-						for (var i = 0; i < count; i++) {
-							li = document.createElement('li');
-							li.className = 'list clearfix';
-							li.innerHTML = '<span class="">积分抽奖</span>'+
-									'<span class=""><number>2</number></span>'+
-									'<span><number>2016.08.21</number></span>'+
-									'<span class="">无</span>';
-							fragment.appendChild(li);
-						}
-						return fragment;
-					};
+
+					function get_finance_list(obj,ul,n,index){
+						mui.ajax(get_task_url,{
+							data:{
+								count:n,
+								type:index,
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+//							headers:{'Content-Type':'application/json'},
+							success:function(data){
+								if (!data.length){
+									obj.endPullUpToRefresh(true);
+								}
+								else {
+									obj.endPullUpToRefresh(false);//参数为true代表没有更多数据了。
+									var table = document.body.querySelector('.mui-table-view');
+//									var cells = document.body.querySelectorAll('.mui-table-view-cell');
+									for (var i in data) {
+										var wel = data[i];
+										var li = document.createElement('li');
+										li.className = 'mui-table-view-cell';
+										li.innerHTML = '<a href="' + wel.url + '"><img src="' +
+											wel.picurl + '" /><div class="li-info"><h6>' + wel.title +
+											'</h6><span class="s1">' + wel.provider +
+											'</span><span class="s2"><number>' + wel.view_count +
+											'</number></span><span class="s3"><number>' + wel.time +
+											'</number></span></div></a>';
+										ul.appendChild(li);
+									}
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								alert(type);
+							}
+						});
+					}
 				});
-			})(mui);		
-			var gallery = mui('#banner');
-			gallery.slider({
-				interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
-			});
+			})(mui);
 		</script>
 		<script type="text/javascript">		
 			var box_01 = document.getElementById("box_01"),
