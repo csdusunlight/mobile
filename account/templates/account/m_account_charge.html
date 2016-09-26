@@ -26,7 +26,7 @@
 
 		<link href="{%static 'css/mui.min.css'%}" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}" />
-		<link rel="stylesheet" type="text/css" href="{%static 'css/m_account_money.css'%}" />
+		<link rel="stylesheet" type="text/css" href="{%static 'css/m_account_charge.css'%}" />
 	</head>
 
 	<body>
@@ -41,7 +41,7 @@
 				<div class="msg clearfix">
 					<img src="{%static 'images/user.png'%}" alt="提示图标" />
 					<div class="text">
-						<p><number>12300001111</number><br />
+						<p><number>{{user.mobile}}</number><br />
 						<span>账户余额：<strong><number>&nbsp;{{user.balance}}&nbsp;</number></strong>元</p>
 					</div>
 				    <button id="Btn" type="button" class="mui-btn mui-btn-warning">提&nbsp;现</button>
@@ -66,6 +66,7 @@
 			            <span class="">时间</span>
 						<span class="">项目</span>
 						<span class="">金额</span>
+						<span class="">状态</span>
 					</div>
 				</div>
 				<div id="finance_slider" class="mui-slider mui-fullscreen">
@@ -75,31 +76,6 @@
 					    <div class="mui-slider-item mui-control-content">
 					    	<div class="mui-scroll">
 				            <ul class="mui-table-view">
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-								</li>
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-								</li>
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-								</li>
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-								</li>
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-								</li>
 							</ul>
 						</div>
 					</div>
@@ -111,42 +87,6 @@
 					    <div class="mui-slider-item mui-control-content">
 					    	<div class="mui-scroll">
 				            <ul class="mui-table-view">
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-									<span class="">无</span>
-								</li>
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-									<span class="">无</span>
-								</li>
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-									<span class="">无</span>
-								</li>
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-									<span class="">无</span>
-								</li>
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-									<span class="">无</span>
-								</li>
-								<li class="list clearfix">
-									<span class="">积分抽奖</span>
-									<span class=""><number>10</number></span>
-									<span><number>2016.08.21</number></span>
-									<span class="">无</span>
-								</li>
 							</ul>
 						</div>
 						
@@ -164,7 +104,7 @@
 		<script src="{%static 'js/mui.pullToRefresh.material.js'%}"></script>
 		<script>
 			mui.init();
-			var get_task_url = "{% url 'task_json' %}";
+			var get_charge_url = "{% url 'charge_json' %}";
 			(function($) {
 				//阻尼系数
 				var deceleration = mui.os.ios?0.003:0.0009;
@@ -183,7 +123,7 @@
 								callback: function() {
 									var self = this;
 									var ul = self.element.querySelector('.mui-table-view');
-									get_finance_list(this,ul,count++,index);
+									get_charge_list(this,ul,count++,index);
 								//		ul.appendChild(createFragment(ul, index, 5));
 									//	self.endPullUpToRefresh(true);
 								}
@@ -191,15 +131,15 @@
 						});
 					});
 
-					function get_finance_list(obj,ul,n,index){
-						mui.ajax(get_task_url,{
+					function get_charge_list(obj,ul,n,index){
+						mui.ajax(get_charge_url,{
 							data:{
 								count:n,
 								type:index,
 							},
 							dataType:'json',//服务器返回json格式数据
 							type:'get',//HTTP请求类型
-							timeout:10000,//超时时间设置为10秒；
+							timeout:3000,//超时时间设置为10秒；
 //							headers:{'Content-Type':'application/json'},
 							success:function(data){
 								if (!data.length){
@@ -210,15 +150,25 @@
 									var table = document.body.querySelector('.mui-table-view');
 //									var cells = document.body.querySelectorAll('.mui-table-view-cell');
 									for (var i in data) {
-										var wel = data[i];
+										var record = data[i];
 										var li = document.createElement('li');
 										li.className = 'mui-table-view-cell';
-										li.innerHTML = '<a href="' + wel.url + '"><img src="' +
-											wel.picurl + '" /><div class="li-info"><h6>' + wel.title +
-											'</h6><span class="s1">' + wel.provider +
-											'</span><span class="s2"><number>' + wel.view_count +
-											'</number></span><span class="s3"><number>' + wel.time +
-											'</number></span></div></a>';
+										str_html = '<li class="list clearfix"><span><number>' + record.date + 
+										'</number></span><span>' + record.reason + '</span><span><number>';
+										if (index===0){
+											str_html += '+ ';
+										}
+										else if(index===1){
+											str_html += '- ';
+										}
+										str_html += record.amount + '</number></span>';
+										if (index===0){
+											str_html += '</li>';
+										}
+										else if(index===1){
+											str_html += '<span>' + record.state + '</span></li>';
+										}
+										li.innerHTML = str_html
 										ul.appendChild(li);
 									}
 								}
@@ -250,6 +200,23 @@
 					box_02.style.display = "none";
 					tab_head_01.style.display = "block";
 					tab_head_02.style.display = "none";
+			});
+			
+			document.getElementById('Btn').addEventListener("tap",function(){
+				mui.openWindow({
+		            url: "{% url 'account_withdraw' %}",
+		            styles: {
+		                top: 0,
+		                bottom: 0
+		            },
+		            show: {
+		                aniShow: 'slide-in-right',
+		            },
+		            waiting: {
+		                autoShow: false, //自动显示等待框
+		                title: '正在加载...', //等待对话框上显示的提示内容
+		            }
+		        });
 			});
 		</script>
 	</body>

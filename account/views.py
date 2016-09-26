@@ -446,9 +446,34 @@ def get_user_wel_page(request):
 
 @login_required
 def score(request):
-    return render(request, 'account/score.html', {})
+    return render(request, 'account/m_account_score.html', {})
 
-def get_user_score_page(request):
+def score_json(request):
+    user = request.user
+    res={'code':0,}
+    if not user.is_authenticated():
+        res['code'] = -1
+        res['url'] = reverse('user_guide') + "?next=" + reverse('account_score')
+        return JsonResponse(res)
+    count = int(request.GET.get('count', 0))
+    type = str(request.GET.get('type', '0'))
+    start = 6*count
+    item_list = ScoreTranlist.objects.filter(user=request.user, transType=type)[start:start+6]
+    data = []
+    for con in item_list:      
+        i = {"reason":con.reason,
+             "amount":con.transAmount,
+             "date":con.time.strftime("%Y-%m-%d"),
+             }
+        if type == '1':
+            event = con.user_event
+            if event:
+                state = event.get_audit_state_display()
+            else:
+                state = u"无"
+            i.update({"state":state,})   
+        data.append(i)
+    return JsonResponse(data, safe=False)
     res={'code':0,}
     if not request.user.is_authenticated():
         res['code'] = -1
@@ -633,81 +658,47 @@ def change_zhifubao(request):
         return render(request, 'account/m_account_change_zhifubao.html')
 
 @login_required
-def money(request):
-    return render(request, 'account/m_account_money.html', {})
+def charge(request):
+    return render(request, 'account/m_account_charge.html', {})
 
-def get_user_money_page(request):
+def charge_json(request):
     user = request.user
     res={'code':0,}
     if not user.is_authenticated():
         res['code'] = -1
-        res['url'] = reverse('login') + "?next=" + reverse('account_money')
+        res['url'] = reverse('user_guide') + "?next=" + reverse('account_charge')
         return JsonResponse(res)
-    page = request.GET.get("page", None)
-    size = request.GET.get("size", 10)
-    filter = request.GET.get("filter",0)
-    try:
-        size = int(size)
-    except ValueError:
-        size = 10
-    try:
-        filter = int(filter)
-    except ValueError:
-        filter = 0
-    if not page or size <= 0 or filter < 0 or filter > 3:
-        raise Http404
-    item_list = []
-
-    item_list = TransList.objects.filter(user=request.user)
-    if filter == 0:
-        item_list = item_list.filter(transType='0')
-    elif filter == 1:
-        item_list = item_list.filter(transType='1')
-    paginator = Paginator(item_list, size)
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-    # If page is not an integer, deliver first page.
-        contacts = paginator.page(1)
-    except EmptyPage:
-    # If page is out of range (e.g. 9999), deliver last page of results.
-        contacts = paginator.page(paginator.num_pages)
+    count = int(request.GET.get('count', 0))
+    type = str(request.GET.get('type', '0'))
+    start = 6*count
+    item_list = TransList.objects.filter(user=request.user, transType=type)[start:start+6]
     data = []
-    for con in contacts:      
-        state = ''
-        if filter ==1:
+    for con in item_list:      
+        i = {"reason":con.reason,
+             "amount":con.transAmount,
+             "date":con.time.strftime("%Y-%m-%d"),
+             }
+        if type == '1':
             event = con.user_event
             if event:
                 state = event.get_audit_state_display()
-
-        i = {"item":con.reason,
-             "amount":con.transAmount,
-             "time":con.time.strftime("%Y-%m-%d %H:%M:%S"),
-             "remark":con.remark,
-             "state":state,
-             }
+            else:
+                state = u"无"
+            i.update({"state":state,})   
         data.append(i)
-    if data:
-        res['code'] = 1
-    res["pageCount"] = paginator.num_pages
-    res["recordCount"] = item_list.count()
-    res["data"] = data
-    return JsonResponse(res)
+    return JsonResponse(data, safe=False)
 
 @login_required
 def withdraw(request):
     if request.method == 'GET':
         hashkey = CaptchaStore.generate_key()
         codimg_url = captcha_image_url(hashkey)
-        return render(request,'account/withdraw.html',
-                  {'hashkey':hashkey, 'codimg_url':codimg_url})
+        return render(request,'account/m_account_withdraw.html')
     elif request.method == 'POST':
         user = request.user
         result = {'code':-1, 'res_msg':''}
         withdraw_amount = request.POST.get("amount", None)
-        varicode = request.POST.get('varicode', None)
-        hashkey = request.POST.get('hashkey', None)
-        if not (varicode and withdraw_amount and hashkey):
+        if not withdraw_amount:
             result['code'] = 3
             result['res_msg'] = u'传入参数不足！'
             return JsonResponse(result)
@@ -719,17 +710,11 @@ def withdraw(request):
             return JsonResponse(result)
         if withdraw_amount < 10 or withdraw_amount > float(user.balance)+0.01:
             result['code'] = -1
-            result['res_msg'] = u'提现金额错误！'
+            result['res_msg'] = u'余额不足！'
             return JsonResponse(result)
         if not user.zhifubao or not user.zhifubao_name:
             result['code'] = -1
             result['res_msg'] = u'请先绑定支付宝！'
-            return JsonResponse(result)
-        ret = imageV(hashkey, varicode)
-        if ret != 0:
-            result['code'] = 2
-            result['res_msg'] = u'图形验证码输入错误！'
-            result.update(generateCap())
         else:
             translist = charge_money(user, '1', withdraw_amount, u'提现')
             if translist:
@@ -738,9 +723,10 @@ def withdraw(request):
                 translist.user_event = event
                 translist.save(update_fields=['user_event'])
                 result['code'] = 0
+                result['res_msg'] = u'提交成功，请耐心等待审核通过！'
             else:
                 result['code'] = -2
-                result['res_msg'] = u'提现失败！'
+                result['res_msg'] = u'提交失败！'
         return JsonResponse(result)
             
 
