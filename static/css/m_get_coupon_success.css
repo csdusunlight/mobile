@@ -1,6 +1,9 @@
+body {
+	background-color: #fff;
+}
 .mui-content {
 	padding: 0 1.875% 2rem;
-	background: #fff;
+	background-color: #fff;
 }
 /*提示消息部分*/
 .msg {
@@ -24,11 +27,17 @@
 }
 
 /*优惠券部分*/
-.benefit {
+.box {
+	padding-bottom: 2rem;
 	margin-top: 2rem;
-	background: #efb31d;
+	background: url(../images/bg-youhuiquan.png) top center no-repeat;
+	background-size: 100% auto;
+}
+.benefit {
+/*	margin-top: 2rem;
+	background: #efb31d;*/
 	padding: 1rem 0;
-	border-radius: 0.4rem 0.4rem 0 0 ;
+	/*border-radius: 0.4rem 0.4rem 0 0 ;*/
 }
 .benefit img {
 	float: left;
@@ -42,22 +51,21 @@
 	color: #fff;
 }
 
-.mui-content>p {
+.box>p {
 	text-align: center;
 	font-size: 2rem;
-	line-height: 7rem;
-	border: 1px solid #e4e4e4;
-	
+	line-height: 7.4rem;
+	height: 7.4rem;
 }
 
 .btn {
 	padding: 2rem 0;
 	text-align: center;
-	border: 1px solid #e4e4e4 ;
+	/*border: 1px solid #e4e4e4 ;*/
 	border-top: none;
-	border-radius: 0 0 0.4rem 0.4rem;
+	/*border-radius: 0 0 0.4rem 0.4rem;*/
 }
 .btn button {
-	width: 44%;
+	width: 40%;
 	height: 3rem;
 }
