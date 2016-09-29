@@ -1,7 +1,7 @@
-/*.mui-content {
-	padding: 0 1.875% 2rem;
+.mui-content {
+	/*padding: 0 1.875% 2rem;*/
 	
-}*/
+}
 /*帐号部分*/
 .zhanghu {
 	padding: 2rem 0 1rem;
@@ -21,30 +21,39 @@
 }
 .text p {
 		font-size: 1.2rem;
-		color: #f08519;
+		color: #333;
 		line-height: 2rem;
 }
 .text p span {
-	color: #a5a5a5;
-	font-size: 1rem;
+	color: #8f8f8f;
+	font-size: 1.2rem;
 }
 
 .right {
 	display: block;
 	text-align: right;
-	font-size: 1rem;
+	font-size: 1.2rem;
 	line-height: 1rem;
 	color: #008fd7;
+	margin-right: 1.875%;
 }
 
 /*提现部分*/
 .mui-input-group {
 	background: #fff;
+/*	padding: 0 1.875% 0;*/
 
+}
+.mui-input-group:after {
+	left: 1.875%;
+	right: 1.875%;
 }
 .mui-input-row {
 	margin-top: 1rem;	
 	height: 8rem !important;
+}
+.mui-input-group .mui-input-row:after {
+	height: 0 ;	
 }
 .mui-input-row label {
 	height: 8rem !important;
@@ -58,9 +67,9 @@
 	font-size: 4rem;
 }
 .mui-content>p {
-	padding: 0.2rem 0 1rem;
+	padding: 0.2rem 1.875% 1rem;
 	background: #fff;
-		box-shadow: 0 1px 3px #e4e4e4;
+	box-shadow: 0 1px 3px #e4e4e4;
 }
 .mui-content>p span {
 	display: inline-block;
@@ -70,9 +79,22 @@
 	text-align: right;
 }
 .mui-content>button {
-	margin: 2rem 0;
+	padding: 0;
+	width: 60%;
+	height: 3.4rem;
+	margin-top: 2rem;
+	margin-left: 20%;
+	font-size: 1.2rem;
 }
 ::-webkit-input-placeholder { font-size: 2rem;line-height: 5rem;}
 ::-moz-placeholder { font-size: 2rem;line-height: 5rem; } /* firefox 19+ */
 :-ms-input-placeholder { font-size: 2rem; line-height: 5rem;} /* ie */
 input:-moz-placeholder { font-size: 2rem; line-height: 5rem;}
+
+form {
+	width: 100%;
+	margin-left: 0;
+}
+.mui-input-group:after {
+	height: 1px;
+}

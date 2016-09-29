@@ -24,7 +24,7 @@ body {
 	/*height: 4rem;*/
 }
 .msg .text {
-	line-height: 2rem;
+	float: left;
 	margin-top: 1rem;
 }
 .text p {
@@ -40,12 +40,11 @@ body {
 	margin-top: 1rem;
 }
 
-.mui-row button{
-	width: 60%;
-	margin-left: 20%;
-	height: 2rem;
-	padding: 0;
+.msg button {
+	margin-top: 1.8rem;
+	float: right;
 }
+
 
 .mui-segmented-control {
 	margin-top: 3rem;
@@ -150,7 +149,7 @@ body {
 	background-size: 1.6rem auto;
 }
 .mui-bar-nav~.mui-content .mui-slider.mui-fullscreen {
-	top: 22rem;
+	top: 20rem;
 }
 .mui-fullscreen .mui-segmented-control~.mui-slider-group {
 	top:0px;
