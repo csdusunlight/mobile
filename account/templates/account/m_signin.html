@@ -23,6 +23,7 @@
     <meta http-equiv="Expires" content="0">
     <title>每日签到</title>
     <script src="{%static 'js/mui.min.js'%}"></script>
+    <script src="{%static 'js/share.js'%}"></script>
     <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_signin.css'%}"/>
@@ -31,7 +32,7 @@
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">每日签到</h1>
-			<a class="share"></a>
+			<a id="share" class="share"></a>
 		</header>
 		<footer>
 			<ul class="clearfix tc">
@@ -105,14 +106,55 @@
 		</div>	<!--mui-content-->
 		{%if flag == 1%}
 		<div id="login" class="delete">
-			<a href="#" id="close" class="close mui-icon mui-icon-close"></a>
 			<div>
-				<p>签到成功</p>
-				<p>今日已签到，奖励<number>5</number>积分</p>
+			<a href="#" id="close" class="close mui-icon mui-icon-closeempty"></a>
+				<p class="top">签到成功</p>
+				<p class="bottom">今日已签到，奖励<number>5</number>积分</p>
 			</div>
 		</div>
 		{%endif%}
 
+		<!--分享部分-->
+		<div id="share_bg" class="share-bg"></div>
+		<div id="share_box">
+			<div id="content_box" class="share-content-box">
+				<div id="share_close" class="share-close">
+					<span class="mui-icon mui-icon-arrowdown"></span>
+				</div>
+				<ul class="list clearfix">
+					<li>
+						<a href="#">
+							<img src="images/share-weixin.png"/>
+							<p>微信好友</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-qq.png"/>
+							<p>QQ好友</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-sina.png"/>
+							<p>微信微博</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-qq-zone.png"/>
+							<p>QQ空间</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-friend-row.png"/>
+							<p>朋友圈</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 	<script>
 		url = "{% url 'signin_record' %}"
 		mui.init();
@@ -153,7 +195,7 @@
 	};
 	</script>
 	{%endif%}
-		
+
 	</body>
 
 </html>

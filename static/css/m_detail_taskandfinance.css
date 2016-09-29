@@ -63,12 +63,12 @@ p a {
 }
 
 .mui-row button {
-	/*margin-bottom: 1rem;*/
+	height: 4rem;
 	width: 100%;
 	border-radius: 0;;
 }
-.mui-row button:first {
-	border: 0 !important;
+.mui-row div:first-child button {
+	border-left: 0 !important;
 }
 .right{
 	/*margin-left: 10%;*/

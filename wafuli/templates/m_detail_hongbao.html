@@ -25,14 +25,14 @@
     <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_detail_hongbao.css' %}"/>
-    
+
 </head>
 
-	<body>	
+	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">领取红包</h1>
-			<a class="share"></a>
+			<a id="share" class="share"></a>
 		</header>
 		<div class="mui-content">
 			<div class="ad">
@@ -59,7 +59,7 @@
 				    <span>活动日期：<number>{{news.time_limit}}</number></span>
 				</div>
 				<button id="exp_btn" type="button" class="mui-btn mui-btn-blue mui-btn-block">立即体验</button>
-				
+
 			</div>
 		</div>
 		<!--弹出二维码部分-->
@@ -69,10 +69,51 @@
 				<p>长安识别图中二维码</p>
 				<img id="erweima_img"/>
 				<p>{{news.title}}</p>
-			</div>		
+			</div>
 		</div>
-	
-		<script src="{% static 'js/mui.min.js' %}"></script>	
+		<!--分享部分-->
+		<div id="share_bg" class="share-bg"></div>
+		<div id="share_box">
+			<div id="content_box" class="share-content-box">
+				<div id="share_close" class="share-close">
+					<span class="mui-icon mui-icon-arrowdown"></span>
+				</div>
+				<ul class="list clearfix">
+					<li>
+						<a href="#">
+							<img src="images/share-weixin.png"/>
+							<p>微信好友</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-qq.png"/>
+							<p>QQ好友</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-sina.png"/>
+							<p>微信微博</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-qq-zone.png"/>
+							<p>QQ空间</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-friend-row.png"/>
+							<p>朋友圈</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<script src="{% static 'js/share.js' %}"></script>
 		<script type="text/javascript">
 			mui.init();
 			var id = '{{news.id}}'

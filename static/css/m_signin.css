@@ -102,6 +102,39 @@ footer li span {
 	margin-top: -3px;
 }
 /*弹出部分*/
+@-webkit-keyframes today {
+     0% {
+        /*height: 0;*/
+       opacity: 0;
+       -webkit-transform: scale(0);
+       transform: scale(0);
+     }
+     70% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+        opacity: 1;
+     }
+     100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+     }
+}
+@-webkit-keyframes success {
+     0% {
+       -webkit-transform: scale(2);
+       transform: scale(2);
+       opacity: 0;
+     }
+     70% {
+       -webkit-transform: scale(0.8);
+       transform: scale(0.8);
+       opacity: 1;
+     }
+     100% {
+       -webkit-transform: scale(1);
+       transform: scale(1);
+     }
+}
 .delete {
 	position: absolute;
 	top: 0;
@@ -109,28 +142,35 @@ footer li span {
 	width: 100%;
 	height: 100%;
 	background: rgba(0,0,0,0.7);
+
 }
 .delete div {
+	position: relative;
 	width: 80%;
-	height: 36rem;
+	height: 34rem;
 	margin: 0 auto;
-	margin-top: 10rem;
-	padding: 4rem 0;
+	margin-top: 50%;
+	/*padding: 4rem 0;*/
 	border-radius: 0.4rem;
+	overflow: hidden;
 	background: #fff;
+	animation: today 1s linear;
+	-webkit-animation: today 1s linear;
 }
-.delete div p:first-child {
+.delete div p.top {
 	width: 14rem;
 	height: 14rem;
-	margin: 2rem auto;
+	margin: 6rem auto 2rem;
 	border-radius: 50%;
 	font-size: 2.2rem;
 	text-align: center;
 	line-height: 14rem;
 	color: #fff;
 	background: #2caced;
+	animation: success 2s linear;
+	-webkit-animation: success 2s linear;
 }
-.delete div p:last-child {
+.delete div p.bottom {
 	margin-top: 4rem;
 	text-align: center;
 	font-size: 1.6rem;
@@ -138,23 +178,10 @@ footer li span {
 }
 .close {
 	position: absolute;
-	top: 10.4rem;
-	left: 3.6rem;
+	top: .4rem;
+	left: 0.4rem;
 	z-index: 10009;
 	font-size:3rem;
 	cursor: pointer;
 	color: #8f8f8f;
 }
-
-/*.close:active{
-	display: none;
-}
-.close:active + div{
-	display: none;
-}
-.close:visited{
-	display: none;
-}
-.close:visited + div{
-	display: none;
-}*/

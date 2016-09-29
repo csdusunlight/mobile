@@ -2,16 +2,9 @@ body {
 	background: #fff;
 }
 .mui-content {
-	/*margin-top: 44px;*/
 	background: #fff;
 }
-/*.content-box {
-	padding: 0 1.875% 2rem;
-	background: #fff;
-}
-.container-box {
-	background: #fff;
-}*/
+
 /*帐号部分*/
 .msg {
 	padding-top: 2rem;
@@ -42,7 +35,9 @@ body {
 
 .msg button {
 	margin-top: 1.8rem;
+	margin-right: 1.875%;
 	float: right;
+	width: 30%;
 }
 
 
@@ -85,49 +80,7 @@ body {
 	font-size: 1.1rem;
 	text-align: center;
 }
-/*样式替换*/
-/*.mui-btn-green {
-	color: #fff;
-	border: 1px solid #00d6b3;
-	background-color: #00d6b3;
-}
-.mui-btn-green:enabled:active,
-.mui-btn-green.mui-active:enabled {
-	color: #fff;
-	border: 1px solid #00bd9d;
-	background-color: #00bd9d;
-}
-.mui-btn-blue {
-	color: #fff;
-	border: 1px solid #52c5ff;
-	background-color: #52c5ff;
-}
-.mui-btn-blue:enabled:active,
-.mui-btn-blue.mui-active:enabled {
-	color: #fff;
-	border: 1px solid #49b1e5;
-	background-color: #49b1e5;
-}*/
-.pay-in {
-	background: url(../images/jf-in-01.png) 3.6rem center no-repeat;
-	background-size: 16% auto;
-	padding-left: 3.6rem; 
-}
-.pay-out {
-	background: url(../images/jf-out-01.png) 3.6rem center no-repeat;
-	background-size: 16% auto;
-	padding-left: 3.6rem; 
-}
-.pay-in.mui-active {
-	background: url(../images/jf-in-02.png) 3.6rem center no-repeat;
-	background-size: 16% auto;
-	padding-left: 3.6rem; 
-}
-.pay-out.mui-active {
-	background: url(../images/jf-out-02.png) 3.6rem center no-repeat;
-	background-size: 16% auto;
-	padding-left: 3.6rem; 
-}
+
 /*修改部分*/
 .tab-head {
 	margin: 2rem 0 0.4rem;
@@ -158,6 +111,4 @@ body {
 	padding: 1rem 0;
 	text-align: center;
 }
-/*.mui-scroll {
-	transform: translate3d(0px, 0px, 0px) translateZ(0px) !important;
-}*/
+
