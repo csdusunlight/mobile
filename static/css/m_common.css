@@ -718,7 +718,6 @@ a {
 }
 
 header .share {
-	header .share {
 	cursor: pointer;
 	position: absolute;
 	right: 0px;
@@ -731,7 +730,6 @@ header .share {
 	background: url(../images/share.png) no-repeat 14px center;
 	background-size: 42% auto;
 	/*padding: 40px;*/
-}
 }
 
 
