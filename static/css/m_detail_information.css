@@ -65,7 +65,7 @@ body {
 	border-bottom: 1px solid #e4e4e4;
 
 }
-.list a {
+.content .list a {
 	display: block;
 	position: relative;
 }
@@ -73,16 +73,16 @@ body {
 	float: left;
 	width: 60%;
 }
-.list .text h3 {
+.content .list .text h3 {
 	font-size: 1.6rem;
 	line-height: 2.4rem;
 	color: #333333;
 }
-.list .text p {
+.content .list .text p {
 	position: absolute;
 	bottom: 0;
 }
-.list img {
+.content .list img {
 	float: right;
 	display: block;
 	width: 10rem;
