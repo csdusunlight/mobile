@@ -718,18 +718,20 @@ a {
 }
 
 header .share {
+	header .share {
 	cursor: pointer;
 	position: absolute;
-	right: 14px;
-	top: 8px;
-	width: 30px;
-	height: 30px;
+	right: 0px;
+	top: 0px;
+	width: 44px;
+	height: 44px;
 	/*display: block;*/
 	/*margin-top: 10px;*/
 	/*margin-right: 10px;*/
-	background: url(../images/share.png) no-repeat right center;
-	background-size: 60% auto;
+	background: url(../images/share.png) no-repeat 14px center;
+	background-size: 42% auto;
 	/*padding: 40px;*/
+}
 }
 
 
