@@ -257,13 +257,15 @@ footer li.on span {
 /*弹出层部分*/
 @-webkit-keyframes weixin {
      0% {
-        -webkit-transform: scale(0) rotate(180deg);
-        transform: scale(0) rotate(180deg);
+        -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+        transform: scale(0);
         opacity: 0;
      }
      100% {
-        -webkit-transform: scale(1) rotate(360deg);
-        transform: scale(1) rotate(360deg);
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
         opacity: 1;
      }
 }
@@ -283,7 +285,7 @@ footer li.on span {
 	width: 90% !important;
 	/*height: 40rem;*/
 	padding: 10% 0;
-	top: 20%;
+	top: 15%;
 	margin-left: 5%;
 	background: #fff;
 	overflow: hidden;

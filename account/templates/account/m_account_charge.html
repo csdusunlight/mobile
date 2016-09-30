@@ -33,7 +33,7 @@
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">资金管理</h1>
-			<a class="share"></a>
+			<a id="share" class="share"></a>
 		</header>
 		<div class="mui-content">
 			<!--帐号部分-->
@@ -71,7 +71,7 @@
 				</div>
 				<div id="finance_slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-group">
-					
+
 				<div id="box_01" class="box-01 mui-slider-item">
 					    <div class="mui-slider-item mui-control-content">
 					    	<div class="mui-scroll">
@@ -81,15 +81,15 @@
 					</div>
 				</div>
 				<div id="box_02" class="box-02 mui-slider-item" style="display: none;">
-					
-					
+
+
 					<div class="mui-slider-group">
 					    <div class="mui-slider-item mui-control-content">
 					    	<div class="mui-scroll">
 				            <ul class="mui-table-view">
 							</ul>
 						</div>
-						
+
 					</div>
 				</div>
 				</div>
@@ -98,8 +98,50 @@
 			</div>
 		</div>
 
-		</div>
-		<script src="{%static 'js/mui.min.js'%}"></script>	
+		<!--分享部分-->
+		<div id="share_bg" class="share-bg"></div>
+		<div id="share_box">
+			<div id="content_box" class="share-content-box">
+				<div id="share_close" class="share-close">
+					<span class="mui-icon mui-icon-arrowdown"></span>
+				</div>
+				<ul class="list clearfix">
+					<li>
+						<a href="#">
+							<img src="{%static 'images/share-weixin.png'%}"/>
+							<p>微信好友</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="{%static 'images/share-qq.png'%}"/>
+							<p>QQ好友</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="{%static 'images/share-sina.png'%}"/>
+							<p>微信微博</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="{%static 'images/share-qq-zone.png'%}"/>
+							<p>QQ空间</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="{%static 'images/share-friend-row.png'%}"/>
+							<p>朋友圈</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>	<!-- 分享结束 -->
+		<!-- </div> -->
+		<script src="{%static 'js/mui.min.js'%}"></script>
+		<script src="{%static 'js/share.js'%}"></script>
 		<script src="{%static 'js/mui.pullToRefresh.js'%}"></script>
 		<script src="{%static 'js/mui.pullToRefresh.material.js'%}"></script>
 		<script>
@@ -153,7 +195,7 @@
 										var record = data[i];
 										var li = document.createElement('li');
 										li.className = 'mui-table-view-cell';
-										str_html = '<li class="list clearfix"><span><number>' + record.date + 
+										str_html = '<li class="list clearfix"><span><number>' + record.date +
 										'</number></span><span>' + record.reason + '</span><span><number>';
 										if (index===0){
 											str_html += '+ ';
@@ -181,14 +223,14 @@
 				});
 			})(mui);
 		</script>
-		<script type="text/javascript">		
+		<script type="text/javascript">
 			var box_01 = document.getElementById("box_01"),
 			box_02 = document.getElementById("box_02"),
 			clk_01 = document.getElementById("clk_01"),
       		clk_02 = document.getElementById("clk_02"),
       		tab_head_01 = document.getElementById("tab_head_01"),
       		tab_head_02 = document.getElementById("tab_head_02");
-      		
+
 	      	clk_01.addEventListener("tap",function () {
 					box_02.style.display = "block";
 					box_01.style.display = "none";
@@ -201,7 +243,7 @@
 					tab_head_01.style.display = "block";
 					tab_head_02.style.display = "none";
 			});
-			
+
 			document.getElementById('Btn').addEventListener("tap",function(){
 				mui.openWindow({
 		            url: "{% url 'account_withdraw' %}",
@@ -223,7 +265,7 @@
 
 </html>
 
-									
-									
-									
-									
+
+
+
+

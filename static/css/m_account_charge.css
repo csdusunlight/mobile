@@ -80,7 +80,12 @@ body {
 	font-size: 1.1rem;
 	text-align: center;
 }
-
+#tab_head_01 .list-head span {
+	width: 33.3333%
+}
+.box-01 .mui-table-view li span {
+	width: 33.3333%;
+}
 /*修改部分*/
 .tab-head {
 	margin: 2rem 0 0.4rem;
