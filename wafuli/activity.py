@@ -155,9 +155,7 @@ def get_recommend_rank_page(request):
     return JsonResponse(res)
 
 def lottery(request):
-    adv = Advertisement.objects.filter(Q(location='0')|Q(location='9'),is_hidden=False).first()
     user = request.user
-    context = {'adv':adv,}
     record_list = LotteryRecord.objects.all()[0:20]
     record_list_c = []
     for record in record_list:
@@ -166,8 +164,8 @@ def lottery(request):
              'date': record.date.strftime("%H:%M:%S"),
              'award':record.award,               
         })
-    context.update({"record":record_list_c});
-    return render(request, 'activity_lottery.html',context)
+    context = {"record":record_list_c};
+    return render(request, 'm_activity_lottery.html',context)
 
 def get_lottery(request):
     user = request.user

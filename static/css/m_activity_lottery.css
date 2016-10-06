@@ -1,0 +1,208 @@
+body {
+	background: #fef9e0;
+}
+.mui-content {
+	
+}
+.mui-content .top {
+	position: relative;
+	/*width: 100%;*/
+	height: 55rem;
+	background-color: red;
+	background: url(../images/choujiang-top.jpg) top center no-repeat;
+	background-size: 100% auto;
+	background-color: #fef9e0;
+}
+.dial {
+	margin: 0 auto;
+	position: relative;
+	width: 26rem;
+	height: 26rem;
+	top: 9rem;
+}
+.dial .rotate {
+	position: absolute;
+	left: auto;
+	width: 26rem;
+	height: 26rem;
+	margin: 0 auto;
+	background-size: 100% auto;
+	/*-webkit-transform: rotate(180deg) !important;
+	-moz-transform: rotate(180deg) !important;
+	-ms-transform: rotate(180deg) !important;
+	-0-transform: rotate(180deg) !important;
+	transform: rotate(180deg) !important;*/
+}
+.dial .rotate img {
+	width: 26rem;
+	height: 26rem;
+}
+.dial .rotate {
+	-webkit-transition: -webkit-transform 3000ms ease-out;
+	-webkit-transform: rotate(0deg);
+	-moz-transition:-moz-transform 3000ms ease-out;
+	-moz-transform: rotate(0deg);
+	-o-transition:-moz-transform 3000ms ease-out; 
+	-o-transform: rotate(0deg);
+	-ms-transition:-moz-transform 3000ms ease-out;
+	-ms-transform: rotate(0deg);
+	transition: transform 3000ms ease-out;
+	transform: rotate(0deg);	
+}
+.dial .pointer {
+	position: absolute;
+	left: 8.5rem;
+	top: 5.8rem;
+	width: 9rem;
+	height: 12rem;
+	margin: 0 auto;
+	background-size: 100% auto;
+	z-index: 500;
+}
+.dial .pointer img {
+	width: 9rem;
+	height: 12rem;
+}
+.top .text {
+	margin-top: 13rem;
+}
+.top .text h4 {
+	font-size: 1.6rem;
+	width: 90%;
+	margin-left: 5%;
+	margin-bottom: 1rem;
+	color: #f08519;
+}
+.top .text p {
+	font-size: 1.2rem;
+	width: 90%;
+	margin-left: 5%;
+	color: #f08519;
+}
+@-webkit-keyframes share {
+     0% {
+       	right: -4rem;
+       	opacity: 0;
+     } 
+     60% {
+     	right: 3rem;
+        opacity: 1;
+     }     
+     70% {
+        -webkit-transform: rotateZ(-30deg);
+     }      
+     100% {
+        right: 3rem;
+        opacity: 1;
+     }
+}
+.share-btn {
+	position: absolute;
+	top: 34rem;
+	right: 3rem;
+	-webkit-transform-origin: 50% 100%;
+	transform-origin: 50% 100%;
+	animation: share 1s linear;
+	-webkit-animation: share 1s linear;
+}
+.share-btn img {
+	width: 5rem;
+}
+
+.mui-content .middle {
+	/*width: 100%;*/
+	height: 28rem;
+	background-color: red;
+	background: url(../images/choujiang-middle.jpg) top center no-repeat;
+	background-size: 100% auto;
+	background-color: #fef9e0;
+}
+
+.mui-content .bottom {
+	/*width: 100%;*/
+	height: 30rem;
+	background-color: red;
+	background: url(../images/choujiang-bottom-02.jpg) top center no-repeat;
+	background-size: 100% auto;
+	background-color: #fef9e0;
+}
+/*滚动文字部分*/
+
+#textBox {
+	position: relative;
+	top: 3rem;
+	height: 19rem;
+	width: 70%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+#textBox ul li {
+	border-bottom: 1px dotted #f0f0f0;
+}
+#textBox ul li a {
+	display: block;
+	height: 3rem;
+	line-height: 3rem;
+}
+#textBox ul li a span {
+	display: inline-block;
+	width: 33.3333%;
+	text-align: center;
+	font-size: 1.2rem;
+	color: #a5a5a5;
+}
+
+.bottom p {
+	display: none;
+	position: relative;
+	top: 15rem;
+	font-style: 1rem;
+	line-height: 1.2rem;
+}
+
+/*抽奖弹出提示部分*/
+.popup {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background:  rgba(0,0,0,0.5);
+	z-index: 1000;
+	
+}
+.popup .popup-box {
+	position: relative;
+	width: 90% !important;
+	/*height: 40rem;*/
+	padding: 10% 0;
+	margin-top: 30%;
+	margin-left: 5%;
+	border-radius: 8px;
+	background: #fff;
+}
+.pop-content h2 {
+	font-size: 2rem;
+	color: #333;
+	text-align: center;
+}
+.pop-content p {
+	width: 80%;
+	font-size: 1.4rem;
+	text-align: center;
+	margin: 3rem auto;
+/*	line-height: 6rem;*/
+}
+.pop-content button {
+	width: 32%;
+	margin-left: 12%;
+}
+.only-btn button {
+	width: 40%;
+	margin-left: 30%;
+}
+.popup-box span {
+	position: absolute;
+	left: 0.4rem;
+	top: 0.4rem;
+	font-size: 3rem;
+}

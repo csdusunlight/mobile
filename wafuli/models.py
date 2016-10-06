@@ -347,6 +347,7 @@ class ExchangeRecord(models.Model):
     name = models.CharField(u'收件人姓名', max_length=20)
     tel = models.CharField(u'收件人手机号', max_length=14)
     addr = models.CharField(u'收件人地址', max_length=100)
+    postcode = models.CharField(u'邮编', max_length=10)
     message = models.CharField(u'留言', default=u"暂无", max_length=100)
     user_event = GenericRelation("UserEvent",related_query_name='exchangerecord')
     def __unicode__(self):

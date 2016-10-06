@@ -156,7 +156,6 @@ def expsubmit(request):
         telnum = request.POST.get('telnum', None)
         telnum = str(telnum).strip()
         remark = request.POST.get('remark', '')
-        print news_id , news_type , telnum
         if not (news_id and news_type and telnum):
             logger.error("news_id or news_type or telnum is missing!!!")
             raise Http404
@@ -282,25 +281,25 @@ def submit_order(request):
     result={'code':-1, 'url':''}
     if not request.user.is_authenticated():
         result['code'] = -1
-        result['url'] = reverse('login') + "?next=" + reverse('account_score')
         return JsonResponse(result)   
     name = request.GET.get("name", '')
     tel = request.GET.get("tel", '')
     addr = request.GET.get("addr", '')
     remark= request.GET.get("remark", '')
     good_id= request.GET.get("id", '')
+    postcode = request.GET.get("postcode", '')
     if not (name and tel and addr and good_id):
-        return Http404
+        raise Http404
     try:
         good_id = int(good_id)
     except ValueError:
-        return Http404
+        raise Http404
     commodity = Commodity.objects.get(pk=good_id)
     ret = charge_score(request.user, '1', commodity.price, commodity.name)
     if ret is not None:
         logger.debug('Exchanging scores is successfully reduced!')
         exg_obj = ExchangeRecord.objects.create(tranlist=ret,commodity=commodity,
-                                      name=name,tel=tel,addr=addr,message=remark)
+                                      name=name,tel=tel,addr=addr,postcode=postcode,message=remark)
         event = UserEvent.objects.create(user=request.user, event_type='3',invest_amount=commodity.price,
                          audit_state='1',remark=remark, content_object=exg_obj)
         ret.user_event = event

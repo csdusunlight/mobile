@@ -7,7 +7,7 @@ Created on 2016年8月1日
 from django.shortcuts import render
 from django.http.response import Http404, HttpResponse
 from wafuli.models import Welfare, Advertisement, Press, Hongbao, Baoyou, CouponProject,\
-    Company, Coupon, Information, Task, Finance, Mark
+    Company, Coupon, Information, Task, Finance, Mark, Commodity
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.db.models import Q
@@ -121,7 +121,6 @@ def exp_welfare_youhuiquan(request):
         result['code'] = '4'
         return JsonResponse(result)
     draw_count = user.user_coupons.filter(project=wel).count()
-    print draw_count, wel.claim_limit
     if draw_count >= wel.claim_limit:
         result['code'] = '2'
         return JsonResponse(result)
@@ -218,7 +217,6 @@ def task_json(request):
         item_list = item_list.filter(amount_to_invest__gt=100)
     item_list = item_list[start:start+6]
     for wel in item_list:
-        print wel.url
         data.append({
             "title":wel.title,
             "time":wel.time_limit,

@@ -1,0 +1,167 @@
+body {
+	background: #fff;
+}
+.mui-content {
+	/*margin-top: 44px;*/
+	background: #fff;
+}
+/*.content-box {
+	padding: 0 1.875% 2rem;
+	background: #fff;
+}
+.container-box {
+	background: #fff;
+}*/
+/*帐号部分*/
+.msg {
+	padding-top: 2rem;
+}
+.msg img {
+	float: left;
+	margin-left: 1rem;
+	margin-right: 2rem;
+	width: 20%;
+	/*height: 4rem;*/
+}
+.msg .text {
+	line-height: 2rem;
+	margin-top: 1rem;
+}
+.text p {
+		font-size: 1.2rem;
+		color: #a5a5a5;
+}
+.text p strong {
+	font-size: 1.4rem;
+	color: #f08519;
+}
+
+.mui-row {
+	margin-top: 1rem;
+}
+
+.mui-row button{
+	width: 60%;
+	margin-left: 20%;
+	height: 2rem;
+	padding: 0;
+}
+
+.mui-segmented-control {
+	margin-top: 3rem;
+}
+.mui-table-view {
+	margin-top: 0.2rem;
+}
+
+/*列表部分*/
+
+.mui-table-view .list {
+	border-bottom: 1px solid #e4e4e4;
+}
+.mui-table-view li span {
+	display:block;
+	float: left;
+	width: 25%;
+	text-align: center;
+	font-size: 1rem;
+	line-height: 3rem;
+	height: 3rem;
+	overflow: hidden;
+}
+.list-head {
+	background-color: #f3f3f3;
+	color: #333333;
+}
+.tab-head {
+	padding: 0 1.875% 0;
+}
+.list-head span {
+	display:block;
+	float: left;
+	line-height: 3rem;
+	width: 25%;
+	height: 3rem;
+	color: #f08519;
+	font-size: 1.1rem;
+	text-align: center;
+}
+/*样式替换*/
+/*.mui-btn-green {
+	color: #fff;
+	border: 1px solid #00d6b3;
+	background-color: #00d6b3;
+}
+.mui-btn-green:enabled:active,
+.mui-btn-green.mui-active:enabled {
+	color: #fff;
+	border: 1px solid #00bd9d;
+	background-color: #00bd9d;
+}
+.mui-btn-blue {
+	color: #fff;
+	border: 1px solid #52c5ff;
+	background-color: #52c5ff;
+}
+.mui-btn-blue:enabled:active,
+.mui-btn-blue.mui-active:enabled {
+	color: #fff;
+	border: 1px solid #49b1e5;
+	background-color: #49b1e5;
+}*/
+.pay-in {
+	background: url(../images/jf-in-01.png) 3.6rem center no-repeat;
+	background-size: 16% auto;
+	padding-left: 3.6rem; 
+}
+.pay-out {
+	background: url(../images/jf-out-01.png) 3.6rem center no-repeat;
+	background-size: 16% auto;
+	padding-left: 3.6rem; 
+}
+.pay-in.mui-active {
+	background: url(../images/jf-in-02.png) 3.6rem center no-repeat;
+	background-size: 16% auto;
+	padding-left: 3.6rem; 
+}
+.pay-out.mui-active {
+	background: url(../images/jf-out-02.png) 3.6rem center no-repeat;
+	background-size: 16% auto;
+	padding-left: 3.6rem; 
+}
+/*修改部分*/
+.tab-head {
+	margin: 2rem 0 0.4rem;
+}
+.tab-head>h2 {
+	color: #333;
+	font-size: 2rem;
+	float: left;
+	/*line-height: 4rem;*/
+}
+.tab-head>a {
+	display: block;
+	padding-left: 2.4rem;
+	margin-top: 1rem;
+	font-size: 1rem;
+	/*line-height: 5rem;*/
+	float: right;
+	background: url(../images/qiehuan-icon.png) left center no-repeat;
+	background-size: 1.6rem auto;
+}
+.mui-bar-nav~.mui-content .mui-slider.mui-fullscreen {
+	top: 22rem;
+}
+.mui-fullscreen .mui-segmented-control~.mui-slider-group {
+	top:0px;
+}
+.mui-pull-bottom-wrapper {
+	padding: 1rem 0;
+	text-align: center;
+}
+/*.mui-scroll {
+	transform: translate3d(0px, 0px, 0px) translateZ(0px) !important;
+}*/
+.box-01 .mui-table-view li span {
+    width: 33.3333%;
+}

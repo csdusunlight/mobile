@@ -32,7 +32,7 @@ import time as ttime
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from wafuli.models import (UserEvent, Finance, Task, ExchangeRecord,
-    ScoreTranlist, TransList, Coupon, Message)
+    ScoreTranlist, TransList, Coupon, Message, Commodity)
 from django.db.models import Sum, Count
 from .transaction import charge_money, charge_score
 from account.tools import send_mail, get_client_ip
@@ -467,66 +467,14 @@ def score_json(request):
              }
         if type == '1':
             event = con.user_event
-            if event:
+            if event and event.event_type == '3':
                 state = event.get_audit_state_display()
             else:
                 state = u"无"
-            i.update({"state":state,})   
+            i.update({"state":state})
         data.append(i)
     return JsonResponse(data, safe=False)
-    res={'code':0,}
-    if not request.user.is_authenticated():
-        res['code'] = -1
-        res['url'] = reverse('login') + "?next=" + reverse('account_score')
-        return JsonResponse(res)
-    page = request.GET.get("page", None)
-    size = request.GET.get("size", 10)
-    filter = request.GET.get("filter",0)
-    
-    try:
-        size = int(size)
-    except ValueError:
-        size = 10
-    try:
-        filter = int(filter)
-    except ValueError:
-        filter = 0
-    if not page or size <= 0 or filter < 0 or filter > 3:
-        raise Http404
-    item_list = []
 
-    item_list = ScoreTranlist.objects.filter(user=request.user)
-    if filter == 0:
-        item_list = item_list.filter(transType='0')
-    elif filter == 1:
-        item_list = item_list.filter(transType='1').select_related('user_event')
-    paginator = Paginator(item_list, size)
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-    # If page is not an integer, deliver first page.
-        contacts = paginator.page(1)
-    except EmptyPage:
-    # If page is out of range (e.g. 9999), deliver last page of results.
-        contacts = paginator.page(paginator.num_pages)
-    data = []
-    for con in contacts:        
-        i = {"item":con.reason,
-             "amount":con.transAmount,
-             "time":con.time.strftime("%Y-%m-%d %H:%M:%S"),
-             "remark":con.remark,
-             "id":con.pk,
-             }
-        if filter == 1:
-            event = con.user_event
-            i["state"]=event.get_audit_state_display() if event.event_type!='7' else "无"
-        data.append(i)
-    if data:
-        res['code'] = 1
-    res["pageCount"] = paginator.num_pages
-    res["recordCount"] = item_list.count()
-    res["data"] = data
-    return JsonResponse(res)
 @login_required
 def security(request):
     return render(request, 'account/account_security.html', {})
@@ -728,7 +676,26 @@ def withdraw(request):
                 result['code'] = -2
                 result['res_msg'] = u'提交失败！'
         return JsonResponse(result)
-            
+
+@login_required
+def exchange(request):
+    return render(request, 'account/m_account_exchange.html', {})
+
+@login_required
+def commodity_json(request):
+    count = int(request.GET.get('count', 0))
+    data = []
+    count = int(count)
+    start = 6*count
+    good_list = Commodity.objects.all()[start:start+12]
+    for good in good_list:
+        data.append({
+            'id':good.id,
+            'picurl':good.pic.url,
+            'name':good.name,
+            'price':good.price,
+        })
+    return JsonResponse(data,safe=False)
 
 @login_required
 def coupon(request):

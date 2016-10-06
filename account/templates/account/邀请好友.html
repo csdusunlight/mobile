@@ -21,64 +21,39 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title></title>
-    <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="css/raking.css"/>
+    <link rel="stylesheet" type="text/css" href="css/share-friend.css"/>
 </head>
 
 <body>
 	<header id="header" class="mui-bar mui-bar-nav">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		<h1 class="mui-title">当前排名</h1>
-		<a id="share" class="share"></a>
+		<h1 class="mui-title">邀请好友</h1>
+		<!--<a id="share" class="share"></a>-->
 	</header>
-	
-	<div class="head clearfix">
-        <span>用户名</span>
-        <span>通过审核数</span>
-        <span>当前排名/月</span>
-        <span>奖励现金/元</span>
-    </div>
-	
-
-<div id="pullrefresh" class="mui-scroll-wrapper">
-	
-
-	<div class="mui-content">	
-		
-	    <!--选项卡部分-->
-	
-	        
-	        
-	        <ul class="list-box mui-table-view">
-	            
-		        <li class="list clearfix">
-		            <span><number>***kcu</number></span>
-		            <span><number>22</number></span>
-		            <span><number>1</number></span>
-		            <span><numbe>78</numbe></span>
-		        </li>
-		        <li class="list clearfix">
-		            <span><number>***kcu</number></span>
-		            <span><number>22</number></span>
-		            <span><number>2</number></span>
-		            <span><numbe>78</numbe></span>
-		        </li>
-		        <li class="list clearfix">
-		            <span><number>***kcu</number></span>
-		            <span><number>22</number></span>
-		            <span><number>3</number></span>
-		            <span><numbe>78</numbe></span>
-		        </li>
-	
-	        </ul>
-		    
-	
-	        
-	    
+	<div class="mui-content">
+		<div class="top">
+			<p>我的邀请人数&nbsp;<span>1</span>人</p>
+			<p>我的奖励&nbsp;<span>1</span>元，<span>10</span>积分</p>
+		</div>
+		<div class="middle">
+			<h3>邀请码：</h3>
+			<div class="yqm-bg"><p class="yao-qing-ma">AslYjdf26546</p></div>
+			<div id="share" class="share-btn"><img src="images/share-friend.png"/></div>
+		</div>
+		<div class="bottom">
+			<p>奖励规则：</p>
+			<p>1、每推荐一名好友提现成功，<br />推荐人获得&nbsp;<span>10</span>积分</p>
+			<p>推荐人获得好友提现金额的<br />&nbsp;<span>5%</span>&nbsp;现金奖励</p>
+		</div>
+		<div class="tu-pian">			
+			<img src="images/share-friend-bottom.png"/>
+		</div>
 	</div>
-</div>
+	
+
+
 <!--分享部分-->
 <div id="share_bg" class="share-bg"></div>
 <div id="share_box">
@@ -122,7 +97,9 @@
 </div>   	
     
 	
-
+	<!--回到顶部部分-->
+    <a id="scrollToTop" class="backTop hide"> <span class="mui-icon mui-icon-arrowthinup"></span> </a>
+    <!--底部导航-->
 	
     <script src="js/mui.min.js"></script>
     <script src="js/share.js"></script>
