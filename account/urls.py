@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^charge_json/$', 'account.views.charge_json', name='charge_json'),
     url(r'^exchange/$', 'account.views.exchange', name='account_exchange'),
     url(r'^commodity_json/$', 'account.views.commodity_json', name='commodity_json'),
+    url(r'^welfare_json/$', 'account.views.get_user_welfare_json', name='get_user_welfare_json'),
 #     url(r'money/$', 'account.views.money', name='account_money'),
 #     url(r'user/$', 'account.views.user', name='account_user'),
     url(r'^coupon/$', 'account.views.coupon', name='account_coupon'), 

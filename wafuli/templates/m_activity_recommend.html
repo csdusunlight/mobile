@@ -1,0 +1,123 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title></title>
+    <script src="{%static 'js/mui.min.js'%}"></script>
+    <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_activity_recommend.css'%}"/>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">挖故事</h1>
+			<a class="share"></a>
+		</header>	    
+<div class="mui-content">
+	<div><h3>活动流程</h3></div>
+	<img src="{%static 'images/action.png'%}" alt="流程图片" />
+	<div><h3>规则说明</h3></div>
+	<h4>福利信息规则</h4>
+	<p><number>1、</number>用户登入挖福利官方网站，由专门入口提供免费福利信息。包括但不仅限于红包、<span class="english">P2P</span>体验金、话费、流量等；</p>
+	<p><number>2、</number>用户提供的所有免费福利对应的主体必须为正规的公司，确保信息的真实性、有效性、合法性；</p>
+	<p><number>3、</number>用户提供的福利信息若有相应链接，请提交活动链接。否则请提供详细的活动截图；</p>
+	<p><number>4、</number>用户提供的福利信息时间跨度不少于三天；</p>
+	<p><number>5、</number>用户提供的福利信息与网站的新手注册送现金以及推荐活动不冲突；</p>
+	<p><number>6、</number>涉及到拉人头、关注扫码、转发文章等领红包的信息一律属于无效福利。</p>
+	<h4>本次活动规则</h4>
+	<p><number>1、</number>递交相同福利的用户，按照提交时间优先采纳；</p>
+	<p><number>2、</number>每天征收的福利条数为<number>5</number>条，若有优质福利信息可酌情增加；</p>
+	<p><number>3、</number>挖福利用户每天不限信息提交条数，但请确保信息有效并亲身体验；</p>
+	<p><number>4、</number>提交的福利信息我们在<number>24</number>小时内对其进行审核；</p>
+	<p><number>5、</number>一经采用，我们会在<number>24</number>小时内发放<number>5</number>元现金至您的挖福利账户；</p>
+	<p><number>6、</number>每周进行统计，我们对提供更多有效的福利信息的用户给予一定奖励；</p>
+	
+	<p>①、每周提供福利达到<number>10</number>条（审核结果必须为通过），赠送精美礼品一份；</p>
+	<p>②、在一周内进行排名（网站首页将实时公布最新排名），第一名：书包一个。第二、三名：各抱枕毯一只。</p>
+	<p class="prompt tc">如有疑问请联系在线客服或拨打服务热线：<number>0734-83144456</number></p>
+	
+</div>   
+<div class="mui-row">
+        <div class="mui-col-sm-4 mui-col-xs-4">
+            <button id="submit_btn" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">提交福利信息</button>
+        </div>
+        <div class="left-btn mui-col-sm-4 mui-col-xs-4">
+            <button id="info_btn" type="button" class="right mui-btn mui-btn-blue mui-btn-outlined">审核信息</button>
+        </div>
+        <div class="left-btn mui-col-sm-4 mui-col-xs-4">
+            <button id="rank_btn" type="button" class="right mui-btn mui-btn-blue mui-btn-outlined">当前排名</button>
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	document.getElementById("submit_btn").addEventListener('tap', function() {
+			mui.openWindow({
+	            url: "{% url 'activity_recom_submit' %}",
+	            styles: {
+	                top: 0,
+	                bottom: 0
+	            },
+	            show: {
+	                aniShow: 'slide-in-right',
+	            },
+	            waiting: {
+	                autoShow: false, //自动显示等待框
+	                title: '正在加载...', //等待对话框上显示的提示内容
+	            }
+	        });
+		});
+      	document.getElementById("info_btn").addEventListener('tap', function() {
+			mui.openWindow({
+	            url: "{% url 'activity_recom_info' %}",
+	            styles: {
+	                top: 0,
+	                bottom: 0
+	            },
+	            show: {
+	                aniShow: 'slide-in-right',
+	            },
+	            waiting: {
+	                autoShow: false, //自动显示等待框
+	                title: '正在加载...', //等待对话框上显示的提示内容
+	            }
+	        });
+		});
+      	document.getElementById("rank_btn").addEventListener('tap', function() {
+			mui.openWindow({
+	            url: "{% url 'activity_recom_rank' %}",
+	            styles: {
+	                top: 0,
+	                bottom: 0
+	            },
+	            show: {
+	                aniShow: 'slide-in-right',
+	            },
+	            waiting: {
+	                autoShow: false, //自动显示等待框
+	                title: '正在加载...', //等待对话框上显示的提示内容
+	            }
+	        });
+		});
+    </script>
+</body>
+</html>

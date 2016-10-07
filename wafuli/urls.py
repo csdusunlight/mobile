@@ -51,8 +51,9 @@ urlpatterns = [
     url(r'^freshman/award/$', 'wafuli.views.freshman_award', name='freshman_award'),
      
     url(r'^activity/recommend/$', 'wafuli.activity.recommend', name='activity_recommend'),
-    url(r'^activity/recompage/$', 'wafuli.activity.get_activity_recommend_page', name='get_activity_recommend_page'),
-    url(r'^activity/recomrankpage/$', 'wafuli.activity.get_recommend_rank_page', name='get_recommend_rank_page'),
+    url(r'^activity/recom_submit/$', 'wafuli.activity.recom_submit', name='activity_recom_submit'),
+    url(r'^activity/recom_info/$', 'wafuli.activity.recom_info', name='activity_recom_info'),
+    url(r'^activity/recom_rank/$', 'wafuli.activity.recom_rank', name='activity_recom_rank'),
      
     url(r'^activity/lottery/$', 'wafuli.activity.lottery', name='activity_lottery'),
     url(r'^activity/lottery/get_lottery/$', 'wafuli.activity.get_lottery', name='get_lottery'),
