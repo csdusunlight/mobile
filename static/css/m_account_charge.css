@@ -117,3 +117,6 @@ body {
 	text-align: center;
 }
 
+.mui-table-view-cell {
+	padding: 0;
+}

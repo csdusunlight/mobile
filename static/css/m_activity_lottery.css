@@ -2,7 +2,12 @@ body {
 	background: #fef9e0;
 }
 .mui-content {
-	
+
+}
+.mui-action-back {
+	position: absolute;
+	padding: 10px;
+	z-index: 2;
 }
 .mui-content .top {
 	position: relative;
@@ -42,12 +47,12 @@ body {
 	-webkit-transform: rotate(0deg);
 	-moz-transition:-moz-transform 3000ms ease-out;
 	-moz-transform: rotate(0deg);
-	-o-transition:-moz-transform 3000ms ease-out; 
+	-o-transition:-moz-transform 3000ms ease-out;
 	-o-transform: rotate(0deg);
 	-ms-transition:-moz-transform 3000ms ease-out;
 	-ms-transform: rotate(0deg);
 	transition: transform 3000ms ease-out;
-	transform: rotate(0deg);	
+	transform: rotate(0deg);
 }
 .dial .pointer {
 	position: absolute;
@@ -83,14 +88,14 @@ body {
      0% {
        	right: -4rem;
        	opacity: 0;
-     } 
+     }
      60% {
      	right: 3rem;
         opacity: 1;
-     }     
+     }
      70% {
         -webkit-transform: rotateZ(-30deg);
-     }      
+     }
      100% {
         right: 3rem;
         opacity: 1;
@@ -168,7 +173,7 @@ body {
 	height: 100%;
 	background:  rgba(0,0,0,0.5);
 	z-index: 1000;
-	
+
 }
 .popup .popup-box {
 	position: relative;

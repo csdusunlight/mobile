@@ -86,6 +86,12 @@ body {
 	font-size: 1.1rem;
 	text-align: center;
 }
+#tab_head_01 .list-head span {
+	width: 33.3333%
+}
+.box-01 .mui-table-view li span {
+	width: 33.3333%;
+}
 /*样式替换*/
 /*.mui-btn-green {
 	color: #fff;
@@ -112,22 +118,22 @@ body {
 .pay-in {
 	background: url(../images/jf-in-01.png) 3.6rem center no-repeat;
 	background-size: 16% auto;
-	padding-left: 3.6rem; 
+	padding-left: 3.6rem;
 }
 .pay-out {
 	background: url(../images/jf-out-01.png) 3.6rem center no-repeat;
 	background-size: 16% auto;
-	padding-left: 3.6rem; 
+	padding-left: 3.6rem;
 }
 .pay-in.mui-active {
 	background: url(../images/jf-in-02.png) 3.6rem center no-repeat;
 	background-size: 16% auto;
-	padding-left: 3.6rem; 
+	padding-left: 3.6rem;
 }
 .pay-out.mui-active {
 	background: url(../images/jf-out-02.png) 3.6rem center no-repeat;
 	background-size: 16% auto;
-	padding-left: 3.6rem; 
+	padding-left: 3.6rem;
 }
 /*修改部分*/
 .tab-head {
@@ -164,4 +170,8 @@ body {
 }*/
 .box-01 .mui-table-view li span {
     width: 33.3333%;
+}
+
+.mui-table-view-cell {
+	padding: 0;
 }

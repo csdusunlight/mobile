@@ -22,7 +22,7 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>积分抽奖</title>
-    
+
     <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_activity_lottery.css'%}"/>
@@ -33,6 +33,7 @@
 </head>
 	<body>
 		<div class="mui-content">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<div class="top">
 				<!--<div class="choujiang">
 					<div id="zhuanpan" class="zhuanpan-bg"></div>
@@ -42,13 +43,13 @@
                 	<div class="turntable-bg">
 
 				        <!--<div class="mask"><img src="/static/images/award_01.png"/></div>-->
-				
+
 				        <div class="pointer"><img src="{%static 'images/choujiang-zhizhen.png'%}" alt="pointer"></div>
-				
+
 				        <div class="rotate"><img id="rotate" src="{%static 'images/choujiang-zhuanpan.png'%}" alt="turntable"></div>
-				
-				    </div>	
-                    
+
+				    </div>
+
                 </div>
 				<!--<p class="text"><number>3</number></p>-->
 				<div class="text clearfix">
@@ -108,13 +109,13 @@
 				</p>-->
 			</div>
 		</div> <!--mui-content----end-->
-		
+
 		<!--分享部分-->
 		<div id="share_bg" class="share-bg"></div>
 		<div id="share_box">
 			<div id="content_box" class="share-content-box">
 				<div id="share_close" class="share-close">
-					<span class="mui-icon mui-icon-arrowdown"></span>		
+					<span class="mui-icon mui-icon-arrowdown"></span>
 				</div>
 				<ul class="list clearfix">
 					<li>
@@ -134,7 +135,7 @@
 							<img src="{%static 'images/share-sina.png'%}"/>
 							<p>微信微博</p>
 						</a>
-					</li>		
+					</li>
 					<li>
 						<a href="#">
 							<img src="{%static 'images/share-qq-zone.png'%}"/>
@@ -149,17 +150,17 @@
 					</li>
 				</ul>
 			</div>
-		</div>   	
-		
+		</div>
+
 		<!--弹出层部分-->
-		
+
 		<!--温馨提示-->
 		  <div class="popup4 popup" style="display:none;">
 		  	<div class="popup-box">
 		    	<div class="pop-content">
 		        	<h2>温馨提示</h2>
 		            <p>本次抽奖将消耗您<font><number>10</number>积分</font>！</p>
-		            <div class="btn_cont only-btn">		            	
+		            <div class="btn_cont only-btn">
 		            	<button type="button" class="confirm_lottery mui-btn mui-btn-yellow">确定</button>
 		            </div>
 		        </div>
@@ -213,7 +214,7 @@
 		    	<div class="pop-content">
 		        	<h2>信息填写</h2>
 		        	<form class="mui-input-group">
-				
+
 						<div class="mui-input-row">
 							<label>姓名</label>
 							<input type="text" placeholder="请输入收件人姓名">
@@ -230,7 +231,7 @@
 							<label>邮编</label>
 							<input type="text" placeholder="请输入邮编地址">
 						</div>
-					
+
 				</form>
 				<p>注：请填写真实有效信息，如因填写信息错误导致无法收货，责任由用户承担。</p>
 		            <div class="btn_cont only-btn">
@@ -240,7 +241,7 @@
 		        <span class="btn_x mui-icon mui-icon-closeempty"></span>
 		    </div>
 		  </div>
-		  
+
 		  <!--温馨提示-积分不足-->
 		  <div class="popup7 popup" style="display:none;">
 		  	<div class="popup-box">
@@ -266,12 +267,12 @@
 		            	<button type="button" class="confirm_lottery mui-btn mui-btn-yellow">继续抽奖</button>
 		            </div>
 		        </div>
-		        <span class="btn_x mui-icon mui-icon-closeempty"></span>		        
+		        <span class="btn_x mui-icon mui-icon-closeempty"></span>
 		    </div>
 		  </div>
-		  
-		  
-		
+
+
+
 		<script src="{%static 'js/mui.min.js'%}"></script>
 		<script src="{%static 'js/share.js'%}"></script>
 		<!--<script type="text/javascript" charset="utf-8">
