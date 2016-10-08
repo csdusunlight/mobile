@@ -41,9 +41,9 @@ body {
 }
 
 .mui-row button{
-	width: 60%;
-	margin-left: 20%;
-	height: 2rem;
+	width: 50%;
+	margin-left: 25%;
+	height: 2.4rem;
 	padding: 0;
 }
 
@@ -93,28 +93,6 @@ body {
 	width: 33.3333%;
 }
 /*样式替换*/
-/*.mui-btn-green {
-	color: #fff;
-	border: 1px solid #00d6b3;
-	background-color: #00d6b3;
-}
-.mui-btn-green:enabled:active,
-.mui-btn-green.mui-active:enabled {
-	color: #fff;
-	border: 1px solid #00bd9d;
-	background-color: #00bd9d;
-}
-.mui-btn-blue {
-	color: #fff;
-	border: 1px solid #52c5ff;
-	background-color: #52c5ff;
-}
-.mui-btn-blue:enabled:active,
-.mui-btn-blue.mui-active:enabled {
-	color: #fff;
-	border: 1px solid #49b1e5;
-	background-color: #49b1e5;
-}*/
 .pay-in {
 	background: url(../images/jf-in-01.png) 3.6rem center no-repeat;
 	background-size: 16% auto;
@@ -137,7 +115,7 @@ body {
 }
 /*修改部分*/
 .tab-head {
-	margin: 2rem 0 0.4rem;
+	margin: 2rem 0 1rem;
 }
 .tab-head>h2 {
 	color: #333;
