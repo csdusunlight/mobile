@@ -17,18 +17,19 @@ from wafuli.tools import weighted_random
 from account.transaction import charge_score, charge_money
 from wafuli.data import AwardTable
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 logger = logging.getLogger('wafuli')
-def recommend(request, id=None):
+def recommend(request):
+    return render(request, 'm_activity_recommend.html')
+
+@login_required
+def recom_submit(request):
     user = request.user
     if request.method == "POST":
         if not request.is_ajax():
             logger.warning("Experience refused no-ajax request!!!")
             raise Http404
         result = {}
-        if not user.is_authenticated():
-            result['code'] = -1
-            result['url'] = reverse('login') + "?next=" + reverse('activity_recommend')
-            return JsonResponse(result)
         sumbit_num_today = UserWelfare.objects.filter(user=user, date__gte=datetime.date.today()).count()
         if sumbit_num_today>=5:
             result['code'] = 4
@@ -50,23 +51,47 @@ def recommend(request, id=None):
                 logger.warning(e)
             else:
                 result['code'] = 0
+                result['res_msg'] = u'提交成功！'
         return JsonResponse(result)
     else:
-        adv = Advertisement.objects.filter(Q(location='0')|Q(location='8'),is_hidden=False).first()
-        context = {'adv':adv,}
-        if user.is_authenticated():
-            if hasattr(user, 'rank_of'):
-                context['rank'] = user.rank_of.rank
-                context['acc_num'] = user.rank_of.acc_num
-            else:
-                context['rank'] = '--'
-                context['acc_num'] = 0
-            today = datetime.date.today()
-            first_day = datetime.datetime(today.year, today.month, 1)
-            context['total_num'] = UserEvent.objects.filter(user=user, event_type='6', \
-                        time__gte=first_day,).count()
-        return render(request, 'activity_recommend.html',context)
-    
+        ref_url = request.META.get('HTTP_REFERER',"")
+        context = {}
+        if 'next=' in ref_url:
+            context.update({'back':True})
+        return render(request, 'm_activity_recom_submit.html', context)
+def recom_rank(request):
+    if not request.is_ajax():
+        return render(request, 'm_activity_recom_rank.html')
+    else:
+        res={'code':0,}
+
+
+@login_required
+def recom_info(request):
+    if not request.is_ajax():
+        ref_url = request.META.get('HTTP_REFERER',"")
+        context = {}
+        if 'next=' in ref_url:
+            context.update({'back':True})
+        return render(request, 'm_activity_recom_info.html', context)
+    else:
+        user = request.user
+        count = request.GET.get("count", 0)
+        try:
+            count = int(count)
+        except ValueError:
+            count = 0
+        item_list = []
+        start = 12*count
+        item_list = UserEvent.objects.filter(user=user,event_type='6')[start:start+12]
+        data = []
+        for con in item_list:
+            i = {"title":con.content_object.title,
+                 "time":con.time.strftime("%Y-%m-%d"),
+                 "state":con.get_audit_state_display(),
+                 }
+            data.append(i)
+        return JsonResponse(data, safe=False) 
 def get_activity_recommend_page(request):
     res={'code':0,}
     user = request.user

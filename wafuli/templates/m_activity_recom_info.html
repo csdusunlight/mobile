@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -21,9 +22,9 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title></title>
-    <link href="css/mui.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="css/submit.css"/>
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_activity_recom_info.css' %}"/>
 
     
 </head>
@@ -42,14 +43,8 @@
 	
 
 <div id="pullrefresh" class="mui-scroll-wrapper">
-	
-
 <div class="mui-content">	
-	
     <!--选项卡部分-->
-
-        
-        
         <ul class="list-box mui-table-view">
             
 	        <li class="list clearfix">
@@ -87,72 +82,103 @@
 		<ul class="list clearfix">
 			<li>
 				<a href="#">
-					<img src="images/share-weixin.png"/>
+					<img src="{% static 'images/share-weixin.png' %}"/>
 					<p>微信好友</p>
 				</a>
 			</li>
 			<li>
 				<a href="#">
-					<img src="images/share-qq.png"/>
+					<img src="{% static 'images/share-qq.png' %}"/>
 					<p>QQ好友</p>
 				</a>
 			</li>
 			<li>
 				<a href="#">
-					<img src="images/share-sina.png"/>
+					<img src="{% static 'images/share-sina.png' %}"/>
 					<p>微信微博</p>
 				</a>
 			</li>		
 			<li>
 				<a href="#">
-					<img src="images/share-qq-zone.png"/>
+					<img src="{% static 'images/share-qq-zone.png' %}"/>
 					<p>QQ空间</p>
 				</a>
 			</li>
 			<li>
 				<a href="#">
-					<img src="images/share-friend-row.png"/>
+					<img src="{% static 'images/share-friend-row.png' %}"/>
 					<p>朋友圈</p>
 				</a>
 			</li>
 		</ul>
 	</div>
 </div>   	
-	
-    <script src="js/mui.min.js"></script>
-    <script src="js/share.js"></script>
+    <script src="{% static 'js/mui.min.js' %}"></script>
+    <script src="{% static 'js/share.js' %}"></script>
     <script type="text/javascript" charset="utf-8">
-      	mui.init({
-				pullRefresh: {
-					container: '#pullrefresh',
-					up: {
-						contentrefresh: '正在加载...',
-						callback: pullupRefresh
-					}
+	    mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				up: {
+					auto:true,
+					contentrefresh: '正在加载...',
+					contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+					callback: pullupRefresh
 				}
+			}
 		});
-		/**
-		 * 上拉加载具体业务实现
-		 */
 		var count = 0;
-		function pullupRefresh() {
-			setTimeout(function() {
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
-				var table = document.body.querySelector('.mui-table-view');
-//				var cells = document.body.querySelectorAll('.mui-table-view-cell');
-				for (var i = 0, len = 2; i < len; i++) {
-					var li = document.createElement('li');
-					li.className = 'list clearfix';
-					li.innerHTML = '<span class=""><number>2016-07-13-12:30</number></span>'+
-									'<span>滴滴打车</span>'+
-									'<span>审核通过</span>';
-					table.appendChild(li);
+		function get_record_list(n){
+			mui.ajax({
+				url:"",
+				data:{
+					count:n,
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+		//		headers:{'Content-Type':'application/json'},
+				success:function(data){
+					if (!data.length){
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+					}
+					else {
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
+						var table = document.body.querySelector('.mui-table-view');
+		//				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+						for (var i in data) {
+							var record = data[i];
+							var li = document.createElement('li');
+							li.className = 'list clearfix';
+							str_block = '<span><number>' + record.time + '</number></span><span>' +
+								record.title + '</span><span>' + record.state + '</span>';
+							li.innerHTML = str_block;
+							table.appendChild(li);
+						}
+					}
+		
+				},
+				error:function(xhr,type,errorThrown){
+					alert(type);
 				}
-			}, 1000);
+			});
+		}
+		function pullupRefresh() {
+			get_record_list(count++);
 		}
     </script>
-
-
-	
+	 {%if back %}
+		<script>
+		mui.back = function(){
+			var history = window.history;
+			if (history.length > 3 ){
+				history.go(-3);
+			}
+			else{
+				history.back();
+			}
+		};
+		</script>
+	{%endif%}
 </body>
 </html>

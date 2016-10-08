@@ -365,66 +365,38 @@ def signin_record(request):
     return JsonResponse(records,safe=False)
 @login_required
 def welfare(request):
-    tcount = Task.objects.filter(state='1').count()
-    fcount = Finance.objects.filter(state='1').count()
     ttype = ContentType.objects.get_for_model(Task)
     ftype = ContentType.objects.get_for_model(Finance)
     tcount_u = UserEvent.objects.filter(user=request.user.id, content_type = ttype.id).count()
     fcount_u = UserEvent.objects.filter(user=request.user.id, content_type = ftype.id).count()
-    tsum = UserEvent.objects.filter(time__gte=date.today(), content_type = ttype.id).count()
-    fsum = UserEvent.objects.filter(time__gte=date.today(), content_type = ftype.id).count()
-    statis = {'tcount':tcount,'fcount':fcount,'tcount_u':tcount_u,'fcount_u':fcount_u,'tsum':tsum,'fsum':fsum}
-    return render(request, 'account/welfare.html', {'statis':statis})
+    statis = {'tcount_u':tcount_u,'fcount_u':fcount_u }
+    return render(request, 'account/m_account_welfare.html', {'statis':statis})
 
 
-def get_user_wel_page(request):
+def get_user_welfare_json(request):
     if not request.is_ajax():
         raise Http404
     res={'code':0,}
     if not request.user.is_authenticated():
-        res['code'] = -1
-        res['url'] = reverse('login') + "?next=" + reverse('account_welfare')
-        return JsonResponse(res)
-    tpage = request.GET.get("tpage", None)
-    fpage = request.GET.get("fpage", None)
-    size = request.GET.get("size", 10)
-    filter = request.GET.get("filter",0)
-    try:
-        size = int(size)
-    except ValueError:
-        size = 10
-    try:
-        filter = int(filter)
-    except ValueError:
-        filter = 0
-    if not tpage and not fpage or size <= 0 or filter < 0 or filter > 3:
         raise Http404
-    item_list = []
-    if tpage:
-        page = tpage
-        etype = ContentType.objects.get_for_model(Task)
-    elif fpage:
-        page = fpage
-        etype = ContentType.objects.get_for_model(Finance)
-    item_list = UserEvent.objects.filter(user=request.user, content_type = etype)
-    if filter == 1:
-        item_list = item_list.filter(audit_state='0')
-    elif filter == 2:
-        item_list = item_list.filter(audit_state='1')
-    elif filter == 3:
-        item_list = item_list.filter(audit_state='2')
-    paginator = Paginator(item_list, size)
+    type = request.GET.get("type", 0)
+    count = request.GET.get("count", 0)
     try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-    # If page is not an integer, deliver first page.
-        contacts = paginator.page(1)
-    except EmptyPage:
-    # If page is out of range (e.g. 9999), deliver last page of results.
-        contacts = paginator.page(paginator.num_pages)
+        count = int(count)
+        type = int(type)
+    except ValueError:
+        count = 0
+        type = 0
+    item_list = []
+    if type == 0:
+        etype = ContentType.objects.get_for_model(Task)
+    else:
+        etype = ContentType.objects.get_for_model(Finance)
+        
+    start = 12*count
+    item_list = UserEvent.objects.filter(user=request.user, content_type = etype)[start:start+12]
     data = []
-    
-    for con in contacts:
+    for con in item_list:
         reason = con.remark
         if filter == 3:
             log = con.audited_logs.first()
@@ -432,17 +404,11 @@ def get_user_wel_page(request):
                 reason = log.reason
         i = {"title":con.content_object.title,
              "username":con.invest_account,
-             "time":con.time.strftime("%Y-%m-%d %H:%M:%S"),
+             "time":con.time.strftime("%Y-%m-%d"),
              "state":con.get_audit_state_display(),
-             "reason":reason,
              }
         data.append(i)
-    if data:
-        res['code'] = 1
-    res["pageCount"] = paginator.num_pages
-    res["recordCount"] = item_list.count()
-    res["data"] = data
-    return JsonResponse(res)
+    return JsonResponse(data, safe=False)
 
 @login_required
 def score(request):
@@ -686,7 +652,7 @@ def commodity_json(request):
     count = int(request.GET.get('count', 0))
     data = []
     count = int(count)
-    start = 6*count
+    start = 12*count
     good_list = Commodity.objects.all()[start:start+12]
     for good in good_list:
         data.append({
