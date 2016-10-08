@@ -37,7 +37,7 @@
 	height: 100%;
 	background:  rgba(0,0,0,0.5);
 	z-index: 1000;
-	
+
 }
 .popup .popup-box {
 	position: relative;
@@ -101,10 +101,11 @@
 }
 .card img {
 	width: 100%;
+  max-height: 12rem;
 }
 .text {
 	padding: 0.8rem 0.5rem 1rem;
-}  
+}
 .text h3 {
 	font-size: 1.4rem;
 	color: #333;

@@ -88,7 +88,7 @@ body {
 }
 /*修改部分*/
 .tab-head {
-	margin: 2rem 0 0.4rem;
+	margin: 2rem 0 1rem;
 }
 .tab-head>h2 {
 	color: #333;
@@ -117,3 +117,6 @@ body {
 	text-align: center;
 }
 
+.mui-table-view-cell {
+	padding: 0;
+}
