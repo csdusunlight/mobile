@@ -1,0 +1,41 @@
+body {	
+	background: #fff;
+}
+.mui-content {
+	padding:0 1.875% 0;
+	margin-top: 80px;
+	background: #fff;
+}
+.head {
+	position: fixed;
+	top: 44px;
+	width: 100%;
+	z-index: 100;
+}
+.head {
+	background-color: #52c5ff;
+	color: #333333;
+	border-radius: 0 0 0.8rem 0.8rem;
+	color: #fff;
+}
+.list-box .list {
+	border-bottom: 1px solid #e4e4e4;
+}
+.head span,
+.list-box li span {
+	display:block;
+	float: left;
+	width: 33.3333%;
+	text-align: center;
+	font-size: 1rem;
+	line-height: 3rem;
+}
+.head span {
+	font-size: 12px;
+	line-height: 36px;
+}
+
+/*样式替换*/
+.mui-content>.mui-table-view:first-child {
+	margin-top: 0;
+}

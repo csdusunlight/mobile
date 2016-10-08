@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -36,37 +36,68 @@
 		</header>
 		<div class="mui-content">
 			<form class="mui-input-group">
-				
+				{% csrf_token %}
 					<div class="mui-input-row">
 						<label>活动主题</label>
-						<input type="text" placeholder="必填项，活动主题">
+						<input id="title" type="text" placeholder="必填项，活动主题">
 					</div>
 					<div class="mui-input-row">
 						<label>活动链接</label>
-						<input type="text" placeholder="必填项，活动网址">
+						<input id="url" type="text" placeholder="必填项，活动网址">
 					</div>
 					<div class="mui-input-row">
 						<label>推荐理由</label>
-						<input type="text" placeholder="选填项，提高审核通过几率">
+						<input id="reason" type="text" placeholder="选填项，提高审核通过几率">
 					</div>
 					
 					
 				</form>
-				<button id="Btn" type="button" class="bottom mui-btn mui-btn-blue mui-btn-block">确定</button>
+				<button id="submit_btn" type="button" class="bottom mui-btn mui-btn-blue mui-btn-block">确定</button>
 				
 		</div>
 		
 		<script src="{%static 'js/mui.min.js'%}"></script>
-		<!--弹窗部分-->
 		<script type="text/javascript" charset="utf-8">
-		      	mui.init({
-					swipeBack:true //启用右滑关闭功能
+	      	mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			document.getElementById("submit_btn").addEventListener('tap', function() {
+				var title = document.getElementById('title').value;
+				var url = document.getElementById('url').value;
+				var reason = document.getElementById('reason').value;
+                var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+				mui.ajax({
+					url:"",
+					type:'post',
+					data:{
+						title: title,
+						url: url,
+						reason: reason,
+						csrfmiddlewaretoken:csrfmiddlewaretoken
+					},
+					dataType:"json",
+					success:function(ret){
+						mui.alert(ret.res_msg);
+					},
+					error:function(xhr,type,errorThrown){
+						alert(type);
+					}
 				});
-					document.getElementById("Btn").addEventListener('tap', function() {
-						mui.alert('输入的收件人电话有误，请重新输入！', '抱歉', function() {
-						});
-					});
+			});
 		</script>
+		{%if back %}
+			<script>
+			mui.back = function(){
+				var history = window.history;
+				if (history.length > 3 ){
+					history.go(-3);
+				}
+				else{
+					history.back();
+				}
+			};
+			</script>
+		{%endif%}
 	</body>
 
 </html>
