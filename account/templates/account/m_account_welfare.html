@@ -27,13 +27,13 @@
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_account_welfare.css'%}"/>
 </head>
-<body>		    
+<body>
 <header id="header" class="mui-bar mui-bar-nav">
 	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 	<h1 class="mui-title">福利管理</h1>
 	<a id="share" class="share"></a>
 </header>
-<div class="mui-content">	    
+<div class="mui-content">
     <!--选项卡部分-->
     <div id="finance_slider" class="mui-slider mui-fullscreen">
         <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
@@ -60,9 +60,9 @@
 			            <span class="li-04">状态</span>
 	                </li>
             	</ul>
-            	
-            	
-                <ul class="mui-table-view">                                      
+
+
+                <ul class="mui-table-view">
                 </ul>
                 </div>
                 </div>
@@ -85,62 +85,22 @@
 			            <span class="li-04">状态</span>
                     </li>
             	</ul>
-                <ul class="mui-table-view">                                                        
+                <ul class="mui-table-view">
                 </ul>
                 </div>
                 </div>
             </div>
-            
-            
+
+
         </div>
     </div>
-    
+
 
     <!--测试-->
-</div>    
-<!--</div>-->	
-<!--分享部分-->
-<div id="share_bg" class="share-bg"></div>
-<div id="share_box">
-	<div id="content_box" class="share-content-box">
-		<div id="share_close" class="share-close">
-			<span class="mui-icon mui-icon-arrowdown"></span>		
-		</div>
-		<ul class="list clearfix">
-			<li>
-				<a href="#">
-					<img src="{%static 'images/share-weixin.png'%}"/>
-					<p>微信好友</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{%static 'images/share-qq.png'%}"/>
-					<p>QQ好友</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{%static 'images/share-sina.png'%}"/>
-					<p>微信微博</p>
-				</a>
-			</li>		
-			<li>
-				<a href="#">
-					<img src="{%static 'images/share-qq-zone.png'%}"/>
-					<p>QQ空间</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{%static 'images/share-friend-row.png'%}"/>
-					<p>朋友圈</p>
-				</a>
-			</li>
-		</ul>
-	</div>
-</div>   	   
-   
+</div>
+<!--</div>-->
+
+
     <script src="{%static 'js/mui.min.js'%}"></script>
     <script src="{%static 'js/share.js'%}"></script>
 	<script src="{%static 'js/mui.pullToRefresh.js'%}"></script>
@@ -196,8 +156,8 @@
 									var wel = data[i];
 									var li = document.createElement('li');
 									li.className = 'list clearfix';
-									str_html = '<span class="li-01">' + wel.title + 
-										'</span><span class="li-02"><number>' + wel.username + 
+									str_html = '<span class="li-01">' + wel.title +
+										'</span><span class="li-02"><number>' + wel.username +
 										'</number></span><span class="li-03"><number>' + wel.time +
 										'</number></span><span class="li-04">' + wel.state;
 									li.innerHTML = str_html
@@ -211,7 +171,7 @@
 					});
 				}
 			});
-		})(mui);		
+		})(mui);
 			var gallery = mui('#banner');
 			gallery.slider({
 				interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
