@@ -685,9 +685,8 @@ def user_coupon_json(request):
         count = int(count)
     except ValueError:
         count = 0
-    if not count or not type:
-        raise Http404
-    item_list = Coupon.objects.filter(user=request.user,project__ctype=str(filter)).select_related('project').order_by('-time')[start:start+6]
+    item_list = Coupon.objects.filter(user=request.user,project__ctype=str(type)).select_related('project').order_by('-time')[start:start+6]
+    print item_list
     for con in item_list:
         project = con.project
         i = {"title":project.title,
@@ -696,7 +695,9 @@ def user_coupon_json(request):
              "url":project.exp_url,
              'endtime':project.endtime,
              'id':con.id,
-             'code':con.exchange_code
+             'code':con.exchange_code,
+             'imgurl':project.pic.url,
+             'is_used':con.is_used,
         }
         data.append(i)
     return JsonResponse(data,safe=False)
@@ -747,15 +748,11 @@ def useCoupon(request):
     user = request.user
     res={'code':0,}
     if not user.is_authenticated():
-        res['code'] = -1
-        res['url'] = reverse('login') + "?next=" + reverse('account_coupon')
-        return JsonResponse(res)
+        raise Http404
     coupon_id = request.POST.get('id', None)
     telnum = request.POST.get('telnum', None)
     remark = request.POST.get('remark', '')
-    if coupon_id is None or telnum is None:
-        logger.error("Coupon ID or telnum is missing!!!")
-        raise Http404
+    coupon_id = int(coupon_id)
     coupon = Coupon.objects.get(pk=coupon_id)
     code=''
     msg=''
@@ -780,7 +777,7 @@ def useCoupon(request):
         msg = u'提交成功，请查看兑换记录！'
         coupon.is_used = True
         coupon.save(update_fields=['is_used'],)
-    result = {'code':code, 'msg':msg}
+    result = {'code':code, 'res_msg':msg}
     return JsonResponse(result)
 
 @login_required

@@ -121,19 +121,6 @@
                         	<div class="youhuiquan-left fl">
                         		<p class="use clearfix"><span class="use-01">使用说明：</span><span class="use-02">仅限新用户使用仅限新用户使用仅限新用户使用仅限新用户使用</span></p>
                         		<p>有效期至：<number>2016-12-12</number></p>
-                        		<p><span>优惠券码：</span><number>jzy13254</number><button type="button" class="duihuan-btn mui-btn mui-btn-yellow">兑换</button></p>
-                        	</div>
-                            <div class="youhuiquan-right fr">
-                            	<img src="{%static 'images/youhuiquan-icon.jpg'%}" alt="优惠券商家图标" />
-                            	<p>滴滴打车券</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mui-table-view-cell">
-                    	<a class="clearfix" href="#">
-                        	<div class="youhuiquan-left fl">
-                        		<p class="use clearfix"><span class="use-01">使用说明：</span><span class="use-02">仅限新用户使用仅限新用户使用仅限新用户使用仅限新用户使用</span></p>
-                        		<p>有效期至：<number>2016-12-12</number><button type="button" disabled class="duihuan-btn mui-btn mui-btn-yellow">已兑换</button></p>
                         		<p><span>优惠券码：</span><number>jzy13254</number></p>
                         	</div>
                             <div class="youhuiquan-right fr">
@@ -141,6 +128,21 @@
                             	<p>滴滴打车券</p>
                             </div>
                         </a>
+                        <button type="button" class="duihuan-btn mui-btn mui-btn-yellow">兑换</button>
+                    </li>
+                    <li class="mui-table-view-cell">
+                    	<a class="clearfix" href="#">
+                        	<div class="youhuiquan-left fl">
+                        		<p class="use clearfix"><span class="use-01">使用说明：</span><span class="use-02">仅限新用户使用仅限新用户使用仅限新用户使用仅限新用户使用</span></p>
+                        		<p>有效期至：<number>2016-12-12</number></p>
+                        		<p><span>优惠券码：</span><number>jzy13254</number></p>
+                        	</div>
+                            <div class="youhuiquan-right fr">
+                            	<img src="{%static 'images/youhuiquan-icon.jpg'%}" alt="优惠券商家图标" />
+                            	<p>滴滴打车券</p>
+                            </div>
+                        </a>
+                        <button type="button" disabled class="duihuan-btn mui-btn mui-btn-yellow">已兑换</button>
                     </li>
                 </ul>
                 </div>
@@ -148,10 +150,8 @@
             </div>
             
             <div id="item4" class="mui-slider-item mui-control-content">
-            <div id="pullrefresh" class="mui-scroll-wrapper">	
-            
-            	<!--<div id="scroll4" class="mui-scroll-wrapper">-->
-            	<!--<div class="mui-scroll-02">-->
+            	<div id="scroll4" class="mui-scroll-wrapper">
+            	<div class="mui-scroll">
                 <ul id="list-box" class="list-box mui-table-view">                			        
 			        <li class="clearfix">
 			            <span>类型</span>
@@ -190,9 +190,8 @@
 			            <span><numbe>审核中</numbe></span>
 			        </li>         
                 </ul>
-                <!--</div>-->
-                <!--</div>-->
-            </div>
+                </div>
+                </div>
             </div>
 
         </div>
@@ -209,20 +208,20 @@
     	<div class="pop-content">
         	<h2>优惠券兑换</h2>
         	<form class="mui-input-group">
-
+				{% csrf_token %}
 				<div class="mui-input-row">
-					<label>手机号</label>
-					<input type="text" placeholder="请输入收件人电话">
+					<label>账号</label>
+					<input id="telnum" type="text" placeholder="请输入投资账号">
 				</div>
 				<div class="mui-input-row">
 					<label>备注</label>
-					<input type="text" placeholder="请输入收件人地址">
+					<input id="remark" type="text" placeholder="可不填">
 				</div>
 			
 		</form>
 		<p><!--注：请填写真实有效信息，如因填写信息错误导致无法收货，责任由用户承担。--></p>
             <div class="btn_cont only-btn">
-                <button type="button" class="ti-jiao mui-btn mui-btn-yellow">确定</button>
+                <button type="button" id="submit_btn" class="mui-btn mui-btn-yellow">确定</button>
             </div>
         </div>
         <span class="btn_x mui-icon mui-icon-closeempty"></span>
@@ -247,7 +246,9 @@
 		<script src="{%static 'js/mui.pullToRefresh.js'%}"></script>
 		<script src="{%static 'js/mui.pullToRefresh.material.js'%}"></script>
 		<script>
-		var get_task_url = "{% url 'user_coupon_json' %}";
+		var get_coupon_url = "{% url 'user_coupon_json' %}";
+		var use_coupon_url = "{% url 'account_useCoupon' %}";
+		var coupon_id = 0;
 		mui.init();
 		(function($) {
 			//阻尼系数
@@ -267,7 +268,7 @@
 							callback: function() {
 								var self = this;
 								var ul = self.element.querySelector('.mui-table-view');
-								get_finance_list(this,ul,count++,index);
+								get_coupon_list(this,ul,count++,index);
 							//		ul.appendChild(createFragment(ul, index, 5));
 								//	self.endPullUpToRefresh(true);
 							}
@@ -275,8 +276,8 @@
 					});
 				});
 
-				function get_finance_list(obj,ul,n,index){
-					mui.ajax(get_task_url,{
+				function get_coupon_list(obj,ul,n,index){
+					mui.ajax(get_coupon_url,{
 						data:{
 							count:n,
 							type:index,
@@ -291,18 +292,33 @@
 							}
 							else {
 								obj.endPullUpToRefresh(false);//参数为true代表没有更多数据了。
-								var table = document.body.querySelector('.mui-table-view');
-//								var cells = document.body.querySelectorAll('.mui-table-view-cell');
+								var ul = document.body.querySelector('.mui-table-view');
 								for (var i in data) {
-									var wel = data[i];
+									var coupon = data[i];
 									var li = document.createElement('li');
 									li.className = 'mui-table-view-cell';
-									li.innerHTML = '<a href="' + wel.url + '"><img src="' +
-										wel.picurl + '" /><div class="li-info"><h6>' + wel.title +
-										'</h6><span class="s1">' + wel.provider +
-										'</span><span class="s2"><number>' + wel.view_count +
-										'</number></span><span class="s3"><number>' + wel.time +
-										'</number></span></div></a>';
+									str_html = '<a class="clearfix" href="' + coupon.url + 
+										'"><div class="youhuiquan-left fl"><p class="use clearfix">' + 
+										'<span class="use-01">使用说明：</span><span class="use-02">' + coupon.introduction + 
+										'</span></p><p>有效期至：<number>' + coupon.endtime + 
+										'</number></p>';
+									if ( index==2 ){
+										str_html += '<p><span>优惠券码：</span><number>' + coupon.code + '</number></p>';
+									}
+									str_html += '</div><div class="youhuiquan-right fr">' +
+										'<img src="' + coupon.imgurl + '" alt="优惠券商家图标" /><p>' +
+										coupon.title + '</p></div></a>';
+									if ( index==0||index==1 ){
+										var is_used = coupon.is_used;
+										if (is_used){
+											str_html += '<button type="button" disabled="disabled"' + 
+												' class="duihuan-btn mui-btn mui-btn-yellow">已兑换</button>';
+										}
+										else{
+											str_html += '<button type="button" coupon_id="' + coupon.id + 
+												'" class="duihuan-btn mui-btn mui-btn-yellow">兑换</button>';
+										}
+									}
 									ul.appendChild(li);
 								}
 							}
@@ -313,7 +329,40 @@
 					});
 				}
 			});
-		})(mui);		
+		})(mui);
+		mui('.mui-content').on('tap', 'button.duihuan-btn', function() {
+            coupon_id = this.getAttribute('coupon_id');
+            document.getElementById('popup_03').style.display = "block";
+        });
+		document.getElementById('submit_btn').addEventListener("tap",function(){
+			var telnum = document.getElementById('telnum').value;
+			var remark = document.getElementById('remark').value;
+			if (!telnum){
+				mui.toast("请输入投资账号（手机号）");
+			}
+			var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+			mui.ajax({
+				url:use_coupon_url,
+				dataType:"json",
+				type:"POST",
+				data : {
+					id: coupon_id,
+					telnum: telnum,
+					remark: remark,
+					csrfmiddlewaretoken:csrfmiddlewaretoken
+				},
+				success:function(ret){
+					mui.alert(ret.res_msg);
+				},
+				error:function(xhr,type,errorThrown){
+					alert(type);
+				}
+			});
+			this.parentNode.parentNode.parentNode.parentNode.style.display="none";
+		});
+		mui('.popup-box').on('tap', '.btn_x',function(){
+			this.parentNode.parentNode.style.display="none";
+		});
 	</script>
 </body>
 </html>
