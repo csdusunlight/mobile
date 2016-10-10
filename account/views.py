@@ -686,7 +686,6 @@ def user_coupon_json(request):
     except ValueError:
         count = 0
     item_list = Coupon.objects.filter(user=request.user,project__ctype=str(type)).select_related('project').order_by('-time')[start:start+6]
-    print item_list
     for con in item_list:
         project = con.project
         i = {"title":project.title,
@@ -703,30 +702,14 @@ def user_coupon_json(request):
     return JsonResponse(data,safe=False)
 def get_user_coupon_exchange_detail(request):
     res={'code':0,}
-    if not request.user.is_authenticated():
-        res['code'] = -1
-        res['url'] = reverse('login') + "?next=" + reverse('account_coupon')
-        return JsonResponse(res)
-    page = request.GET.get("page", None)
-    size = request.GET.get("size", 6)
-    try:
-        size = int(size)
-    except ValueError:
-        size = 6
-    if not page or size <= 0:
-        raise Http404
-    item_list = UserEvent.objects.filter(user=request.user,event_type='4')
-    paginator = Paginator(item_list, size)
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-    # If page is not an integer, deliver first page.
-        contacts = paginator.page(1)
-    except EmptyPage:
-    # If page is out of range (e.g. 9999), deliver last page of results.
-        contacts = paginator.page(paginator.num_pages)
+    count = int(request.GET.get('count', 0))
+    type = request.GET.get("type", '')
     data = []
-    for con in contacts:
+    count = int(count)
+    start = 12*count
+    item_list = UserEvent.objects.filter(user=request.user,event_type='4')[start:start+12]
+    data = []
+    for con in item_list:
         coupon = con.content_object
         i = {"title":coupon.project.title,
              "amount":coupon.project.amount,
@@ -737,13 +720,7 @@ def get_user_coupon_exchange_detail(request):
              'type':coupon.project.get_ctype_display()
         }
         data.append(i)
-    if data:
-        res['code'] = 1
-    res["pageCount"] = paginator.num_pages
-    res["recordCount"] = item_list.count()
-    res["data"] = data
-    return JsonResponse(res)
-
+    return JsonResponse(data,safe=False)
 def useCoupon(request):
     user = request.user
     res={'code':0,}
