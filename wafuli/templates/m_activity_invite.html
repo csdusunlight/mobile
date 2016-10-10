@@ -1,0 +1,103 @@
+{%load staticfiles%}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>邀请注册</title>
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_activity_invite.css' %}"/>
+</head>
+
+<body>
+	<header id="header" class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">邀请注册</h1>
+		<a id="share" class="share"></a>
+	</header>
+	<div class="mui-content">
+		<div class="top">
+			<img src="{% static 'images/activity_invite_top.png' %}"/>
+		</div>
+		<div class="textbox textbox-01">
+			<img src="{% static 'images/activity_invite_text01.png' %}"/>
+			<h3>新人奖励</h3>
+			<p>
+				注册成功后<br />
+				2元现金，马上到账
+			</p>
+			<a id="btn_01" href="{%url 'user_guide'%}">立即注册>></a>
+		</div>
+		<div class="textbox textbox-02">
+			<img src="{% static 'images/activity_invite_text02.png' %}" />
+			<h3>邀请奖励</h3>
+			<p>
+				1、邀请好友注册成功：奖励50积分<br />
+				2、好友每次提现成功
+			<span class="last">100积分&nbsp;+&nbsp;好友提现额的5%现金奖励</span>
+			</p>
+			<a id="btn_02" href="{%url 'account_invite'%}">立即邀请>></a>
+		</div>
+		<div class="textbox textbox-03">
+			<img src="{% static 'images/activity_invite_text03.png' %}" />
+			<h3>活动总则</h3>
+			<p>
+				1、本活动自2016年05月01日开始实行；<br />
+				2、邀请的积分奖励在好友完成提现操作后会实时到账，当月邀请的现金奖励将在下个月10号前转入到账户余额；<br />
+				3、如发现恶意采用特殊手段获取利益，扰乱活动秩序，挖福利有权取消活动资格；<br />
+				4、以上活动最终解释权归挖福利所有；<br />
+				5、如有问题，请联系挖福利客服，热线电话：0734-8344414
+			</p>
+		</div>
+		<div class="bottom">
+			<img src="{% static 'images/activity_invite_bottom.png' %}" />			
+		</div>
+	</div>
+	
+
+<!--底部导航-->
+	
+    <script src="{% static 'js/mui.min.js' %}"></script>
+    <script src="{% static 'js/share-02.js' %}"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+		var btn_01 = document.getElementById("btn_01"),
+			btn_02 = document.getElementById("btn_02");
+  
+	  	window.onscroll = function(){
+	        var scrollTop =  document.body.scrollTop || document.documentElement.scrollTop;
+	
+	        if(scrollTop > 200 && scrollTop < 400){
+	            btn_01.setAttribute("class","animate");
+	        } else {
+	        	btn_01.removeAttribute("class","animate");
+	        }
+	        if(scrollTop > 500 && scrollTop < 700){
+	            btn_02.setAttribute("class","animate");
+	        } else {
+	        	btn_02.removeAttribute("class","animate");
+	        }
+	
+	  	}
+	</script>
+	
+</body>
+</html>

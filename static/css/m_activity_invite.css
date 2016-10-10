@@ -1,0 +1,174 @@
+body {
+	background: #ffeb93;
+}
+.mui-content {
+	position: relative;
+	background: #ffeb93;
+	font-family: "华康少女文字W5(P)";
+}
+
+@-webkit-keyframes active {
+     0% {
+       	top: -5rem;
+       	opacity: 0;
+     }
+     50% {
+     	-webkit-transform: scale(1.4);
+     	transform: scale(1.4);
+     	top: 0rem;
+     }      
+     100% {
+        top: 5rem;
+        opacity: 1;
+     }
+}
+.mui-content .top {
+	position: absolute;
+	width: 100%;	
+	padding: 0 3rem;
+	top: 5rem;
+	animation: active 1s linear;
+	-webkit-animation: active 1s linear;
+}
+.top img {
+	width: 100%;
+} 
+.mui-content .textbox {
+	position: relative;
+	padding: 0 1rem;
+	margin-top: 4rem;
+	width: 100%;
+}
+.textbox img {
+	width: 100%;
+}
+.textbox h3 {
+	position: absolute;
+	font-size: 1.6rem;
+	color: #568542;
+	top: 4rem;
+	left: 13rem;	
+}
+.textbox p {
+	position: absolute;
+	font-size: 1.2rem;
+	line-height: 3.2;
+	color: #ae8649;
+	top: 6.6rem;
+	left: 5rem;
+	text-align: left;	
+}
+.mui-content .textbox-01 {
+	margin-top: 16rem;
+}
+.textbox-01 h3 {
+	-webkit-transform: rotate(4deg);
+	-ms-transform: rotate(4deg);
+	transform: rotate(4deg);
+}
+.textbox-01 p {
+	-webkit-transform: rotate(4deg);
+	-ms-transform: rotate(4deg);
+	transform: rotate(4deg);
+}
+.textbox a {
+	position: absolute;
+	font-size: 1.2rem;
+	color: #8f451c;
+	top: 17.6rem;
+	left: 13rem;	
+}
+.textbox-01 a {
+	-webkit-transform: rotate(4deg);
+	-ms-transform: rotate(4deg);
+	transform: rotate(4deg);
+}
+@-webkit-keyframes active-02 {
+     /*0% {
+	   	opacity: 0;
+	   	-webkit-transform: scale(1) translateY(-30px);
+	 	transform: scale(1) translateY(-30px);
+     }   
+     75% {
+        opacity: 0.75;
+		-webkit-transform: scale(1.2) translateY(5px);
+     	transform: scale(1.2) translateY(5px);
+     }  
+     100% {
+        opacity: 1;
+		-webkit-transform: scale(1) translateY(0px);
+     	transform: scale(1) translateY(0px);
+     }*/
+     0% {
+       	opacity: 0.2;
+       	-webkit-transform: scale(0.4) rotate(-180deg);
+     	transform: scale(0.4) rotate(-180deg);
+     } 
+     50% {
+        opacity: 1;
+		-webkit-transform: scale(1) rotate(20deg);
+     	transform: scale(1) rotate(20deg);
+     } 
+     60% {
+        opacity: 1;
+		-webkit-transform: scaleY(1.6) rotate(-10deg);
+     	transform: scaleY(1.6) rotate(-10deg);
+     } 
+     100% {
+        opacity: 1;
+		-webkit-transform: scale(1) rotate(0deg);
+     	transform: scale(1) rotate(0deg);
+     }
+}
+.animate {
+	-webkit-transform-origin: left bottom;
+	transform-origin: left bottom;
+	animation: active-02 1s linear;
+	-webkit-animation: active-02 1s linear;
+}
+.textbox-02 h3 {
+	left: 9rem;
+}
+.textbox-02 p {
+	left: 4rem;
+}
+.textbox-02 span.last {
+	display: block;
+	text-indent: 2rem;
+}
+.textbox-02 a{
+	top: 21rem;
+	left: 17rem;
+}
+.textbox-03 h3 {
+	font-size: 2rem;
+	top: 2.4rem;
+	left: 11rem;
+	color: #333;
+}
+.textbox-03 p {
+	width: 24rem;
+	font-size: 1rem;
+	line-height: 1.6;
+	top: 8rem;
+	left: 4rem;
+	color: #777;
+}
+.mui-content .bottom {
+	width: 100%;	
+	margin-top: 4rem;
+}
+.bottom img {
+	width: 100%;
+} 
+/*样式覆盖*/
+.mui-bar {
+	background: #ffeb93;
+	padding: 0;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.mui-bar-nav {
+	box-shadow: none;
+	border-bottom: 1px solid #fff;
+}
