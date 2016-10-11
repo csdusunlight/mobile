@@ -117,6 +117,31 @@ def aboutus(request):
     ad_list = Advertisement.objects.filter(location__in=['0','6'],is_hidden=False).first
     return render(request, 'aboutus.html',{'ad_list':ad_list})
 
+def strategy(request):
+#     item_list = Press.objects
+#     type = str(type)
+#     strategy_list = item_list.filter(type=type)
+#     strategy_list = item_list.filter(type=type)
+#     strategy_list = item_list.filter(type=type)
+#     paginator = Paginator(item_list, size)
+#     try:
+#         contacts = paginator.page(page)
+#     except PageNotAnInteger:
+#     # If page is not an integer, deliver first page.
+#         contacts = paginator.page(1)
+#     except EmptyPage:
+#     # If page is out of range (e.g. 9999), deliver last page of results.
+#         contacts = paginator.page(paginator.num_pages)
+#     data = []
+#     for con in contacts:        
+#         i = {"title":con.title,
+#              "url":con.url,
+#              "time":con.pub_date.strftime("%Y-%m-%d"),
+#              "view":con.view_count,
+#              "summary":con.summary,
+#         }
+#         data.append(i)
+    return render(request, 'm_strategy.html')
 # def experience_taskandfinance(request):
 #     if not request.is_ajax():
 #         logger.warning("Experience refused no-ajax request!!!")

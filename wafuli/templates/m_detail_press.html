@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title></title>    
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/process.css"/>
+</head>
+
+	<body>	
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">兑换流程</h1>
+			<a id="share" class="share"></a>
+		</header>
+		<div class="mui-content">
+			
+				<p><number>1、</number>积分兑换的商品包邮吗？<br />
+答：积分商城使用积分兑换的商品一律包邮哟，中西部偏远的地方请事先联系客服查询详情。</p>
+				<p><number>2、</number>积分兑换的商品能退换吗？<br />
+答：不好意思，商品购买是积分兑换支付的，在不涉及质量等原则性问题方面，商品是不能退换货的。</p>
+				<p><number>3、</number>商品退换货，您该怎么办？<br />
+答：由商品质量问题给您带来的不便，挖福利要对你的心情说一声抱歉了；如果您直接点击商品商家地址，请直接联系商家协商退换货的具体事宜，若没有在商品页面找到链接，联系客服获取即可；如果您在退换货问题上遇到什么问题，请第一时间联系挖福利客服解决。</p>
+				<p><number>4、</number>退换货之后，挖福利积分是否能退还？<br />
+答：不好意思，退换货之后，挖福利的积分是不变的。</p>
+				
+				
+		</div>
+		
+		<!--分享部分-->
+		<div id="share_bg" class="share-bg"></div>
+		<div id="share_box">
+			<div id="content_box" class="share-content-box">
+				<div id="share_close" class="share-close">
+					<span class="mui-icon mui-icon-arrowdown"></span>		
+				</div>
+				<ul class="list clearfix">
+					<li>
+						<a href="#">
+							<img src="images/share-weixin.png"/>
+							<p>微信好友</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-qq.png"/>
+							<p>QQ好友</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-sina.png"/>
+							<p>微信微博</p>
+						</a>
+					</li>		
+					<li>
+						<a href="#">
+							<img src="images/share-qq-zone.png"/>
+							<p>QQ空间</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/share-friend-row.png"/>
+							<p>朋友圈</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div> 
+		<script src="js/mui.min.js"></script>
+		<script src="js/share.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+		  	mui.init();
+		</script>
+	</body>
+
+</html>

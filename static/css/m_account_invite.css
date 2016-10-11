@@ -1,0 +1,116 @@
+body {
+	background: #fee101;
+}
+.mui-content {
+	background: #fee101;
+	font-family: "华康少女文字W5(P)";
+}
+.mui-content p {
+	/*width: 70%;
+	margin-left: 15%;*/
+	font-size: 1.4rem;
+	line-height: 2.8rem;
+	text-align: center;
+}
+p span {
+	color: #ff6767;
+}
+.mui-content .top {
+	margin-top: 2.4rem;
+}
+.top button {
+	width: 30%;
+	margin-top: 1rem;
+	margin-left: 35%;
+}
+.top p {
+	color: #bd860f;
+}
+.mui-content .middle {
+	position: relative;
+	margin-top: 5rem;
+}
+.middle h3 {
+	width: 50%;
+	margin-left: 25%;
+	margin-bottom: 1rem;
+	font-size: 1.6rem;
+	color: #bd860f;
+	text-align: center;
+}
+.middle .yqm-bg {
+	padding: 0.8rem 0;
+	width: 50%;
+	margin-left: 25%;
+	background: #fff;
+	border: 2px solid #5a5a5a;
+	border-radius: 4px;
+}
+.middle p {
+	/*width: 50%;*/
+	/*margin-left: 25%;*/
+	/*border-radius: 4px;*/
+	font-size: 1.4rem;
+	line-height: 1.4rem;
+	background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(187, 179, 239, 1)), to(rgba(139, 183, 248, 1)));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-color: #fff;
+}
+@-webkit-keyframes share {
+     0% {
+       	right: -4rem;
+       	opacity: 0;
+     } 
+     60% {
+     	right: 2rem;
+        opacity: 1;
+     }     
+     70% {
+        -webkit-transform: rotateZ(-30deg);
+     }      
+     100% {
+        right: 2rem;
+        opacity: 1;
+     }
+}
+.middle .share-btn {
+	position: absolute;
+	right: 2rem;
+	bottom: 0;
+	-webkit-transform-origin: 50% 100%;
+	transform-origin: 50% 100%;
+	animation: share 1s linear;
+	-webkit-animation: share 1s linear;
+}
+.share-btn img {
+	width: 5rem;
+}
+.mui-content .bottom {
+	margin-top: 4rem;
+}
+.bottom p {
+	color: #0197c9;
+}
+.tu-pian img {
+	margin-left: 15%;
+	margin-top: 4rem;
+	width: 70%;
+}
+/*样式覆盖*/
+.mui-bar {
+	background: #fee101;
+	padding: 0;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.mui-bar-nav {
+	box-shadow: none;
+	border-bottom: 1px solid #fff;
+}
+.mui-icon-back:before, .mui-icon-left-nav:before {
+	color: #fff;;
+}
+.mui-title {
+	color: #fff;
+}

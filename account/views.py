@@ -647,6 +647,10 @@ def withdraw(request):
 def exchange(request):
     return render(request, 'account/m_account_exchange.html', {})
 
+def exchange_introduction(request):
+    return render(request, 'm_exchange_introduction.html', {})
+def exchange_introduction2(request):
+    return render(request, 'm_exchange_introduction2.html', {})
 @login_required
 def commodity_json(request):
     count = int(request.GET.get('count', 0))
@@ -832,7 +836,7 @@ def invite(request):
             'acc_with_count':acc_with_count,
             'this_month_award':this_month_award, 
         }     
-        return render(request,'account/account_invite.html', {'statis':statis})
+        return render(request,'account/m_account_invite.html', {'statis':statis})
     elif request.method == 'POST':
         result = {'code':-1, 'res_msg':''}
         left_award = inviter.invite_account

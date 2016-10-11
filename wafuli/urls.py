@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^welpage/$', 'wafuli.views.get_wel_page', name='get_wel_page'),
     url(r'^presspage/$', 'wafuli.views.get_press_page', name='get_press_page'),
     url(r'^aboutus/$', 'wafuli.views.aboutus', name="aboutus"),
+    url(r'^strategy/$', 'wafuli.views.strategy', name="strategy"),
 #     url(r'^exp_tf/$', 'wafuli.views.experience_taskandfinance', name='exp_tf'),
     url(r'^exp_wel_erweima/$', 'wafuli.welfare.exp_welfare_erweima', name='exp_welfare_erweima'),
     url(r'^exp_wel_openwindow/$', 'wafuli.welfare.exp_welfare_openwindow', name='exp_welfare_openwindow'),
