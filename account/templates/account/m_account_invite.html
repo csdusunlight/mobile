@@ -1,0 +1,143 @@
+{%load staticfiles%}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title></title>
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_account_invite.css' %}"/>
+</head>
+
+<body>
+	<header id="header" class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">邀请好友</h1>
+		<!--<a id="share" class="share"></a>-->
+	</header>
+	<div class="mui-content">
+		<div class="top">
+			<p>我的邀请人数&nbsp;<span>{{statis.acc_count}}</span>&nbsp;人</p>
+			<p>我的奖励&nbsp;<span>{{statis.accu_invite_award}}</span>&nbsp;元，<span>10</span>&nbsp积分;</p>
+			<p>本月待发奖励&nbsp;<span>{{statis.this_month_award}}</span>&nbsp;元</p>
+			<p>邀请奖励结余&nbsp;<span>{{statis.left_award}}</span>&nbsp;元</p>
+			<button id="transfer_btn" type="button" class="mui-btn mui-btn-blue">转至余额</button>
+			{%csrf_token%}
+		</div>
+		<!--<div class="recommend">
+			<p>邀请奖励结余&nbsp;<span>0.00</span>元</p>
+			<button type="button" class="mui-btn mui-btn-blue">转至余额</button>
+			<p>本月待发奖励&nbsp;<span>0.00</span>元</p>
+		</div>-->
+		<div class="middle">
+			<h3>邀请码：</h3>
+			<div class="yqm-bg"><p class="yao-qing-ma">{{user.invite_code}}</p></div>
+			<div id="share" class="share-btn"><img src="{% static 'images/share-friend.png' %}"/></div>
+		</div>
+		<div class="bottom">
+			<p>奖励规则：</p>
+			<p>1、每推荐一名好友提现成功，<br />推荐人获得&nbsp;<span>10</span>积分</p>
+			<p>推荐人获得好友提现金额的<br />&nbsp;<span>5%</span>&nbsp;现金奖励</p>
+		</div>
+		<div class="tu-pian">			
+			<img src="{% static 'images/share-friend-bottom.png' %}"/>
+		</div>
+	</div>
+
+<!--分享部分-->
+<div id="share_bg" class="share-bg"></div>
+<div id="share_box">
+	<div id="content_box" class="share-content-box">
+		<div id="share_close" class="share-close">
+			<span class="mui-icon mui-icon-arrowdown"></span>		
+		</div>
+		<ul class="list clearfix">
+			<li>
+				<a href="#">
+					<img src="{% static 'images/share-weixin.png' %}"/>
+					<p>微信好友</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="{% static 'images/share-qq.png' %}"/>
+					<p>QQ好友</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="{% static 'images/share-sina.png' %}"/>
+					<p>微信微博</p>
+				</a>
+			</li>		
+			<li>
+				<a href="#">
+					<img src="{% static 'images/share-qq-zone.png' %}"/>
+					<p>QQ空间</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="{% static 'images/share-friend-row.png' %}"/>
+					<p>朋友圈</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>   	
+    
+	
+	<!--回到顶部部分-->
+    <a id="scrollToTop" class="backTop hide"> <span class="mui-icon mui-icon-arrowthinup"></span> </a>
+    <!--底部导航-->
+	
+    <script src="{% static 'js/mui.min.js' %}"></script>
+    <script src="{% static 'js/share.js' %}"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	var post_url = "{%url 'account_invite' %}";
+      	document.getElementById("transfer_btn").addEventListener('tap', function() {
+      		var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+			mui.ajax({
+				url: "",
+				data: {
+					csrfmiddlewaretoken:csrfmiddlewaretoken
+				},
+				dataType:"json",
+				type:'POST',
+				success:function(ret){
+					if(ret.code!=0){
+						mui.alert(ret.res_msg);
+					}
+					else {
+						mui.alert("您的邀请奖励已成功转至账户余额！");
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					alert(type);
+				}
+			});
+      	});
+   </script>
+
+	
+</body>
+</html>

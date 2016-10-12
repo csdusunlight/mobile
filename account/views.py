@@ -647,6 +647,10 @@ def withdraw(request):
 def exchange(request):
     return render(request, 'account/m_account_exchange.html', {})
 
+def exchange_introduction(request):
+    return render(request, 'm_exchange_introduction.html', {})
+def exchange_introduction2(request):
+    return render(request, 'm_exchange_introduction2.html', {})
 @login_required
 def commodity_json(request):
     count = int(request.GET.get('count', 0))
@@ -672,34 +676,21 @@ def coupon(request):
         'interest_num' : coupons.filter(project__ctype='1').count(),
         'exc_num' : coupons.filter(project__ctype='2').count()
     }
-    return render(request, 'account/account_coupon.html', {'dict':dict})
+    return render(request, 'account/m_account_coupon.html', {'dict':dict})
+
 def user_coupon_json(request):
     res={'code':0,}
-    if not request.user.is_authenticated():
-        res['code'] = -1
-        res['url'] = reverse('login') + "?next=" + reverse('account_coupon')
-        return JsonResponse(res)
-    page = request.GET.get("page", None)
-    size = request.GET.get("size", 2)
-    filter = request.GET.get("filter", '')
-    try:
-        size = int(size)
-    except ValueError:
-        size = 2
-    if not page or not filter or size <= 0:
-        raise Http404
-    item_list = Coupon.objects.filter(user=request.user,project__ctype=str(filter),is_used=False).select_related('project')
-    paginator = Paginator(item_list, size)
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-    # If page is not an integer, deliver first page.
-        contacts = paginator.page(1)
-    except EmptyPage:
-    # If page is out of range (e.g. 9999), deliver last page of results.
-        contacts = paginator.page(paginator.num_pages)
+    count = int(request.GET.get('count', 0))
+    type = request.GET.get("type", '')
     data = []
-    for con in contacts:
+    count = int(count)
+    start = 6*count
+    try:
+        count = int(count)
+    except ValueError:
+        count = 0
+    item_list = Coupon.objects.filter(user=request.user,project__ctype=str(type)).select_related('project').order_by('-time')[start:start+6]
+    for con in item_list:
         project = con.project
         i = {"title":project.title,
              "amount":project.amount,
@@ -707,41 +698,22 @@ def user_coupon_json(request):
              "url":project.exp_url,
              'endtime':project.endtime,
              'id':con.id,
-             'code':con.exchange_code
+             'code':con.exchange_code,
+             'imgurl':project.pic.url,
+             'is_used':con.is_used,
         }
         data.append(i)
-    if data:
-        res['code'] = 1
-    res["pageCount"] = paginator.num_pages
-    res["recordCount"] = item_list.count()
-    res["data"] = data
-    return JsonResponse(res)
+    return JsonResponse(data,safe=False)
 def get_user_coupon_exchange_detail(request):
     res={'code':0,}
-    if not request.user.is_authenticated():
-        res['code'] = -1
-        res['url'] = reverse('login') + "?next=" + reverse('account_coupon')
-        return JsonResponse(res)
-    page = request.GET.get("page", None)
-    size = request.GET.get("size", 6)
-    try:
-        size = int(size)
-    except ValueError:
-        size = 6
-    if not page or size <= 0:
-        raise Http404
-    item_list = UserEvent.objects.filter(user=request.user,event_type='4')
-    paginator = Paginator(item_list, size)
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-    # If page is not an integer, deliver first page.
-        contacts = paginator.page(1)
-    except EmptyPage:
-    # If page is out of range (e.g. 9999), deliver last page of results.
-        contacts = paginator.page(paginator.num_pages)
+    count = int(request.GET.get('count', 0))
+    type = request.GET.get("type", '')
     data = []
-    for con in contacts:
+    count = int(count)
+    start = 12*count
+    item_list = UserEvent.objects.filter(user=request.user,event_type='4')[start:start+12]
+    data = []
+    for con in item_list:
         coupon = con.content_object
         i = {"title":coupon.project.title,
              "amount":coupon.project.amount,
@@ -752,26 +724,16 @@ def get_user_coupon_exchange_detail(request):
              'type':coupon.project.get_ctype_display()
         }
         data.append(i)
-    if data:
-        res['code'] = 1
-    res["pageCount"] = paginator.num_pages
-    res["recordCount"] = item_list.count()
-    res["data"] = data
-    return JsonResponse(res)
-
+    return JsonResponse(data,safe=False)
 def useCoupon(request):
     user = request.user
     res={'code':0,}
     if not user.is_authenticated():
-        res['code'] = -1
-        res['url'] = reverse('login') + "?next=" + reverse('account_coupon')
-        return JsonResponse(res)
+        raise Http404
     coupon_id = request.POST.get('id', None)
     telnum = request.POST.get('telnum', None)
     remark = request.POST.get('remark', '')
-    if coupon_id is None or telnum is None:
-        logger.error("Coupon ID or telnum is missing!!!")
-        raise Http404
+    coupon_id = int(coupon_id)
     coupon = Coupon.objects.get(pk=coupon_id)
     code=''
     msg=''
@@ -796,7 +758,7 @@ def useCoupon(request):
         msg = u'提交成功，请查看兑换记录！'
         coupon.is_used = True
         coupon.save(update_fields=['is_used'],)
-    result = {'code':code, 'msg':msg}
+    result = {'code':code, 'res_msg':msg}
     return JsonResponse(result)
 
 @login_required
@@ -874,7 +836,7 @@ def invite(request):
             'acc_with_count':acc_with_count,
             'this_month_award':this_month_award, 
         }     
-        return render(request,'account/account_invite.html', {'statis':statis})
+        return render(request,'account/m_account_invite.html', {'statis':statis})
     elif request.method == 'POST':
         result = {'code':-1, 'res_msg':''}
         left_award = inviter.invite_account

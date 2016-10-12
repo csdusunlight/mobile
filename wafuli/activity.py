@@ -211,3 +211,6 @@ def get_lottery(request):
             translist.user_event = event
             translist.save(update_fields=['user_event'])
     return JsonResponse(result)
+
+def invite(request):
+    return render(request, 'm_activity_invite.html')
