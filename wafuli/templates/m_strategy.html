@@ -42,27 +42,17 @@
 			            <a class="left-icon1 mui-navigate-right" href="#">福利攻略</a>
 			            {% for strategy in strategy_list %}
 			            <div class="mui-collapse-content">
-			                <a href="{{strategy.url}}">账户问题汇总</a>
+			                <a href="{{strategy.url}}">{{strategy.title}}</a>
 			            </div>
 			            {% endfor %}
 			        </li>
 			        <li class="mui-table-view-cell mui-collapse">
 			            <a class="left-icon2 left-icon1 mui-navigate-right" href="#">最新公告</a>
+			            {% for notice in notice_list %}
 			            <div class="mui-collapse-content">
-			                <a href="#">关于用户在挖福利网站提交数据的再次说明</a>
+			                <a href="{{notice.url}}">{{notice.title}}</a>
 			            </div>
-			            <div class="mui-collapse-content">
-			                <a href="#">挖福利网站框架说明</a>
-			            </div>
-			            <div class="mui-collapse-content">
-			                <a href="#">挖福利2016国庆节放假公告</a>
-			            </div>
-			            <div class="mui-collapse-content">
-			                <a href="#">挖福利免责声明</a>
-			            </div>
-			            <div class="mui-collapse-content">
-			                <a href="#">挖福利用户协议</a>
-			            </div>
+			            {% endfor %}
 			        </li>
 			        <li class="mui-table-view-cell mui-collapse">
 			            <a class="left-icon3 left-icon1 mui-navigate-right" href="#">关注微信</a>

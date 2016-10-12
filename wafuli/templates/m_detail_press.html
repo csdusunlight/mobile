@@ -1,3 +1,4 @@
+{%load staticfiles%}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -21,9 +22,9 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title></title>    
-    <link href="css/mui.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="css/process.css"/>
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_detail_press.css' %}"/>
 </head>
 
 	<body>	
@@ -33,17 +34,7 @@
 			<a id="share" class="share"></a>
 		</header>
 		<div class="mui-content">
-			
-				<p><number>1、</number>积分兑换的商品包邮吗？<br />
-答：积分商城使用积分兑换的商品一律包邮哟，中西部偏远的地方请事先联系客服查询详情。</p>
-				<p><number>2、</number>积分兑换的商品能退换吗？<br />
-答：不好意思，商品购买是积分兑换支付的，在不涉及质量等原则性问题方面，商品是不能退换货的。</p>
-				<p><number>3、</number>商品退换货，您该怎么办？<br />
-答：由商品质量问题给您带来的不便，挖福利要对你的心情说一声抱歉了；如果您直接点击商品商家地址，请直接联系商家协商退换货的具体事宜，若没有在商品页面找到链接，联系客服获取即可；如果您在退换货问题上遇到什么问题，请第一时间联系挖福利客服解决。</p>
-				<p><number>4、</number>退换货之后，挖福利积分是否能退还？<br />
-答：不好意思，退换货之后，挖福利的积分是不变的。</p>
-				
-				
+			{{press.content|safe}}
 		</div>
 		
 		<!--分享部分-->
@@ -56,39 +47,39 @@
 				<ul class="list clearfix">
 					<li>
 						<a href="#">
-							<img src="images/share-weixin.png"/>
+							<img src="{% static 'images/share-weixin.png' %}"/>
 							<p>微信好友</p>
 						</a>
 					</li>
 					<li>
 						<a href="#">
-							<img src="images/share-qq.png"/>
+							<img src="{% static 'images/share-qq.png' %}"/>
 							<p>QQ好友</p>
 						</a>
 					</li>
 					<li>
 						<a href="#">
-							<img src="images/share-sina.png"/>
+							<img src="{% static 'images/share-sina.png' %}"/>
 							<p>微信微博</p>
 						</a>
 					</li>		
 					<li>
 						<a href="#">
-							<img src="images/share-qq-zone.png"/>
+							<img src="{% static 'images/share-qq-zone.png' %}"/>
 							<p>QQ空间</p>
 						</a>
 					</li>
 					<li>
 						<a href="#">
-							<img src="images/share-friend-row.png"/>
+							<img src="{% static 'images/share-friend-row.png' %}"/>
 							<p>朋友圈</p>
 						</a>
 					</li>
 				</ul>
 			</div>
 		</div> 
-		<script src="js/mui.min.js"></script>
-		<script src="js/share.js" type="text/javascript" charset="utf-8"></script>
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<script src="{% static 'js/share.js' %}" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 		  	mui.init();
 		</script>
