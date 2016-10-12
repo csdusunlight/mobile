@@ -64,7 +64,24 @@ def recom_rank(request):
         return render(request, 'm_activity_recom_rank.html')
     else:
         res={'code':0,}
-
+        count = request.GET.get("count", 0)
+        try:
+            count = int(count)
+        except ValueError:
+            count = 0
+        item_list = []
+        start = 12*count
+        item_list = RecommendRank.objects.all()[start:start+12]
+        data = []
+        for con in item_list:
+            username = con.user.get_abbre_name()
+            i = {"username":username,
+                 "num":con.acc_num,
+                 "rank":con.rank,
+                 "award":con.award,
+                 }
+            data.append(i)
+        return JsonResponse(data, safe=False) 
 
 @login_required
 def recom_info(request):
@@ -92,49 +109,7 @@ def recom_info(request):
                  }
             data.append(i)
         return JsonResponse(data, safe=False) 
-def get_activity_recommend_page(request):
-    res={'code':0,}
-    user = request.user
-    if not user.is_authenticated():
-        res['code'] = -1
-        res['url'] = reverse('login') + "?next=" + reverse('activity_recommend')
-        return JsonResponse(res)
-    page = request.GET.get("page", None)
-    size = request.GET.get("size", 5)
-    try:
-        size = int(size)
-    except ValueError:
-        size = 5
-    if not page or size <= 0:
-        raise Http404
-    item_list = []
-    item_list = UserEvent.objects.filter(user=user,event_type='6')
-    
-    paginator = Paginator(item_list, size)
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-    # If page is not an integer, deliver first page.
-        contacts = paginator.page(1)
-    except EmptyPage:
-    # If page is out of range (e.g. 9999), deliver last page of results.
-        contacts = paginator.page(paginator.num_pages)
-    data = []
-    for con in contacts:
-        wel = con.content_object
-        i = {"title":wel.title,
-             "url":wel.url,
-             "reason":wel.reason,
-             "date":wel.date.strftime("%Y-%m-%d %H:%M"),
-             "result":con.get_audit_state_display(),
-             }
-        data.append(i)
-    if data:
-        res['code'] = 1
-    res["pageCount"] = paginator.num_pages
-    res["recordCount"] = item_list.count()
-    res["data"] = data
-    return JsonResponse(res)
+
 
 def get_recommend_rank_page(request):
     res={'code':0,}
