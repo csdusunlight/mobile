@@ -1,0 +1,30 @@
+body {
+	background: #fff;
+}
+.mui-content {
+	background: #fff;
+}
+.list-box {
+	margin-top: 6rem;
+}
+.list {
+	margin: 0 auto;
+	width: 90%;
+	margin-top: 2rem;
+	/*padding: 1rem;*/
+	background: #e4e4e4;
+	border-radius: 6px;
+	box-shadow: 0 3px 5px #bbb;
+}
+.list img {
+	border-radius: 6px;
+	width: 100%;
+	/*height: 100%;*/
+}
+/*样式覆盖*/
+.mui-scroll-wrapper {
+	top: 4rem;
+}
+.mui-table-view:before {
+	height: 0;
+}
