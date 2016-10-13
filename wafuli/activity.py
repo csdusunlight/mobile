@@ -19,6 +19,11 @@ from wafuli.data import AwardTable
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 logger = logging.getLogger('wafuli')
+
+
+def activity(request):
+    return render(request, 'm_activity.html')
+
 def recommend(request):
     return render(request, 'm_activity_recommend.html')
 

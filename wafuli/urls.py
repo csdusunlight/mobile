@@ -65,4 +65,6 @@ urlpatterns = [
     url(r'^business/(?:list-page(?P<page>[0-9]*)/)?$', 'wafuli.views.business', name='business_list'),
     url(r'^information/(?:(?P<id>[0-9]*)/)?$', 'wafuli.views.information', name='information'),
     url(r'^information_json/$', 'wafuli.welfare.information_json', name='information_json'),
+    
+    url(r'^activity/$', 'wafuli.activity.activity', name='activity'),
 ]
