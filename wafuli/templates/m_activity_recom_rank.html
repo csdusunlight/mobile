@@ -32,68 +32,26 @@
 	<header id="header" class="mui-bar mui-bar-nav">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		<h1 class="mui-title">当前排名</h1>
-		<a id="share" class="share"></a>
 	</header>
-	
+
 	<div class="head clearfix">
         <span>用户名</span>
         <span>通过审核数</span>
         <span>当前排名/月</span>
         <span>奖励现金/元</span>
     </div>
+
 <div id="pullrefresh" class="mui-scroll-wrapper">
-	<div class="mui-content">	
+	<div class="mui-content">
 	        <ul class="list-box mui-table-view">
 	        </ul>
 	</div>
 </div>
-<!--分享部分-->
-<div id="share_bg" class="share-bg"></div>
-<div id="share_box">
-	<div id="content_box" class="share-content-box">
-		<div id="share_close" class="share-close">
-			<span class="mui-icon mui-icon-arrowdown"></span>		
-		</div>
-		<ul class="list clearfix">
-			<li>
-				<a href="#">
-					<img src="{%static 'images/share-weixin.png'%}"/>
-					<p>微信好友</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{%static 'images/share-qq.png'%}"/>
-					<p>QQ好友</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{%static 'images/share-sina.png'%}"/>
-					<p>微信微博</p>
-				</a>
-			</li>		
-			<li>
-				<a href="#">
-					<img src="{%static 'images/share-qq-zone.png'%}"/>
-					<p>QQ空间</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{%static 'images/share-friend-row.png'%}"/>
-					<p>朋友圈</p>
-				</a>
-			</li>
-		</ul>
-	</div>
-</div>   	
-    
-	
 
-	
+
+
+
     <script src="{%static 'js/mui.min.js'%}"></script>
-    <script src="{%static 'js/share.js'%}"></script>
     <script type="text/javascript" charset="utf-8">
 	 	mui.init({
 			pullRefresh: {
@@ -130,13 +88,13 @@
 							var li = document.createElement('li');
 							li.className = 'list clearfix';
 							str_block = '<span><number>' + record.username + '</number></span><span><number>' +
-								record.num + '</number></span><span><number>' + record.rank + 
+								record.num + '</number></span><span><number>' + record.rank +
 								'</number></span><span><number>' + record.award + '</number></span>';
 							li.innerHTML = str_block;
 							table.appendChild(li);
 						}
 					}
-		
+
 				},
 				error:function(xhr,type,errorThrown){
 					alert(type);
@@ -148,6 +106,6 @@
 		}
    </script>
 
-	
+
 </body>
 </html>

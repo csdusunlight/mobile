@@ -26,27 +26,26 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_activity_recom_info.css' %}"/>
 
-    
+
 </head>
 <body>
 	<header id="header" class="mui-bar mui-bar-nav">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		<h1 class="mui-title">我提交的福利</h1>
-		<a id="share" class="share"></a>
 	</header>
-	
+
 	<div class="head clearfix">
         <span class="">提交时间</span>
         <span class="">活动主题</span>
         <span class="">审核结果</span>
     </div>
-	
+
 
 <div id="pullrefresh" class="mui-scroll-wrapper">
-<div class="mui-content">	
+<div class="mui-content">
     <!--选项卡部分-->
         <ul class="list-box mui-table-view">
-            
+
 	        <li class="list clearfix">
 	            <span class=""><number>2016-07-13-12:30</number></span>
 	            <span>滴滴打车</span>
@@ -64,57 +63,16 @@
 	        </li>
 
         </ul>
-	    
 
-        
-    
+
+
+
 </div>
     <!--测试-->
-    
-</div>	
-	<!--分享部分-->
-<div id="share_bg" class="share-bg"></div>
-<div id="share_box">
-	<div id="content_box" class="share-content-box">
-		<div id="share_close" class="share-close">
-			<span class="mui-icon mui-icon-arrowdown"></span>		
-		</div>
-		<ul class="list clearfix">
-			<li>
-				<a href="#">
-					<img src="{% static 'images/share-weixin.png' %}"/>
-					<p>微信好友</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{% static 'images/share-qq.png' %}"/>
-					<p>QQ好友</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{% static 'images/share-sina.png' %}"/>
-					<p>微信微博</p>
-				</a>
-			</li>		
-			<li>
-				<a href="#">
-					<img src="{% static 'images/share-qq-zone.png' %}"/>
-					<p>QQ空间</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{% static 'images/share-friend-row.png' %}"/>
-					<p>朋友圈</p>
-				</a>
-			</li>
-		</ul>
-	</div>
-</div>   	
+
+</div>
+
     <script src="{% static 'js/mui.min.js' %}"></script>
-    <script src="{% static 'js/share.js' %}"></script>
     <script type="text/javascript" charset="utf-8">
 	    mui.init({
 			pullRefresh: {
@@ -156,7 +114,7 @@
 							table.appendChild(li);
 						}
 					}
-		
+
 				},
 				error:function(xhr,type,errorThrown){
 					alert(type);

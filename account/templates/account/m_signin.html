@@ -23,7 +23,6 @@
     <meta http-equiv="Expires" content="0">
     <title>每日签到</title>
     <script src="{%static 'js/mui.min.js'%}"></script>
-    <script src="{%static 'js/share.js'%}"></script>
     <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_signin.css'%}"/>
@@ -32,7 +31,6 @@
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">每日签到</h1>
-			<a id="share" class="share"></a>
 		</header>
 		<footer>
 			<ul class="clearfix tc">
@@ -114,47 +112,7 @@
 		</div>
 		{%endif%}
 
-		<!--分享部分-->
-		<div id="share_bg" class="share-bg"></div>
-		<div id="share_box">
-			<div id="content_box" class="share-content-box">
-				<div id="share_close" class="share-close">
-					<span class="mui-icon mui-icon-arrowdown"></span>
-				</div>
-				<ul class="list clearfix">
-					<li>
-						<a href="#">
-							<img src="{%static 'images/share-weixin.png'%}"/>
-							<p>微信好友</p>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<img src="{%static 'images/share-qq.png'%}"/>
-							<p>QQ好友</p>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<img src="{%static 'images/share-sina.png'%}"/>
-							<p>微信微博</p>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<img src="{%static 'images/share-qq-zone.png'%}"/>
-							<p>QQ空间</p>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<img src="{%static 'images/share-friend-row.png'%}"/>
-							<p>朋友圈</p>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>	<!-- 分享结束 -->
+
 	<script>
 		url = "{% url 'signin_record' %}"
 		mui.init();

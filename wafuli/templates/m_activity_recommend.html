@@ -22,7 +22,7 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title></title>
-    <script src="{%static 'js/mui.min.js'%}"></script>
+
     <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_activity_recommend.css'%}"/>
@@ -31,8 +31,8 @@
 <header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">挖故事</h1>
-			<a class="share"></a>
-		</header>	    
+			<a id="share" class="share"></a>
+		</header>
 <div class="mui-content">
 	<div><h3>活动流程</h3></div>
 	<img src="{%static 'images/action.png'%}" alt="流程图片" />
@@ -51,12 +51,12 @@
 	<p><number>4、</number>提交的福利信息我们在<number>24</number>小时内对其进行审核；</p>
 	<p><number>5、</number>一经采用，我们会在<number>24</number>小时内发放<number>5</number>元现金至您的挖福利账户；</p>
 	<p><number>6、</number>每周进行统计，我们对提供更多有效的福利信息的用户给予一定奖励；</p>
-	
+
 	<p>①、每周提供福利达到<number>10</number>条（审核结果必须为通过），赠送精美礼品一份；</p>
 	<p>②、在一周内进行排名（网站首页将实时公布最新排名），第一名：书包一个。第二、三名：各抱枕毯一只。</p>
 	<p class="prompt tc">如有疑问请联系在线客服或拨打服务热线：<number>0734-83144456</number></p>
-	
-</div>   
+
+</div>
 <div class="mui-row">
         <div class="mui-col-sm-4 mui-col-xs-4">
             <button id="submit_btn" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">提交福利信息</button>
@@ -68,6 +68,9 @@
             <button id="rank_btn" type="button" class="right mui-btn mui-btn-blue mui-btn-outlined">当前排名</button>
         </div>
     </div>
+
+    <script src="{%static 'js/mui.min.js'%}"></script>
+    <script src="{% static 'js/share.js' %}"></script>
     <script type="text/javascript" charset="utf-8">
       	mui.init();
       	document.getElementById("submit_btn").addEventListener('tap', function() {

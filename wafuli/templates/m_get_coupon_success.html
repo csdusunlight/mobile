@@ -22,94 +22,52 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title></title>
-    <script src="{% static 'js/mui.min.js' %}"></script>
-    <script src="{% static 'js/share.js' %}"></script>
     <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_get_coupon_success.css' %}"/>
 </head>
 
-	<body>
-		<header id="header" class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">优惠券</h1>
-			<a id="share" class="share"></a>
-		</header>
-		<div class="mui-content">
-			<!--提示消息部分-->
-			<div class="msg clearfix">
-				<img src="{% static 'images/yes.png' %}" alt="提示图标" />
-				<div class="text">
-					<p>恭喜您，已成功领取优惠券<br />
-					<span>可在<a href="{% url 'account_index' %}">个人中心</a>—<a href="#">我的优惠券</a>—<a href="#">使用券</a>中查看</span></p>
-				</div>
-			</div>
-			<!--优惠券部分-->
-			<div class="box">
-				<div class="benefit clearfix">
-					<img src="{{coupon.project.pic.url}}" alt="提示图标" />
-					<p>{{coupon.project.title}}<br />
-						有效日期：<number>{{coupon.project.time_limit}}</number></p>
-				</div>
-				<p>优惠券代码：<number>{{coupon.project.exchange_code}}</number></p>
-				<!--查看使用部分-->
-				<div class="btn">
-					<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">查看优惠券</button>&nbsp;
-					<button id="useCoupon" type="button" class="mui-btn mui-btn-blue" href="{{coupon.project.exp_url}}">马上使用</button>
-				</div>
-			</div>
-		</div>
-    <!--分享部分-->
-    <div id="share_bg" class="share-bg"></div>
-    <div id="share_box">
-      <div id="content_box" class="share-content-box">
-        <div id="share_close" class="share-close">
-          <span class="mui-icon mui-icon-arrowdown"></span>
+  <body>
+    <header id="header" class="mui-bar mui-bar-nav">
+      <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+      <h1 class="mui-title">优惠券</h1>
+    </header>
+    <div class="mui-content">
+      <!--提示消息部分-->
+      <div class="msg clearfix">
+        <img src="{% static 'images/yes.png' %}" alt="提示图标" />
+        <div class="text">
+          <p>恭喜您，已成功领取优惠券<br />
+          <span>可在<a href="{% url 'account_index' %}">个人中心</a>—<a href="#">我的优惠券</a>—<a href="#">使用券</a>中查看</span></p>
         </div>
-        <ul class="list clearfix">
-          <li>
-            <a href="#">
-              <img src="{%static 'images/share-weixin.png'%}"/>
-              <p>微信好友</p>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="{%static 'images/share-qq.png'%}"/>
-              <p>QQ好友</p>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="{%static 'images/share-sina.png'%}"/>
-              <p>微信微博</p>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="{%static 'images/share-qq-zone.png'%}"/>
-              <p>QQ空间</p>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="{%static 'images/share-friend-row.png'%}"/>
-              <p>朋友圈</p>
-            </a>
-          </li>
-        </ul>
       </div>
-    </div>  <!-- 分享结束 -->
-		<script type="text/javascript">
-		mui.init();
-		document.getElementById('useCoupon').addEventListener('tap',function(){
-			var url = this.getAttribute('href');
-			mui.openWindow({
-	            url: url,
-	            styles: {
-	                top: 0,
-	                bottom: 0
-	            },
+      <!--优惠券部分-->
+      <div class="box">
+        <div class="benefit clearfix">
+          <img src="{{coupon.project.pic.url}}" alt="提示图标" />
+          <p>{{coupon.project.title}}<br />
+            有效日期：<number>{{coupon.project.time_limit}}</number></p>
+        </div>
+        <p>优惠券代码：<number>{{coupon.project.exchange_code}}</number></p>
+        <!--查看使用部分-->
+        <div class="btn">
+          <button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">查看优惠券</button>&nbsp;
+          <button id="useCoupon" type="button" class="mui-btn mui-btn-blue" href="{{coupon.project.exp_url}}">马上使用</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/mui.min.js' %}"></script>
+    <script type="text/javascript">
+    mui.init();
+    document.getElementById('useCoupon').addEventListener('tap',function(){
+      var url = this.getAttribute('href');
+      mui.openWindow({
+              url: url,
+              styles: {
+                  top: 0,
+                  bottom: 0
+              },
 	            show: {
 	                aniShow: 'slide-in-right',
 	            },

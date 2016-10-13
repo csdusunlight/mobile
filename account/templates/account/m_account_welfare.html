@@ -27,13 +27,12 @@
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_account_welfare.css'%}"/>
 </head>
-<body>		    
+<body>
 <header id="header" class="mui-bar mui-bar-nav">
 	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 	<h1 class="mui-title">福利管理</h1>
-	<a id="share" class="share"></a>
 </header>
-<div class="mui-content">	    
+<div class="mui-content">
     <!--选项卡部分-->
     <div id="finance_slider" class="mui-slider mui-fullscreen">
         <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
@@ -60,9 +59,9 @@
 			            <span class="li-04">状态</span>
 	                </li>
             	</ul>
-            	
-            	
-                <ul class="mui-table-view">                                      
+
+
+                <ul class="mui-table-view">
                 </ul>
                 </div>
                 </div>
@@ -85,25 +84,17 @@
 			            <span class="li-04">状态</span>
                     </li>
             	</ul>
-                <ul class="mui-table-view">                                                        
+                <ul class="mui-table-view">
                 </ul>
                 </div>
                 </div>
             </div>
-            
-            
         </div>
     </div>
-    
+</div>
 
-    <!--测试-->
-</div>    
-<!--</div>-->	
-<!--分享部分-->
-<div id="share_bg" class="share-bg"></div>
 
-    <script src="{%static 'js/mui.min.js'%}"></script>
-    <script src="{%static 'js/share.js'%}"></script>
+  <script src="{%static 'js/mui.min.js'%}"></script>
 	<script src="{%static 'js/mui.pullToRefresh.js'%}"></script>
 	<script src="{%static 'js/mui.pullToRefresh.material.js'%}"></script>
 	<script>
@@ -157,8 +148,8 @@
 									var wel = data[i];
 									var li = document.createElement('li');
 									li.className = 'list clearfix';
-									str_html = '<span class="li-01">' + wel.title + 
-										'</span><span class="li-02"><number>' + wel.username + 
+									str_html = '<span class="li-01">' + wel.title +
+										'</span><span class="li-02"><number>' + wel.username +
 										'</number></span><span class="li-03"><number>' + wel.time +
 										'</number></span><span class="li-04">' + wel.state;
 									li.innerHTML = str_html
@@ -172,8 +163,8 @@
 					});
 				}
 			});
-		})(mui);		
-	</script>	
+		})(mui);
+	</script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script>
 		wx.config({
@@ -183,7 +174,7 @@
 		    nonceStr: 'lch20161013', // 必填，生成签名的随机串
 		    signature: '',// 必填，签名，见附录1
 		    jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-		});	
+		});
 	</script>
 </body>
 </html>
