@@ -278,6 +278,24 @@ def phoneImageV(request):
             result['message'] = u'该手机号码已被注册，请直接登录！'
             result.update(generateCap())
             return JsonResponse(result)
+    elif action=='reset_password':
+        phone = request.GET.get('phone', None)
+        hashkey = request.GET.get('hashkey', None)
+        response = request.GET.get('response', None)
+        if not (phone and hashkey):
+            return JsonResponse(result)
+        ret = imageV(hashkey, response)
+        if ret != 0:
+            result['code'] = 1
+            result['message'] = u'图形验证码输入错误！'
+            result.update(generateCap())
+            return JsonResponse(result)
+        users = MyUser.objects.filter(mobile=phone)
+        if not users.exists():
+            result['code'] = 1
+            result['message'] = u'该手机号码尚未注册！'
+            result.update(generateCap())
+            return JsonResponse(result)
     elif action=="change_zhifubao":
         if not request.user.is_authenticated():
             result['code'] = 1
@@ -444,27 +462,7 @@ def score_json(request):
 @login_required
 def security(request):
     return render(request, 'account/account_security.html', {})
-def password_change(request):
-    if not request.is_ajax():
-        raise Http404
-    result={'code':-1, 'url':'asd'}
-    if not request.user.is_authenticated():
-        result['code'] = 1
-        result['url'] = reverse('login') + "?next=" + reverse('account_security')
-        return JsonResponse(result)   
-    init_password = request.POST.get("initp", '')
-    new_password = request.POST.get("newp", '')
-    if not (init_password and new_password):
-        result['code'] = -1
-        return JsonResponse(result)
-    user = request.user
-    if not user.check_password(init_password):
-        result['code'] = 2
-    else:
-        user.set_password(new_password)
-        user.save(update_fields=["password"])
-        result['code'] = 0
-    return JsonResponse(result)
+
 def change_pay_password(request):
     if not request.is_ajax():
         raise Http404
@@ -965,3 +963,73 @@ def get_user_invite_page(request):
         res["recordCount"] = withdraw_list.count()
     res["data"] = data
     return JsonResponse(res)
+
+def password_reset(request):
+    if request.method == 'POST':
+        if not request.is_ajax():
+            raise Http404
+        result = {}
+        telcode = request.POST.get('code', None)
+        mobile = request.POST.get('mobile', None)
+        password = request.POST.get('password', None)
+        if not (telcode and mobile and password):
+            result['code'] = '3'
+            result['res_msg'] = u'传入参数不足！'
+            return JsonResponse(result)
+        user = None
+        try:
+            user = MyUser.objects.get(mobile=mobile)
+        except:
+            result['code'] = '1'
+            result['res_msg'] = u'该手机号码尚未注册！'
+            return JsonResponse(result)
+        ret = verifymobilecode(mobile,telcode)
+        if ret != 0:
+            result['code'] = '2'
+            if ret == -1:
+                result['res_msg'] = u'请先获取手机验证码'
+            elif ret == 1:
+                result['res_msg'] = u'手机验证码输入错误！'
+            elif ret == 2:
+                result['res_msg'] = u'手机验证码已过期，请重新获取'
+        else:
+            user.set_password(password)
+            user.save(update_fields=["password"])
+            result['code'] = 0
+            result['res_msg'] = u'密码重置成功！'
+        return JsonResponse(result)
+    else:
+        hashkey = CaptchaStore.generate_key()
+        codimg_url = captcha_image_url(hashkey)
+        context = {
+            'hashkey':hashkey, 
+            'codimg_url':codimg_url, 
+        }
+        return render(request,'m_password_reset.html',context)
+
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        if not request.is_ajax():
+            raise Http404
+        result={'code':-1, 'res_msg':''}
+        init_password = request.POST.get("initp", '')
+        new_password = request.POST.get("newp", '')
+        if not (init_password and new_password):
+            result['code'] = -1
+            result['res_msg'] = u'请输入密码！'
+            return JsonResponse(result)
+        user = request.user
+        if not user.check_password(init_password):
+            result['code'] = 2
+            result['res_msg'] = u'当前密码输入错误！'
+        else:
+            user.set_password(new_password)
+            user.save(update_fields=["password"])
+            userl = authenticate(username=user.mobile, password=new_password)
+            auth_login(request, userl)
+            result['code'] = 0
+            result['res_msg'] = u'密码修改成功！'
+        return JsonResponse(result)
+    else:
+        return render(request,'account/m_account_change_password.html')
