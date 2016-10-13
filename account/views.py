@@ -644,11 +644,12 @@ def withdraw(request):
 @login_required
 def exchange(request):
     return render(request, 'account/m_account_exchange.html', {})
-
+def exchange_morescore(request):
+    return render(request, 'm_exchange_morescore.html', {})
 def exchange_introduction(request):
     return render(request, 'm_exchange_introduction.html', {})
-def exchange_introduction2(request):
-    return render(request, 'm_exchange_introduction2.html', {})
+def exchange_questions(request):
+    return render(request, 'm_exchange_questions.html', {})
 @login_required
 def commodity_json(request):
     count = int(request.GET.get('count', 0))

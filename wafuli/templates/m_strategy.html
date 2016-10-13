@@ -66,13 +66,13 @@
 			        <li class="mui-table-view-cell mui-collapse">
 			            <a class="left-icon4 left-icon1 mui-navigate-right" href="#">关于我们</a>
 			            <div class="mui-collapse-content">
-			                <a href="#">联系我们</a>
+			                <a href="{%url 'aboutus_contactus'%}">联系我们</a>
 			            </div>
 			            <div class="mui-collapse-content">
-			                <a href="#">版权声明</a>
+			                <a href="{%url 'aboutus_statement'%}">版权声明</a>
 			            </div>
 			            <div class="mui-collapse-content">
-			                <a href="#">商务合作</a>
+			                <a href="{%url 'aboutus_cooperation'%}">商务合作</a>
 			            </div>
 			        </li>
 			   </ul>	
@@ -97,23 +97,6 @@
 				<p>挖福利公众号</p>
 			</div>
 		</div>		
-		
-		<!--<div id="ding_yue" class="login">
-			<div class="box">
-				<span id="close_01" class="mui-icon mui-icon-closeempty"></span>
-				<p>长安识别图中二维码</p>
-				<img src="{% static 'images/gongzhong.jpg' %}"/>
-				<p>挖福利公众号</p>
-			</div>		
-		</div>
-		<div id="fu_wu" class="login">
-			<div class="box">
-				<span id="close_02" class="mui-icon mui-icon-closeempty"></span>
-				<p>长安识别图中二维码</p>
-				<img src="{% static 'images/dingyuehao.jpg' %}"/>
-				<p>挖福利订阅号</p>
-			</div>			
-		</div>-->
 		
 		<script src="{% static 'js/mui.min.js' %}"></script>
 		<!--弹窗部分-->
@@ -146,25 +129,6 @@
 					weixin_bg.style.display = "none";
 				  	weixin_box_02.setAttribute("class","weixin-box-02");
 				});
-//					var btn_01 = document.getElementById("gong_zhong_hao"),
-//						btn_02 = document.getElementById("fu_wu_hao"),
-//						close_01 = document.getElementById("close_01"),
-//						login_02 = document.getElementById("fu_wu"),
-//						close_02 = document.getElementById("close_02"),
-//						login_01 = document.getElementById("ding_yue");
-//					//监听点击事件
-//					btn_01.addEventListener("tap",function () {
-//					  login_01.style.display="block";
-//					});
-//					btn_02.addEventListener("tap",function () {
-//					  login_02.style.display="block";
-//					});
-//					close_01.addEventListener("tap",function () {
-//					  login_01.style.display="none";
-//					});
-//					close_02.addEventListener("tap",function () {
-//					  login_02.style.display="none";
-//					});
 		</script>
 	</body>
 

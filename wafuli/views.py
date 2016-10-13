@@ -113,10 +113,15 @@ def press(request, id):
         raise Http404(u"该页面不存在")
     return render(request, 'm_detail_press.html',{'press':press})
 
-def aboutus(request):
+def aboutus_contactus(request):
     ad_list = Advertisement.objects.filter(location__in=['0','6'],is_hidden=False).first
-    return render(request, 'aboutus.html',{'ad_list':ad_list})
-
+    return render(request, 'm_aboutus_contactus.html')
+def aboutus_statement(request):
+    ad_list = Advertisement.objects.filter(location__in=['0','6'],is_hidden=False).first
+    return render(request, 'm_aboutus_statement.html')
+def aboutus_cooperation(request):
+    ad_list = Advertisement.objects.filter(location__in=['0','6'],is_hidden=False).first
+    return render(request, 'm_aboutus_cooperation.html')
 def strategy(request):
     item_list = Press.objects
     strategy_list = item_list.filter(type='2')

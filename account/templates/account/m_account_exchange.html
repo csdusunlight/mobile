@@ -39,9 +39,9 @@
 				<li class="mui-table-view-cell mui-collapse">
 					<a class="mui-navigate-right" href="#">可用积分：<span><number>{{user.scores}}</number></span></a>
 					<div class="mui-collapse-content">
-						<a href="#">获取更多积分></a>
+						<a href="{% url 'exchange_morescore' %}">获取更多积分></a>
 						<a href="{% url 'exchange_introduction' %}">查看兑换流程></a>
-						<a href="{% url 'exchange_introduction2' %}">商品兑换的后续服务细则></a>
+						<a href="{% url 'exchange_questions' %}">常见问题></a>
 					</div>
 				</li>
 			</ul>

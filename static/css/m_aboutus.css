@@ -1,0 +1,23 @@
+body {
+	background: #fff;
+}
+.mui-content {
+	padding: 0 1.875% 0;
+	background: #fff;
+}
+
+.msg {
+	margin-top: 1rem;
+	font-size: 1.6rem;
+	line-height: 3rem;
+	background: #fff;
+	color: #333;
+}
+.top {
+	padding: 3rem 0;
+}
+p {
+	font-size: 1.4rem;
+	line-height: 3rem;
+	margin-top: 1rem;
+}

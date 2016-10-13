@@ -1,0 +1,50 @@
+{%load staticfiles%}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title></title>    
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common_text.css' %}"/>
+</head>
+
+	<body>	
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">版权声明</h1>
+		</header>
+		<div class="mui-content">
+			
+				<p><number>1、</number>所有来源标注为挖福利/我要挖福利/wafuli.cn的内容版权均为本站所有，若您需要引用、转载，只需要注明来源及原文链接即可，如涉及大面积转载，请来信告知，获取授权。</p>
+				<p><number>2、</number>本站所提供的福利资讯、福利资源等内容均为作者提供、网友推荐、互联网整理而来（部分报媒/平媒内容转载自网络合作媒体），仅供学习参考，如有侵犯您的版权，请联系我们，本站将在三个工作日内改正。</p>
+				<p><number>3、</number>若您的网站或机构从本站获取的一切资源进行商业使用，除来源为本站的资料需与本站协商外，其他资源请自行联系版权所有人。</p>
+				<p><number>4、</number>挖福利不保证资源的准确性、安全性和完整性，请您在阅读、下载及使用过程中自行确认，本站亦不承担上述资源对您或您的网站造成的任何形式的损失或伤害。</p>
+				<p><number>5、</number>未经挖福利允许，不得盗链、盗用本站资源；不得复制或仿造本网站，不得在非挖福利www.wafuli.cn所属的服务器上建立镜像，挖福利对其自行开发的或和他人共同开发的所有内容、技术手段和服务拥有全部知识产权，任何人不得侵害或破坏，也不得擅自使用。</p>
+				<p><number>6、</number>互联网的本质是自由与分享，我们真诚的希望，每一份有价值的正能量能够在互联网中自由传播，能够为每一个网站提供动力。</p>
+		</div>
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<script type="text/javascript" charset="utf-8">
+		  	mui.init();
+		</script>
+	</body>
+
+</html>
