@@ -31,7 +31,6 @@
 <header id="header" class="mui-bar mui-bar-nav">
 	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 	<h1 class="mui-title">福利管理</h1>
-	<a id="share" class="share"></a>
 </header>
 <div class="mui-content">
     <!--选项卡部分-->
@@ -90,19 +89,12 @@
                 </div>
                 </div>
             </div>
-
-
         </div>
     </div>
-
-
-    <!--测试-->
 </div>
-<!--</div>-->
 
 
-    <script src="{%static 'js/mui.min.js'%}"></script>
-    <script src="{%static 'js/share.js'%}"></script>
+  <script src="{%static 'js/mui.min.js'%}"></script>
 	<script src="{%static 'js/mui.pullToRefresh.js'%}"></script>
 	<script src="{%static 'js/mui.pullToRefresh.material.js'%}"></script>
 	<script>
@@ -172,10 +164,17 @@
 				}
 			});
 		})(mui);
-			var gallery = mui('#banner');
-			gallery.slider({
-				interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
-			});
-		</script>
+	</script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script>
+		wx.config({
+		    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		    appId: 'wx2414d585d232e947', // 必填，公众号的唯一标识
+		    timestamp: new Date().getTime(), // 必填，生成签名的时间戳
+		    nonceStr: 'lch20161013', // 必填，生成签名的随机串
+		    signature: '',// 必填，签名，见附录1
+		    jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		});
+	</script>
 </body>
 </html>

@@ -31,7 +31,6 @@
 	<header id="header" class="mui-bar mui-bar-nav">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		<h1 class="mui-title">邀请好友</h1>
-		<!--<a id="share" class="share"></a>-->
 	</header>
 	<div class="mui-content">
 		<div class="top">
@@ -42,11 +41,6 @@
 			<button id="transfer_btn" type="button" class="mui-btn mui-btn-blue">转至余额</button>
 			{%csrf_token%}
 		</div>
-		<!--<div class="recommend">
-			<p>邀请奖励结余&nbsp;<span>0.00</span>元</p>
-			<button type="button" class="mui-btn mui-btn-blue">转至余额</button>
-			<p>本月待发奖励&nbsp;<span>0.00</span>元</p>
-		</div>-->
 		<div class="middle">
 			<h3>邀请码：</h3>
 			<div class="yqm-bg"><p class="yao-qing-ma">{{user.invite_code}}</p></div>
@@ -57,58 +51,11 @@
 			<p>1、每推荐一名好友提现成功，<br />推荐人获得&nbsp;<span>10</span>积分</p>
 			<p>推荐人获得好友提现金额的<br />&nbsp;<span>5%</span>&nbsp;现金奖励</p>
 		</div>
-		<div class="tu-pian">			
+		<div class="tu-pian">
 			<img src="{% static 'images/share-friend-bottom.png' %}"/>
 		</div>
 	</div>
 
-<!--分享部分-->
-<div id="share_bg" class="share-bg"></div>
-<div id="share_box">
-	<div id="content_box" class="share-content-box">
-		<div id="share_close" class="share-close">
-			<span class="mui-icon mui-icon-arrowdown"></span>		
-		</div>
-		<ul class="list clearfix">
-			<li>
-				<a href="#">
-					<img src="{% static 'images/share-weixin.png' %}"/>
-					<p>微信好友</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{% static 'images/share-qq.png' %}"/>
-					<p>QQ好友</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{% static 'images/share-sina.png' %}"/>
-					<p>微信微博</p>
-				</a>
-			</li>		
-			<li>
-				<a href="#">
-					<img src="{% static 'images/share-qq-zone.png' %}"/>
-					<p>QQ空间</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="{% static 'images/share-friend-row.png' %}"/>
-					<p>朋友圈</p>
-				</a>
-			</li>
-		</ul>
-	</div>
-</div>   	
-    
-	
-	<!--回到顶部部分-->
-    <a id="scrollToTop" class="backTop hide"> <span class="mui-icon mui-icon-arrowthinup"></span> </a>
-    <!--底部导航-->
-	
     <script src="{% static 'js/mui.min.js' %}"></script>
     <script src="{% static 'js/share.js' %}"></script>
     <script type="text/javascript" charset="utf-8">
@@ -138,6 +85,6 @@
       	});
    </script>
 
-	
+
 </body>
 </html>

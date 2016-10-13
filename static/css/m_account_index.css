@@ -151,3 +151,6 @@ footer li.on span {
 .mui-row .mui-table-view-cell>a:not(.mui-btn):active {
 	background: none;
 }
+.mui-content {
+	margin-bottom: 8rem;
+}
