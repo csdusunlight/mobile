@@ -21,7 +21,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title></title>
+	<title>{{news.seo_title}}</title>
+	<meta name="keywords" content="{{news.seo_keywords}}" />
+	<meta name="description" content="{{news.seo_description}}" />
+	<link href="{% static 'images/favicon.ico'%}" rel="shortcut icon"/>
     <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_detail_hongbao.css' %}"/>
@@ -34,8 +37,8 @@
 		</header>
 		<div class="mui-content">
 			<div class="ad">
-				<img src="{% static 'images/banner1.jpg' %}">
-				<h5>菜鸟果果每周六免费寄包裹</h5>
+				<img src="{{news.pic.url}}">
+				<h5>{{news.title}}</h5>
 			</div>
 			<!--体验步骤部分-->
 			<div class="taste">

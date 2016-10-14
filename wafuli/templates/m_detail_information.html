@@ -21,7 +21,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title></title>
+    <title>{{info.seo_title}}</title>
+	<meta name="keywords" content="{{info.seo_keywords}}" />
+	<meta name="description" content="{{info.seo_description}}" />
+	<link href="{% static 'images/favicon.ico'%}" rel="shortcut icon"/>
     <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_detail_information.css' %}"/>

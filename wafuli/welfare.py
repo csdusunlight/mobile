@@ -37,7 +37,7 @@ def welfare(request, id=None, type=None):
             wel = Welfare.objects.get(id=id)
         except Welfare.DoesNotExist:
             raise Http404(u"该页面不存在")
-        other_wel_list = Welfare.objects.filter(is_display=True, state='1').order_by('-view_count')[0:10]
+#         other_wel_list = Welfare.objects.filter(is_display=True, state='1').order_by('-view_count')[0:10]
         template = ''
         if wel.type == "youhuiquan":
             template = 'm_detail_youhuiquan.html'
@@ -48,7 +48,7 @@ def welfare(request, id=None, type=None):
         elif wel.type == "baoyou":
             template = 'm_detail_hongbao.html'
             wel = wel.baoyou
-        context = {'news':wel,'type':'Welfare', 'other_wel_list':other_wel_list}
+        context = {'news':wel,'type':'Welfare',}
         ref_url = request.META.get('HTTP_REFERER',"")
         if 'next=' in ref_url:
             context.update({'back':True})
