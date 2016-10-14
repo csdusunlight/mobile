@@ -21,7 +21,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title></title>
+    <title>个人中心</title>
     <script src="{% static 'js/mui.min.js' %}"></script>
     <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
@@ -31,7 +31,7 @@
 	<body>
 		<div class="mui-content">
 			<div class="top">
-        <a class="diannao" href="#">切换到电脑版</a>
+        <a id="switch_device" class="diannao">切换到电脑版</a>
 				<img src="{% static 'images/user.png' %}" alt="用户头像" />
 				<a href="{% url 'account_settings' %}"><number>{{user.mobile}}</number></a>
 			</div>
@@ -147,6 +147,13 @@
 	};
 	</script>
 	{%endif%}
+	<script>
+	document.getElementById("switch_device").addEventListener("tap",function(){
+    	setCookie('mode', 'pc', 1, 'wafuli.cn');
+    	window.location.href = "http://old.wafuli.cn";
+    });
+	</script>
+	<script src="{%static 'js/cookie.js'%}"></script>
 	</body>
 
 </html>

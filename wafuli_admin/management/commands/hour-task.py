@@ -11,6 +11,8 @@ from account.models import MyUser
 from django.db.models import F
 import datetime
 import time
+from account.varify import httpconn
+from wafuli_admin.models import Dict
 logger = logging.getLogger("wafuli")
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -20,7 +22,24 @@ class Command(BaseCommand):
         start = datetime.datetime(now.year, now.month, now.day, now.hour, 0, 0)
         to = start + datetime.timedelta(hours=1)
         wels = Welfare.objects.filter(state='0', startTime__range=(start, to)).update(state='1', startTime=now)
-        
-        
+
         end_time = time.time()
         logger.info("******Hour-task is finished, time:%s*********",end_time-begin_time)
+        
+def update_accesstoken():
+    url = 'https://api.weixin.qq.com/cgi-bin/token'
+    params = {
+        'grant_type':'client_credential',
+        'appid':'wx2414d585d232e947',
+        'secret':'3c0fb8221aaf7c5ba368b9536fb7eccc',
+    }
+    json_ret = httpconn(url, params, 0)
+    if 'access_token' in json_ret and 'expires_in' in json_ret:
+        access_token = json_ret['access_token']
+        now = int(time.time())
+        expire_stamp = now + json_ret['expires_in']
+        defaults={'value':access_token, 'expire_stamp':expire_stamp}
+        Dict.objects.update_or_create(key='access_token', defaults=defaults)
+    else:
+        logger.error('Getting access_token error:' + str(json_ret) )
+update_accesstoken()

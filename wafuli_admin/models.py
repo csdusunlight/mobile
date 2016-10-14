@@ -36,3 +36,10 @@ class GlobalStatis(models.Model):
     time = models.DateTimeField(u"统计时间", auto_now=True)
     all_wel_num = models.PositiveIntegerField(u"福利总数", default=0)
     award_total = models.PositiveIntegerField(u'累计奖励金额', default=0)
+    
+class Dict(models.Model):
+    key = models.CharField(max_length=20)
+    value = models.CharField(max_length=512)
+    expire_stamp = models.IntegerField()
+    def __unicode__(self):
+        return self.key + ':' + self.value

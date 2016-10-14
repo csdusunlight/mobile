@@ -35,10 +35,10 @@
 <div id="pullrefresh" class="mui-scroll-wrapper">
 
 <div class="mui-content">
-	<header class="clearfix">
+	<!--<header class="clearfix">
 	    <img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
 	    <a class="fr" id="switch_device"><img src="{%static 'images/diannao.png'%}" alt="前往pc端" /></a>
-	</header>
+	</header>-->
 	<!--banner部分-->
 	<div id="slider" class="mui-slider" >
 	  <div class="mui-slider-group mui-slider-loop">
@@ -286,10 +286,7 @@
                 }
             });
         });
-		document.getElementById("switch_device").addEventListener("tap",function(){
-	    	setCookie('mode', 'pc', 1, 'wafuli.cn');
-	    	window.location.href = "http://old.wafuli.cn";
-	    });
+		
 		var gallery = mui('#slider');
 		gallery.slider({
 			interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
@@ -312,7 +309,7 @@
                 weixin_box.setAttribute("class","weixin-box-02");
             });
     </script>
-    <script src="{%static 'js/cookie.js'%}"></script>
+    
 
 </body>
 </html>
