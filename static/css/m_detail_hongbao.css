@@ -2,7 +2,10 @@ body {
 	/*background: #fff;*/
 }
 .mui-content {
-	/*background: #fff;*/
+	padding-bottom: 6rem;
+}
+img {
+	width: 100%;
 }
 .ad img {
 	width: 100%;

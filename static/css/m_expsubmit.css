@@ -9,7 +9,9 @@ body {
 .mui-input-group {
 	margin-top: 3rem;
 }
-
+.mui-row {
+	margin-top: 1rem;
+}
 .mui-row li {
 	list-style: none;
 }
@@ -49,7 +51,12 @@ body {
 .beizhu p {
 	font-size: 1.4rem;
 	line-height: 2rem;
-
+	padding-left: 11px;
+}
+textarea {
+	width: auto;
+	margin: 1rem 4rem 0;
+	height: 10rem;
 }
 .mui-content button {
 	padding: 0;

@@ -900,19 +900,19 @@ form.mui-input-group .mui-input-row:after {
 }
 input::-webkit-input-placeholder {
 	opacity: 0.4;
-	font-size: 12px;
+	font-size: 14px;
 }
 input:-moz-placeholder {
 	opacity: 0.4;
-	font-size: 12px;
+	font-size: 14px;
 }
 input::-moz-placeholder {
 	opacity: 0.4;
-	font-size: 12px;
+	font-size: 14px;
 }
 input:-ms-input-placeholder {
 	opacity: 0.4;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 /*边框分割线颜色部分*/

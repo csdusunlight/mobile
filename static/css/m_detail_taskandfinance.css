@@ -1,5 +1,12 @@
+.mui-content {
+	padding-bottom: 6rem;
+}
+img {
+	width: 100%;
+}
 .ad img {
 	width: 100%;
+	min-height: 21.2rem;
 }
 .ad h5 {
 	padding: 0 1.875% 0;
