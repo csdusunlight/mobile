@@ -6,7 +6,7 @@ img {
 }
 .ad img {
 	width: 100%;
-	min-height: 21.2rem;
+	max-height: 21.2rem;
 }
 .ad h5 {
 	padding: 0 1.875% 0;

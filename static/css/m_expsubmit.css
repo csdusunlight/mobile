@@ -71,3 +71,8 @@ form {
 	width: 100%;
 	margin-left: 0;
 }
+/*样式覆盖*/
+form.mui-input-group .mui-input-row:after {
+	left: 15px;
+	right: 15px;
+}
