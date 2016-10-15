@@ -127,3 +127,23 @@ img {
 .er-wei-ma span:active {
 	color: #ff6767;
 }
+/*上传样式设置*/
+p {
+	font-family: "微软雅黑";
+	font-size: 16px !important;
+	line-height: 2;
+	color: #333;
+}
+strong {
+	font-weight: bold !important;
+}
+p img {
+	width: 100% !important;
+}
+table {
+	border-color: #b3b3b3 !important;
+}
+td {
+	font-size: 16px;
+	color: #333;
+}
