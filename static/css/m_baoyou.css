@@ -89,6 +89,7 @@
 	display: inline-block;
 	width: 7rem;
 	padding:0.2rem 0rem;
+	display: none;
 }
 /*样式替换*/
 .mui-btn-warning {
