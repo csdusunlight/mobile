@@ -82,13 +82,12 @@
 						for (var i in data) {
 							var wel = data[i];
 							var li = document.createElement('li');
-							li.innerHTML = '<div class="clearfix"><img src="' + wel.picurl +
+							li.innerHTML = '<a href="' + wel.url + '" class="clearfix"><img src="' + wel.picurl +
 								'" /><div class="con-info"><h6>' + wel.title +
 								'</h6><p>' + wel.desc + '</p><div class="c-money">' +
 								'<strong><number>￥' + wel.nprice + '</number></strong>' +
 								'<s><number>￥' + wel.mprice + '</number></s>' +
-								'<button href="' + wel.url + '" class="mui-btn mui-btn-warning">' +
-								'立即抢购</button></div></div></div>';
+								'</div></div></a>';
 							table.appendChild(li);
 						}
 					}
