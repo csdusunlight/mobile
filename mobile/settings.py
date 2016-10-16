@@ -172,6 +172,9 @@ LOGGING = {
         },
     },
 }
-DOMAIN_URL = "http://test.wafuli.cn"#"http://127.0.0.1:8000"
+DOMAIN_URL = "http://www.wafuli.cn"#"http://127.0.0.1:8000"
 AWARD_RATE = 0.05
 AWARD_SCORES = 100
+APPID = 'wx2414d585d232e947'
+SECRET = '3c0fb8221aaf7c5ba368b9536fb7eccc'
+NONCESTR = 'AXMPT2016sncfeuiw'

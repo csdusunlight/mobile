@@ -13,6 +13,7 @@ import datetime
 import time
 from account.varify import httpconn
 from wafuli_admin.models import Dict
+from django.conf import settings
 logger = logging.getLogger("wafuli")
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -22,6 +23,9 @@ class Command(BaseCommand):
         start = datetime.datetime(now.year, now.month, now.day, now.hour, 0, 0)
         to = start + datetime.timedelta(hours=1)
         wels = Welfare.objects.filter(state='0', startTime__range=(start, to)).update(state='1', startTime=now)
+        
+        access_token = update_accesstoken()
+        update_jsapi_ticket(access_token)
 
         end_time = time.time()
         logger.info("******Hour-task is finished, time:%s*********",end_time-begin_time)
@@ -30,8 +34,8 @@ def update_accesstoken():
     url = 'https://api.weixin.qq.com/cgi-bin/token'
     params = {
         'grant_type':'client_credential',
-        'appid':'wx2414d585d232e947',
-        'secret':'3c0fb8221aaf7c5ba368b9536fb7eccc',
+        'appid':settings.APPID,
+        'secret':settings.SECRET,
     }
     json_ret = httpconn(url, params, 0)
     if 'access_token' in json_ret and 'expires_in' in json_ret:
@@ -59,5 +63,3 @@ def update_jsapi_ticket(access_token):
         Dict.objects.update_or_create(key='jsapi_ticket', defaults=defaults)
     else:
         logger.error('Getting access_token error:' + str(json_ret) )
-access_token = update_accesstoken()
-update_jsapi_ticket(access_token)
