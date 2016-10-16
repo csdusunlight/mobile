@@ -40,6 +40,24 @@ def update_accesstoken():
         expire_stamp = now + json_ret['expires_in']
         defaults={'value':access_token, 'expire_stamp':expire_stamp}
         Dict.objects.update_or_create(key='access_token', defaults=defaults)
+        return access_token
     else:
         logger.error('Getting access_token error:' + str(json_ret) )
-update_accesstoken()
+        return ''
+def update_jsapi_ticket(access_token):
+    url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket'
+    params = {
+        'type':'jsapi',
+        'access_token':access_token,
+    }
+    json_ret = httpconn(url, params, 0)
+    if 'ticket' in json_ret and 'expires_in' in json_ret:
+        jsapi_ticket = json_ret['ticket']
+        now = int(time.time())
+        expire_stamp = now + json_ret['expires_in']
+        defaults={'value':jsapi_ticket, 'expire_stamp':expire_stamp}
+        Dict.objects.update_or_create(key='jsapi_ticket', defaults=defaults)
+    else:
+        logger.error('Getting access_token error:' + str(json_ret) )
+access_token = update_accesstoken()
+update_jsapi_ticket(access_token)

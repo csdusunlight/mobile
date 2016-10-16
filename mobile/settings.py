@@ -129,7 +129,7 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 #CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True #False
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 
 LOGGING = {

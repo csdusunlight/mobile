@@ -38,7 +38,7 @@ class GlobalStatis(models.Model):
     award_total = models.PositiveIntegerField(u'累计奖励金额', default=0)
     
 class Dict(models.Model):
-    key = models.CharField(max_length=20)
+    key = models.CharField(max_length=20,primary_key=True)
     value = models.CharField(max_length=512)
     expire_stamp = models.IntegerField()
     def __unicode__(self):

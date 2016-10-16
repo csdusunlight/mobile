@@ -55,7 +55,7 @@
 			<!--立即体验部分-->
 			<div class="try">
 				<div class="shuju">
-					<span>剩余张数：<number>{{news.view_count}}</number></span>
+					<span>剩余张数：<number>{{news.left_count}}</number></span>
 				    <span>活动日期：<number>{{news.time_limit}}</number></span>
 				</div>
 				<button id="Btn" type="button" class="mui-btn mui-btn-blue mui-btn-block">立即领取</button>
@@ -69,7 +69,44 @@
 		<!--弹窗部分-->
 		<script type="text/javascript" charset="utf-8">
 				var id = '{{news.id}}'
-		      	mui.init();
+				mui.init({
+					beforeback: function(){
+						var is_back = true;
+						var refer = document.referrer;
+						if(refer){
+							var flag = refer.indexOf("m.wafuli.cn");
+							if (flag===-1){
+								is_back = false;
+							}
+							else {
+								is_back = true;
+							}
+						}
+						else {
+							is_back = false;
+						}
+						if (is_back){
+							return true;
+						}
+						else{
+							mui.openWindow({
+					            url: "{% url 'index' %}",
+					            styles: {
+					                top: 0,
+					                bottom: 0
+					            },
+					            show: {
+					                aniShow: 'slide-in-right',
+					            },
+					            waiting: {
+					                autoShow: false, //自动显示等待框
+					                title: '正在加载...', //等待对话框上显示的提示内容
+					            }
+					        });
+							return false;
+						}	
+					}
+				});
 		      	mui.ready(function(){
 			      	document.getElementById("Btn").addEventListener('tap', function() {
 			    		mui.ajax({

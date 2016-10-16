@@ -82,7 +82,7 @@
 						for (var i in data) {
 							var wel = data[i];
 							var li = document.createElement('li');
-							li.innerHTML = '<a href="' + wel.url + '" class="clearfix"><img src="' + wel.picurl +
+							li.innerHTML = '<a target="_blank" href="' + wel.url + '" class="clearfix"><img src="' + wel.picurl +
 								'" /><div class="con-info"><h6>' + wel.title +
 								'</h6><p>' + wel.desc + '</p><div class="c-money">' +
 								'<strong><number>￥' + wel.nprice + '</number></strong>' +
@@ -102,7 +102,7 @@
 		function pullupRefresh() {
 			get_wel_list(count++);
 		}
-		mui('.mui-table-view').on('tap', 'button', function() {
+		mui('.mui-table-view').on('tap', 'a', function() {
 	        var href = this.getAttribute('href');
 	        mui.openWindow({
 	            url: href,
