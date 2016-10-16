@@ -67,6 +67,7 @@ def update_view_count(welfare):
 
 def get_weixin_params(url):
     url = settings.DOMAIN_URL + url
+    print url
     weixin_params = {}
     jsapi_ticket = ''
     try:
@@ -88,6 +89,7 @@ def get_weixin_params(url):
         print k,v
         l.append(k + '=' + v)
     para_str = '&'.join(l)
+    print para_str
     sign = sha1(para_str).hexdigest()
     weixin_params = {
             'nonceStr':settings.NONCESTR,

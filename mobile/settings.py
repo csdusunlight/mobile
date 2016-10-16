@@ -172,7 +172,7 @@ LOGGING = {
         },
     },
 }
-DOMAIN_URL = "http://www.wafuli.cn"#"http://127.0.0.1:8000"
+DOMAIN_URL = "http://m.wafuli.cn"#"http://127.0.0.1:8000"
 AWARD_RATE = 0.05
 AWARD_SCORES = 100
 APPID = 'wx2414d585d232e947'
