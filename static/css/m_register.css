@@ -45,7 +45,7 @@ body {
 .mui-input-row .mui-input-password~.mui-icon-eye.mui-active {
 	color: #008FD7;
 }
-#reg {
+#register {
 	padding: 0;
 	width: 60%;
 	height: 3.4rem;

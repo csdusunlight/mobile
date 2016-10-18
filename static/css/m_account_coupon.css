@@ -2,7 +2,7 @@
 .mui-table-view-cell {
 	margin: 0.6rem auto 0;
 	width: 30rem;
-	height: auto;
+	height: 10.5rem;
 	padding: 0 !important;
 	background: url(../images/youhuiquan-bg.png) center top no-repeat;
 	background-size: 30rem auto;
@@ -17,10 +17,7 @@
 .youhuiquan-left p {
 	width: 21rem;
 	font-size: 1rem;
-	/*overflow: hidden;*/
-	/*background: red;*/
 	line-height: 2.6rem;
-	/*overflow: hidden;*/
 }
 .youhuiquan-left p span {
 	float: left;
@@ -65,7 +62,7 @@ button[disabled] {
 .youhuiquan-right>img {
 	width: 6rem !important;
 	max-height: 3rem;
-	margin: 1rem 0.8rem 0 0 ;
+	margin: 1.5rem 0.8rem 0 0 ;
 }
 .youhuiquan-right p {
 	font-size: 1rem;
