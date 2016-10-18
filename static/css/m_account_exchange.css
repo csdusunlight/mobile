@@ -19,7 +19,7 @@
 .mui-content .top a {
 	display: block;
 	font-size: 1.2rem;
-	line-height: 1.8rem;
+	line-height: 2.4rem;
 	color: #a5a5a5;
 }
 /*列表样式部分*/
@@ -77,22 +77,12 @@
 }
 
 /*样式替换*/
-/*.mui-btn-yellow {
-	color: #fff;
-	border: 1px solid #52c5ff;
-	background-color: #52c5ff;
-}
-.mui-btn-yellow:enabled:active,
-.mui-btn-yellow.mui-active:enabled {
-	color: #fff;
-	border: 1px solid #49b1e5;
-	background-color: #49b1e5;
-}*/
 .mui-table-view:before {
 	height: 0;
 }
 .card {
 	width: 44%;
+	height: 18.4rem;
 	float: left;
 	margin-left: 4%;
 	margin-bottom: 4%;
@@ -104,7 +94,7 @@
   max-height: 12rem;
 }
 .text {
-	padding: 0.8rem 0.5rem 1rem;
+	padding: 0.8rem 0.5rem 0;
 }
 .text h3 {
 	font-size: 1.4rem;

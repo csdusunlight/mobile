@@ -55,7 +55,7 @@ button[disabled] {
 }
 .youhuiquan-left .use .use-02 {
 	display: inline-block;
-	width: 16rem;
+	width: 15rem;
 	height: 4rem;
 	/*height: 6rem;*/
 	/*background: red;*/
@@ -65,10 +65,10 @@ button[disabled] {
 .youhuiquan-right>img {
 	width: 6rem !important;
 	max-height: 3rem;
-	margin: 2.4rem 0.8rem 0 0 ;
+	margin: 1rem 0.8rem 0 0 ;
 }
 .youhuiquan-right p {
-	font-size: 1.2rem;
+	font-size: 1rem;
 	line-height: 1.8rem;
 	max-width: 6rem;
 	height: 5rem;

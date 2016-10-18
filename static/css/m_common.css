@@ -869,21 +869,16 @@ header .mui-btn-blue {
 /*返回顶部部分*/
 .backTop {
 	position: fixed;
-	right: 0;
+	right: 4px;
 	bottom: 6rem;
 	width: 3rem;
 	height: 3rem;
-	padding-top: 0.5rem;
-	text-align: center;
-	font-size: 2rem;
-	font-weight: 900 !important;
-	border-radius: 50%;
 	z-index: 1000;
-	background: #000 !important;
-	color: #fff;
-	opacity: 0.4;
+	background: url(../images/back_to_top.png) center center/3rem 3rem no-repeat;
 }
-
+.mui-icon-arrowthinup:before {
+	content: "";
+}
 /*输入框部分样式更改*/
 .mui-input-group .mui-input-row {
 	margin-top: 10px;

@@ -2,16 +2,8 @@ body {
 	background: #fff;
 }
 .mui-content {
-	/*margin-top: 44px;*/
 	background: #fff;
 }
-/*.content-box {
-	padding: 0 1.875% 2rem;
-	background: #fff;
-}
-.container-box {
-	background: #fff;
-}*/
 /*帐号部分*/
 .msg {
 	padding-top: 2rem;
@@ -21,7 +13,6 @@ body {
 	margin-left: 1rem;
 	margin-right: 2rem;
 	width: 20%;
-	/*height: 4rem;*/
 }
 .msg .text {
 	line-height: 2rem;
@@ -65,8 +56,7 @@ body {
 	width: 25%;
 	text-align: center;
 	font-size: 1rem;
-	line-height: 3rem;
-	height: 3rem;
+	line-height: 4rem;
 	overflow: hidden;
 }
 .list-head {
@@ -81,7 +71,6 @@ body {
 	float: left;
 	line-height: 3rem;
 	width: 25%;
-	height: 3rem;
 	color: #f08519;
 	font-size: 1.1rem;
 	text-align: center;
