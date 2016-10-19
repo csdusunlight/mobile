@@ -49,15 +49,12 @@ body {
 .list {
 	border-bottom: 1px solid #e4e4e4;
 }
-.list {
-	border-bottom: 1px solid #e4e4e4;
-}
 li.list span {
 	display:block;
 	float: left;
 	text-align: center;
 	font-size: 1rem;
-	line-height: 3rem;
+	line-height: 4rem;
 }
 li .li-01 {width: 30%;}
 li .li-02 {width: 25%;}
