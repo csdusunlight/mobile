@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load myfilter %}
 <!DOCTYPE html>
 <html>
 
@@ -38,7 +39,7 @@
 			<!--帐号部分-->
 			<div class="content-box">
 				<div class="msg clearfix">
-					<img src="{%static 'images/user.png'%}" alt="提示图标" />
+					<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
 					<div class="text">
 						<p>您总共获得积分：<strong><number>{{user.accu_scores}}</number></strong><br />
 							<span>可用积分：<strong><number>{{user.scores}}</number></strong></p>

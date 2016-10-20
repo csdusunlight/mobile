@@ -504,7 +504,7 @@ def get_press_page(request):
 def freshman_introduction(request):
     return render(request, "m_freshman_introduction.html")
 def freshman_award(request):
-    return render(request, "freshman_award.html")
+    return render(request, "m_freshman_award.html")
 
 def business(request, page=None):
     if not page:

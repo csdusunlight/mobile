@@ -60,7 +60,6 @@ urlpatterns = [
      
     url(r'^activity/lottery/$', 'wafuli.activity.lottery', name='activity_lottery'),
     url(r'^activity/lottery/get_lottery/$', 'wafuli.activity.get_lottery', name='get_lottery'),
-    url(r'^activity/invite/$', 'wafuli.activity.invite', name='activity_invite'),
     
     url(r'^business/(?:list-page(?P<page>[0-9]*)/)?$', 'wafuli.views.business', name='business_list'),
     url(r'^information/(?:(?P<id>[0-9]*)/)?$', 'wafuli.views.information', name='information'),
