@@ -34,25 +34,24 @@
 		<h1 class="mui-title">要赚现金</h1>
 		<a id="share" class="share"></a>
 	</header>
-	<div class="mui-content">	
-	        <ul class="list-box mui-table-view">
-	            
-		        <li class="list">
-		            <img src="{% static 'images/today-02.jpg' %}"/>
-		        </li>
-		        <li class="list">
-		            <img src="{% static 'images/today-02.jpg' %}"/>
-		        </li>
-		        <li class="list">
-		            <img src="{% static 'images/today-02.jpg' %}"/>
-		        </li>
-	        </ul>	    
-	</div>
+    <div class="mui-content">
+            <ul id="elasticstack" class="elasticstack">
+                <li class="list">
+                    <a href="#"><img src="{% static 'images/make-money-zhongfuli.jpg' %}"/></a>
+                </li>
+                <li class="list">
+                    <a href="#"><img src="{% static 'images/make-money-new-user.png' %}"/></a>
+                </li>
+            </ul>
+    </div>
 
     <script src="{% static 'js/mui.min.js' %}"></script>
     <script src="{% static 'js/share.js' %}"></script>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-  	</script>	
+    <script src="{% static 'js/modernizr.custom-02.js' %}"></script>
+    <script src="{% static 'js/draggabilly.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/elastiStack.js' %}"></script>
+    <script>
+        new ElastiStack( document.getElementById( 'elasticstack' ) );
+    </script>
 </body>
 </html>

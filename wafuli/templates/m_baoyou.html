@@ -42,6 +42,8 @@
 				</ul>
 			</div>
 		</div>
+		<!--回到顶部部分-->
+    <a id="scrollToTop" class="backTop hide"> <span class="mui-icon mui-icon-arrowthinup"></span></a>
 		<script>
 		mui.init({
 			pullRefresh: {
@@ -80,13 +82,14 @@
 						for (var i in data) {
 							var wel = data[i];
 							var li = document.createElement('li');
-							li.innerHTML = '<div class="clearfix"><img src="' + wel.picurl +
+							li.className = 'mui-table-view-cell';
+							li.innerHTML = '<a target="_blank" href="' + wel.url + '" class="clearfix"><img src="' + wel.picurl +
 								'" /><div class="con-info"><h6>' + wel.title +
 								'</h6><p>' + wel.desc + '</p><div class="c-money">' +
 								'<strong><number>￥' + wel.nprice + '</number></strong>' +
 								'<s><number>￥' + wel.mprice + '</number></s>' +
 								'<button href="' + wel.url + '" class="mui-btn mui-btn-warning">' +
-								'立即抢购</button></div></div></div>';
+								'立即抢购</button></div></div></a>';
 							table.appendChild(li);
 						}
 					}
@@ -100,7 +103,7 @@
 		function pullupRefresh() {
 			get_wel_list(count++);
 		}
-		mui('.mui-table-view').on('tap', 'button', function() {
+		mui('.mui-table-view').on('tap', 'a', function() {
 	        var href = this.getAttribute('href');
 	        mui.openWindow({
 	            url: href,
@@ -118,6 +121,19 @@
 	        });
 	    });
 		</script>
+		<script type="text/javascript">
+		var scrollToTopBox = document.getElementById('scrollToTop'); //返回按钮tap
+		scrollToTopBox.addEventListener('tap', function(e) {
+			e.stopPropagation();
+			mui('#pullrefresh').pullRefresh().scrollTo(0, 0, 500);//滚动到顶部
+		});
+		document.getElementById('pullrefresh').addEventListener('scrollend', function() {
+			if (mui('#pullrefresh').pullRefresh().y <= window.innerHeight * (-0.5) && scrollToTopBox.classList.contains('hide'))
+			scrollToTopBox.classList.remove('hide');
+			else if (mui('#pullrefresh').pullRefresh().y > window.innerHeight * (-0.5) && !scrollToTopBox.classList.contains('hide'))
+			scrollToTopBox.classList.add('hide');
+		});
+	</script>
 	</body>
 
 </html>

@@ -15,7 +15,7 @@ import logging
 from wafuli_admin.models import RecommendRank
 from account.models import MyUser
 import re
-from .tools import listing
+from .tools import listing, get_weixin_params
 from django.contrib.auth.decorators import login_required
 from wafuli.tools import update_view_count
 logger = logging.getLogger('wafuli')
@@ -44,14 +44,18 @@ def welfare(request, id=None, type=None):
         if wel.type == "youhuiquan":
             template = 'm_detail_youhuiquan.html'
             wel = wel.couponproject
+            if wel.ctype == '2':
+                wel.left_count = wel.coupons.filter(user__isnull=True).count()
+            else:
+                wel.left_count = u"充足"
         elif wel.type == "hongbao":
             template = 'm_detail_hongbao.html'
             wel = wel.hongbao
         elif wel.type == "baoyou":
             template = 'm_detail_hongbao.html'
             wel = wel.baoyou
-        context = {'news':wel,'type':'Welfare',}
         ref_url = request.META.get('HTTP_REFERER',"")
+        context = {'news':wel,'type':'Welfare',}
         if 'next=' in ref_url:
             context.update({'back':True})
         return render(request, template, context)

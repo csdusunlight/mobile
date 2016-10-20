@@ -42,7 +42,44 @@
 		<script src="{% static 'js/mui.min.js' %}"></script>
 		<script src="{% static 'js/share.js' %}" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
-		  	mui.init();
+			mui.init({
+				beforeback: function(){
+					var is_back = true;
+					var refer = document.referrer;
+					if(refer){
+						var flag = refer.indexOf("m.wafuli.cn");
+						if (flag===-1){
+							is_back = false;
+						}
+						else {
+							is_back = true;
+						}
+					}
+					else {
+						is_back = false;
+					}
+					if (is_back){
+						return true;
+					}
+					else{
+						mui.openWindow({
+				            url: "{% url 'index' %}",
+				            styles: {
+				                top: 0,
+				                bottom: 0
+				            },
+				            show: {
+				                aniShow: 'slide-in-right',
+				            },
+				            waiting: {
+				                autoShow: false, //自动显示等待框
+				                title: '正在加载...', //等待对话框上显示的提示内容
+				            }
+				        });
+						return false;
+					}	
+				}
+			});
 		</script>
 	</body>
 

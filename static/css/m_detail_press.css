@@ -1,9 +1,7 @@
 .mui-content {
-	/*padding: 0 1.875% 2rem;*/
-	/*background: #fff;*/
+	background: #fff;
 }
 .mui-content .top {
-	/*color: #ff6767;*/
 	font-size: 1.4rem;
 	line-height: 2.4rem;
 }
@@ -13,10 +11,9 @@
 	font-size: 1.4rem;
 	line-height: 0;
 	color: #0a0a0a;
-	/*font-weight: bold;*/
 }
 .mui-content p {
-	margin-top: 1rem;
+	/*margin-top: 1rem;*/
 	background: #fff;
 	padding: 1rem 1.875%;
 }

@@ -9,7 +9,9 @@ body {
 .mui-input-group {
 	margin-top: 3rem;
 }
-
+.mui-row {
+	margin-top: 1rem;
+}
 .mui-row li {
 	list-style: none;
 }
@@ -49,7 +51,13 @@ body {
 .beizhu p {
 	font-size: 1.4rem;
 	line-height: 2rem;
-
+	padding-left: 11px;
+}
+textarea {
+	width: 94%;
+	margin-top: 1rem;
+	margin-left: 3%;
+	height: 10rem;
 }
 .mui-content button {
 	padding: 0;
@@ -63,4 +71,12 @@ body {
 form {
 	width: 100%;
 	margin-left: 0;
+}
+/*样式覆盖*/
+form.mui-input-group .mui-input-row:after {
+	left: 15px;
+	right: 15px;
+}
+.mui-input-group .mui-input-row {
+	height: 50px;
 }

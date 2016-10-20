@@ -502,7 +502,7 @@ def get_press_page(request):
     return JsonResponse(res)
 
 def freshman_introduction(request):
-    return render(request, "freshman_introduction.html")
+    return render(request, "m_freshman_introduction.html")
 def freshman_award(request):
     return render(request, "freshman_award.html")
 

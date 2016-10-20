@@ -129,7 +129,7 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 #CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True #False
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 
 LOGGING = {
@@ -172,6 +172,9 @@ LOGGING = {
         },
     },
 }
-DOMAIN_URL = "http://test.wafuli.cn"#"http://127.0.0.1:8000"
+DOMAIN_URL = "http://m.wafuli.cn"#"http://127.0.0.1:8000"
 AWARD_RATE = 0.05
 AWARD_SCORES = 100
+APPID = 'wx2414d585d232e947'
+SECRET = '3c0fb8221aaf7c5ba368b9536fb7eccc'
+NONCESTR = 'AXMPT2016sncfeuiw'

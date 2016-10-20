@@ -28,17 +28,9 @@
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_index.css'%}"/>
 </head>
 <body>
-<!-- <header class="clearfix">
-	<img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
-	<a  class="fr"><img src="{%static 'images/go-pc.png'%}" alt="前往pc端" /></a>
-</header> -->
 <div id="pullrefresh" class="mui-scroll-wrapper">
 
 <div class="mui-content">
-	<!--<header class="clearfix">
-	    <img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
-	    <a class="fr" id="switch_device"><img src="{%static 'images/diannao.png'%}" alt="前往pc端" /></a>
-	</header>-->
 	<!--banner部分-->
 	<div id="slider" class="mui-slider" >
 	  <div class="mui-slider-group mui-slider-loop">
@@ -161,6 +153,8 @@
     <!--测试-->
 
 </div>
+    <!--回到顶部部分-->
+    <a id="scrollToTop" class="backTop hide"> <span class="mui-icon mui-icon-arrowthinup"></span> </a>
     <!--底部导航-->
 	<footer>
     	<ul class="clearfix tc">
@@ -286,7 +280,7 @@
                 }
             });
         });
-		
+
 		var gallery = mui('#slider');
 		gallery.slider({
 			interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
@@ -309,7 +303,19 @@
                 weixin_box.setAttribute("class","weixin-box-02");
             });
     </script>
-    
+    <script type="text/javascript">
+        var scrollToTopBox = document.getElementById('scrollToTop'); //返回按钮tap
+        scrollToTopBox.addEventListener('tap', function(e) {
+            e.stopPropagation();
+            mui('#pullrefresh').pullRefresh().scrollTo(0, 0, 500);//滚动到顶部
+        });
+        document.getElementById('pullrefresh').addEventListener('scrollend', function() {
+            if (mui('#pullrefresh').pullRefresh().y <= window.innerHeight * (-0.5) && scrollToTopBox.classList.contains('hide'))
+            scrollToTopBox.classList.remove('hide');
+            else if (mui('#pullrefresh').pullRefresh().y > window.innerHeight * (-0.5) && !scrollToTopBox.classList.contains('hide'))
+            scrollToTopBox.classList.add('hide');
+        });
+    </script>
 
 </body>
 </html>
