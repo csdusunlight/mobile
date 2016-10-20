@@ -17,6 +17,7 @@ from account.models import MyUser
 import re
 from .tools import listing, get_weixin_params
 from django.contrib.auth.decorators import login_required
+from wafuli.tools import update_view_count
 logger = logging.getLogger('wafuli')
 import datetime
 
@@ -38,11 +39,7 @@ def welfare(request, id=None, type=None):
         except Welfare.DoesNotExist:
             raise Http404(u"该页面不存在")
 #         other_wel_list = Welfare.objects.filter(is_display=True, state='1').order_by('-view_count')[0:10]
-        context = {'news':wel,'type':'Welfare',}
-#         if wel.type != "baoyou":
-#             url = request.get_full_path()
-#             weixin_params = get_weixin_params(url)
-#             context['weixin_params'] = weixin_params
+        update_view_count(wel)
         template = ''
         if wel.type == "youhuiquan":
             template = 'm_detail_youhuiquan.html'
@@ -58,6 +55,7 @@ def welfare(request, id=None, type=None):
             template = 'm_detail_hongbao.html'
             wel = wel.baoyou
         ref_url = request.META.get('HTTP_REFERER',"")
+        context = {'news':wel,'type':'Welfare',}
         if 'next=' in ref_url:
             context.update({'back':True})
         return render(request, template, context)

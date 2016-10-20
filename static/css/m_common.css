@@ -913,6 +913,7 @@ input:-ms-input-placeholder {
 /*边框分割线颜色部分*/
 img {
 	border-color: #f0f0f0 !important;
+	max-width: 100%;
 }
 .mui-table-view-cell:after {
 	background-color: #f0f0f0 !important;
