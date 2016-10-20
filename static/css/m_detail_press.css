@@ -13,9 +13,9 @@
 	color: #0a0a0a;
 }
 .mui-content p {
-	/*margin-top: 1rem;*/
+	margin-top: 1rem;
 	background: #fff;
-	padding: 1rem 1.875%;
+	padding: 0 1.875%;
 }
 .mui-content h5 {
 	font-size: 1.2rem;
@@ -52,4 +52,24 @@
 	text-align: center;
 	font-size: 1rem;
 	background: transparent;
+}
+/*上传样式设置*/
+p {
+	font-family: "微软雅黑";
+	font-size: 16px !important;
+	line-height: 2;
+	color: #333;
+}
+strong {
+	font-weight: bold !important;
+}
+p img {
+	width: 100% !important;
+}
+table {
+	border-color: #b3b3b3 !important;
+}
+td {
+	font-size: 16px;
+	color: #333;
 }
