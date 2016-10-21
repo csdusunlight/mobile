@@ -152,7 +152,9 @@ header a img {
 }
 .li-info h6 {
 	display: inline-block;
+	min-width: 12rem;
 	margin-top: 0.4rem;
+	overflow: hidden;
 	font-size: 1.2rem;
 	color: #222;
 }

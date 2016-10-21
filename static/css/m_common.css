@@ -939,10 +939,10 @@ img {
 	z-index: 1000;
 }
 .share-top {
-	background-position:  center 4rem;
+	background-position:  center 0;
 	background-image: url(../images/share-guide-top.png);
 }
 .share-bottom {
-	background-position:  center 10rem;
+	background-position:  center 14rem;
 	background-image: url(../images/share-guide-bottom.png);
 }
