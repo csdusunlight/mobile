@@ -250,14 +250,14 @@
 							var li = document.createElement('li');
 							li.className = 'mui-table-view-cell';
 							str_block = '<a class="clearfix" href="' + wel.url + '"><img src="'+
-											wel.picurl + '" /><div class="li-info">';
+											wel.picurl + '" /><div class="li-info"><h6>' + wel.title + '</h6>';
 							if (wel.is_hot){
-								str_block += '<h6 class="after-hot">';
+								str_block += '<span class="after-hot">hot</span>';
 							}
 							else{
-								str_block += '<h6>';
+								str_block += '<span class="after-new">new</span>';
 							}
-							str_block += wel.title + '</h6><p class="first">';
+							str_block += '<p class="first">';
 							marks = wel.marks;
 							for (var j in marks){
 								str_block += '<span>' + marks[j] + '</span>';
