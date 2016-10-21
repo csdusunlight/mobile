@@ -141,8 +141,23 @@
 
 
         <ul class="mui-table-view">
-
-
+        {% for wel in last_wel_list %}
+			<li class="mui-table-view-cell">
+				<a class="clearfix" href="{{wel.url}}">
+					<img src="{{wel.pic.url}}">
+					<div class="li-info">
+						<h6 class="after-new">{{wel.title}}</h6>
+						<p class="first">
+						{% for mark in wel.marks.all|slice:":3" %}
+							<span>{{mark.name}}</span>
+						{% endfor %}
+						</p>
+						<p><span class="s1">{{wel.provider}}</span></p>
+						<p><span class="s3">{{wel.time_limit}}</span><span class="s2">{{wel.view_count}}</span></p>
+					</div>
+				</a>
+			</li>
+		{% endfor %}
         </ul>
 
 
@@ -235,10 +250,14 @@
 							var li = document.createElement('li');
 							li.className = 'mui-table-view-cell';
 							str_block = '<a class="clearfix" href="' + wel.url + '"><img src="'+
-											wel.picurl +
-											'" /><div class="li-info"><h6 class="after-new">'+
-											wel.title +
-											'</h6><p class="first">';
+											wel.picurl + '" /><div class="li-info">';
+							if (wel.is_hot){
+								str_block += '<h6 class="after-hot">';
+							}
+							else{
+								str_block += '<h6>';
+							}
+							str_block += wel.title + '</h6><p class="first">';
 							marks = wel.marks;
 							for (var j in marks){
 								str_block += '<span>' + marks[j] + '</span>';

@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from account.transaction import charge_score
 import logging
-from datetime import date
+from datetime import date,datetime,timedelta
 from wafuli_admin.models import DayStatis, GlobalStatis, RecommendRank
 from account.models import MyUser
 from django.contrib.contenttypes.models import ContentType
@@ -23,7 +23,9 @@ def index(request):
     adv_list = list(Advertisement.objects.filter(location__in=['0','1'],is_hidden=False)[0:8])
     first_adv = adv_list[0] if adv_list else None
     last_adv = adv_list[-1] if adv_list else None
-    last_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by("-startTime")[0:3]
+    now = datetime.now()
+    start = now - timedelta(days=1)
+    last_wel_list = Welfare.objects.filter(is_display=True,state='1', startTime__gte=start).order_by("-startTime")
     adv_today1 = MAdvert.objects.filter(location='1',is_hidden=False).first()
     adv_today2 = MAdvert.objects.filter(location='2',is_hidden=False).first()
     adv_today3 = MAdvert.objects.filter(location='3',is_hidden=False).first()

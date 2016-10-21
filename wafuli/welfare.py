@@ -18,6 +18,7 @@ import re
 from .tools import listing, get_weixin_params
 from django.contrib.auth.decorators import login_required
 from wafuli.tools import update_view_count
+from datetime import timedelta
 logger = logging.getLogger('wafuli')
 import datetime
 
@@ -159,7 +160,10 @@ def welfare_json(request):
         raise Http404
     data = []
     start = 6*count
-    wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[start:start+6]
+    now = datetime.datetime.now()
+    to = now - timedelta(days=1)
+    begin = now - timedelta(days=55)
+    wel_list = Welfare.objects.filter(is_display=True,state='1',startTime__range=(begin,to)).order_by('-view_count')[start:start+6]
     for wel in wel_list:
         marks = wel.marks.all()[0:3]
         mlist = []
@@ -173,6 +177,7 @@ def welfare_json(request):
             'provider':wel.provider,
             'time_limit':wel.time_limit,
             'marks':mlist,
+            'is_hot':wel.is_hot()
         })
     return JsonResponse(data,safe=False)
 
@@ -323,13 +328,13 @@ def information_json(request):
     start = 6*count
     info_list = Information.objects.filter(is_display=True)
     if type == 0:
-        info_list = info_list.filter(type="washuju")
-    if type == 1:
         info_list = info_list.filter(type="wahangqing")
-    if type == 2:
-        info_list = info_list.filter(type="wahuodong")
-    if type == 3:
+    if type == 1:
         info_list = info_list.filter(type="wagushi")
+    if type == 2:
+        info_list = info_list.filter(type="washuju")
+    if type == 3:
+        info_list = info_list.filter(type="wahuodong")
     info_list = info_list[start:start+6]
     for info in info_list:
         data.append({

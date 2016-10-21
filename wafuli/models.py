@@ -113,7 +113,9 @@ class Welfare(Base):
     def is_new(self):
         now = datetime.datetime.now()
         days = (now-self.startTime).days
-        return days == 0 
+        return days == 0
+    def is_hot(self):
+        return self.view_count > 1000
     def get_type(self):
         return u"免费福利"
     def get_type_url(self):
