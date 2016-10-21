@@ -24,8 +24,8 @@ class Command(BaseCommand):
         to = start + datetime.timedelta(hours=1)
         wels = Welfare.objects.filter(state='0', startTime__range=(start, to)).update(state='1', startTime=now)
         
-#         access_token = update_accesstoken()
-#         update_jsapi_ticket(access_token)
+        access_token = update_accesstoken()
+        update_jsapi_ticket(access_token)
 
         end_time = time.time()
         logger.info("******Hour-task is finished, time:%s*********",end_time-begin_time)

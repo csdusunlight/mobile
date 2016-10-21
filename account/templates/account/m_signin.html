@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load myfilter %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -59,7 +60,7 @@
 			<!--帐号部分-->
 
 				<div class="msg clearfix">
-					<img src="{%static 'images/user.png'%}" alt="提示图标" />
+					<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
 					<div class="text">
 						<p>当前可用积分：<number>{{user.scores}}</number><br />
 						<span>今日已奖励5个积分，连续签七日可获得额外积分</p>

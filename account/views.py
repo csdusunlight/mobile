@@ -39,6 +39,7 @@ from account.tools import send_mail, get_client_ip
 from django.db import connection
 import logging
 from urllib import urlencode
+from wafuli.tools import get_weixin_params
 logger = logging.getLogger('wafuli')
 
 def user_guide(request):
@@ -834,8 +835,11 @@ def invite(request):
             'acc_count':acc_count,
             'acc_with_count':acc_with_count,
             'this_month_award':this_month_award, 
-        }     
-        return render(request,'account/m_account_invite.html', {'statis':statis})
+        }
+#         if wel.type != "baoyou":
+        url = request.get_full_path()#reverse('user_guide')
+        weixin_params = get_weixin_params(url)
+        return render(request,'account/m_account_invite.html', {'statis':statis, 'weixin_params':weixin_params})
     elif request.method == 'POST':
         result = {'code':-1, 'res_msg':''}
         left_award = inviter.invite_account
