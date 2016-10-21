@@ -21,7 +21,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title></title>
+    <title>一分钟了解挖福利</title>
     <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_freshman_introduction.css'%}"/>
@@ -33,34 +33,32 @@
 			<a id="share" class="share"></a>
 		</header>
 		<div class="mui-content">
-			<div id="featured-area">
+			<div class="pic" id="pic">
+				<span class="prev"></span>
+				<span class="next"></span>
 				<ul>
-					<li>
+					<li class="pic1">
 						<img src="{%static 'images/understand-free.png'%}" />
 						<a class="text-btn" href="{% url 'index' %}">进入免费福利</a>
 					</li>
-					<li>
+					<li class="pic2">
 						<img src="{%static 'images/understand-finacing.png'%}" />
-						<a class="finacing-btn" href="{% url 'finance' %}">进入理财福利</a>
+						<a class="finacing-btn" href="{% url 'finance' %}"></a>
 					</li>
-					<li>
+					<li class="pic3">
 						<img src="{%static 'images/understand-taste.png'%}" />
 						<a class="text-btn" href="{% url 'task' %}">进入体验福利</a>
 					</li>
 				</ul>
 			</div>
+			<div style="text-align:center;">
+			</div>
+		</div>
 		<script src="{%static 'js/mui.min.js'%}"></script>
 		<script src="{%static 'js/share.js'%}"></script>
-		<script src="{%static 'js/jquery-1.11.2.min.js'%}"></script>
-	    <script src="{%static 'js/jquery.roundabout-1.0.min.js'%}"></script>
-	    <script src="{%static 'js/jquery.easing.1.3.js'%}"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#featured-area ul').roundabout({
-					easing: 'easeOutInCirc',
-					duration: 600
-				});
-			});
+		<script type="text/javascript" src="{%static 'js/move.js'%}"></script>
+		<script>
+			mui.init();
 		</script>
 	</body>
 </html>

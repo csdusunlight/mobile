@@ -1,15 +1,10 @@
 
 .mui-content {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-	padding: 0 1.875% 0;
+  width: 100%;
+	padding: 0 1.875% 8rem;
 	background: url(../images/bg-every.png) no-repeat top center;
-	background-size: 100% 100%;
-	background-color: transparent !important;
-	margin-bottom: 0 !important;
+	background-size: 100% auto;
 }
 /*帐号部分*/
 .msg {
@@ -153,7 +148,7 @@ footer li span {
 	width: 80%;
 	height: 34rem;
 	margin-left: 10%;
-  top: 15%;
+  top: 10%;
 	/*margin-top: 50%;*/
 	/*padding: 4rem 0;*/
 	border-radius: 0.4rem;

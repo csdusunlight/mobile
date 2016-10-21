@@ -37,7 +37,7 @@
 }
 
 
-/*图片位置*/
+/*鍥剧墖浣嶇疆*/
 
 #pic ul .pic1 {
 	top: 8rem;
@@ -57,7 +57,7 @@
 	z-index: 3;
 }
 
-/*图片明暗*/
+/*鍥剧墖鏄庢殫*/
 #pic ul li.pic1 {
 	opacity: 0.9;
 	filter: alpha(opacity: 90);
@@ -70,7 +70,7 @@
 	opacity: 0.9;
 	filter: alpha(opacity: 90);
 }
-/*图片width*/
+/*鍥剧墖width*/
 
 #pic ul li.pic1 img {
 	width: 14rem;
@@ -82,7 +82,7 @@
 	width: 14rem;
 }
 
-/*点击热区部分*/
+/*鐐瑰嚮鐑尯閮ㄥ垎*/
 
 #pic span {
 	position: absolute;
@@ -130,7 +130,7 @@ li .finacing-btn {
 }
 
 
-/*样式覆盖*/
+/*鏍峰紡瑕嗙洊*/
 .mui-bar {
 	background: #77e5ff;
 	padding: 0 10px;

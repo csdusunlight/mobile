@@ -40,6 +40,10 @@ def welfare(request, id=None, type=None):
         except Welfare.DoesNotExist:
             raise Http404(u"该页面不存在")
 #         other_wel_list = Welfare.objects.filter(is_display=True, state='1').order_by('-view_count')[0:10]
+#         if wel.type != "baoyou":
+#             url = request.get_full_path()
+#             weixin_params = get_weixin_params(url)
+#             context['weixin_params'] = weixin_params
         update_view_count(wel)
         template = ''
         if wel.type == "youhuiquan":
