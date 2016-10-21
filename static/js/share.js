@@ -4,9 +4,9 @@ var body = document.getElementsByTagName("body")[0],
 var div = document.createElement('div');
 var ua = navigator.userAgent.toLowerCase();
 if(ua.match(/MicroMessenger/i)=="micromessenger") {
-    div.className = 'share-guide-box share-bottom';
-} else {
     div.className = 'share-guide-box share-top';
+} else {
+    div.className = 'share-guide-box share-bottom';
 }
 	div.id = 'share_guide_box';
 	body.appendChild(div);

@@ -146,7 +146,7 @@
 				<a class="clearfix" href="{{wel.url}}">
 					<img src="{{wel.pic.url}}">
 					<div class="li-info">
-						<h6 class="after-new">{{wel.title}}</h6>
+						<h6>{{wel.title}}</h6><span class="after-new">new</span>
 						<p class="first">
 						{% for mark in wel.marks.all|slice:":3" %}
 							<span>{{mark.name}}</span>
@@ -254,9 +254,9 @@
 							if (wel.is_hot){
 								str_block += '<span class="after-hot">hot</span>';
 							}
-							else{
-								str_block += '<span class="after-new">new</span>';
-							}
+							// else{
+							// 	str_block += '<span class="after-new">new</span>';
+							// }
 							str_block += '<p class="first">';
 							marks = wel.marks;
 							for (var j in marks){
