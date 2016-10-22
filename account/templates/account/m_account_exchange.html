@@ -31,11 +31,11 @@
 <header id="header" class="mui-bar mui-bar-nav">
 	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 	<h1 class="mui-title">积分兑换</h1>
-</header>	
+</header>
 <div id="pullrefresh" class="mui-scroll-wrapper">
-	<div class="mui-content">	
+	<div class="mui-content">
 		<div class="top">
-			<ul> 
+			<ul>
 				<li class="mui-table-view-cell mui-collapse">
 					<a class="mui-navigate-right" href="#">可用积分：<span><number>{{user.scores}}</number></span></a>
 					<div class="mui-collapse-content">
@@ -45,20 +45,20 @@
 					</div>
 				</li>
 			</ul>
-			
-			
+
+
 		</div>
-	
+
 		<ul class="box clearfix">
 
 		</ul>
 
-    
-	</div>
-</div>	
 
- 
-  
+	</div>
+</div>
+
+
+
   <!--温馨提示-积分不足-->
   <div id="popup-01" class="popup-01 popup" style="display:none;">
   	<div class="popup-box">
@@ -87,14 +87,14 @@
         <span class="btn_x mui-icon mui-icon-closeempty"></span>
     </div>
   </div>
-  
+
   <!--温馨提示-信息填写-->
   <div id="popup-03" class="popup-03 popup" style="display:none;">
   	<div class="popup-box">
     	<div class="pop-content">
         	<h2>信息填写</h2>
         	<form class="mui-input-group">
-		
+
 				<div class="mui-input-row">
 					<label>姓名</label>
 					<input id="rec_name" type="text" placeholder="请输入收件人姓名">
@@ -115,7 +115,7 @@
 					<label>留言</label>
 					<input id="rec_remark" type="text" placeholder="请输入留言">
 				</div>
-			
+
 		</form>
 		<p>注：请填写真实有效信息，如因填写信息错误导致无法收货，责任由用户承担。</p>
             <div class="only-btn">
@@ -136,7 +136,7 @@
             	<!--<button type="button" class="confirm_lottery mui-btn mui-btn-yellow">继续抽奖</button>-->
             </div>
         </div>
-        <span class="btn_x mui-icon mui-icon-closeempty"></span>		        
+        <span class="btn_x mui-icon mui-icon-closeempty"></span>
     </div>
   </div>
     <script src="{%static 'js/mui.min.js'%}"></script>
@@ -183,10 +183,10 @@
 							var good = data[i];
 							var li = document.createElement('li');
 							li.className = 'card';
-							str_block = '<img src="' + good.picurl + '"/>' +		
+							str_block = '<a href="#"><img src="' + good.picurl + '"/></a>' +
 								'<div class="text"><h3>' + good.name + '</h3><div class="clearfix">'+
 								'<span><number>' + good.price + '</number>积分</span>' +
-								'<button type="button" good_id="' + good.id + '" ' + 
+								'<button type="button" good_id="' + good.id + '" ' +
 								'class="jifen-btn mui-btn mui-btn-blue">立即兑换</button></div></div>';
 							li.innerHTML = str_block;
 							table.appendChild(li);
@@ -204,7 +204,7 @@
 				document.getElementById('popup-03').style.display = "block";
 				good_id = this.getAttribute('good_id')
 			});
-	
+
 			document.getElementById('ti-jiao').addEventListener("tap",function(){
 				var name = document.getElementById('rec_name').value;
 				var tel = document.getElementById('rec_tel').value;
