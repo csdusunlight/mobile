@@ -30,11 +30,10 @@ p span {
 }
 .middle h3 {
 	width: 50%;
-	margin-left: 25%;
+	margin-left: 10%;
 	margin-bottom: 1rem;
 	font-size: 1.6rem;
 	color: #bd860f;
-	text-align: center;
 }
 .middle textarea {
   width: 80%;
@@ -62,7 +61,7 @@ p span {
 .middle .share-btn {
 	position: absolute;
 	right: 2rem;
-	bottom: 0;
+	bottom: 7rem;
 	-webkit-transform-origin: 50% 100%;
 	transform-origin: 50% 100%;
 	animation: share 1s linear;
@@ -98,4 +97,8 @@ p span {
 }
 .mui-title {
 	color: #fff;
+}
+.share-copy {
+  background-position:  center 14rem;
+  background-image: url(../images/share-guide-copy.png);
 }
