@@ -36,18 +36,18 @@
 	</header>
     <div class="mui-content">
             <ul id="elasticstack" class="elasticstack">
-                <li class="list">
-                    <a href="{% url 'freshman_award' %}"><img src="{% static 'images/make-money-zhongfuli.jpg' %}"/></a>
-                </li>
-                <li class="list">
-                    <a href="#"><img src="{% static 'images/make-money-new-user.png' %}"/></a>
-                </li>
-                <li class="list">
-                    <a href="{% url 'freshman_award' %}"><img src="{% static 'images/make-money-zhongfuli.jpg' %}"/></a>
-                </li>
-                <li class="list">
-                    <a href="#"><img src="{% static 'images/make-money-new-user.png' %}"/></a>
-                </li>
+                <a href="{% url 'activity_recom_submit' %}"><li class="list">
+                    <img src="{% static 'images/make-money-zhongfuli.jpg' %}"/>
+                </li></a>
+                <a href="{% url 'freshman_award' %}"><li class="list">
+                    <img src="{% static 'images/make-money-new-user.png' %}"/>
+                </li></a>
+                <a href="{% url 'activity_recom_submit' %}"><li class="list">
+                    <img src="{% static 'images/make-money-zhongfuli.jpg' %}"/>
+                </li></a>
+                <a href="{% url 'freshman_award' %}"><li class="list">
+                    <img src="{% static 'images/make-money-new-user.png' %}"/>
+                </li></a>
             </ul>
     </div>
 
