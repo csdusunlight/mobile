@@ -86,10 +86,8 @@ def get_weixin_params(url):
     items.sort()
     l = []
     for k, v in items:
-        print k,v
         l.append(k + '=' + v)
     para_str = '&'.join(l)
-    print para_str
     sign = sha1(para_str).hexdigest()
     weixin_params = {
             'nonceStr':settings.NONCESTR,

@@ -66,4 +66,6 @@ urlpatterns = [
     url(r'^information_json/$', 'wafuli.welfare.information_json', name='information_json'),
     
     url(r'^activity/$', 'wafuli.activity.activity', name='activity'),
+    
+    url(r'^invite_accept/$', 'account.views.invite_accept', name='invite_accept'),
 ]

@@ -1,0 +1,119 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>邀请注册</title>
+    <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_invite_accept.css'%}"/>
+</head>
+
+<body>
+
+	<div class="mui-content">	
+		<div class="top-text">
+			<p>如果你想省点钱，来挖福利，<br />
+		    红包话费电影票，会员优惠免费领；</p> 
+		    <p>如果你想赚点钱，来挖福利，<br />
+		    注册下载<number>app</number>，每天赚点零花钱；</p>
+		    <p>如果你想钱生钱，来挖福利，<br />
+		    固定收益+返现，保证安全收益高；</p>
+		</div>
+	    <form class="mui-input-group">
+	        <div class="mui-input-row">
+	            <label>手机号</label>
+	            <input id="mobile" type="text" placeholder="请输入手机号码">
+	        </div>
+	        <div class="mui-input-row">
+	            <label>邀请码</label>
+	            <input id="icode" type="text" value="{{icode}}" readonly="readonly">
+	        </div>
+	    </form>
+	    <a id="register" class="bottom-btn">立即注册</a>
+	</div>
+	<script src="{% static 'js/mui.min.js' %}"></script>
+	<script src="{%static 'js/accounts/user-validate.js'%}"></script>
+	<script>
+		mui.init({
+			beforeback: function(){
+				var is_back = true;
+				var refer = document.referrer;
+				if(refer){
+					var flag = refer.indexOf("m.wafuli.cn");
+					if (flag===-1){
+						is_back = false;
+					}
+					else {
+						is_back = true;
+					}
+				}
+				else {
+					is_back = false;
+				}
+				if (is_back){
+					return true;
+				}
+				else{
+					mui.openWindow({
+			            url: "{% url 'index' %}",
+			            styles: {
+			                top: 0,
+			                bottom: 0
+			            },
+			            show: {
+			                aniShow: 'slide-in-right',
+			            },
+			            waiting: {
+			                autoShow: false, //自动显示等待框
+			                title: '正在加载...', //等待对话框上显示的提示内容
+			            }
+			        });
+					return false;
+				}	
+			}
+		});
+		document.getElementById("register").addEventListener('tap', function() {
+			var mobile = document.getElementById("mobile").value;
+			if(!validatePhone(mobile)) {
+				mui.alert('您输入的手机号格式有误，请重新输入！', '抱歉');
+				return;
+			}
+			var icode = document.getElementById("icode").value;
+			var register_url = "{% url 'register' %}"  + '?mobile=' + mobile + '&icode=' + icode;
+			mui.openWindow({
+                url: register_url,
+                styles: {
+                    top: 0,
+                    bottom: 0
+                },
+                show: {
+                    aniShow: 'slide-in-right',
+                },
+                waiting: {
+                    autoShow: false, //自动显示等待框
+                    title: '正在加载...', //等待对话框上显示的提示内容
+                }
+            });
+		});
+	</script>
+</body>
+</html>

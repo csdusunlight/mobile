@@ -67,6 +67,34 @@ def user_guide(request):
         else:
             url = reverse('register') + '?mobile=' + mobile
         return JsonResponse({'url':url})
+
+def invite_accept(request):
+        icode = request.GET.get('icode', '')
+        return render(request, 'registration/m_invite_accept.html', {'icode':icode})
+#     if not request.is_ajax():
+#         return render(request, 'registration/m_user_guide.html',)
+#     else:
+#         url = ''
+#         mobile = request.GET.get('mobile', '')
+#         is_exist = 1
+#         try:
+#             MyUser.objects.get(mobile=mobile)
+#         except MyUser.DoesNotExist:
+#              is_exist = 0
+#         if is_exist == 1:
+#             redirect_field_name=REDIRECT_FIELD_NAME
+#             redirect_to = request.GET.get(redirect_field_name, '')
+#             if not is_safe_url(url=redirect_to, host=request.get_host()):
+#                 redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
+#             url_params = {
+#                 redirect_field_name:redirect_to,
+#                 'mobile':mobile,
+#             }
+#             pa = urlencode(url_params)
+#             url = reverse('login')+'?'+pa
+#         else:
+#             url = reverse('register') + '?mobile=' + mobile
+#         return JsonResponse({'url':url})
 @sensitive_post_parameters()
 @csrf_protect
 @never_cache
@@ -681,7 +709,14 @@ def coupon(request):
 def user_coupon_json(request):
     res={'code':0,}
     count = int(request.GET.get('count', 0))
-    type = request.GET.get("type", '')
+    type = str(request.GET.get("type", ''))
+    #移动端顺序是使用0、现金1、加息2，数据库是使用2、现金0、加息1
+    if type == '0':
+        type = '2'
+    elif type == '1':
+        type = '0'
+    elif type == '2':
+        type = '1'
     data = []
     count = int(count)
     start = 6*count
@@ -689,7 +724,7 @@ def user_coupon_json(request):
         count = int(count)
     except ValueError:
         count = 0
-    item_list = Coupon.objects.filter(user=request.user,project__ctype=str(type)).select_related('project').order_by('-time')[start:start+6]
+    item_list = Coupon.objects.filter(user=request.user,project__ctype=type).select_related('project').order_by('-time')[start:start+6]
     for con in item_list:
         project = con.project
         i = {"title":project.title,

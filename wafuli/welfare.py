@@ -167,7 +167,8 @@ def welfare_json(request):
     now = datetime.datetime.now()
     to = now - timedelta(days=1)
     begin = now - timedelta(days=55)
-    wel_list = Welfare.objects.filter(is_display=True,state='1',startTime__range=(begin,to)).order_by('-view_count')[start:start+6]
+    wel_list = Welfare.objects.filter(is_display=True,state='1',startTime__range=(begin,to)).\
+        exclude(type='baoyou').order_by('-view_count')[start:start+6]
     for wel in wel_list:
         marks = wel.marks.all()[0:3]
         mlist = []

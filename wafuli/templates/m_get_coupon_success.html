@@ -38,7 +38,7 @@
         <img src="{% static 'images/yes.png' %}" alt="提示图标" />
         <div class="text">
           <p>恭喜您，已成功领取优惠券<br />
-          <span>可在<a href="{% url 'account_index' %}">个人中心</a>—<a href="#">我的优惠券</a>—<a href="#">使用券</a>中查看</span></p>
+          <span>可在<a href="{% url 'account_index' %}">个人中心</a>—<a href="{% url 'account_coupon' %}">我的优惠券</a>—<a>使用券</a>中查看</span></p>
         </div>
       </div>
       <!--优惠券部分-->
@@ -48,11 +48,11 @@
           <p>{{coupon.project.title}}<br />
             有效日期：<number>{{coupon.project.time_limit}}</number></p>
         </div>
-        <p>优惠券代码：<number>{{coupon.project.exchange_code}}</number></p>
+        <p>优惠券代码：<number>{{coupon.exchange_code}}</number></p>
         <!--查看使用部分-->
         <div class="btn">
-          <button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">查看优惠券</button>&nbsp;
-          <button id="useCoupon" type="button" class="mui-btn mui-btn-blue" href="{{coupon.project.exp_url}}">马上使用</button>
+          <button id="seeCoupon" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">查看优惠券</button>&nbsp;
+          <button id="useCoupon" type="button" class="mui-btn mui-btn-blue" href=>马上使用</button>
         </div>
       </div>
     </div>
@@ -61,22 +61,39 @@
     <script type="text/javascript">
     mui.init();
     document.getElementById('useCoupon').addEventListener('tap',function(){
-      var url = this.getAttribute('href');
-      mui.openWindow({
-              url: url,
-              styles: {
-                  top: 0,
-                  bottom: 0
-              },
-	            show: {
-	                aniShow: 'slide-in-right',
-	            },
-	            waiting: {
-	                autoShow: false, //自动显示等待框
-	                title: '正在加载...', //等待对话框上显示的提示内容
-	            }
-	        });
+      	var use_url = "{{coupon.project.exp_url}}";
+		mui.openWindow({
+		      url: use_url,
+		      styles: {
+		          top: 0,
+		          bottom: 0
+		      },
+		      show: {
+		          aniShow: 'slide-in-right',
+		      },
+		      waiting: {
+		          autoShow: false, //自动显示等待框
+		          title: '正在加载...', //等待对话框上显示的提示内容
+		      }
 		});
+	});
+    document.getElementById('seeCoupon').addEventListener('tap',function(){
+      	var see_url = "{% url 'account_coupon' %}";
+		mui.openWindow({
+		      url: see_url,
+		      styles: {
+		          top: 0,
+		          bottom: 0
+		      },
+		      show: {
+		          aniShow: 'slide-in-right',
+		      },
+		      waiting: {
+		          autoShow: false, //自动显示等待框
+		          title: '正在加载...', //等待对话框上显示的提示内容
+		      }
+		});
+	});
     </script>
 	</body>
 
