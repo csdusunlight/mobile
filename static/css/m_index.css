@@ -183,7 +183,7 @@ header a img {
 	color: #ff6767;
 	margin: 0.6rem 1rem 0 0;
 	font-size: 0.8rem;
-	line-height: 1rem;
+	line-height: 1.2rem;
 	text-align: center;
 	border: 1px solid #fb3456;
 	border-radius: 4px;
@@ -322,5 +322,5 @@ footer li.on span {
 
 .mui-scroll-wrapper{
 	bottom:20px;
-	margin-top:40px;
+	/*margin-top:40px;*/
 }

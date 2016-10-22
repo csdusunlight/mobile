@@ -1,9 +1,7 @@
 .mui-content {
-	/*padding: 0 1.875% 2rem;*/
-	/*background: #fff;*/
+	background: #fff;
 }
 .mui-content .top {
-	/*color: #ff6767;*/
 	font-size: 1.4rem;
 	line-height: 2.4rem;
 }
@@ -13,12 +11,11 @@
 	font-size: 1.4rem;
 	line-height: 0;
 	color: #0a0a0a;
-	/*font-weight: bold;*/
 }
 .mui-content p {
 	margin-top: 1rem;
 	background: #fff;
-	padding: 1rem 1.875%;
+	padding: 0 1.875%;
 }
 .mui-content h5 {
 	font-size: 1.2rem;
@@ -55,4 +52,24 @@
 	text-align: center;
 	font-size: 1rem;
 	background: transparent;
+}
+/*上传样式设置*/
+p {
+	font-family: "微软雅黑";
+	font-size: 16px !important;
+	line-height: 2;
+	color: #333;
+}
+strong {
+	font-weight: bold !important;
+}
+p img {
+	width: 100% !important;
+}
+table {
+	border-color: #b3b3b3 !important;
+}
+td {
+	font-size: 16px;
+	color: #333;
 }
