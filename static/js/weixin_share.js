@@ -1,6 +1,6 @@
 var share_title = '免费领取现金红包！';
 var share_link = share_url;
-var share_imgUrl = 'http://m.wafuli.cn/static/images/share_logo.png';
+var share_imgUrl = 'http://m.wafuli.cn/static/images/share_logo.jpg';
 var share_desc = '红包话费流量包，优惠影视VIP，全部都是免费领，一切尽在挖福利！';
 wx.config({
     debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。

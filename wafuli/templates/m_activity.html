@@ -36,18 +36,12 @@
 	</header>
     <div class="mui-content">
             <ul id="elasticstack" class="elasticstack">
-                <li class="list"><a href="{% url 'activity_recom_submit' %}">
+                <li id="activity_recom_submit" class="list">
                     <img src="{% static 'images/make-money-zhongfuli.jpg' %}"/>
-                </a></li>
-                <li class="list"><a href="{% url 'freshman_award' %}">
+               </li>
+                <li id="freshman_award" class="list">
                     <img src="{% static 'images/make-money-new-user.png' %}"/>
-                </a></li>
-                <li class="list"><a href="{% url 'activity_recom_submit' %}">
-                    <img src="{% static 'images/make-money-zhongfuli.jpg' %}"/>
-                </a></li>
-                <li class="list"><a href="{% url 'freshman_award' %}">
-                    <img src="{% static 'images/make-money-new-user.png' %}"/>
-                </a></li>
+                </li>
             </ul>
     </div>
 
@@ -58,6 +52,39 @@
     <script src="{% static 'js/elastiStack.js' %}"></script>
     <script>
         new ElastiStack( document.getElementById( 'elasticstack' ) );
+        mui.init();
+        document.getElementById( 'activity_recom_submit').addEventListener('tap',function(){
+        	mui.openWindow({
+                url: "{% url 'activity_recom_submit' %}",
+                styles: {
+                    top: 0,
+                    bottom: 0
+                },
+                show: {
+                    aniShow: 'slide-in-right',
+                },
+                waiting: {
+                    autoShow: false, //自动显示等待框
+                    title: '正在加载...', //等待对话框上显示的提示内容
+                }
+            });
+        });
+        document.getElementById( 'freshman_award').addEventListener('tap',function(){
+        	mui.openWindow({
+                url: "{% url 'freshman_award' %}",
+                styles: {
+                    top: 0,
+                    bottom: 0
+                },
+                show: {
+                    aniShow: 'slide-in-right',
+                },
+                waiting: {
+                    autoShow: false, //自动显示等待框
+                    title: '正在加载...', //等待对话框上显示的提示内容
+                }
+            });
+        });
     </script>
 </body>
 </html>
