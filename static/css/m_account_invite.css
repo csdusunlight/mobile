@@ -30,7 +30,7 @@ p span {
 }
 .middle h3 {
 	width: 50%;
-	margin-left: 10%;
+	margin-left: 25%;
 	margin-bottom: 1rem;
 	font-size: 1.6rem;
 	color: #bd860f;
@@ -39,6 +39,7 @@ p span {
   width: 80%;
   height: 4erm;
   margin-left: 10%;
+  text-align: center;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 @-webkit-keyframes share {
