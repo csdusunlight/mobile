@@ -6,8 +6,6 @@ body {
 	font-family: "华康少女文字W5(P)";
 }
 .mui-content p {
-	/*width: 70%;
-	margin-left: 15%;*/
 	font-size: 1.4rem;
 	line-height: 2.8rem;
 	text-align: center;
@@ -38,37 +36,24 @@ p span {
 	color: #bd860f;
 	text-align: center;
 }
-.middle .yqm-bg {
-	padding: 0.8rem 0;
-	width: 50%;
-	margin-left: 25%;
-	background: #fff;
-	border: 2px solid #5a5a5a;
-	border-radius: 4px;
-}
-.middle p {
-	/*width: 50%;*/
-	/*margin-left: 25%;*/
-	/*border-radius: 4px;*/
-	font-size: 1.4rem;
-	line-height: 1.4rem;
-	background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(187, 179, 239, 1)), to(rgba(139, 183, 248, 1)));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-color: #fff;
+.middle textarea {
+  width: 80%;
+  height: 4erm;
+  margin-left: 10%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 @-webkit-keyframes share {
      0% {
        	right: -4rem;
        	opacity: 0;
-     } 
+     }
      60% {
      	right: 2rem;
         opacity: 1;
-     }     
+     }
      70% {
         -webkit-transform: rotateZ(-30deg);
-     }      
+     }
      100% {
         right: 2rem;
         opacity: 1;

@@ -42,8 +42,10 @@
 			{%csrf_token%}
 		</div>
 		<div class="middle">
-			<h3>邀请码：</h3>
-			<div class="yqm-bg"><p class="yao-qing-ma">{{user.invite_code}}</p></div>
+			<h3>邀请链接：</h3>
+      <textarea name="share-reg-url" rows="2" cols="10">{{user.invite_code}}</textarea>
+      <div id="share" class="share-btn"><img src="images/share-friend.png"/></div>
+			<!-- <div class="yqm-bg"><p class="yao-qing-ma">{{user.invite_code}}</p></div> -->
 		</div>
 		<div class="bottom">
 			<p>奖励规则：</p>
@@ -86,6 +88,30 @@
       	var timestamp = "{{weixin_params.timestamp}}";
       	var nonceStr = "{{weixin_params.nonceStr}}";
       	var signature = "{{weixin_params.signature}}";
+   </script>
+   <script>
+    var body = document.getElementsByTagName("body")[0],
+    share = document.getElementById("share");
+    //    动态创建HTML
+    var div = document.createElement('div');
+    var ua = navigator.userAgent.toLowerCase();
+    if(navigator.userAgent.match(/MQQBrowser.+(QQ|MicroMessenger)/i)) {
+        div.className = 'share-guide-box share-top';
+    } else {
+        div.className = 'share-guide-box share-copy';
+    }
+    div.id = 'share_guide_box';
+    body.appendChild(div);
+
+    //    点击分享按钮弹出弹窗
+    var share_guide_box = document.getElementById("share_guide_box");
+    share.addEventListener("tap",function () {
+      share_guide_box.style.display = "block";
+    });
+    //    点击背景关闭分享弹窗;
+    share_guide_box.addEventListener("tap",function () {
+      share_guide_box.style.display = "none";
+    });
    </script>
    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script src="{% static 'js/weixin_share.js' %}"></script>
