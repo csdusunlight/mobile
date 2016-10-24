@@ -2,8 +2,10 @@ var body = document.getElementsByTagName("body")[0],
 	share = document.getElementById("share");
 //		动态创建HTML
 var div = document.createElement('div');
-var ua = navigator.userAgent;
+var ua = navigator.userAgent.toLowerCase();
 if(ua.match(/MicroMessenger/i)=="micromessenger") {
+    div.className = 'share-guide-box share-top';
+} else if (ua.indexOf('qq/')!= -1){
     div.className = 'share-guide-box share-top';
 } else {
     div.className = 'share-guide-box share-bottom';
