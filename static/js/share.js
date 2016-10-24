@@ -2,8 +2,8 @@ var body = document.getElementsByTagName("body")[0],
 	share = document.getElementById("share");
 //		动态创建HTML
 var div = document.createElement('div');
-// var ua = navigator.userAgent.toLowerCase();
-if(navigator.userAgent.match(/MQQBrowser.+(QQ|MicroMessenger)/i)) {
+var ua = navigator.userAgent;
+if((ua.match(/MicroMessenger/i)=="micromessenger") || (isIos && ua.indexOf('MQQBrowser QQ') > -1)) {
     div.className = 'share-guide-box share-top';
 } else {
     div.className = 'share-guide-box share-bottom';
