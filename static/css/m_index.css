@@ -152,8 +152,10 @@ header a img {
 }
 .li-info h6 {
 	display: inline-block;
-	max-width: 12rem;
+	max-width: 13rem;
 	margin-top: 0.4rem;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	overflow: hidden;
 	font-size: 1.2rem;
 	color: #222;

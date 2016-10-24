@@ -6,7 +6,6 @@
 	padding: 0 1.875%;
 }
 .mui-table-view-cell {
-	/*padding: 1rem 0 1rem 1.2rem;*/
 	padding: 0;
 	margin-top: 1px;
 }
@@ -31,6 +30,9 @@
 	margin-top: 0.4rem;
 	font-size: 1.2rem;
 	color: #222;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 .li-info p {
 	line-height: 1.8rem;
@@ -40,7 +42,6 @@
 }
 .li-info p.first span {
 	height: 1.2rem;
-	/*padding-left: 0;*/
 	display: inline-block;
 	padding: 0 4px;
 	color: #ff6767;
@@ -56,8 +57,6 @@
 
 	padding-left: 1.6rem;
 	display: inline-block;
-	/*line-height: 2rem;*/
-	/*color: #8f8f8f;*/
 }
 
 .li-info .s2,

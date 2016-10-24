@@ -97,7 +97,8 @@
     //    动态创建HTML
     var div = document.createElement('div');
     var ua = navigator.userAgent.toLowerCase();
-    if(navigator.userAgent.match(/MQQBrowser.+(QQ|MicroMessenger)/i)) {
+    // if(navigator.userAgent.match(/MQQBrowser.+(QQ|MicroMessenger)/i)) {
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
         div.className = 'share-guide-box share-top';
     } else {
         div.className = 'share-guide-box share-copy';
