@@ -51,7 +51,40 @@ window.onload = function() {
 			});
 		}
 	}
+	oPic.addEventListener("swipeleft",function () {
+		arr.unshift(arr[arr.length - 1]);
+		arr.pop();
+		for(var i = 0; i < aLi.length; i++) {
+			var oImg = aLi[i].getElementsByTagName('img')[0];
 
+			aLi[i].style.zIndex = arr[i][2];
+			startMove(aLi[i], {
+				left: arr[i][0],
+				top: arr[i][1],
+				opacity: arr[i][4]
+			});
+			startMove(oImg, {
+				width: arr[i][3]
+			});
+		}
+	})
+	oPic.addEventListener("swiperight",function () {
+			arr.push(arr[0]);
+			arr.shift();
+			for(var i = 0; i < aLi.length; i++) {
+				var oImg = aLi[i].getElementsByTagName('img')[0];
+
+				aLi[i].style.zIndex = arr[i][2];
+				startMove(aLi[i], {
+					left: arr[i][0],
+					top: arr[i][1],
+					opacity: arr[i][4]
+				});
+				startMove(oImg, {
+					width: arr[i][3]
+				});
+			}
+	})
 	function getStyle(obj, name) {
 		if(obj.currentStyle) {
 			return obj.currentStyle[name];

@@ -3,7 +3,7 @@ var body = document.getElementsByTagName("body")[0],
 //		动态创建HTML
 var div = document.createElement('div');
 var ua = navigator.userAgent.toLowerCase();
-if(ua.match(/MicroMessenger/i)=="micromessenger") {
+if((ua.match(/MicroMessenger/i)=="micromessenger") && (isIos && ua.indexOf('MQQBrowser QQ') > -1)) {
     div.className = 'share-guide-box share-top';
 } else {
     div.className = 'share-guide-box share-bottom';

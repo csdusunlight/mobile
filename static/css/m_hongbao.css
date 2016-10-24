@@ -36,18 +36,11 @@ body {
 	transition-duration: 200ms;
 }
 .mui-pull-top-tips .mui-pull-loading {
-	/*-webkit-backface-visibility: hidden;
-	-webkit-transition-duration: 400ms;
-	transition-duration: 400ms;*/
-
 	margin: 0;
 }
 .mui-pull-top-wrapper .mui-icon,
 .mui-pull-top-wrapper .mui-spinner {
 	margin-top: 7px;
-}
-.mui-pull-top-wrapper .mui-icon.mui-reverse {
-	/*-webkit-transform: rotate(180deg) translateZ(0);*/
 }
 .mui-pull-bottom-tips {
 	text-align: center;
@@ -75,10 +68,6 @@ body {
 .mui-scroll {
 	background-color: #fff;
 }
-
-/*.mui-slider-indicator a:not(:last-child) {
-	border-right: 1px solid #e4e4e4 !important;
-}*/
 .mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
 	border-top: none;
 }
@@ -87,7 +76,6 @@ body {
 }
 .mui-segmented-control .mui-control-item {
 	display: table-cell !important;
-	/*overflow: visible;*/
 }
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
 	border-bottom: 2px solid #008FD7 !important;
@@ -98,7 +86,6 @@ body {
 	padding: 0 1.875%;
 }
 .mui-table-view-cell {
-	/*padding: 1rem 0 1rem 1.2rem;*/
 	padding: 0;
 	margin-top: 1px;
 }
@@ -116,7 +103,6 @@ body {
 }
 .mui-table-view-cell img {
 	float: left;
-	/*margin-right: 6.5%;*/
 	width: 13rem !important;
 	max-height: 7.5rem;
 	border-radius: 4px;
@@ -131,6 +117,9 @@ body {
 	margin-top: 0.4rem;
 	font-size: 1.2rem;
 	color: #222;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 .li-info p {
 	line-height: 1.8rem;
@@ -140,7 +129,6 @@ body {
 }
 .li-info p.first span {
 	height: 1.2rem;
-	/*padding-left: 0;*/
 	display: inline-block;
 	padding: 0 4px;
 	color: #ff6767;
