@@ -722,8 +722,14 @@ header .share {
 	top: 0px;
 	width: 44px;
 	height: 44px;
-	background: url(../images/share.png) no-repeat 14px center;
-	background-size: 42% auto;
+	padding: 10px;
+	padding-top: 14px;
+	text-align: center;
+}
+.icon-fenxiang:before {
+	font-size: 16px;
+	content: "\e605";
+	color: #333;
 }
 /*图标字体部分*/
 @font-face {font-family: "wafuli-iconfont";

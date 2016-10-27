@@ -25,25 +25,12 @@ img {
 .taste-02 h3,
 .prompt h3 {
 	margin-top: 1rem;
-	padding-left: 2.6rem;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 	color: #222;
 	font-size: 1.6rem;
 	color: #008fd7;
 }
-/*.taste-02 h3{
-	background: url(../images/task-04.png) left center no-repeat;
-	background-size: 2rem; auto;
-}*/
-/*.taste h3 {
-	background: url(../images/task-03.png) left center no-repeat;
-	background-size: 2rem; auto;
-}
-.prompt h3 {
-	background: url(../images/task-05.png) left center no-repeat;
-	background-size: 2rem; auto;
-}*/
 .mui-content .iconfont {
 	font-size: 2rem;
 	margin-right: 0.4rem;

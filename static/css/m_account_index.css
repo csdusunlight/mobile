@@ -3,7 +3,6 @@
 	position: relative;
 	padding: 2rem 0;
 	width: 100%;
-	/*height: 10rem;*/
 	background: url(../images/bg-user.png);
 	background-size: auto 100%;
 }
@@ -15,8 +14,6 @@
 	margin-top: 0;
 	display: block;
 	font-size: 1rem;
-	/*background: url(../images/diannao.png) left center no-repeat;
-	background-size: 1.2rem auto;*/
 }
 .top img {
 	display: block;
@@ -32,8 +29,6 @@
 }
 .top number {
 	padding-right: 2rem;
-	background: url(../images/pen.png) right center no-repeat;
-	background-size: 1.4rem auto;
 }
 
 .mui-row {
@@ -41,7 +36,6 @@
 	padding-bottom: 2rem;
 	background: #fff;
 	box-shadow: 0 1px 3px #e4e4e4;
-	/*margin-bottom: 1rem;*/
 }
 .mui-row li {
 	list-style: none;
@@ -64,8 +58,6 @@
 	width: 1px;
 	height: 7rem;
 	display: inline-block;
-	/*background: red;*/
-/*	border-left: 1px solid #e4e4e4;*/
 }
 .mui-table-view {
 	margin-top: 1rem;
@@ -80,43 +72,43 @@
 .mui-table-view li a {
 	color: #222 !important;
 }
-.mui-table-view li span {
-	font-size: 14px;
-	position: absolute;
-	right: 32px;
-	top: 13px;
+.icon-qiandai:before,
+.icon-jifen:before,
+.icon-iconfontfuli:before,
+.icon-youhuiquan:before,
+.icon-fuligonglve:before,
+.icon-yaoqing:before {
+ 	font-family: wafuli-iconfont;
+ 	position: absolute;
+ 	left: 0;
+ 	top: 12px;
+	margin-right: 0.2rem;
+	font-size: 21px;
+	color: #f08519;
+	-webkit-font-smoothing: antialiased;
+  	-webkit-text-stroke-width: 0.2px;
+  	-moz-osx-font-smoothing: grayscale;
 }
-.mui-table-view .icon-02 {
-	padding-left: 5rem !important;
-	background: url(../images/sin-picon-03.jpg) 2rem center no-repeat;
-	background-size: 24px auto;
+.icon-qiandai:before {
+ 	content: "\e632";
 }
-.mui-table-view .icon-03 {
-	padding-left: 5rem !important;
-	background: url(../images/sin-picon-02.png) 2rem center no-repeat;
-	background-size: 24px auto;
+.icon-jifen:before {
+ 	content: "\e61e";
 }
-.mui-table-view .icon-04 {
-	padding-left: 5rem !important;
-	background: url(../images/sin-picon-04.jpg) 2rem center no-repeat;
-	background-size: 24px auto;
+.icon-iconfontfuli:before {
+ 	content: "\e607";
 }
-.mui-table-view .icon-05 {
-	padding-left: 5rem !important;
-	background: url(../images/sin-picon-05.jpg) 2rem center no-repeat;
-	background-size: 24px auto;
+.icon-youhuiquan:before {
+ 	content: "\e611";
 }
-.mui-table-view .icon-06 {
-	padding-left: 5rem !important;
-	background: url(../images/sin-picon-06.jpg) 2rem center no-repeat;
-	background-size: 24px auto;
+.icon-fuligonglve:before {
+ 	content: "\e630";
+ 	top: 11px;
+ 	font-size: 23px;
 }
-.mui-table-view .icon-07 {
-	padding-left: 5rem !important;
-	background: url(../images/sin-picon-07.png) 2rem center no-repeat;
-	background-size: 22px auto;
+.icon-yaoqing:before {
+ 	content: "\e617";
 }
-
 /*底部导航部分*/
 footer {
 	width: 100%;
@@ -130,9 +122,13 @@ footer li {
 	width: 25%;
 	float: left;
 }
-footer li img {
-	width: 2.8rem;
-	height: auto;
+footer .iconfont {
+	font-size: 2.2rem;
+	line-height: 1.6;
+	color: #8f8f8f;
+}
+.on .iconfont {
+	color: #f08519;
 }
 footer li span {
 	display: block;
