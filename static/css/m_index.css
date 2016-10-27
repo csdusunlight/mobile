@@ -79,7 +79,7 @@ header a img {
 }
 .nav-list .ic-02 {
 	font-size: 2.6rem;
-	padding-top: 0.6rem;
+	padding-top: 0.7rem;
 	background-color: #00d6b3;
 }
 .nav-list .ic-03 {
@@ -224,11 +224,7 @@ h6 + .iconfont {
 }
 .li-info span {
 	font-size: 1rem;
-
-	padding-left: 1.6rem;
 	display: inline-block;
-	/*line-height: 2rem;*/
-	/*color: #8f8f8f;*/
 }
 
 .li-info .s2,
@@ -278,8 +274,8 @@ footer li {
 	float: left;
 }
 footer .iconfont {
-	font-size: 2.2rem;
-	line-height: 1.6;
+	font-size: 2.4rem;
+	line-height: 1.2;
 	color: #8f8f8f;
 }
 .on .iconfont {
@@ -290,7 +286,7 @@ footer li span {
 	font-size: 1rem;
 	color: #4d4d4d;
 	margin-bottom: 3px;
-	margin-top: -3px;
+	margin-top: 3px;
 }
 footer li.on span {
 	color: #f08519;
