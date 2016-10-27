@@ -38,26 +38,20 @@ header a img {
 	margin: 0;
 	font-size: 1rem;
 	line-height: 2.4rem;
-	/*color: #8f8f8f;*/
-	/*width: 50%;*/
 }
 .news span b {
 	font-weight: bold;
 	color: #ff6767;
 }
-.news span:first-child {
-		background: url(../images/news-left-icon.png) left center no-repeat; background-size:1.4rem  auto;
-		background-size: ;;
-		padding-left: 1.8rem;
-}
-.news span:last-child {
-		background: url(../images/news-right-icon.png) left center no-repeat; background-size:1.4rem  auto;
-		padding-left: 1.8rem;
+.news .iconfont {
+	margin-right: 4px;
+	font-size: 1.2rem;
+	line-height: 2.4rem;
+	color: #f08519;
 }
 /*图标导航部分*/
 .icon-nav {
 	margin-top: 0.6rem;
-	/*padding: 0 1.875% 0;*/
 	padding-bottom: 0.4rem;
 	text-align: center;
 	background: #fff;
@@ -67,8 +61,52 @@ header a img {
 	float: left;
 	width: 25%;
 }
-.icon-nav li img {
+.nav-list .iconfont {
+	display: block;
+	margin: 0 auto;
+	padding-top: 0.9rem;
 	width: 4.2rem;
+	height: 4.2rem;
+	border-radius: 50%;
+	font-size: 2.4rem;
+	color: #fff;
+	font-weight: 200 !important;
+}
+.nav-list .ic-01 {
+	padding-top: 0.8rem;
+	font-size: 2.6rem;
+	background-color: #7aafff;
+}
+.nav-list .ic-02 {
+	font-size: 2.6rem;
+	padding-top: 0.7rem;
+	background-color: #00d6b3;
+}
+.nav-list .ic-03 {
+	padding-top: 0.8rem;
+	font-size: 3rem;
+	background-color: #ff6314;
+}
+.nav-list .ic-04 {
+	padding-top: 1rem;
+	background-color: #be5dff;
+}
+.nav-list .ic-05 {
+	padding-top: 0.5rem;
+	padding-right: 0.2rem;
+	font-size: 3.4rem;
+	background-color: #fb3456;
+}
+.nav-list .ic-06 {
+	background-color: #ffac00;
+}
+.nav-list .ic-07 {
+	padding-top: 1rem;
+	background-color: #14b1ff;
+}
+.nav-list .ic-08 {
+	padding-top: 1rem;
+	background-color: #51c332;
 }
 .nav-list li a {
 	display: block;
@@ -160,16 +198,10 @@ header a img {
 	font-size: 1.2rem;
 	color: #222;
 }
-.li-info .after-hot,
-.li-info .after-new {
-	display: inline-block;
-	padding-left: 0.3rem;
-	font-size: 1rem;
-	font-family: "华康少女文字W5(P)";
-	letter-spacing: 1px;
+h6 + .iconfont {
+	margin-left: 0.4rem;
+	font-size: 1.2rem;
 	color: #ff6767;
-	transform: rotate(-20deg) translateY(-0.8rem);
-	-webkit-transform: rotate(-20deg) translateY(-0.8rem);
 }
 .li-info p {
 	line-height: 1.8rem;
@@ -192,11 +224,7 @@ header a img {
 }
 .li-info span {
 	font-size: 1rem;
-
-	padding-left: 1.6rem;
 	display: inline-block;
-	/*line-height: 2rem;*/
-	/*color: #8f8f8f;*/
 }
 
 .li-info .s2,
@@ -213,13 +241,24 @@ header a img {
 }
 .li-info .s1 {
 	margin-top: 0.5rem;
-	background:url(../images/s1.png) left center no-repeat; background-size:1.5rem auto;
 }
-.li-info .s2 {
-	background:url(../images/s2.png) left center no-repeat; background-size:1.5rem auto;
+.iconfont:before {
+ 	font-family: wafuli-iconfont;
+	margin-right: 0.2rem;
+	font-size: 1rem;
+	color: rgba(0,135,223,0.5);
+	-webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
 }
-.li-info .s3 {
-	background:url(../images/s3.png) left center no-repeat; background-size:1.4rem auto;
+.icon-renzhengshangjia:before {
+	content: "\e620";
+}
+.icon-time:before {
+	content: "\e628";
+}
+.icon-yanjing:before {
+	content: "\e601";
 }
 /*底部导航部分*/
 footer {
@@ -234,16 +273,20 @@ footer li {
 	width: 25%;
 	float: left;
 }
-footer li img {
-	width: 2.8rem;
-	height: auto;
+footer .iconfont {
+	font-size: 2.4rem;
+	line-height: 1.2;
+	color: #8f8f8f;
+}
+.on .iconfont {
+	color: #f08519;
 }
 footer li span {
 	display: block;
 	font-size: 1rem;
 	color: #4d4d4d;
 	margin-bottom: 3px;
-	margin-top: -3px;
+	margin-top: 3px;
 }
 footer li.on span {
 	color: #f08519;

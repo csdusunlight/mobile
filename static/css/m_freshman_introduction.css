@@ -147,8 +147,8 @@ li .finacing-btn {
 .mui-title {
 	color: #fff;
 }
-#share {
-	background-image: url(../images/share-white.png);
+.icon-fenxiang:before {
+	color: #fff;
 }
 .mui-bar-nav {
 	border-bottom: none;
