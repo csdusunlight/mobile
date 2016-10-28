@@ -79,7 +79,7 @@ header a img {
 }
 .nav-list .ic-02 {
 	font-size: 2.6rem;
-	padding-top: 0.7rem;
+	padding-top: 0.71rem;
 	background-color: #00d6b3;
 }
 .nav-list .ic-03 {
@@ -236,7 +236,7 @@ h6 + .iconfont {
 }
 .li-info .s3 {
 	float: left;
-	width: 10.5rem;
+	width: 11.4rem;
 }
 .li-info .s2 {
 	float: left;
@@ -244,7 +244,9 @@ h6 + .iconfont {
 .li-info .s1 {
 	margin-top: 0.5rem;
 }
-.iconfont:before {
+.icon-renzhengshangjia:before,
+.icon-time:before,
+.icon-yanjing:before {
 	position: absolute;
 	left: 0;
 	top: 0;

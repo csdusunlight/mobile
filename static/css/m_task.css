@@ -55,7 +55,9 @@ header a img {
 .mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
 	border: none;
 }
-.iconfont:before {
+.icon-renzhengshangjia:before,
+.icon-time:before,
+.icon-yanjing:before {
 	position: absolute;
 	left: 0;
 	top: 0;

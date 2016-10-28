@@ -68,10 +68,10 @@
 }
 .mui-table-view li {
 	position: relative;
-	padding-left: 24px;
 }
 .mui-table-view li a {
 	color: #222 !important;
+	padding-left: 50px !important;
 }
 .icon-qiandai:before,
 .icon-jifen:before,
@@ -81,7 +81,7 @@
 .icon-yaoqing:before {
  	font-family: wafuli-iconfont;
  	position: absolute;
- 	left: 0;
+ 	left: 20px;
  	top: 12px;
 	margin-right: 0.2rem;
 	font-size: 21px;
@@ -97,7 +97,7 @@
  	content: "\e61e";
 }
 .icon-iconfontfuli:before {
- 	content: "\e607";
+ 	content: "\e651";
 }
 .icon-youhuiquan:before {
  	content: "\e611";
@@ -108,7 +108,7 @@
  	font-size: 23px;
 }
 .icon-yaoqing:before {
- 	content: "\e617";
+ 	content: "\e664";
 }
 /*底部导航部分*/
 footer {
