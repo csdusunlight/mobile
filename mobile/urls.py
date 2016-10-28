@@ -18,6 +18,7 @@ from django.contrib import admin
 
 
 urlpatterns = [
+    url('^app/', include('app.urls')),
     url(r'^', include('wafuli.urls',)),
     url('^account/', include('account.urls')),
     url('^Admin/', include('wafuli_admin.urls')),
