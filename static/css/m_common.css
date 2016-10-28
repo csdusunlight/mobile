@@ -722,14 +722,31 @@ header .share {
 	top: 0px;
 	width: 44px;
 	height: 44px;
-	/*display: block;*/
-	/*margin-top: 10px;*/
-	/*margin-right: 10px;*/
-	background: url(../images/share.png) no-repeat 14px center;
-	background-size: 42% auto;
-	/*padding: 40px;*/
+	padding: 10px;
+	padding-top: 14px;
+	text-align: center;
+}
+.icon-fenxiang:before {
+	font-size: 16px;
+	content: "\e605";
+	color: #333;
+}
+/*图标字体部分*/
+@font-face {font-family: "wafuli-iconfont";
+  src: url('../fonts/wafuli-iconfont.eot'); /* IE9*/
+  src: url('../fonts/wafuli-iconfont.eot') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/wafuli-iconfont.woff') format('woff'), /* chrome, firefox */
+  url('../fonts/wafuli-iconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../fonts/wafuli-iconfont.svg') format('svg'); /* iOS 4.1- */
 }
 
+.iconfont {
+  font-family:"wafuli-iconfont" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 /*mui样式重置*/
 
@@ -873,8 +890,15 @@ header .mui-btn-blue {
 	bottom: 6rem;
 	width: 3rem;
 	height: 3rem;
+	padding-top: 0.2rem;
+	text-align: center;
+	border-radius: 50%;
 	z-index: 1000;
-	background: url(../images/back_to_top.png) center center/3rem 3rem no-repeat;
+	background-color: rgba(0,0,0,0.3);
+}
+.backTop .iconfont {
+	font-size: 2.4rem;
+	color: #fff;
 }
 .mui-icon-arrowthinup:before {
 	content: "";

@@ -30,7 +30,7 @@ class RecommendRank(models.Model):
     def __unicode__(self):
         return self.user.username +',' + str(self.acc_num) + ','+str(self.award)+','+str(self.rank)
     class Meta:
-        ordering = ['-rank']
+        ordering = ['rank']
 
 class GlobalStatis(models.Model):
     time = models.DateTimeField(u"统计时间", auto_now=True)

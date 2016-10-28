@@ -34,10 +34,7 @@
 			<div class="top">
         <a id="switch_device" class="diannao">切换到电脑版</a>
         	<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
-<!--         <img src="{% static 'images/user-02.png' %}" alt="用户头像" />
-        <img src="{% static 'images/user-03.png' %}" alt="用户头像" />
-        <img src="{% static 'images/user-04.png' %}" alt="用户头像" /> -->
-				<a href="{% url 'account_settings' %}"><number>{{user.mobile}}</number></a>
+				<a href="{% url 'account_settings' %}"><number>{{user.mobile}}</number><i class="icon iconfont">&#xe63d;</i></a>
 			</div>
 
 			<div class="mui-row">
@@ -66,12 +63,12 @@
 
 			<ul class="mui-table-view">
 			        <li class="mui-table-view-cell">
-			            <a class="icon-02 mui-navigate-right" href="{% url 'account_charge' %}">
+			            <a class="icon-qiandai mui-navigate-right" href="{% url 'account_charge' %}">
 			                 资金管理
 			            </a>
 			        </li>
 			        <li class="mui-table-view-cell">
-			            <a class="icon-03 mui-navigate-right"  href="{% url 'account_score' %}">
+			            <a class="icon-jifen mui-navigate-right"  href="{% url 'account_score' %}">
 			                 	积分管理
 			            </a>
 			        </li>
@@ -80,12 +77,12 @@
 			<ul class="mui-table-view">
 
 			        <li class="mui-table-view-cell">
-			            <a class="icon-04 mui-navigate-right"  href="{% url 'account_welfare' %}">
+			            <a class="icon-iconfontfuli mui-navigate-right"  href="{% url 'account_welfare' %}">
 			                 	福利管理
 			            </a>
 			        </li>
 			       <li class="mui-table-view-cell">
-			            <a class="icon-05 mui-navigate-right"  href="{% url 'account_coupon' %}">
+			            <a class="icon-youhuiquan mui-navigate-right"  href="{% url 'account_coupon' %}">
 			                 	优惠券管理
 			            </a>
 			        </li>
@@ -93,12 +90,12 @@
 			<ul class="mui-table-view">
 
 			        <li class="mui-table-view-cell">
-			            <a class="icon-06 mui-navigate-right"  href="{% url 'strategy' %}">
+			            <a class="icon-fuligonglve mui-navigate-right"  href="{% url 'strategy' %}">
 			                 	挖福利攻略
 			            </a>
 			        </li>
               <li class="mui-table-view-cell">
-                  <a class="icon-07 mui-navigate-right"  href="{% url 'account_invite' %}">
+                  <a class="icon-yaoqing mui-navigate-right"  href="{% url 'account_invite' %}">
                         邀请好友
                   </a>
               </li>
@@ -111,25 +108,25 @@
     	<ul class="clearfix tc">
         	<li>
             	<a href="{%url 'index'%}">
-                <img src="{% static 'images/nav1.png' %}"/>
+                <i class="icon iconfont">&#xe649;</i>
             	<span>免费福利</span>
                 </a>
             </li>
         	<li>
             	<a href="{%url 'task'%}">
-                <img src="{% static 'images/nav2.png' %}"/>
+                <i class="icon iconfont">&#xe641;</i>
             	<span>体验福利</span>
                 </a>
             </li>
         	<li>
             	<a href="{%url 'finance'%}">
-                <img src="{% static 'images/nav3.png' %}"/>
+                <i class="icon iconfont">&#xe63f;</i>
             	<span>理财福利</span>
                 </a>
             </li>
         	<li class="on">
             	<a href="{%url 'account_index'%}">
-                <img src="{% static 'images/nav4s.png' %}"/>
+                <i class="icon iconfont">&#xe652;</i>
             	<span>个人中心</span>
                 </a>
             </li>

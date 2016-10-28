@@ -1,41 +1,45 @@
-
 .ad img {
 	width: 100%;
 }
-.left-icon1 {
-	padding-left: 4rem !important;
-	background: url(../images/left-icon1.png) 1rem center no-repeat;
-	background-size: auto 50%;
+.iconfont {
+	position: absolute;
+	left: 1rem;
+	top: 10px;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	padding-top: 5px;
+	font-size: 14px;
+	color: #fff;
+	text-align: center;
+	background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0));
 }
-.left-icon2 {
-	padding-left: 4rem !important;
-	background: url(../images/left-icon2.png) 1rem center no-repeat;
-	background-size: auto 50%;
+.ic01 {
+	background-color: #ff6767;
 }
-.left-icon3 {
-	padding-left: 4rem !important;
-	background: url(../images/left-icon3.png) 1rem center no-repeat;
-	background-size: auto 50%;
+.ic02 {
+	background-color: #ffac00;
 }
-.left-icon4 {
-	padding-left: 4rem !important;
-	background: url(../images/left-icon4.png) 1rem center no-repeat;
-	background-size: auto 50%;
+.ic03 {
+	background-color: #51c332;
+}
+.ic04 {
+	background-color: #00d6b3;
+}
+.mui-table-view-cell>a:not(.mui-btn) {
+	padding-left: 4rem;
 }
 .mui-collapse-content {
-	padding:0 0 0 4rem !important;	
+	padding:0 0 0 4rem !important;
 }
 .mui-collapse-content a {
 	display: block;
 	height: 40px;
-	/*padding-left: 2rem;*/
-	color: #a5a5a5;	
+	color: #a5a5a5;
 	line-height: 40px;
 	border-bottom: 1px solid #e4e4e4;
 }
-/*.mui-collapse-content a.last {
-	border-bottom: none;
-}*/
 .mui-collapse-content:last-child a {
 	border-bottom: none;
 }
@@ -48,12 +52,10 @@
 @-webkit-keyframes weixin {
      0% {
         -webkit-transform: scale(0) rotate(180deg);
-        /*transform: scale(0) rotate(180deg);*/
         opacity: 0;
-     }          
+     }
      100% {
         -webkit-transform: scale(1) rotate(360deg);
-        /*transform: scale(1) rotate(360deg);*/
         opacity: 1;
      }
 }
@@ -71,7 +73,6 @@
 	display: none;
 	position: fixed;
 	width: 90% !important;
-	/*height: 40rem;*/
 	padding: 10% 0;
 	top: 20%;
 	margin-left: 5%;
@@ -82,7 +83,6 @@
 .weixin-box-01 {
 	position: fixed;
 	width: 90% !important;
-	/*height: 40rem;*/
 	padding: 10% 0;
 	top: 20%;
 	margin-left: 5%;

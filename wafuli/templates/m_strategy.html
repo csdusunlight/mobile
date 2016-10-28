@@ -27,7 +27,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_strategy.css' %}"/>
 </head>
 
-	<body>	
+	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">挖福利攻略</h1>
@@ -39,7 +39,7 @@
 			<!--列表部分-->
 			<ul class="mui-table-view">
 			        <li class="mui-table-view-cell mui-collapse">
-			            <a class="left-icon1 mui-navigate-right" href="#">福利攻略</a>
+			            <a class="left-icon1 mui-navigate-right" href="#"><i class="icon iconfont ic01">&#xe614;</i>福利攻略</a>
 			            {% for strategy in strategy_list %}
 			            <div class="mui-collapse-content">
 			                <a href="{{strategy.url}}">{{strategy.title}}</a>
@@ -47,7 +47,7 @@
 			            {% endfor %}
 			        </li>
 			        <li class="mui-table-view-cell mui-collapse">
-			            <a class="left-icon2 left-icon1 mui-navigate-right" href="#">最新公告</a>
+			            <a class="left-icon2 left-icon1 mui-navigate-right" href="#"><i class="icon iconfont ic02">&#xe61b;</i>最新公告</a>
 			            {% for notice in notice_list %}
 			            <div class="mui-collapse-content">
 			                <a href="{{notice.url}}">{{notice.title}}</a>
@@ -55,7 +55,7 @@
 			            {% endfor %}
 			        </li>
 			        <li class="mui-table-view-cell mui-collapse">
-			            <a class="left-icon3 left-icon1 mui-navigate-right" href="#">关注微信</a>
+			            <a class="left-icon3 left-icon1 mui-navigate-right" href="#"><i class="icon iconfont ic03">&#xe62d;</i>关注微信</a>
 			            <div class="mui-collapse-content">
 			                <a id="gong_zhong_hao" href="#">微信订阅号</a>
 			            </div>
@@ -64,7 +64,7 @@
 			            </div>
 			        </li>
 			        <li class="mui-table-view-cell mui-collapse">
-			            <a class="left-icon4 left-icon1 mui-navigate-right" href="#">关于我们</a>
+			            <a class="left-icon4 left-icon1 mui-navigate-right" href="#"><i class="icon iconfont ic04">&#xe608;</i>关于我们</a>
 			            <div class="mui-collapse-content">
 			                <a href="{%url 'aboutus_contactus'%}">联系我们</a>
 			            </div>
@@ -75,9 +75,9 @@
 			                <a href="{%url 'aboutus_cooperation'%}">商务合作</a>
 			            </div>
 			        </li>
-			   </ul>	
+			   </ul>
 		</div>
-		
+
 		<!--弹出二维码部分-->
 		<div id="weixin_bg" class="er-wei-ma-bg">
 		</div>
@@ -96,8 +96,8 @@
 				<img src="{% static 'images/gongzhong.jpg' %}"/>
 				<p>挖福利公众号</p>
 			</div>
-		</div>		
-		
+		</div>
+
 		<script src="{% static 'js/mui.min.js' %}"></script>
 		<!--弹窗部分-->
 		<script type="text/javascript" charset="utf-8">
@@ -115,12 +115,12 @@
 				gong_zhong_hao.addEventListener("tap",function () {
 					weixin_bg.style.display = "block";
 				  	weixin_box.setAttribute("class","weixin-box-01");
-				});						
+				});
 				close_01.addEventListener("tap",function () {
 					weixin_bg.style.display = "none";
 				  	weixin_box.setAttribute("class","weixin-box-02");
 				});
-				
+
 				fu_wu_hao.addEventListener("tap",function () {
 					weixin_bg.style.display = "block";
 				  	weixin_box_02.setAttribute("class","weixin-box-01");

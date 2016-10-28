@@ -31,7 +31,7 @@
 	<header id="header" class="mui-bar mui-bar-nav">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		<h1 class="mui-title">邀请注册</h1>
-		<a id="share" class="share"></a>
+		<a id="share" class="share iconfont icon-fenxiang"></a>
 	</header>
 	<div class="mui-content">
 		<div class="top">
@@ -68,23 +68,23 @@
 			</p>
 		</div>
 		<div class="bottom">
-			<img src="{% static 'images/activity_invite_bottom.png' %}" />			
+			<img src="{% static 'images/activity_invite_bottom.png' %}" />
 		</div>
 	</div>
-	
+
 
 <!--底部导航-->
-	
+
     <script src="{% static 'js/mui.min.js' %}"></script>
-    <script src="{% static 'js/share-02.js' %}"></script>
+    <script src="{% static 'js/share.js' %}"></script>
     <script type="text/javascript" charset="utf-8">
       	mui.init();
 		var btn_01 = document.getElementById("btn_01"),
 			btn_02 = document.getElementById("btn_02");
-  
+
 	  	window.onscroll = function(){
 	        var scrollTop =  document.body.scrollTop || document.documentElement.scrollTop;
-	
+
 	        if(scrollTop > 200 && scrollTop < 400){
 	            btn_01.setAttribute("class","animate");
 	        } else {
@@ -95,9 +95,9 @@
 	        } else {
 	        	btn_02.removeAttribute("class","animate");
 	        }
-	
+
 	  	}
 	</script>
-	
+
 </body>
 </html>
