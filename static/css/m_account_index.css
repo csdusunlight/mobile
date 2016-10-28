@@ -28,7 +28,7 @@
 	color: #fff;
 }
 .top number {
-	padding-right: 2rem;
+	padding-right: 0.6rem;
 }
 
 .mui-row {
@@ -94,7 +94,7 @@
  	content: "\e632";
 }
 .icon-jifen:before {
- 	content: "\e61e";
+ 	content: "\e60c";
 }
 .icon-iconfontfuli:before {
  	content: "\e651";
@@ -109,6 +109,7 @@
 }
 .icon-yaoqing:before {
  	content: "\e664";
+ 	top: 11px;
 }
 /*底部导航部分*/
 footer {

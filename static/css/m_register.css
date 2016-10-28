@@ -66,29 +66,10 @@ body {
 	margin-right: 10px;
 }
 /*图标替换*/
-.mui-icon {
-	display: inline-block;
-	width: 40px;
-	height: 40px;
-}
-.mui-icon-person {
-	background: url(../images/login-icon-user.png) left center/50% auto no-repeat;
-}
-.mui-icon-locked {
-	background: url(../images/login-icon-password.png) left center/50% auto no-repeat;
-}
-.mui-icon-image {
-	background: url(../images/login-icon-pic.png) left center/60% auto no-repeat;
-}
-.mui-icon-email {
-	background: url(../images/login-icon-msg.png) left center/50% auto no-repeat;
-}
-.mui-icon-personadd {
-	background: url(../images/login-icon-invite.png) left center/50% auto no-repeat;
-}
-.mui-icon:before {
-	content: "";
+.iconfont {
+	font-size: 24px;
+	color: #8f8f8f;
 }
 .mui-input-row label {
-	padding: 0 15px;
+	padding: 8px 15px 0;
 }

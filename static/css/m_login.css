@@ -110,20 +110,11 @@ body {
 	font-size: 1.2rem;
 }
 /*图标替换*/
-.mui-icon {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-}
-.mui-icon-person {
-  background: url(../images/login-icon-user.png) left center/50% auto no-repeat;
-}
-.mui-icon-locked {
-  background: url(../images/login-icon-password.png) left center/50% auto no-repeat;
-}
-.mui-icon:before {
-  content: "";
+/*图标替换*/
+.iconfont {
+	font-size: 24px;
+	color: #8f8f8f;
 }
 .mui-input-row label {
-  padding: 0 15px;
+	padding: 8px 15px 0;
 }

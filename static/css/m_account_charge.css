@@ -91,17 +91,21 @@ body {
 	color: #333;
 	font-size: 2rem;
 	float: left;
-	/*line-height: 4rem;*/
 }
 .tab-head>a {
+	position: relative;
 	display: block;
 	padding-left: 2.4rem;
 	margin-top: 1rem;
 	font-size: 1rem;
-	/*line-height: 5rem;*/
 	float: right;
-	background: url(../images/qiehuan-icon.png) left center no-repeat;
-	background-size: 1.6rem auto;
+}
+.tab-head>a i {
+	position: absolute;
+	right: 7rem;
+	top: -0.4rem;
+	margin-right: 1rem;
+	font-size: 2rem;
 }
 .mui-bar-nav~.mui-content .mui-slider.mui-fullscreen {
 	top: 20rem;
