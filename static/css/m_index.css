@@ -184,7 +184,7 @@ header a img {
 	border: 1px solid #e4e4e4;
 }
 .mui-table-view-cell .li-info {
-	width: 15rem;
+	width: 15.8rem;
 	float: right;
 	height: auto;
 }
@@ -236,7 +236,7 @@ h6 + .iconfont {
 }
 .li-info .s3 {
 	float: left;
-	width: 11.4rem;
+	width: 12rem;
 }
 .li-info .s2 {
 	float: left;
@@ -266,6 +266,7 @@ h6 + .iconfont {
 }
 .icon-yanjing:before {
 	content: "\e601";
+	top: -0.2rem;
 }
 /*底部导航部分*/
 footer {
@@ -282,8 +283,18 @@ footer li {
 }
 footer .iconfont {
 	font-size: 2.4rem;
-	line-height: 1.2;
+	line-height: 3rem;
 	color: #8f8f8f;
+}
+footer li:first-child .iconfont {
+	position: relative;
+	font-size: 2.2rem;
+	top: 0.2rem;
+}
+footer li:last-child .iconfont {
+	position: relative;
+	top: 0.2rem;
+	font-size: 2.8rem;
 }
 .on .iconfont {
 	color: #f08519;
