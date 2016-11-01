@@ -17,6 +17,8 @@ body {
 }
 .mui-row li h5 {
 	font-size: 17px;
+	text-align: right;
+	padding-right: 3px;
 }
 .mui-radio input[type=radio] {
 	top: -6px;
@@ -77,6 +79,7 @@ form.mui-input-group .mui-input-row:after {
 	left: 15px;
 	right: 15px;
 }
-.mui-input-group .mui-input-row {
-	height: 50px;
+.mui-input-row label {
+	padding-right: 24px;
+	text-align: right;
 }
