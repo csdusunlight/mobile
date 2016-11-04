@@ -6,6 +6,7 @@ Created on 20161028
 from django.conf.urls import url,include
 
 urlpatterns = [
-    url(r'^$', 'app.views.index', name='app_index'),
-    url(r'^welfare_json/$', 'wafuli.welfare.welfare_json', name='welfare_json'),
+    url(r'^news/$', 'app.views.get_news', name='app_news'),
+    url(r'^slider/$', 'app.views.get_slider', name='app_slider'),
+    url(r'^recom/$', 'app.views.get_recom', name='app_recom'),
 ]
