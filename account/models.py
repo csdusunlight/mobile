@@ -83,7 +83,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     def save(self, force_insert=False, force_update=False, using=None, 
         update_fields=None):
         if not self.pk:
-            self.invite_code = random_str(10) + str(MyUser.objects.count())
+            self.invite_code = random_str(5) + str(MyUser.objects.count())
         return AbstractBaseUser.save(self, force_insert=force_insert, force_update=force_update, using=using, update_fields=update_fields)
     class Meta:
         verbose_name = 'user'

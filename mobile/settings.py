@@ -41,7 +41,8 @@ INSTALLED_APPS = (
     'wafuli',
     'DjangoUeditor',
     'captcha',
-    'wafuli_admin'
+    'wafuli_admin',
+    'app',
 )
 
 MIDDLEWARE_CLASSES = (

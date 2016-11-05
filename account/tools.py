@@ -17,7 +17,7 @@ mail_pass="jinyezi520"   #口令
 mail_postfix="126.com"  #发件箱的后缀
 import logging
 logger = logging.getLogger('wafuli')
-def random_str(randomlength=10):
+def random_str(randomlength=5):
     str = ''
     chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
     length = len(chars) - 1
