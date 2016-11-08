@@ -82,3 +82,29 @@ def get_recom(request):
         withdraw_total = 0
         all_wel_num = 0
     context.update({'new_wel_num':new_wel_num, 'all_wel_num':all_wel_num, 'withdraw_total':withdraw_total})
+
+def get_content_hongbao(request):
+    ret_dict = {}
+    id = request.GET.get('id', '')
+    if not id:
+        ret_dict['code'] = 1
+        ret_dict['message'] = "参数错误"
+        return JsonResponse(ret_dict)
+    
+    try:
+        wel = Welfare.objects.get(id=id)
+    except:
+        ret_dict['code'] = 2
+        ret_dict['message'] = "系统错误"
+        return JsonResponse(ret_dict)
+#     
+#     if wel.type == "hongbao":
+#     for adv in adv_list:
+#         attr_dic = {
+#             'id':adv.id,
+#             'image': host + adv.pic.url,
+#             'priority': adv.news_priority,
+#             'pubDate': adv.pub_date,
+#         }
+#         ret_list.append(attr_dic)
+#     return JsonResponse(ret_list,safe=False)
