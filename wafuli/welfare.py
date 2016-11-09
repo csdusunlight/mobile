@@ -33,6 +33,7 @@ def welfare(request, id=None, type=None):
                 return render(request, 'm_youhuiquan.html')
             elif type == 'by':
                 return render(request, 'm_baoyou.html')
+        raise Http404
     elif id:
         id = int(id)
         try:

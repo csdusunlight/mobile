@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^welfare/(?:(?P<id>[0-9]*)/)?$', 'wafuli.welfare.welfare', name='welfare'),
     url(r'^welfare/(?:(?P<type>hb|yhq|by)/)?$', 'wafuli.welfare.welfare', name='welfare_list'),
      
-    url(r'^mall/$', 'wafuli.views.mall', name='mall'),
+#     url(r'^mall/$', 'wafuli.views.mall', name='mall'),
     url(r'^commodity/(?P<id>[0-9]*)/$', 'wafuli.views.commodity', name='commodity_detail'),
     url(r'^press/(?P<id>[0-9]*)/$', 'wafuli.views.press', name='press_detail'),
     url(r'^mallpage/$', 'wafuli.views.get_commodity_page', name='get_commodity_page'),
