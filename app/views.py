@@ -1,3 +1,4 @@
+#coding:utf-8
 from django.shortcuts import render
 from wafuli.models import Advertisement, Welfare, MAdvert
 from wafuli_admin.models import DayStatis
@@ -27,7 +28,8 @@ def get_news(request):
             'image': host + wel.pic.url,
             'time': wel.time_limit,
             'source': wel.provider,
-            'view': wel.view_count
+            'view': wel.view_count,
+            'type':wel.type
         }
         ret_list.append(attr_dic)
     return JsonResponse(ret_list,safe=False)
@@ -88,23 +90,27 @@ def get_content_hongbao(request):
     id = request.GET.get('id', '')
     if not id:
         ret_dict['code'] = 1
-        ret_dict['message'] = "²ÎÊı´íÎó"
+        ret_dict['message'] = u"å‚æ•°é”™è¯¯"
         return JsonResponse(ret_dict)
     
     try:
         wel = Welfare.objects.get(id=id)
     except:
         ret_dict['code'] = 2
-        ret_dict['message'] = "ÏµÍ³´íÎó"
+        ret_dict['message'] = u"ç³»ç»Ÿé”™è¯¯"
         return JsonResponse(ret_dict)
-#     
-#     if wel.type == "hongbao":
-#     for adv in adv_list:
-#         attr_dic = {
-#             'id':adv.id,
-#             'image': host + adv.pic.url,
-#             'priority': adv.news_priority,
-#             'pubDate': adv.pub_date,
-#         }
-#         ret_list.append(attr_dic)
-#     return JsonResponse(ret_list,safe=False)
+     
+    if wel.type != "hongbao":
+        ret_dict['code'] = 3
+        ret_dict['message'] = u"ç±»å‹é”™è¯¯"
+        return JsonResponse(ret_dict)
+    wel = wel.hongbao
+    ret_dict = {
+        'code':0,
+        'strategy':wel.strategy,
+        'num': wel.view_count,
+        'time': wel.time_limit,
+        'ismobile': wel.isonMobile,
+        'url': wel.exp_url if not wel.isonMobile else wel.exp_code.url
+    }
+    return JsonResponse(ret_dict)
