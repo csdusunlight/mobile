@@ -35,7 +35,7 @@
 	overflow: hidden;
 }
 .li-info p {
-	line-height: 1.8rem;
+	line-height: 1.6rem;
 }
 .li-info p.first {
 	height: 1.8rem;
@@ -72,7 +72,7 @@
 	float: left;
 }
 .li-info .s1 {
-	margin-top: 0.5rem;
+	margin-top: 0.7rem;
 }
 .icon-renzhengshangjia:before,
 .icon-time:before,
@@ -96,5 +96,5 @@
 }
 .icon-yanjing:before {
 	content: "\e601";
-	top: -0.2rem;
+	top: -0.1rem;
 }

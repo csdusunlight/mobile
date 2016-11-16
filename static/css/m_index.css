@@ -199,12 +199,13 @@ header a img {
 	color: #222;
 }
 h6 + .iconfont {
+  position: absolute;
 	margin-left: 0.4rem;
 	font-size: 1.6rem;
 	color: #ff6767;
 }
 .li-info p {
-	line-height: 1.8rem;
+	line-height: 1.6rem;
 }
 .li-info p.first {
 	height: 1.8rem;
@@ -242,7 +243,7 @@ h6 + .iconfont {
 	float: left;
 }
 .li-info .s1 {
-	margin-top: 0.5rem;
+	margin-top: 0.7rem;
 }
 .icon-renzhengshangjia:before,
 .icon-time:before,
@@ -266,7 +267,7 @@ h6 + .iconfont {
 }
 .icon-yanjing:before {
 	content: "\e601";
-	top: -0.2rem;
+	top: -0.1rem;
 }
 /*底部导航部分*/
 footer {
