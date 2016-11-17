@@ -1,41 +1,58 @@
-header {
-		background-color: #fff;
-		padding: 0 1.875% 0;
-		padding-bottom: 0.4rem;
-		background: #52c5ff;
-}
-header img {
-	width: 20%;
-	margin-top: 0.6rem;
-}
-header a {
-	display: block;
-	width: 1.6rem;
-	height: 1.6rem;
-	margin-top: 1.2rem;
-}
-header a img {
-	width: 100%;
-	margin: 0;
+body {
+	background-color: #f2f2f2;
 }
 /*选项卡部分*/
 
-.mui-table-view-cell {padding: 1rem 1.2rem;}
-.mui-segmented-control-inverted {
-	background-color: #fff;
+.mui-table-view-cell {
+	width: 30rem;
+	height: 7rem;
+	padding: 0;
+	margin: 0.8rem auto;
+	border-radius: 0.4rem;
+	background: #fff;
+	}
+.mui-table-view-cell a {
+	display: block;
+	margin: 0;
 }
 .mui-table-view-cell img {
+	margin-top: 0.8rem;
 	float: left;
-	margin-left: 2rem;
-	width: 8rem !important;
-	border-radius:50%;
-	border:0.2rem solid #e4e4e4;
-	vertical-align: middle;
+	height: 5.4rem;
+	width: auto !important;
+	max-width: 8rem;
+	border-radius: 0.4rem;
 }
-.mui-table-view-cell .li-info {
-	width: 49%;
+.mui-table-view-cell .info-middle {
 	float: right;
-	height: auto;
+	margin-top: 0.8rem;
+	padding-right: 0.4rem;
+	width: 12rem;
+	white-space: normal;
+}
+.info-middle h6 {
+	height: 3.6rem;
+	font-size: 1.2rem;
+	line-height: 1.5;
+	color: #222;
+	overflow: hidden;
+}
+.info-middle p {
+	font-size: 1rem;
+	line-height: 1.5;
+	margin-top: 0.4rem;
+}
+.mui-table-view-cell .info-right {
+	float: right;
+	width: 7rem;
+	padding-left: 1.2rem;
+	font-size: 1rem;
+	line-height: 7rem;
+	color: #f08519;
+	background: url(../images/task-right-bg.png) left center/auto 100% no-repeat;
+}
+.info-right number {
+	font-size: 1.6rem;
 }
 .li-info h6 {
 	font-size: 1.3rem;
@@ -43,7 +60,6 @@ header a img {
 	margin-top: 0.4rem;
 }
 .li-info span {
-	position: relative;
 	font-size: 1rem;
 	line-height: 1.8rem;
 	padding-left: 2.4rem;
@@ -52,32 +68,9 @@ header a img {
 .li-info span.s1 {
 	margin-top: 0.8rem;
 }
+
 .mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
 	border: none;
-}
-.icon-renzhengshangjia:before,
-.icon-time:before,
-.icon-yanjing:before {
-	position: absolute;
-	left: 0;
-	top: 0;
- 	font-family: wafuli-iconfont;
-	margin-right: 0.2rem;
-	font-size: 1.4rem;
-	color: rgba(0,135,223,0.5);
-	-webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
-  -moz-osx-font-smoothing: grayscale;
-}
-.icon-renzhengshangjia:before {
-	content: "\e620";
-}
-.icon-time:before {
-	content: "\e628";
-}
-.icon-yanjing:before {
-	content: "\e601";
-	margin-top: -0.2rem;
 }
 /*底部导航部分*/
 footer {
@@ -92,35 +85,24 @@ footer li {
 	width: 25%;
 	float: left;
 }
-footer .iconfont {
-	font-size: 2.4rem;
-	line-height: 3rem;
-	color: #8f8f8f;
-}
-footer li:first-child .iconfont {
-	position: relative;
-	font-size: 2.2rem;
-	top: 0.2rem;
-}
-footer li:last-child .iconfont {
-	position: relative;
-	top: 0.2rem;
-	font-size: 2.8rem;
-}
-.on .iconfont {
-	color: #f08519;
+footer li img {
+	width: 2.8rem;
+	height: auto;
 }
 footer li span {
 	display: block;
 	font-size: 1rem;
 	color: #4d4d4d;
 	margin-bottom: 3px;
-	margin-top: 3px;
+	margin-top: -3px;
 }
 footer li.on span {
 	color: #f08519;
 }
 /*样式替换*/
+.mui-segmented-control-inverted {
+	background-color: #fff;
+}
 .mui-slider .mui-slider-group .mui-slider-item>a:not(.mui-control-item) {
 	display: inline;
 }
@@ -129,9 +111,12 @@ footer li.on span {
 	text-align: center;
 }
 .mui-table-view-cell:after {
-	left: 1.875%;
-	right: 1.875%;
+	height: 0;
 }
-#task_slider{
-	bottom:20px;
+.mui-table-view-cell>a:not(.mui-btn) {
+	padding: 0 0.8rem;
+	margin: 0;
+}
+.mui-table-view {
+	background-color: #f2f2f2;
 }
