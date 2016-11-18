@@ -16,8 +16,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 logger = logging.getLogger('wafuli')
-from .tools import listing, update_view_count
+from .tools import listing, update_view_count, saveImgAndGenerateUrl
 import re
+from decimal import Decimal
 
 def index(request):
     adv_list = list(Advertisement.objects.filter(location__in=['0','1'],is_hidden=False)[0:8])
@@ -160,7 +161,7 @@ def strategy(request):
 #     result = {'code':code, 'url':url}
 #     return JsonResponse(result)
 @login_required
-def expsubmit(request):
+def expsubmit_finance(request):
     if request.method == 'POST':
         if not request.is_ajax():
             logger.warning("Expsubmit refused no-ajax request!!!")
@@ -168,13 +169,13 @@ def expsubmit(request):
         code = '0'
         url = ''
         news_id = request.POST.get('id', None)
-        news_type = request.POST.get('type', None)
-        is_futou = request.POST.get('is_futou', '0')
-        telnum = request.POST.get('telnum', None)
-        telnum = str(telnum).strip()
+        telnum = request.POST.get('telnum', '').strip()
         remark = request.POST.get('remark', '')
-        if not (news_id and news_type and telnum):
-            logger.error("news_id or news_type or telnum is missing!!!")
+        term = request.POST.get('term', '').strip()
+        amount = request.POST.get('amount',0)
+        amount = Decimal(amount)
+        if not (news_id and telnum):
+            logger.error("news_id or news_type is missing!!!")
             raise Http404
         if len(telnum)>100 or len(remark)>200:
             code = '3'
@@ -182,24 +183,24 @@ def expsubmit(request):
             result = {'code':code, 'msg':msg}
             return JsonResponse(result)
         news = None
-        model = globals()[news_type]
     #     if news.state != '1':
     #         code = '4'
     #         msg = u'该项目已结束或未开始！'
     #         result = {'code':code, 'msg':msg}
     #         return JsonResponse(result)
-        if str(is_futou)=='1':
+        news = Finance.objects.get(pk=news_id)
+        is_futou = news.is_futou
+        info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + str(is_futou)
+        logger.info(info_str)
+        if is_futou:
             remark = u"复投：" + remark
         try:
             with transaction.atomic():
-                news = model.objects.get(pk=news_id)
-                info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + is_futou
-                logger.info(info_str)
-                if str(is_futou)!='1' and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+                if not is_futou and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
                     raise ValueError('This invest_account is repective in project:' + str(news.id))
                 else:
-                    UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum,
-                                     content_object=news, audit_state='1',remark=remark,)
+                    UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term,
+                                     invest_amount=amount, content_object=news, audit_state='1',remark=remark,)
                     code = '1'
                     msg = u'提交成功，请通过用户中心查询！'
         except Exception, e:
@@ -209,13 +210,70 @@ def expsubmit(request):
         result = {'code':code, 'msg':msg}
         return JsonResponse(result)
     else:
-        wel_type = request.GET.get('type', '')
         wel_id = request.GET.get('id', '')
-        context = {'id':wel_id, 'type':wel_type}
+        context = {'id':wel_id }
         ref_url = request.META.get('HTTP_REFERER',"")
         if 'next=' in ref_url:
             context.update({'back':True})
-        return render(request, 'm_expsubmit.html', context)
+        return render(request, 'm_expsubmit_finance.html', context)
+@login_required
+def expsubmit_task(request):
+    if request.method == 'POST':
+        if not request.is_ajax():
+            logger.warning("Expsubmit refused no-ajax request!!!")
+            raise Http404
+        news_id = request.POST.get('id', None)
+        telnum = request.POST.get('telnum', '').strip()
+        remark = request.POST.get('remark', '')
+        if not (news_id and telnum):
+            raise Http404
+        news = Task.objects.get(pk=news_id)
+        is_futou = news.is_futou
+        info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + str(is_futou)
+        logger.info(info_str)
+        code = None
+        msg = ''
+        userlog = None
+        if is_futou:
+            remark = u"复投：" + remark
+        try:
+            with transaction.atomic():
+                if not is_futou and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+                    raise ValueError('This invest_account is repective in project:' + str(news.id))
+                else:
+                    userlog = UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum,
+                                     invest_image='', content_object=news, audit_state='1',remark=remark,)
+                    code = 1
+                    msg = u'提交成功，请通过用户中心查询！'
+        except Exception, e:
+            logger.info(e)
+            result = {'code':2, 'msg':u"该注册手机号已被提交过，请不要重复提交！"}
+            return JsonResponse(result)
+        else:
+            imgurl_list = []
+            for key in request.FILES:
+                block = request.FILES[key]
+                if block.size > 80*1024:
+                    result = {'code':-1, 'msg':u"每张图片大小不能超过80k，请重新上传"}
+                    userlog.delete()
+                    return JsonResponse(result)
+            for key in request.FILES:
+                block = request.FILES[key]
+                imgurl = saveImgAndGenerateUrl(key, block)
+                imgurl_list.append(imgurl)
+            invest_image = ';'.join(imgurl_list)
+            userlog.invest_image = invest_image
+            userlog.save(update_fields=['invest_image'])
+        result = {'code':code, 'msg':msg}
+        return JsonResponse(result)
+    else:
+        wel_id = request.GET.get('id', '')
+        context = {'id':wel_id }
+        ref_url = request.META.get('HTTP_REFERER',"")
+        if 'next=' in ref_url:
+            context.update({'back':True})
+        return render(request, 'm_expsubmit_task.html', context)
+    
 def mall(request):
     ad_list = Advertisement.objects.filter(location__in=['0','5'],is_hidden=False)[0:8]
     help_list = Press.objects.filter(type='5')[0:10]

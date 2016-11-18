@@ -156,8 +156,15 @@
 					document.getElementById("ding_yue").style.display="none";
 				});
 				document.getElementById("reg_btn").addEventListener('tap', function() {
+					var exp_url = "";
+					if (type=="Task"){
+						exp_url = "{% url 'expsubmit_task' %}";
+					}
+					else{
+						exp_url = "{% url 'expsubmit_finance' %}";
+					}
 					mui.openWindow({
-			            url: "{% url 'expsubmit' %}?id=" + id + "&type=" + type,
+			            url: exp_url + "?id=" + id,
 			            styles: {
 			                top: 0,
 			                bottom: 0

@@ -122,7 +122,7 @@ def login(request, authentication_form=AuthenticationForm):
             password = request.POST.get('password')
             salt = "wafuli20161116"
             expire = int(time.time()*1000) + 2*7*24*60*60*1000
-            token = hashlib.md5(username + password + salt + expire)
+            token = hashlib.md5(username + password + salt + expire).hexdigest()  
             UserToken.objects.update_or_create(user=user,defaults={'token':token, 'expire':expire})
             result.update(code=0, token=token, expire=expire)
         else:
