@@ -43,6 +43,7 @@ body {
 	margin-top: 0.4rem;
 }
 .mui-table-view-cell .info-right {
+	display: table;
 	float: right;
 	width: 7rem;
 	padding-left: 1.2rem;
@@ -50,6 +51,13 @@ body {
 	line-height: 7rem;
 	color: #f08519;
 	background: url(../images/task-right-bg.png) left center/auto 100% no-repeat;
+}
+.info-right span {
+	display: table-cell;
+	vertical-align: middle;
+}
+.info-right b {
+	display: block;
 }
 .info-right number {
 	font-size: 1.6rem;

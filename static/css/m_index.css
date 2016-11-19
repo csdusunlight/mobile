@@ -73,13 +73,14 @@ header a img {
 	font-weight: 200 !important;
 }
 .nav-list .ic-01 {
-	padding-top: 0.8rem;
+	/*padding-top: 0.8rem;*/
 	font-size: 2.6rem;
 	background-color: #7aafff;
 }
 .nav-list .ic-02 {
 	font-size: 2.6rem;
-	padding-top: 0.708rem;
+	line-height: 4rem;
+	padding-top: 0;
 	background-color: #00d6b3;
 }
 .nav-list .ic-03 {
