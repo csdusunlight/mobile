@@ -227,11 +227,11 @@ def task_json(request):
     start = 6*count
     item_list = Task.objects.filter(state='1')
     if type == '1':
-        item_list = item_list.filter(amount_to_invest=0)
+        item_list = item_list.filter(type="junior")
     elif type == '2':
-        item_list = item_list.filter(amount_to_invest__lte=100, amount_to_invest__gt=0)
+        item_list = item_list.filter(type="middle")
     elif type == '3':
-        item_list = item_list.filter(amount_to_invest__gt=100)
+        item_list = item_list.filter(type="senior")
     item_list = item_list[start:start+6]
     for wel in item_list:
         data.append({

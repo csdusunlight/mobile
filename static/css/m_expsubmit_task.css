@@ -1,0 +1,299 @@
+body {
+	background: #fff;
+}
+
+.mui-content {
+	padding: 0 1.875% 0;
+	background: #fff;
+	padding-bottom: 2rem;
+}
+
+.mui-input-group {
+	margin-top: 3rem;
+}
+
+#choose {
+	display: none;
+}
+
+canvas {
+	width: 100%;
+	border: 1px solid #000000;
+}
+
+#upload {
+	display: block;
+	margin:3rem 20% 0;
+	height: 3rem;
+	text-align: center;
+	line-height: 3rem;
+	/*color: #333;*/
+	/*border: 1px solid #333;*/
+	border-radius: 5px;
+	cursor: pointer;
+}
+.img-list {
+	width: 25.2rem;
+	margin: 3rem auto 1rem;
+}
+
+.img-list li {
+	position: relative;
+	display: inline-block;
+	width: 8rem;
+	height: 8rem;
+	margin: 0.2rem 0.2rem 1.6rem 0.2rem;
+	border: 1px solid rgb(100, 149, 198);
+	background: #fff no-repeat center;
+	background-size: cover;
+}
+
+.progress {
+	position: absolute;
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(100, 149, 198, .5);
+}
+
+.progress span {
+	display: block;
+	width: 0;
+	height: 100%;
+	background-color: rgb(100, 149, 198);
+	text-align: center;
+	color: #FFF;
+	font-size: 13px;
+}
+
+.size {
+	position: absolute;
+	width: 100%;
+	height: 15px;
+	line-height: 15px;
+	bottom: -18px;
+	text-align: center;
+	font-size: 13px;
+	color: #666;
+}
+
+.tips {
+	display: block;
+	text-align: center;
+	font-size: 13px;
+	margin: 10px;
+	color: #999;
+}
+.mui-content button {
+	padding: 0;
+	width: 60%;
+	height: 3.4rem;
+	margin-top: 2rem;
+	margin-left: 20%;
+	font-size: 1.2rem;
+}
+
+form {
+	width: 100%;
+	margin-left: 0;
+}
+
+/*遮罩部分*/			
+.img-mask {
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	color: #fff;
+	text-align: center;
+	line-height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 100;
+}
+.img-mask>p {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	font-size: 16px;
+	color: #fff;
+}
+@-webkit-keyframes ball-triangle-path-1 {
+	33% {
+		-webkit-transform: translate(25px, -50px);
+		transform: translate(25px, -50px);
+	}
+	66% {
+		-webkit-transform: translate(50px, 0px);
+		transform: translate(50px, 0px);
+	}
+	100% {
+		-webkit-transform: translate(0px, 0px);
+		transform: translate(0px, 0px);
+	}
+}
+
+@keyframes ball-triangle-path-1 {
+	33% {
+		-webkit-transform: translate(25px, -50px);
+		transform: translate(25px, -50px);
+	}
+	66% {
+		-webkit-transform: translate(50px, 0px);
+		transform: translate(50px, 0px);
+	}
+	100% {
+		-webkit-transform: translate(0px, 0px);
+		transform: translate(0px, 0px);
+	}
+}
+
+@-webkit-keyframes ball-triangle-path-2 {
+	33% {
+		-webkit-transform: translate(25px, 50px);
+		transform: translate(25px, 50px);
+	}
+	66% {
+		-webkit-transform: translate(-25px, 50px);
+		transform: translate(-25px, 50px);
+	}
+	100% {
+		-webkit-transform: translate(0px, 0px);
+		transform: translate(0px, 0px);
+	}
+}
+
+@keyframes ball-triangle-path-2 {
+	33% {
+		-webkit-transform: translate(25px, 50px);
+		transform: translate(25px, 50px);
+	}
+	66% {
+		-webkit-transform: translate(-25px, 50px);
+		transform: translate(-25px, 50px);
+	}
+	100% {
+		-webkit-transform: translate(0px, 0px);
+		transform: translate(0px, 0px);
+	}
+}
+
+@-webkit-keyframes ball-triangle-path-3 {
+	33% {
+		-webkit-transform: translate(-50px, 0px);
+		transform: translate(-50px, 0px);
+	}
+	66% {
+		-webkit-transform: translate(-25px, -50px);
+		transform: translate(-25px, -50px);
+	}
+	100% {
+		-webkit-transform: translate(0px, 0px);
+		transform: translate(0px, 0px);
+	}
+}
+
+@keyframes ball-triangle-path-3 {
+	33% {
+		-webkit-transform: translate(-50px, 0px);
+		transform: translate(-50px, 0px);
+	}
+	66% {
+		-webkit-transform: translate(-25px, -50px);
+		transform: translate(-25px, -50px);
+	}
+	100% {
+		-webkit-transform: translate(0px, 0px);
+		transform: translate(0px, 0px);
+	}
+}
+
+.ball-triangle-path {
+	position: absolute;
+	left: 40%;
+	top: 30%;
+	width: 100px;
+	-webkit-transform: translate(-25px, -25px);
+	-ms-transform: translate(-25px, -25px);
+	transform: translate(-25px, -25px);
+}
+
+.ball-triangle-path> div:nth-child(1) {
+	-webkit-animation-name: ball-triangle-path-1;
+	animation-name: ball-triangle-path-1;
+	-webkit-animation-delay: 0;
+	animation-delay: 0;
+	-webkit-animation-duration: 2s;
+	animation-duration: 2s;
+	-webkit-animation-timing-function: ease-in-out;
+	animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+}
+
+.ball-triangle-path> div:nth-child(2) {
+	-webkit-animation-name: ball-triangle-path-2;
+	animation-name: ball-triangle-path-2;
+	-webkit-animation-delay: 0;
+	animation-delay: 0;
+	-webkit-animation-duration: 2s;
+	animation-duration: 2s;
+	-webkit-animation-timing-function: ease-in-out;
+	animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+}
+
+.ball-triangle-path> div:nth-child(3) {
+	-webkit-animation-name: ball-triangle-path-3;
+	animation-name: ball-triangle-path-3;
+	-webkit-animation-delay: 0;
+	animation-delay: 0;
+	-webkit-animation-duration: 2s;
+	animation-duration: 2s;
+	-webkit-animation-timing-function: ease-in-out;
+	animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+}
+
+.ball-triangle-path> div {
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	border: 2px solid #fff;
+}
+
+.ball-triangle-path> div:nth-of-type(1) {
+	top: 50px;
+}
+
+.ball-triangle-path> div:nth-of-type(2) {
+	left: 25px;
+}
+
+.ball-triangle-path> div:nth-of-type(3) {
+	top: 50px;
+	left: 50px;
+}
+/*样式覆盖*/
+
+form.mui-input-group .mui-input-row:after {
+	left: 15px;
+	right: 15px;
+}
+
+.mui-input-group .mui-input-row {
+	/*height: 50px;*/
+}
+
+.mui-input-row label {
+	padding-right: 24px;
+	text-align: right;
+}

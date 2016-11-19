@@ -79,6 +79,12 @@ WELFARE_TYPE = (
     ('youhuiquan', u'优惠券'),
     ('qita', u'其他'),
 )
+TASK_TYPE = (
+    ('junior', u'新手入门'),
+    ('middle', u'进阶体验'),
+    ('senior', u'高手专区'),
+    ('qita', u'其他'),
+)
 NEWS_TYPE = (
     ('1', u'公告'),
     ('2', u'福利攻略'),
