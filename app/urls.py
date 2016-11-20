@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^slider/$', 'app.views.get_slider', name='app_slider'),
     url(r'^recom/$', 'app.views.get_recom', name='app_recom'),
     url(r'^detail/hongbao/$', 'app.views.get_content_hongbao', name='detail_wel'),
+#     url(r'^detail/youhuiquan/$', 'app.views.get_content_youhuiquan', name='detail_wel'),
 ]

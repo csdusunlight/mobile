@@ -35,12 +35,11 @@
 			<!--选项卡部分-->
 			<div id="task_slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<a class="mui-control-item" href="#item1">最新</a>
-		            <a class="mui-control-item" href="#item2"><number>0</number>投资</a>
-		            <a class="mui-control-item" href="#item3">投资<number>≤100</number></a>
-		            <a class="mui-control-item" href="#item4">投资<number>>100</number></a>
+					<a class="mui-control-item" href="#item1">新手入门</a>
+		      <a class="mui-control-item" href="#item2">进阶体验</a>
+		      <a class="mui-control-item" href="#item3">高手专区</a>
 				</div>
-				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
 				<div class="mui-slider-group">
 					<div id="item1" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
@@ -89,14 +88,6 @@
 						</div>
 					</div>
 					<div id="item3" class="mui-slider-item mui-control-content">
-						<div id="scroll1" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<ul class="mui-table-view">
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div id="item4" class="mui-slider-item mui-control-content">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view">
@@ -191,12 +182,18 @@
 										var wel = data[i];
 										var li = document.createElement('li');
 										li.className = 'mui-table-view-cell';
-										li.innerHTML = '<a href="' + wel.url + '"><img src="' +
-											wel.picurl + '" /><div class="li-info"><h6>' + wel.title +
-											'</h6><span class="s1 icon-renzhengshangjia">' + wel.provider +
-											'</span><span class="s2 icon-yanjing"><number>' + wel.view_count +
-											'</number></span><span class="s3 icon-time"><number>' + wel.time +
-											'</number></span></div></a>';
+										// li.innerHTML = '<a href="' + wel.url + '"><img src="' +
+										// 	wel.picurl + '" /><div class="li-info"><h6>' + wel.title +
+										// 	'</h6><span class="s1 icon-renzhengshangjia">' + wel.provider +
+										// 	'</span><span class="s2 icon-yanjing"><number>' + wel.view_count +
+										// 	'</number></span><span class="s3 icon-time"><number>' + wel.time +
+										// 	'</number></span></div></a>';
+                    li.innerHTML = '<a class="clearfix" href="' + wel.url + '"><img src="'+
+                      wel.picurl + '" /><p class="info-right"><span><b>+<number>100</number>福币</b><b>+<number>100</number>积分</b></span></p>'+
+                      '<div class="info-middle">'+
+                      '<h6>' + wel.title + '</h6>'+
+                      '<p>剩&nbsp;<number>2016</number>&nbsp;份</p>'+
+                      '</div></a>';
 										ul.appendChild(li);
 									}
 								}

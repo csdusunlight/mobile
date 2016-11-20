@@ -33,7 +33,7 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">资金管理</h1>
+			<h1 class="mui-title">福币管理</h1>
 		</header>
 		<div class="mui-content">
 			<!--帐号部分-->
@@ -42,7 +42,7 @@
 					<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
 					<div class="text">
 						<p><number>{{user.mobile}}</number><br />
-						<span>账户余额：<strong><number>&nbsp;{{user.balance}}&nbsp;</number></strong>元</p>
+						<span>剩余福币：<strong><number>&nbsp;{{user.balance}}&nbsp;</number></strong>个</p>
 					</div>
 				    <button id="Btn" type="button" class="mui-btn mui-btn-warning">提&nbsp;现</button>
 				</div>
@@ -54,7 +54,7 @@
 					<div class="clearfix list-head">
 			            <span>时间</span>
 						<span>项目</span>
-						<span>金额</span>
+						<span>福币</span>
 					</div>
 				</div>
 				<div id="tab_head_02" style="display: none;">
@@ -65,7 +65,7 @@
 					<div class="clearfix list-head">
 			            <span>时间</span>
 						<span>项目</span>
-						<span>金额</span>
+						<span>福币</span>
 						<span>状态</span>
 					</div>
 				</div>

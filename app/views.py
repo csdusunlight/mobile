@@ -5,7 +5,16 @@ from wafuli_admin.models import DayStatis
 from datetime import datetime, timedelta, date
 from wafuli_admin.models import GlobalStatis
 from django.http.response import JsonResponse
+from django.contrib.auth.forms import AuthenticationForm
+from account.models import Userlogin
+from .tools import app_login_required
+from django.views.decorators.debug import sensitive_post_parameters
+import hashlib
+import time
+from app.models import UserToken
 host = 'http://m.wafuli.cn'
+
+@app_login_required
 def get_news(request):
     timestamp = request.GET.get('lastDate','')
     if not timestamp:
@@ -97,3 +106,26 @@ def get_content_hongbao(request):
         'url': wel.exp_url if not wel.isonMobile else wel.exp_code.url
     }
     return JsonResponse(ret_dict)
+
+
+@sensitive_post_parameters()
+def login(request, authentication_form=AuthenticationForm):
+    result = {}
+    if request.method == "POST":
+        form = authentication_form(request, data=request.POST)
+        result = {}
+        if form.is_valid():
+            user = form.get_user()           
+            Userlogin.objects.create(user=user,)
+            user.save(update_fields=["last_login_time", "this_login_time"])
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            salt = "wafuli20161116"
+            expire = int(time.time()*1000) + 2*7*24*60*60*1000
+            token = hashlib.md5(username + password + salt + expire).hexdigest()  
+            UserToken.objects.update_or_create(user=user,defaults={'token':token, 'expire':expire})
+            result.update(code=0, token=token, expire=expire)
+        else:
+            result.update(code=1)
+        return JsonResponse(result);
+    

@@ -21,10 +21,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title></title>
+    <title>信息登记</title>
     <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
-    <link rel="stylesheet" type="text/css" href="{%static 'css/m_expsubmit.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_expsubmit_finance.css'%}"/>
 
 </head>
 
@@ -92,7 +92,7 @@
 	                }
 	                var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 					mui.ajax({
-						url:"{%url 'expsubmit' %}",
+						url:"{%url 'expsubmit_' %}",
 						type:'post',
 						data:{
 							'type':type,
