@@ -25,9 +25,9 @@ class Command(BaseCommand):
                         audit_state='0',audit_time__year=year,audit_time__month=month).\
                         aggregate(sumofwith=Sum('invest_amount'))
             award_lastmonth = float(invite_lastmonth.get('sumofwith') or 0)*settings.AWARD_RATE
-            award_lastmonth = ("%.2f" % award_lastmonth)
-            inviter.invite_account += Decimal(award_lastmonth)
-            inviter.invite_income += Decimal(award_lastmonth)
+            award_lastmonth = int(award_lastmonth)
+            inviter.invite_account += award_lastmonth
+            inviter.invite_income += award_lastmonth
             inviter.save(update_fields=['invite_account','invite_income'])
 
         # trunscate table RecommendRank

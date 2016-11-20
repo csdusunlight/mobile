@@ -201,9 +201,9 @@ def get_lottery(request):
     elif itemid == 3:
         translist = charge_score(user, '0', 50, u'抽奖获奖')
     elif itemid == 4:
-        translist = charge_money(user, '0', 0.8, u'抽奖获奖')
+        translist = charge_money(user, '0', 80, u'抽奖获奖')
     elif itemid == 5:
-        translist = charge_money(user, '0', 2, u'抽奖获奖')
+        translist = charge_money(user, '0', 200, u'抽奖获奖')
     if itemid!=1 and not translist:
         result['code'] = -4
         logger.error("Get lottery award charge error!")

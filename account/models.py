@@ -10,7 +10,6 @@ from django.utils import timezone
 from django.contrib.auth.hashers import (
     check_password, make_password,
 )
-from decimal import Decimal
 class MyUserManager(BaseUserManager):
 
     def _create_user(self, email, mobile, username, password,
@@ -53,12 +52,12 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         help_text=('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField('date joined', default=timezone.now)
-    accu_income = models.DecimalField(u'累计收益', default = Decimal(0.00), decimal_places = 2, max_digits=10)
+    accu_income = models.IntegerField(u'累计收益', default = 0)
     accu_scores = models.IntegerField(u'累计获得积分', default = 0)
-    invite_account = models.DecimalField(u'邀请奖励结余', default = Decimal(0.00), decimal_places = 2, max_digits=10)
-    invite_income = models.DecimalField(u'邀请奖励现金', default = Decimal(0.00), decimal_places = 2, max_digits=10)
+    invite_account = models.IntegerField(u'邀请奖励结余', default = 0)
+    invite_income = models.IntegerField(u'邀请奖励现金', default = 0)
     invite_scores = models.IntegerField(u'邀请奖励积分', default = 0)
-    balance = models.DecimalField(u'现金余额', default = Decimal(0.00), decimal_places = 2, max_digits=10)
+    balance = models.IntegerField(u'现金余额', default = 0)
     scores = models.IntegerField(u'积分余额', default = 0)
     isSigned = models.BooleanField('是否签到', default=False,
         help_text='Designates whether the user had signed in today.')

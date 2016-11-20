@@ -12,7 +12,6 @@ from django.core.urlresolvers import reverse
 from django.http.response import JsonResponse, Http404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from account.transaction import charge_money, charge_score
-from decimal import Decimal
 import logging
 from account.models import MyUser
 from wafuli.data import COUPON_TYPE
@@ -132,7 +131,8 @@ def handle_uploaded_file(f):
             destination.write(chunk)
     with open('./name', 'r') as file:
         for line in file:
-            line = unicode(line, errors='ignore')
+            line = line.decode('gbk')
+#             line = unicode(line, errors='ignore')
             ret.append(line.strip())
     return ret
 
@@ -148,7 +148,7 @@ def admin_coupon(request):
             raise Http404
         if not ( admin_user.is_authenticated() and admin_user.is_staff):
             res['code'] = -1
-            res['url'] = reverse('admin:login') + "?next=" + reverse('admin_return')
+            res['url'] = reverse('admin:login') + "?next=" + reverse('admin_coupon')
             return JsonResponse(res)
         if not admin_user.has_admin_perms('002'):
             res['code'] = -5
@@ -171,7 +171,8 @@ def admin_coupon(request):
         scoretranslist = None
         if type==1:
             try:
-                cash = Decimal(cash)
+                cash = float(cash)*100
+                cash = int(cash)
                 score = int(score)
             except:
                 res['code'] = -2

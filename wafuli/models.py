@@ -45,6 +45,7 @@ class Base(models.Model):
         return self.title
 class News(Base):
     state = models.CharField(u"项目状态", max_length=1, choices=STATE)
+    is_futou = models.BooleanField(u'是否允许复投（重复提交同一手机号）', default= False)
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', verbose_name=u"标志图片上传（最大不超过30k，越小越好）")
     isonMobile = models.BooleanField(u'是否为移动端活动', default= False)
     exp_url = models.CharField(u"活动地址", blank=True, max_length=200)
@@ -275,6 +276,8 @@ class UserEvent(models.Model):
     event_type = models.CharField(max_length=10, choices=USER_EVENT_TYPE, verbose_name=u"用户事件类型")
     invest_account = models.CharField(u"第三方注册账号/提现账号", max_length=100)
     invest_amount = models.DecimalField(u'涉及金额', blank=True, null=True,decimal_places = 2, max_digits=10)
+    invest_term = models.CharField(u"投资标期", max_length=100)
+    invest_image = models.CharField(u"投资截图", max_length=1000)
     time = models.DateTimeField(u'提交时间', default=timezone.now)
     audit_time = models.DateTimeField(u'审核时间', null=True, blank=True)
     audit_state = models.CharField(max_length=10, choices=AUDIT_STATE, verbose_name=u"审核状态")

@@ -8,7 +8,6 @@ Created on 20160318
 from wafuli.models import TransList, ScoreTranlist
 from account.models import MyUser
 import logging
-from decimal import Decimal
 from django.db import transaction
 from django.db.models import F
 logger = logging.getLogger('wafuli')
@@ -16,7 +15,7 @@ def charge_money(user, type, amount, reason):
     if not (isinstance(user, MyUser) and reason) or type !='0' and type != '1':
         return -1
     try:
-        amount = Decimal(amount)
+        amount = int(amount)
     except:
         return None
     trans = None
@@ -29,7 +28,7 @@ def charge_money(user, type, amount, reason):
                 user.balance = F('balance') + amount
                 user.accu_income = F('accu_income') + amount
                 user.save(update_fields=['accu_income','balance'])
-            elif user.balance < amount - Decimal(0.001):
+            elif user.balance < amount:
                 raise ValueError('The account ' + user.mobile + '\'s balance is not enough!')
             else:
                 user.balance = F('balance') - amount

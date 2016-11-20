@@ -42,40 +42,17 @@
 				</div>
         <div class="mui-input-row">
           <label>投资金额</label>
-          <input type="text" placeholder="请输入投资金额">
+          <input type="text" placeholder="请输入投资金额（数字格式）" id="amount">
         </div>
         <div class="mui-input-row">
           <label>投资标期</label>
-          <input type="text" placeholder="请输入投资标期">
+          <input type="text" placeholder="请输入投资标期" id="term">
         </div>
-				<div class="mui-row">
-					<div class="mui-col-sm-4 mui-col-xs-4">
-			            <li class="mui-table-view-cell">
-			                <h5>是否复投</h5>
-			            </li>
-			        </div>
-			        <div class="mui-col-sm-4 mui-col-xs-4">
-			            <li class="mui-table-view-cell" style="padding-left:0;">
-			            	<span class="mui-radio">
-				    		<input name="radio" type="radio" checked="checked">
-			                <label>否</label>
-			                </span>
-			            </li>
-			        </div>
-			        <div class="mui-col-sm-4 mui-col-xs-4">
-			            <li class="mui-table-view-cell" style="padding-left:0;">
-			            	<span class="mui-radio">
-				    		<input name="radio" type="radio">
-			                <label>是</label>
-			                </span>
-			            </li>
-			        </div>
-			    </div>
 
 			</form>
 			<div class="mui-input-row beizhu" style="margin: 10px 5px;">
 				<p>备注:</p>
-				<textarea id="remark" rows="3" placeholder="请输入备注信息"></textarea>
+				<textarea id="remark" rows="3" placeholder="请输入备注信息（可不填）"></textarea>
 			</div>
 			<button id="submit_btn" type="button" class="mui-btn mui-btn-blue">确认提交</button>
 		</div>
@@ -90,12 +67,22 @@
 				document.getElementById("submit_btn").addEventListener('tap', function() {
 					var telnum = document.getElementById('telnum').value;
 					var remark = document.getElementById('remark').value;
+					var amount = document.getElementById('amount').value;
+					amount = parseFloat(amount);
+					var term = document.getElementById('term').value;
 					var re=/^1[1,2,3,4,6,5,7,8,9]\d{9}$/;
 					if(!re.test(telnum)){
 						mui.alert("手机号格式不正确！");
 						return;
 					}
-					var is_futou = 0;
+					if(isNaN(amount)){
+						mui.alert("投资金额必须为数字！")
+						return;
+					}
+					if(!term){
+						mui.alert("请输入投资标期！")
+						return;
+					}
 					var chkObjs = document.getElementsByName("radio");
 	                for(var i=0;i<chkObjs.length;i++){
 	                    if(chkObjs[i].checked){
@@ -110,7 +97,8 @@
 						data:{
 							'type':type,
 							'id':id,
-							'is_futou':is_futou,
+							'amount':amount,
+							'term':term,
 							'telnum':telnum,
 							'remark':remark,
 							csrfmiddlewaretoken:csrfmiddlewaretoken
