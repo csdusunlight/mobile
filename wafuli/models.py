@@ -192,8 +192,9 @@ class Coupon(models.Model):
 class Task(News):
     type = models.CharField(max_length=10, choices=TASK_TYPE, verbose_name=u"任务类型")
     desc = models.TextField(max_length=50, verbose_name=u"任务描述（用于首页展示）")
+    left_num = models.IntegerField(u"剩余数量")
     moneyToAdd = models.IntegerField(u"奖励福币")
-    scroreToAdd = models.IntegerField(u"奖励积分")
+    scoreToAdd = models.IntegerField(u"奖励积分",default=0)
     provider = models.CharField(u"商家", max_length=10)
     time_limit = models.CharField(u"活动时间", max_length=24)
     rules =UEditorField(u"奖励规则", width=900, height=300, toolbars="full", 
@@ -276,7 +277,7 @@ class UserEvent(models.Model):
 #    event_level = models.PositiveIntegerField(u'事件级别（决定是否需审核）')
     event_type = models.CharField(max_length=10, choices=USER_EVENT_TYPE, verbose_name=u"用户事件类型")
     invest_account = models.CharField(u"第三方注册账号/提现账号", max_length=100)
-    invest_amount = models.DecimalField(u'涉及金额', blank=True, null=True,decimal_places = 2, max_digits=10)
+    invest_amount = models.IntegerField(u'涉及金额', default=0)
     invest_term = models.CharField(u"投资标期", max_length=100)
     invest_image = models.CharField(u"投资截图", max_length=1000)
     time = models.DateTimeField(u'提交时间', default=timezone.now)

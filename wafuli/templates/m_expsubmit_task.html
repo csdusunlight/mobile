@@ -296,7 +296,9 @@
 								window.location.href = ret.url;
 							});
 						}else if(ret.code==1){
-							mui.alert("上传成功！","温馨提示");
+							mui.alert("上传成功！","温馨提示",function(){
+								mui.back();
+							});
 						}else{
 							mui.alert(ret.msg,"抱歉");
 						}

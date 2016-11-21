@@ -19,6 +19,7 @@ logger = logging.getLogger('wafuli')
 from .tools import listing, update_view_count, saveImgAndGenerateUrl
 import re
 from decimal import Decimal
+from django.db.models import F
 
 def index(request):
     adv_list = list(Advertisement.objects.filter(location__in=['0','1'],is_hidden=False)[0:8])
@@ -189,11 +190,7 @@ def expsubmit_finance(request):
     #         msg = u'该项目已结束或未开始！'
     #         result = {'code':code, 'msg':msg}
     #         return JsonResponse(result)
-<<<<<<< HEAD
-        news = model.objects.get(pk=news_id)
-=======
         news = Finance.objects.get(pk=news_id)
->>>>>>> 5ab48abaf1dba08e3c511e93b0334740bb162ab0
         is_futou = news.is_futou
         info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + str(is_futou)
         logger.info(info_str)
@@ -269,6 +266,8 @@ def expsubmit_task(request):
             invest_image = ';'.join(imgurl_list)
             userlog.invest_image = invest_image
             userlog.save(update_fields=['invest_image'])
+            news.left_num = F("left_num")-1
+            news.save(update_fields=["left_num"])
         result = {'code':code, 'msg':msg}
         return JsonResponse(result)
     else:

@@ -241,6 +241,9 @@ def task_json(request):
             "url":wel.url,
             'picurl':wel.pic.url,
             'provider':wel.provider,
+            'money':wel.moneyToAdd,
+            'score':wel.scoreToAdd,
+            'num':wel.left_num,
             })
     return JsonResponse(data,safe=False)
             

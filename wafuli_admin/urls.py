@@ -4,8 +4,10 @@ from django.conf.urls import url
 urlpatterns = [
     url(r'^$', 'wafuli_admin.views.index', name='admin_index'),
     url(r'^indexpage/$', 'wafuli_admin.views.get_admin_index_page', name='get_admin_index_page'),
-    url(r'^admin_return/$', 'wafuli_admin.views.admin_return', name='admin_return'),
-    url(r'^returnpage/$', 'wafuli_admin.views.get_admin_return_page', name='get_admin_return_page'),
+    url(r'^admin_task/$', 'wafuli_admin.views.admin_task', name='admin_task'),
+    url(r'^admin_finance/$', 'wafuli_admin.views.admin_finance', name='admin_finance'),
+    url(r'^finance_page/$', 'wafuli_admin.views.get_admin_finance_page', name='get_admin_finance_page'),
+    url(r'^task_page/$', 'wafuli_admin.views.get_admin_task_page', name='get_admin_task_page'),
     url(r'^admin_user/$', 'wafuli_admin.views.admin_user', name='admin_user'),
     url(r'^userpage/$', 'wafuli_admin.views.get_admin_user_page', name='get_admin_user_page'),
     url(r'^admin_withdraw/$', 'wafuli_admin.views.admin_withdraw', name='admin_withdraw'),
