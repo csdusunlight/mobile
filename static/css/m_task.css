@@ -48,7 +48,7 @@ body {
 	width: 7rem;
 	padding-left: 1.2rem;
 	font-size: 1rem;
-	line-height: 7rem;
+	height: 7rem;
 	color: #f08519;
 	background: url(../images/task-right-bg.png) left center/auto 100% no-repeat;
 }
