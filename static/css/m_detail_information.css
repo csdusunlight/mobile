@@ -61,7 +61,7 @@ body {
 }
 
 .content .list {
-	padding:2rem 0 2rem;
+	padding:1rem 0 1rem;
 	border-bottom: 1px solid #e4e4e4;
 
 }
@@ -91,8 +91,8 @@ body {
 /*上传样式设置*/
 p {
 	font-family: "微软雅黑";
-	font-size: 16px !important;
-	line-height: 3;
+	font-size: 16px;
+	line-height: 2;
 	color: #333;
 }
 strong {
