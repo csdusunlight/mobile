@@ -54,41 +54,6 @@
 					<img src="{%static 'images/share-friend.png'%}"/>
 				</div>
 			</div>
-			<div class="middle">
-				<div id="textBox">
-					<ul id="con1">
-				        <li>
-				        	<a href="#"><span>1***123</span><span>15:10:45</span><span>15积分</span></a>
-				        </li>
-				        <li>
-				        	<a href="#"><span>2***123</span><span>15:10:45</span><span>15积分</span></a>
-				        </li>
-				        <li>
-				        	<a href="#"><span>3***123</span><span>15:10:45</span><span>15积分</span></a>
-				        </li>
-				        <li>
-				        	<a href="#"><span>4***123</span><span>15:10:45</span><span>15积分</span></a>
-				        </li>
-				        <li>
-				        	<a href="#"><span>5***123</span><span>15:10:45</span><span>15积分</span></a>
-				        </li>
-				        <li>
-				        	<a href="#"><span>6***123</span><span>15:10:45</span><span>15积分</span></a>
-				        </li>
-				        <li>
-				        	<a href="#"><span>7***123</span><span>15:10:45</span><span>15积分</span></a>
-				        </li>
-				        <li>
-				        	<a href="#"><span>8***123</span><span>15:10:45</span><span>15积分</span></a>
-				        </li>
-				        <li>
-				        	<a href="#"><span>9***123</span><span>15:10:45</span><span>15积分</span></a>
-				        </li>
-				    </ul>
-				    <ul id="con2">
-			    	</ul>
-			    </div>
-			</div>
 			<div class="bottom">
 			</div>
 		</div> <!--mui-content-end-->
@@ -227,12 +192,9 @@
 		   	    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
 		   	});
 			var get_lottery_url = "{%url 'get_lottery'%}"
-			var area = document.getElementById('textBox');
-			var con1 = document.getElementById('con1');
-			var con2 = document.getElementById('con2');
 			var speed = 20;
+			/*
 			area.scrollTop = 0;
-			con2.innerHTML = con1.innerHTML;
 			function scrollUp(){
 				if(area.scrollTop >= con1.scrollHeight) {
 					area.scrollTop = 0;
@@ -240,7 +202,7 @@
 					area.scrollTop ++;
 				}
 			}
-			var myScroll = setInterval("scrollUp()",speed);
+			var myScroll = setInterval("scrollUp()",speed); */
 		 </script>
 	</body>
 </html>

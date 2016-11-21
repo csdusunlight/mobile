@@ -81,30 +81,37 @@
 			var withdraw_url = "{%url 'account_withdraw' %}";
 			document.getElementById("Btn").addEventListener('tap', function() {
 				var amount = document.getElementById("with_amount").value;
-				if (!amount){
-					mui.alert('请输入提现金额！');
+				amount = parseInt(amount);
+				if (isNaN(amount)){
+					mui.alert('提现数量必须为整数！');
 					return;
 				}
-				if (amount<10){
-					mui.alert('最低提现金额为10元！');
+				if (amount<1000){
+					mui.alert('最低提现福币数量为1000！');
 					return;
 				}
 				var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-				mui.ajax({
-					url: withdraw_url,
-					dataType:"json",
-					type:'POST',
-					data : {
-						amount: amount,
-						csrfmiddlewaretoken:csrfmiddlewaretoken
-					},
-					success:function(ret){
-						mui.alert(ret.res_msg);
-					},
-					error:function(){
-						alert("请检查网络连接");
-					}
-				});
+				var btnArray = ['否', '是'];
+				var confirm_str = "您提现的金额为人民币" + amount/100.0 + "元，确认？" 
+                mui.confirm(confirm_str, '提现确认', btnArray, function(e) {
+                    if (e.index == 1) {
+        				mui.ajax({
+        					url: withdraw_url,
+        					dataType:"json",
+        					type:'POST',
+        					data : {
+        						amount: amount,
+        						csrfmiddlewaretoken:csrfmiddlewaretoken
+        					},
+        					success:function(ret){
+        						mui.alert(ret.res_msg);
+        					},
+        					error:function(){
+        						alert("请检查网络连接");
+        					}
+        				});
+                    } 
+                })
 			});
 		</script>
 	</body>
