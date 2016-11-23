@@ -14,7 +14,6 @@ import time
 from app.models import UserToken
 host = 'http://m.wafuli.cn'
 
-@app_login_required
 def get_news(request):
     timestamp = request.GET.get('lastDate','')
     if not timestamp:
@@ -44,7 +43,7 @@ def get_news(request):
             'type':wel.type
         }
         ret_list.append(attr_dic)
-    return JsonResponse(ret_list,safe=False)
+    return JsonResponse({'code':0,'data':ret_list})
 def get_slider(request):
     adv_list = list(Advertisement.objects.filter(location__in=['0','1'],is_hidden=False)[0:5])
     ret_list = []
@@ -56,7 +55,7 @@ def get_slider(request):
             'pubDate': adv.pub_date,
         }
         ret_list.append(attr_dic)
-    return JsonResponse(ret_list,safe=False)
+    return JsonResponse({'code':0,'data':ret_list})
 def get_recom(request):
     adv_today1 = MAdvert.objects.filter(location='1',is_hidden=False).first()
     adv_today2 = MAdvert.objects.filter(location='2',is_hidden=False).first()
@@ -74,7 +73,7 @@ def get_recom(request):
         'image': host + adv_today3.pic.url,
         'location': 3,
     }]
-    return JsonResponse(ret_list,safe=False)
+    return JsonResponse({'code':0,'data':ret_list})
 def get_content_hongbao(request):
     ret_dict = {}
     id = request.GET.get('id', '')
@@ -103,7 +102,8 @@ def get_content_hongbao(request):
         'num': wel.view_count,
         'time': wel.time_limit,
         'ismobile': wel.isonMobile,
-        'url': wel.exp_url if not wel.isonMobile else wel.exp_code.url
+        'url': (host + wel.exp_url) if not wel.isonMobile else wel.exp_code.url,
+        'title':wel.title
     }
     return JsonResponse(ret_dict)
 def get_content_youhuiquan(request):

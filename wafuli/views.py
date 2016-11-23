@@ -77,7 +77,7 @@ def finance(request, id=None):
         ref_url = request.META.get('HTTP_REFERER',"")
         if 'next=' in ref_url:
             context.update({'back':True})
-        return render(request, 'm_detail_taskandfinance.html',context)
+        return render(request, 'm_detail_finance.html',context)
         
 def task(request, id=None):
     if id is None:
@@ -99,7 +99,7 @@ def task(request, id=None):
         ref_url = request.META.get('HTTP_REFERER',"")
         if 'next=' in ref_url:
             context.update({'back':True})
-        return render(request, 'm_detail_taskandfinance.html', context)
+        return render(request, 'm_detail_task.html', context)
     
 def commodity(request, id):
     id = int(id)
