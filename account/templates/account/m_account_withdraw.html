@@ -61,7 +61,7 @@
 			{% csrf_token %}
 			    <div class="mui-input-row">
 			        <label>￥</label>
-			        <input id="with_amount" autofocus="autofocus" type="text" class="mui-input-clear" placeholder="请输入提现金额">
+			        <input id="with_amount" autofocus="autofocus" type="text" class="mui-input-clear" placeholder="请输入提现福币个数">
 			    </div>
 			</form>
 		    <p>
@@ -92,7 +92,7 @@
 				}
 				var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 				var btnArray = ['否', '是'];
-				var confirm_str = "您提现的金额为人民币" + amount/100.0 + "元，确认？" 
+				var confirm_str = "您提现的金额为人民币" + amount/100.0 + "元，确认？"
                 mui.confirm(confirm_str, '提现确认', btnArray, function(e) {
                     if (e.index == 1) {
         				mui.ajax({
@@ -110,7 +110,7 @@
         						alert("请检查网络连接");
         					}
         				});
-                    } 
+                    }
                 })
 			});
 		</script>
