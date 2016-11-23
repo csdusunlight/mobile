@@ -106,7 +106,40 @@ def get_content_hongbao(request):
         'url': wel.exp_url if not wel.isonMobile else wel.exp_code.url
     }
     return JsonResponse(ret_dict)
-
+def get_content_youhuiquan(request):
+    ret_dict = {}
+    id = request.GET.get('id', '')
+    if not id:
+        ret_dict['code'] = 1
+        ret_dict['message'] = u"参数错误"
+        return JsonResponse(ret_dict)
+    
+    try:
+        wel = Welfare.objects.get(id=id)
+    except:
+        ret_dict['code'] = 2
+        ret_dict['message'] = u"系统错误"
+        return JsonResponse(ret_dict)
+     
+    if wel.type != "youhuiquan":
+        ret_dict['code'] = 3
+        ret_dict['message'] = u"类型错误"
+        return JsonResponse(ret_dict)
+    wel = wel.couponproject
+    if wel.ctype == '2':
+        wel.left_count = wel.coupons.filter(user__isnull=True).count()
+    else:
+        wel.left_count = u"充足"
+    strategy = wel.strategy.replace('/media/', host + '/media/')
+    ret_dict = {
+        'code':0,
+        'image': host + wel.pic.url,
+        'strategy':strategy,
+        'num': wel.left_count,
+        'time': wel.time_limit,
+        'url': wel.exp_url if not wel.isonMobile else wel.exp_code.url
+    }
+    return JsonResponse(ret_dict)
 
 @sensitive_post_parameters()
 def login(request, authentication_form=AuthenticationForm):

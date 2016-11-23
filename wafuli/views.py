@@ -264,8 +264,10 @@ def expsubmit_task(request):
             invest_image = ';'.join(imgurl_list)
             userlog.invest_image = invest_image
             userlog.save(update_fields=['invest_image'])
+            if news.left_num <=1:
+                news.state = '2'
             news.left_num = F("left_num")-1
-            news.save(update_fields=["left_num"])
+            news.save(update_fields=["left_num","state"])
         result = {'code':code, 'msg':msg}
         return JsonResponse(result)
     else:
