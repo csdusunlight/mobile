@@ -13,7 +13,7 @@ body {
 }
 
 #choose {
-	display: block;
+	display: none;
 }
 
 canvas {
@@ -22,7 +22,7 @@ canvas {
 }
 
 #upload {
-	display: none;
+	display: block;
 	margin:3rem 20% 0;
 	height: 3rem;
 	text-align: center;

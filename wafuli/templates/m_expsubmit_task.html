@@ -75,7 +75,6 @@
 			var maxsize = 80 * 1024;
 			var file_list = [];
 			document.getElementById("upload").addEventListener("tap", function() {
-				alert("chufa");
 				filechooser.click();
 			})
 				//    .on("touchstart", function() {
@@ -264,7 +263,6 @@
 				};
 			}
 			document.getElementById("submit").addEventListener('tap',function() {
-				alert("chufa2");
 				var telnum = document.getElementById("telnum").value;
 				telnum = telnum.replace(/(^\s*)|(\s*$)/g, "");
 				var re = /^1[1,2,3,4,6,5,7,8,9]\d{9}$/;
@@ -279,8 +277,8 @@
 					mui.alert("请上传任务完成截图");
 					return;
 				}
-				for (file of file_list){
-					formdata.append(file.name, file.blob);
+				for (i in file_list){
+					formdata.append(file_list[i].name, file_list[i].blob);
 				}
 				formdata.append('id', id);
 				formdata.append('telnum', telnum);
