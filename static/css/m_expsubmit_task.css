@@ -100,7 +100,7 @@ form {
 	margin-left: 0;
 }
 
-/*遮罩部分*/			
+/*遮罩部分*/
 .img-mask {
 	display: none;
 	position: fixed;
@@ -294,6 +294,6 @@ form.mui-input-group .mui-input-row:after {
 }
 
 .mui-input-row label {
-	padding-right: 24px;
-	text-align: right;
+	padding-right: 0;
+	text-align: center;
 }
