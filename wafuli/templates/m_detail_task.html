@@ -1,0 +1,198 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>{{news.seo_title}}</title>
+	<meta name="keywords" content="{{news.seo_keywords}}" />
+	<meta name="description" content="{{news.seo_description}}" />
+	<link href="{% static 'images/favicon.ico'%}" rel="shortcut icon"/>
+    <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_detail_taskandfinance.css'%}"/>
+</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">{{news.title}}</h1>
+			<a id="share" class="share"></a>
+		</header>
+		<div class="mui-content">
+			<div class="ad">
+				<img src="{{news.pic.url}}">
+			</div>
+			<!--体验步骤部分-->
+			<div class="taste">
+				<h3 class="reward"><i class="iconfont">&#xe613;</i>奖励规则</h3>
+				{{news.rules|safe}}
+			</div>
+			<div class="taste-02">
+				<h3><i class="iconfont">&#xe61c;</i>体验步骤</h3>
+				<div class="detail-html">{{news.strategy|safe}}</div>
+			</div>
+			<!--温馨提示部分-->
+			<div class="prompt">
+				<h3><i class="iconfont">&#xe60b;</i>温馨提示</h3>
+				<p><number>1、</number>为了让您畅快的享受福利，请您务必按照体验步骤详情操作,并在完成后返回该页面提交相关数据，获取相应福利；</p>
+				<p><number>2、</number>投资有风险，入市需谨慎；挖福利尽最大可能的提供最优质的理财渠道、筛选有诚信的合作平台，但是挖福利不对合作平台提供任何的风险担保；</p>
+				<p><number>3、</number>挖福利对福利数据的审核具有最终解释权。</p>
+				<!--<p class="contact">如有疑问请联系<strong>在线客服</strong>或拨打 <strong>服务热线：0734-8344414</strong></p>-->
+			</div>
+			<!--立即体验部分-->
+			<div class="mui-row">
+		        <div class="left-btn mui-col-sm-6 mui-col-xs-6">
+		            <button id="reg_btn" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">信息登记</button>
+		        </div>
+		        <div class=" mui-col-sm-6 mui-col-xs-6">
+		            <button id="exp_btn" type="button" class="right mui-btn mui-btn-blue mui-btn-outlined">立即体验</button>
+		        </div>
+		    </div>
+
+		</div>
+		<!--弹出二维码部分-->
+		<div id="ding_yue" class="er-wei-ma">
+			<div class="box">
+				<span id="close_01" class="mui-icon mui-icon-close"></span>
+				<p>长安识别图中二维码</p>
+				<img id="erweima_img"/>
+				<p>{{news.title}}</p>
+			</div>
+		</div>
+
+		<script src="{%static 'js/mui.min.js'%}"></script>
+		<script src="{%static 'js/share.js'%}"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				beforeback: function(){
+					var is_back = true;
+					var refer = document.referrer;
+					if(refer){
+						var flag = refer.indexOf("m.wafuli.cn");
+						if (flag===-1){
+							is_back = false;
+						}
+						else {
+							is_back = true;
+						}
+					}
+					else {
+						is_back = false;
+					}
+					if (is_back){
+						return true;
+					}
+					else{
+						mui.openWindow({
+				            url: "{% url 'index' %}",
+				            styles: {
+				                top: 0,
+				                bottom: 0
+				            },
+				            show: {
+				                aniShow: 'slide-in-right',
+				            },
+				            waiting: {
+				                autoShow: false, //自动显示等待框
+				                title: '正在加载...', //等待对话框上显示的提示内容
+				            }
+				        });
+						return false;
+					}
+				}
+			});
+			var id = '{{news.id}}';
+			var type = '{{type}}';
+			{%if news.isonMobile %}
+			var ismobile = true;
+			var url_get_erweima = "{%url 'exp_welfare_erweima' %}"
+			{%else%}
+			var ismobile = false;
+			var url_openwindow = "{% url 'exp_welfare_openwindow' %}";
+			{%endif%}
+			mui.ready(function(){
+				document.getElementById("exp_btn").addEventListener('tap', function() {
+					if(ismobile){
+						mui.ajax({
+							url:url_get_erweima + "?id=" + id + "&type=" + type,
+							dataType:"json",
+							success:function(ret){
+								if(ret.code==0){
+									window.location.href = ret.url;
+								}
+								else if(ret.code==1){
+									document.getElementById('erweima_img').src = ret.url;
+									document.getElementById("ding_yue").style.display="block";
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								mui.alert(type);
+							}
+						});
+					}
+					else {
+						window.open(url_openwindow + "?id=" + id + "&type=" + type);
+					}
+				});
+				document.getElementById("close_01").addEventListener('tap', function() {
+					document.getElementById("ding_yue").style.display="none";
+				});
+				document.getElementById("reg_btn").addEventListener('tap', function() {
+					var exp_url = "";
+					if (type=="Task"){
+						exp_url = "{% url 'expsubmit_task' %}";
+					}
+					else{
+						exp_url = "{% url 'expsubmit_finance' %}";
+					}
+					mui.openWindow({
+			            url: exp_url + "?id=" + id,
+			            styles: {
+			                top: 0,
+			                bottom: 0
+			            },
+			            show: {
+			                aniShow: 'slide-in-right',
+			            },
+			            waiting: {
+			                autoShow: false, //自动显示等待框
+			                title: '正在加载...', //等待对话框上显示的提示内容
+			            }
+			        });
+				});
+			});
+		</script>
+	{%if back %}
+		<script>
+		mui.back = function(){
+			var history = window.history;
+			if (history.length > 4 ){
+				history.go(-4);
+			}
+			else{
+				history.back();
+			}
+		};
+		</script>
+	{%endif%}
+	</body>
+
+</html>

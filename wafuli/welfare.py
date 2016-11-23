@@ -85,6 +85,7 @@ def exp_welfare_erweima(request):
     wel_type = str(wel_type)
     model = globals()[wel_type]
     wel = model.objects.get(id=wel_id)
+    update_view_count(wel)
     if wel_type == 'Welfare':
         if wel.type == "hongbao":
             wel = wel.hongbao
@@ -109,6 +110,7 @@ def exp_welfare_openwindow(request):
     wel_type = str(wel_type)
     model = globals()[wel_type]
     wel = model.objects.get(id=wel_id)
+    update_view_count(wel)
     url = wel.exp_url
     js = "<script>window.location.href='"+url+"';</script>"
     return HttpResponse(js)

@@ -72,13 +72,12 @@ def finance(request, id=None):
             news = Finance.objects.get(id=id)
         except Finance.DoesNotExist:
             raise Http404(u"该页面不存在")
-        update_view_count(news)
         other_wel_list = Finance.objects.filter(state='1').order_by('-view_count')[0:10]
         context = {'news':news,'type':'Finance','other_wel_list':other_wel_list}
         ref_url = request.META.get('HTTP_REFERER',"")
         if 'next=' in ref_url:
             context.update({'back':True})
-        return render(request, 'm_detail_taskandfinance.html',context)
+        return render(request, 'm_detail_finance.html',context)
         
 def task(request, id=None):
     if id is None:
@@ -95,13 +94,12 @@ def task(request, id=None):
             news = Task.objects.get(id=id)
         except Task.DoesNotExist:
             raise Http404(u"该页面不存在")
-        update_view_count(news)
         other_wel_list = Task.objects.filter(state='1').order_by('-view_count')[0:10]
         context = {'news':news,'type':'Task','other_wel_list':other_wel_list}
         ref_url = request.META.get('HTTP_REFERER',"")
         if 'next=' in ref_url:
             context.update({'back':True})
-        return render(request, 'm_detail_taskandfinance.html', context)
+        return render(request, 'm_detail_task.html', context)
     
 def commodity(request, id):
     id = int(id)
@@ -266,8 +264,10 @@ def expsubmit_task(request):
             invest_image = ';'.join(imgurl_list)
             userlog.invest_image = invest_image
             userlog.save(update_fields=['invest_image'])
+            if news.left_num <=1:
+                news.state = '2'
             news.left_num = F("left_num")-1
-            news.save(update_fields=["left_num"])
+            news.save(update_fields=["left_num","state"])
         result = {'code':code, 'msg':msg}
         return JsonResponse(result)
     else:
