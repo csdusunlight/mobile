@@ -278,8 +278,8 @@
 					mui.alert("请上传任务完成截图");
 					return;
 				}
-				for (file of file_list){
-					formdata.append(file.name, file.blob);
+				for (i in file_list){
+					formdata.append(file_list[i].name, file_list[i].blob);
 				}
 				formdata.append('id', id);
 				formdata.append('telnum', telnum);

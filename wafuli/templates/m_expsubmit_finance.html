@@ -92,7 +92,7 @@
 	                }
 	                var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 					mui.ajax({
-						url:"{%url 'expsubmit_' %}",
+						url:"{%url 'expsubmit_finance' %}",
 						type:'post',
 						data:{
 							'type':type,
