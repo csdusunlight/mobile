@@ -94,11 +94,11 @@ def get_content_hongbao(request):
         ret_dict['message'] = u"类型错误"
         return JsonResponse(ret_dict)
     wel = wel.hongbao
-    strategy = wel.strategy.replace('/media/', host + '/media/')
+#     strategy = wel.strategy.replace('/media/', host + '/media/')
     ret_dict = {
         'code':0,
         'image': host + wel.pic.url,
-        'strategy':strategy,
+        'strategy':wel.strategy,
         'num': wel.view_count,
         'time': wel.time_limit,
         'ismobile': wel.isonMobile,
