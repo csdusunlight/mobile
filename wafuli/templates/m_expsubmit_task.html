@@ -46,7 +46,14 @@
 			<div class="img-up">
 				<input type="file" name="picfile" id="choose" accept="image/png, image/jpeg" multiple=true>
 				<ul id="img-list" class="img-list"></ul>
-				<button id="upload" class="mui-btn mui-btn-blue mui-btn-outlined">上传图片</button>
+				<div class="mui-row img-btn">
+			        <div class="left-btn mui-col-sm-6 mui-col-xs-6">
+			            <button id="clear_img" class="mui-btn mui-btn-blue mui-btn-outlined">清除图片</button>
+			        </div>
+			        <div class=" mui-col-sm-6 mui-col-xs-6">
+			            <button id="upload" class="mui-btn mui-btn-blue mui-btn-outlined">上传图片</button>
+			        </div>
+			    </div>
 				<span class="tips">限jpg和png格式，最多6张</span>
 			</div>
 			<button id="submit" type="button" class="mui-btn mui-btn-blue">确认提交</button>
@@ -308,8 +315,15 @@
 
 				xhr.send(formdata);
 			});
+			function clearImg() {
+				mui(".img-list li").each(function(){
+					this.remove()
+				});
+				var file = document.getElementById("upload");
+				file.value = "";
+			}
 		</script>
-		
+
 	</body>
 
 </html>

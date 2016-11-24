@@ -21,17 +21,6 @@ canvas {
 	border: 1px solid #000000;
 }
 
-#upload {
-	display: block;
-	margin:3rem 20% 0;
-	height: 3rem;
-	text-align: center;
-	line-height: 3rem;
-	/*color: #333;*/
-	/*border: 1px solid #333;*/
-	border-radius: 5px;
-	cursor: pointer;
-}
 .img-list {
 	width: 25.2rem;
 	margin: 3rem auto 1rem;
@@ -296,4 +285,10 @@ form.mui-input-group .mui-input-row:after {
 .mui-input-row label {
 	padding-right: 0;
 	text-align: center;
+}
+.img-btn button {
+	height: 3rem;
+	line-height: 3rem;
+	width: 80%;
+	margin-left: 10%;
 }

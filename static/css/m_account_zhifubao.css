@@ -41,3 +41,7 @@ form {
 	width: 100%;
 	margin-left: 0;
 }
+.mui-input-row label {
+	padding-left: 0;
+	text-align: center;
+}
