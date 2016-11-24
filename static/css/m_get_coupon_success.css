@@ -56,6 +56,9 @@ body {
 	font-size: 2rem;
 	line-height: 7.4rem;
 	height: 7.4rem;
+  white-space: nowrap;
+	text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .btn {
