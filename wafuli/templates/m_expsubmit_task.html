@@ -84,6 +84,7 @@
 				//      $(this).removeClass("touch")
 				//    });
 			filechooser.onchange = function() {
+				file_list = [];
 				if(!this.files.length) return;
 				var files = Array.prototype.slice.call(this.files);
 				if(files.length > 6) {

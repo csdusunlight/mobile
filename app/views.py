@@ -102,7 +102,7 @@ def get_content_hongbao(request):
         'num': wel.view_count,
         'time': wel.time_limit,
         'ismobile': wel.isonMobile,
-        'url': (host + wel.exp_url) if not wel.isonMobile else wel.exp_code.url,
+        'url': wel.exp_url if not wel.isonMobile else (host + wel.exp_code.url),
         'title':wel.title
     }
     return JsonResponse(ret_dict)
