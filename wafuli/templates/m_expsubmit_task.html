@@ -317,7 +317,8 @@
 			});
 			function clearImg() {
 				mui(".img-list li").each(function(){
-					this.remove()
+					var _parent = this.parentNode;
+					_parent.removeChild(this);
 				});
 				var file = document.getElementById("upload");
 				file.value = "";
