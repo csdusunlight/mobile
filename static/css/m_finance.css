@@ -84,11 +84,11 @@ header a img {
 	float: right;
 	width:13rem;
 	height: auto;
-	margin-top: 0.4rem;
+	/*margin-top: 0.4rem;*/
 }
 .container .inc2 p {
 	font-size: 1.2rem;
-	line-height: 2.4rem;
+	line-height: 2.2rem;
 }
 .container .inc2 p:first-child {
 	color: #f08519;
