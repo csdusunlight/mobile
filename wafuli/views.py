@@ -251,10 +251,14 @@ def expsubmit_task(request):
             return JsonResponse(result)
         else:
             imgurl_list = []
+            if len(request.FILES)>6:
+                result = {'code':-2, 'msg':u"上传图片数量不能超过6张"}
+                userlog.delete()
+                return JsonResponse(result)
             for key in request.FILES:
                 block = request.FILES[key]
-                if block.size > 80*1024:
-                    result = {'code':-1, 'msg':u"每张图片大小不能超过80k，请重新上传"}
+                if block.size > 100*1024:
+                    result = {'code':-1, 'msg':u"每张图片大小不能超过100k，请重新上传"}
                     userlog.delete()
                     return JsonResponse(result)
             for key in request.FILES:

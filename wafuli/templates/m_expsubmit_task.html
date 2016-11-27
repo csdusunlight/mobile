@@ -48,7 +48,7 @@
 				<ul id="img-list" class="img-list"></ul>
 				<div class="mui-row img-btn">
 			        <div class="left-btn mui-col-sm-6 mui-col-xs-6">
-			            <button id="clear_img" class="mui-btn mui-btn-blue mui-btn-outlined" onclick="clearImg()">清除图片</button>
+			            <button id="clear_img" class="mui-btn mui-btn-blue mui-btn-outlined">清除图片</button>
 			        </div>
 			        <div class=" mui-col-sm-6 mui-col-xs-6">
 			            <button id="upload" class="mui-btn mui-btn-blue mui-btn-outlined">上传图片</button>
@@ -82,23 +82,19 @@
 			var maxsize = 80 * 1024;
 			var file_list = [];
 			document.getElementById("upload").addEventListener("tap", function() {
-				filechooser.click();
-			})
-				//    .on("touchstart", function() {
-				//      $(this).addClass("touch")
-				//    })
-				//    .on("touchend", function() {
-				//      $(this).removeClass("touch")
-				//    });
-			filechooser.onchange = function() {
-				file_list = [];
-				if(!this.files.length) return;
-				var files = Array.prototype.slice.call(this.files);
-				if(files.length > 6) {
-					alert("最多同时只可上传6张图片");
+				if (file_list.length>=6){
+					alert("最多只可上传6张图片");
 					return;
 				}
-				document.getElementById("img-list").innerHTML = "";
+				filechooser.click();
+			})
+			filechooser.onchange = function() {
+				if(!this.files.length) return;
+				var files = Array.prototype.slice.call(this.files);
+				if(files.length + file_list.length > 6) {
+					mui.alert("最多只可上传6张图片");
+					return;
+				}
 				files.forEach(function(file, i) {
 					if(!/\/(?:jpeg|png|gif)/i.test(file.type)) return;
 					var reader = new FileReader();
@@ -315,14 +311,11 @@
 
 				xhr.send(formdata);
 			});
-			function clearImg() {
-				mui(".img-list li").each(function(){
-					var _parent = this.parentNode;
-					_parent.removeChild(this);
-				});
-				var file = document.getElementById("upload");
-				file.value = "";
-			}
+			document.getElementById("clear_img").addEventListener('tap',function() {
+				document.getElementById("img-list").innerHTML = "";
+				file_list = [];
+				document.getElementById("upload").value = "";
+			});
 		</script>
 
 	</body>
