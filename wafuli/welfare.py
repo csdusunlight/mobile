@@ -7,10 +7,10 @@ Created on 2016年8月1日
 from django.shortcuts import render
 from django.http.response import Http404, HttpResponse
 from wafuli.models import Welfare, Advertisement, Press, Hongbao, Baoyou, CouponProject,\
-    Company, Coupon, Information, Task, Finance, Mark, Commodity
+    Company, Coupon, Information, Task, Finance, Mark, Commodity, UserTask
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.db.models import Q
+from django.db.models import Q,F
 import logging
 from wafuli_admin.models import RecommendRank
 from account.models import MyUser
@@ -97,6 +97,12 @@ def exp_welfare_erweima(request):
         logger.error(str(model) + ":" + str(wel.id) + " is not onMobile wel !!!")
         raise Http404
     result['code'] = '1'
+    if wel_type == "Task":
+        UserTask.objects.get_or_create(user=request.user, task=wel)
+        if wel.left_num <=1:
+            wel.state = '2'
+        wel.left_num = F("left_num")-1
+        wel.save(update_fields=["left_num","state"])
     return JsonResponse(result)
 
 @login_required
@@ -110,6 +116,8 @@ def exp_welfare_openwindow(request):
     wel_type = str(wel_type)
     model = globals()[wel_type]
     wel = model.objects.get(id=wel_id)
+    if wel_type == "Task":
+        UserTask.objects.get_or_create(user=request.user, task=wel)
     update_view_count(wel)
     url = wel.exp_url
     js = "<script>window.location.href='"+url+"';</script>"

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http.response import Http404
 from wafuli.models import Welfare, Task, Finance, Commodity, Information, \
     ExchangeRecord, Press, UserEvent, Advertisement, Activity, Company,\
-    CouponProject, Baoyou, Hongbao, MAdvert
+    CouponProject, Baoyou, Hongbao, MAdvert, UserTask
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
@@ -228,6 +228,11 @@ def expsubmit_task(request):
         if not (news_id and telnum):
             raise Http404
         news = Task.objects.get(pk=news_id)
+        try:
+            record = UserTask.objects.get(user=request.user,task=news)
+        except UserTask.DoesNotExist:
+            result = {'code':3, 'msg':u"请先领取任务再提交！"}
+            return JsonResponse(result)
         is_futou = news.is_futou
         info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + str(is_futou)
         logger.info(info_str)
@@ -268,10 +273,7 @@ def expsubmit_task(request):
             invest_image = ';'.join(imgurl_list)
             userlog.invest_image = invest_image
             userlog.save(update_fields=['invest_image'])
-            if news.left_num <=1:
-                news.state = '2'
-            news.left_num = F("left_num")-1
-            news.save(update_fields=["left_num","state"])
+            record.delete()
         result = {'code':code, 'msg':msg}
         return JsonResponse(result)
     else:

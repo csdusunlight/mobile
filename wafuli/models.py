@@ -463,3 +463,11 @@ class Information(Base):
     def clean(self):
         if self.pic and self.pic.size > 30000:
             raise ValidationError({'pic': u'图片大小不能超过30k'})
+
+class UserTask(models.Model):
+    user = models.ForeignKey(MyUser)
+    task = models.ForeignKey(Task)
+    class Meta:
+        unique_together = (('user', 'task'),)
+    def __unicode__(self):
+        return self.user.mobile + '+' + self.task.title
