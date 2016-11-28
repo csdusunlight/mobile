@@ -29,7 +29,6 @@
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_detail_taskandfinance.css'%}"/>
 </head>
-
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
@@ -61,10 +60,20 @@
 			<!--立即体验部分-->
 			<div class="mui-row">
 		        <div class="left-btn mui-col-sm-6 mui-col-xs-6">
-		            <button id="reg_btn" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">任务提交</button>
+		        {% if accepted %}
+		            <button id="reg_btn" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">提交任务</button>
+		        {%else%}
+		        	<button id="reg_btn" type="button" disabled="disabled" class="mui-btn mui-btn-blue mui-btn-outlined">提交任务（未领取）</button>
+		        {%endif%}
 		        </div>
 		        <div class=" mui-col-sm-6 mui-col-xs-6">
+		        {% if accepted %}
 		            <button id="exp_btn" type="button" class="right mui-btn mui-btn-blue mui-btn-outlined">立即体验</button>
+		        {% elif news.state == '2' %}
+		        	<button id="exp_btn" type="button" disabled="disabled" class="right mui-btn mui-btn-blue mui-btn-outlined">已结束</button>
+		        {%else%}
+		        	<button id="exp_btn" type="button" class="right mui-btn mui-btn-blue mui-btn-outlined">领取任务</button>
+		        {%endif%}
 		        </div>
 		    </div>
 
@@ -129,8 +138,26 @@
 			var ismobile = false;
 			var url_openwindow = "{% url 'exp_welfare_openwindow' %}";
 			{%endif%}
+			
+			var accepted = {{accepted}};
+			
 			mui.ready(function(){
 				document.getElementById("exp_btn").addEventListener('tap', function() {
+					if (!accepted){
+						var btnArray = ['取消', '确认领取'];
+		                mui.confirm('1、领取的任务必须在当日24点前完成并提交，次日无效；\n'+
+		                		'2、手机号和截图需规范且有效，否则视为无效信息；\n'+
+		                		'3、任务被领取后请确保完成且提交，否则可能会被挖福利加入黑名单。', '温馨提示', btnArray, function(e) {
+		                    if (e.index == 1) {
+		                    	experient();
+		                    }
+		                })
+					}
+					else{
+						experient();
+					}
+				});
+				function experient(){
 					if(ismobile){
 						mui.ajax({
 							url:url_get_erweima + "?id=" + id + "&type=" + type,
@@ -152,7 +179,7 @@
 					else {
 						window.open(url_openwindow + "?id=" + id + "&type=" + type);
 					}
-				});
+				}
 				document.getElementById("close_01").addEventListener('tap', function() {
 					document.getElementById("ding_yue").style.display="none";
 				});

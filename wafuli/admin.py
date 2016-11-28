@@ -147,3 +147,4 @@ class InformationAdmin(NewsAdmin):
             obj.url = reverse('information', kwargs={'id': obj.pk})
             obj.save(update_fields=['url',])
 admin.site.register(Information,InformationAdmin)
+admin.site.register(UserTask)

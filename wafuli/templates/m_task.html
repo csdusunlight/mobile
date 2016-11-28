@@ -195,10 +195,14 @@
 					                    if(wel.score>0)
 					                    	str_html += '<b>+<number>' + wel.score + '</number>积分</b>';
 					                    str_html += '</span></p><div class="info-middle">'+
-					                    	'<h6>' + wel.title + '</h6>'+
-					                    	'<p>剩&nbsp;<number>'+wel.num+'</number>&nbsp;份</p>'+
-					                    	// '<p class="task-end">已结束</p>'+
-					                    	'</div></a>';
+					                    	'<h6>' + wel.title + '</h6>';
+					                    if (wel.state=='2'){
+					                    	str_html += '<p class="task-end">已结束</p>';
+					                    }
+					                    else{
+					                    	str_html += '<p>剩&nbsp;<number>'+wel.num+'</number>&nbsp;份</p>';
+					                    }
+					                    str_html += '</div></a>';
 					                    li.innerHTML = str_html;
 										ul.appendChild(li);
 									}

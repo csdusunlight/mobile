@@ -99,6 +99,15 @@ def task(request, id=None):
         ref_url = request.META.get('HTTP_REFERER',"")
         if 'next=' in ref_url:
             context.update({'back':True})
+        if request.user.is_authenticated():
+            try:
+                UserTask.objects.get(user=request.user,task=news)
+            except UserTask.DoesNotExist:
+                context.update(accepted=0)
+            else:
+                context.update(accepted=1)
+        else:
+            context.update(accepted=0)
         return render(request, 'm_detail_task.html', context)
     
 def commodity(request, id):

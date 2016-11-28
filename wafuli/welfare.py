@@ -235,8 +235,8 @@ def task_json(request):
     count = int(count)
     type = str(type)
     start = 6*count
-    item_list = Task.objects.filter(state='1')
-    #item_list = Task.objects.filter(state__in=['1','2'])
+#     item_list = Task.objects.filter(state='1')
+    item_list = Task.objects.filter(state__in=['1','2'])
     if type == '1':
         item_list = item_list.filter(type="junior")
     elif type == '2':
@@ -255,6 +255,7 @@ def task_json(request):
             'money':wel.moneyToAdd,
             'score':wel.scoreToAdd,
             'num':wel.left_num,
+            'state':wel.state
             })
     return JsonResponse(data,safe=False)
             
