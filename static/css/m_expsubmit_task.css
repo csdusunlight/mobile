@@ -88,7 +88,21 @@ form {
 	width: 100%;
 	margin-left: 0;
 }
-
+.beizhu {
+	margin-top: 2rem !important;
+	margin-bottom: 0 !important;
+}
+.beizhu p {
+	font-size: 1.4rem;
+	line-height: 2rem;
+	padding-left: 11px;
+}
+textarea {
+	width: 94%;
+	margin-top: 1rem;
+	margin-left: 3%;
+	height: 10rem;
+}
 /*遮罩部分*/
 .img-mask {
 	display: none;
