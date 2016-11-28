@@ -123,5 +123,11 @@ p a {
 .mui-btn-blue.mui-active:enabled {
 	color: #fff;
 	border: 1px solid #008fd7;
-	background-color: #008fd7;*/
+	background-color: #008fd7;
+}*/
+.mui-popup-title {
+	display: block;
+}
+.mui-popup-title+.mui-popup-text {
+	text-align: left;
 }
