@@ -179,6 +179,12 @@
 			            }
 			        });
 				});
+
+				// 体验福利结束的调用函数
+				function taskEnd(){
+					document.getElementById("reg_btn").disabled = true;
+					document.getElementById("exp_btn").disabled = true;
+				}
 			});
 		</script>
 	{%if back %}
