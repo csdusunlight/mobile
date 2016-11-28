@@ -98,11 +98,12 @@ def exp_welfare_erweima(request):
         raise Http404
     result['code'] = '1'
     if wel_type == "Task":
-        UserTask.objects.get_or_create(user=request.user, task=wel)
-        if wel.left_num <=1:
-            wel.state = '2'
-        wel.left_num = F("left_num")-1
-        wel.save(update_fields=["left_num","state"])
+        obj, created = UserTask.objects.get_or_create(user=request.user, task=wel)
+        if created:
+            if wel.left_num <=1:
+                wel.state = '2'
+            wel.left_num = F("left_num")-1
+            wel.save(update_fields=["left_num","state"])
     return JsonResponse(result)
 
 @login_required
@@ -117,7 +118,12 @@ def exp_welfare_openwindow(request):
     model = globals()[wel_type]
     wel = model.objects.get(id=wel_id)
     if wel_type == "Task":
-        UserTask.objects.get_or_create(user=request.user, task=wel)
+        obj, created = UserTask.objects.get_or_create(user=request.user, task=wel)
+        if created:
+            if wel.left_num <=1:
+                wel.state = '2'
+            wel.left_num = F("left_num")-1
+            wel.save(update_fields=["left_num","state"])
     update_view_count(wel)
     url = wel.exp_url
     js = "<script>window.location.href='"+url+"';</script>"

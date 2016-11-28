@@ -69,7 +69,7 @@
 		        <div class=" mui-col-sm-6 mui-col-xs-6">
 		        {% if accepted %}
 		            <button id="exp_btn" type="button" class="right mui-btn mui-btn-blue mui-btn-outlined">立即体验</button>
-		        {% elif news.state == '2' %}
+		        {% elif news.is_expired %}
 		        	<button id="exp_btn" type="button" disabled="disabled" class="right mui-btn mui-btn-blue mui-btn-outlined">已结束</button>
 		        {%else%}
 		        	<button id="exp_btn" type="button" class="right mui-btn mui-btn-blue mui-btn-outlined">领取任务</button>
