@@ -83,13 +83,6 @@
 						mui.alert("请输入投资标期！")
 						return;
 					}
-					var chkObjs = document.getElementsByName("radio");
-	                for(var i=0;i<chkObjs.length;i++){
-	                    if(chkObjs[i].checked){
-	                    	is_futou = i;
-	                        break;
-	                    }
-	                }
 	                var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 					mui.ajax({
 						url:"{%url 'expsubmit_finance' %}",

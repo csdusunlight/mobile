@@ -69,4 +69,5 @@ urlpatterns = [
     url(r'^activity/$', 'wafuli.activity.activity', name='activity'),
     
     url(r'^invite_accept/$', 'account.views.invite_accept', name='invite_accept'),
+    url(r'^screenshot/$', 'wafuli.views.display_screenshot', name='screenshot'),
 ]

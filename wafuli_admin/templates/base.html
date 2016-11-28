@@ -9,12 +9,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'wafuli_admin/css/style-i.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'css/page.css' %}" />
     {% block css %}
-         
+
     {% endblock css %}
 <script type="text/javascript" src="{% static 'js/jquery-1.11.2.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/page.js' %}"></script>
     {% block js %}
-         
+
     {% endblock js %}
 </head>
 
@@ -41,14 +41,15 @@
                         	<li class="home1"><a href="{%url 'admin_index'%}">首页</a></li>
                         	<li class="home2"><a href="{%url 'admin_user'%}">用户管理</a></li>
                         	<li class="home3"><a href="{%url 'admin_withdraw'%}">提现管理</a></li>
-                        	<li class="home4"><a href="{%url 'admin_return'%}">返现管理</a></li>
-                        	<li class="home5"><a href="{%url 'admin_score'%}">积分管理</a></li>
-                        	<li class="home6"><a href="{%url 'admin_recommend_return'%}">推荐管理</a></li>
-                        	<li class="home7"><a href="#">优惠券管理</a></li>
-                        	<li class="home8"><a href="#">操作日志</a></li>
-                        	<li class="home9"><a href="{%url 'deliver_coupon'%}">优惠券发放</a></li>
-                        	<li class="home10"><a href="{%url 'admin_coupon'%}">优惠券审核</a></li>
-                        	<li class="home11"><a href="{%url 'admin_charge'%}">记账查询</a></li>
+                        	<li class="home4"><a href="{%url 'admin_finance'%}">理财福利</a></li>
+                            <li class="home12"><a href="{%url 'admin_task'%}">体验管理</a></li>
+                            <li class="home5"><a href="{%url 'admin_score'%}">积分管理</a></li>
+                            <li class="home6"><a href="{%url 'admin_recommend_return'%}">推荐管理</a></li>
+                            <li class="home7"><a href="#">优惠券管理</a></li>
+                            <li class="home8"><a href="#">操作日志</a></li>
+                            <li class="home9"><a href="{%url 'deliver_coupon'%}">优惠券发放</a></li>
+                            <li class="home10"><a href="{%url 'admin_coupon'%}">优惠券审核</a></li>
+                            <li class="home11"><a href="{%url 'admin_charge'%}">记账查询</a></li>
                         </ul>
                     </div>
                 </td>
@@ -64,7 +65,7 @@
     </div>
 	{% block modal %}
 
-	{% endblock modal %}   
+	{% endblock modal %}
     <!--Bottom-->
 	<div class="Bottom">
     	<p>©2016 挖福利管理系统     版权所有 </p>

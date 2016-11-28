@@ -1,24 +1,26 @@
 {% extends "base.html" %}
 {% block js %}
-<script type="text/javascript"> 
+<script type="text/javascript">
 $.ajaxSetup({
     data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
 });
-var data = '<table width="100%"><tr><th>用户名</th><th>手机号</th><th>优惠券类型</th><th>公司名称</th>'+
-	'<th>项目名称</th><th>面值</th><th>提交手机号</th><th>提交备注</th><th>提交时间</th><th>处理状态</th>'+
-	'<th>操作</th><th>备注</th></tr>[data]<tr><td>{username}</td><td>{mobile}</td><td>{type}</td>'+
-	'<td>{company}</td><td>{project}</td><td>{amount}</td><td>{mobile_sub}</td><td>{remark_sub}</td>'+
+var data = '<table width="100%"><tr><th>用户名</th><th>手机号</th>'+
+	'<th>项目名称</th><th>提交手机号</th><th>商家</th><th>任务截图</th><th>提交时间</th><th>处理状态</th>'+
+	'<th>操作</th><th>备注</th></tr>[data]<tr><td>{username}</td><td>{mobile}</td>'+
+	'<td>{project}</td><td>{mobile_sub}</td><td>{company}</td><td><a target="_blank" href="{% url 'screenshot' %}?id={id}">' +
+	'<span class="img-up"><img src="/static/images/task-suoluetu.jpg" alt="截图上传图片" /></span></a></td>'+
 	'<td>{time_sub}</td><td>{state}</td>'+
 	'<td id="item_{id}"><a class="fyin" onclick="pass({id})">返现'+
 	'</a> │ <a class="jion-s" onclick="refuse({id})">拒绝</a></td><td>{remark}</td></tr>[/data]</table>';
-var data2 = '<table width="100%"><tr><th>用户名</th><th>手机号</th><th>优惠券类型</th><th>公司名称</th>'+
-	'<th>项目名称</th><th>面值</th><th>提交手机号</th><th>提交备注</th><th>提交时间</th><th>处理状态</th>'+
+var data2 = '<table width="100%"><tr><th>用户名</th><th>手机号</th>'+
+	'<th>项目名称</th><th>提交手机号</th><th>商家</th><th>任务截图</th><th>提交时间</th><th>处理状态</th>'+
 	'<th>审核人</th><th>审核时间</th><th width="6%">返现金额</th><th width="6%">返现积分</th>'+
-	'<th>备注</th></tr>[data]<tr><td>{username}</td><td>{mobile}</td><td>{type}</td>'+
-	'<td>{company}</td><td>{project}</td><td>{amount}</td><td>{mobile_sub}</td><td>{remark_sub}</td>'+
+	'<th>备注</th></tr>[data]<tr><td>{username}</td><td>{mobile}</td>'+
+	'<td>{project}</td><td>{mobile_sub}</td><td>{company}</td><td><a target="_blank" href="{% url 'screenshot' %}?id={id}">' +
+	'<span class="img-up"><img src="/static/images/task-suoluetu.jpg" alt="截图上传图片" /></span></a></td>'+
 	'<td>{time_sub}</td><td>{state}</td><td>{admin}</td><td>{time_admin}</td>'+
-	'<td>{return_amount}</td><td>{score}</td><td>{remark}</td></tr>[/data]</table>';
-var url = "{% url 'get_admin_coupon_page' %}" + "?page={page}&size={pageSize}";
+	'<td>{ret_amount}</td><td>{score}</td><td>{remark}</td></tr>[/data]</table>';
+var url = "{% url 'get_admin_task_page' %}" + "?page={page}&size={pageSize}";
 function pass(id){
 	$(".BackNow").css("display","block");
 	$("input#ret_event_id").val(id);
@@ -28,10 +30,10 @@ function refuse(id){
 	$("input#refuse_event_id").val(id);
 }
 $(document).ready(function(){
-	$("li.home10").toggleClass("on");
+	$("li.home12").toggleClass("on");
 	$(".Tin-table tr:even").css("background-color","#fcfcfc");
 	$("#pagedata").ajaxPage({
-	    url:url+"&state=1", 
+	    url:url+"&state=1",
 	    pageId:$("#page"),
 	    pageSize:10,
 	    run:true,
@@ -48,7 +50,7 @@ $(document).ready(function(){
 			return;
 		}
 		$.ajax({
-			url:"{%url 'admin_finance' %}",
+			url:"{%url 'admin_task' %}",
 			dataType:"json",
 			type:"POST",
 			data:{
@@ -82,7 +84,7 @@ $(document).ready(function(){
 			return;
 		}
 		$.ajax({
-			url:"{%url 'admin_finance' %}",
+			url:"{%url 'admin_task' %}",
 			dataType:"json",
 			type:"POST",
 			data:{
@@ -140,15 +142,11 @@ $(document).ready(function(){
 		}
 		adminname = $("#adminname").val();
 		state = $("#state").val();
-		projecttype = $("#projecttype").val();
 		if(adminname){
 			newurl += "&adminname="+adminname;
 		}
 		if(state){
 			newurl += "&state="+state;
-		}
-		if(projecttype){
-			newurl += "&projecttype="+projecttype;
 		}
 		var newdata = data;
 		if(state!='1'){
@@ -156,7 +154,7 @@ $(document).ready(function(){
 		}
 		$("#page").empty();
 		$("#pagedata").ajaxPage({
-		    url:newurl, 
+		    url:newurl,
 		    pageId:$("#page"),
 		    pageSize:10,
 		    run:true,
@@ -164,7 +162,7 @@ $(document).ready(function(){
 		});
 	});
 });
-</script>     
+</script>
 {% endblock js %}
 {% block right %}
 <div class="Criteria">
@@ -215,18 +213,10 @@ $(document).ready(function(){
                                             </td>
                                         	<td>
                                             	<i style="letter-spacing:4.8px;">处理状态：</i>
-                                                <select name="selectAge" id="state">   
-											        <option value="1">未审核</option>   
-											        <option value="0">审核通过</option>   
+                                                <select name="selectAge" id="state">
+											        <option value="1">未审核</option>
+											        <option value="0">审核通过</option>
 											        <option value="2">审核拒绝</option>
-											    </select>
-                                            </td>
-                                        	<td>
-                                            	<i style="letter-spacing:4.8px;">项目类型：</i>
-                                                <select name="selectAge" id="projecttype">   
-											        <option value="0">全部</option>   
-											        <option value="1">现金券</option>   
-											        <option value="2">加息券</option>
 											    </select>
                                             </td>
                                         </tr>
@@ -245,7 +235,7 @@ $(document).ready(function(){
 		                    <div class="Page-in-admin">
 		                    	<div class="page"  id="page">
 		                        </div>
-		                    </div> 
+		                    </div>
                         </div>
 {%endblock%}
 
@@ -284,4 +274,4 @@ $(document).ready(function(){
         </div>
     </div>
     <!--end-->
-	{% endblock modal %}  
+	{% endblock modal %}
