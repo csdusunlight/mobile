@@ -169,6 +169,7 @@
 								else if(ret.code==1){
 									document.getElementById('erweima_img').src = ret.url;
 									document.getElementById("ding_yue").style.display="block";
+									accepted = true;
 								}
 							},
 							error:function(xhr,type,errorThrown){
@@ -178,6 +179,7 @@
 					}
 					else {
 						window.open(url_openwindow + "?id=" + id + "&type=" + type);
+						accepted = true;
 					}
 				}
 				document.getElementById("close_01").addEventListener('tap', function() {

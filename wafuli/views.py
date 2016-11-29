@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http.response import Http404
 from wafuli.models import Welfare, Task, Finance, Commodity, Information, \
-    ExchangeRecord, Press, UserEvent, Advertisement, Activity, Company,\
+    ExchangeRecord, Press, UserEvent, Advertisement_Mobile, Activity, Company,\
     CouponProject, Baoyou, Hongbao, MAdvert, UserTask
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
@@ -22,7 +22,7 @@ from decimal import Decimal
 from django.db.models import F
 
 def index(request):
-    adv_list = list(Advertisement.objects.filter(location__in=['0','1'],is_hidden=False)[0:8])
+    adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','1'],is_hidden=False)[0:8])
     first_adv = adv_list[0] if adv_list else None
     last_adv = adv_list[-1] if adv_list else None
     now = datetime.now()
@@ -59,7 +59,7 @@ def index(request):
 
 def finance(request, id=None):
     if id is None:
-        adv_list = list(Advertisement.objects.filter(location__in=['0','4'],is_hidden=False)[0:8])
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','4'],is_hidden=False)[0:8])
         first_adv = adv_list[0] if adv_list else None
         last_adv = adv_list[-1] if adv_list else None
 #         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
@@ -81,7 +81,7 @@ def finance(request, id=None):
         
 def task(request, id=None):
     if id is None:
-        adv_list = list(Advertisement.objects.filter(location__in=['0','3'],is_hidden=False)[0:8])
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','3'],is_hidden=False)[0:8])
         first_adv = adv_list[0] if adv_list else None
         last_adv = adv_list[-1] if adv_list else None
 #         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
@@ -126,13 +126,13 @@ def press(request, id):
     return render(request, 'm_detail_press.html',{'press':press})
 
 def aboutus_contactus(request):
-    ad_list = Advertisement.objects.filter(location__in=['0','6'],is_hidden=False).first
+    ad_list = Advertisement_Mobile.objects.filter(location__in=['0','6'],is_hidden=False).first
     return render(request, 'm_aboutus_contactus.html')
 def aboutus_statement(request):
-    ad_list = Advertisement.objects.filter(location__in=['0','6'],is_hidden=False).first
+    ad_list = Advertisement_Mobile.objects.filter(location__in=['0','6'],is_hidden=False).first
     return render(request, 'm_aboutus_statement.html')
 def aboutus_cooperation(request):
-    ad_list = Advertisement.objects.filter(location__in=['0','6'],is_hidden=False).first
+    ad_list = Advertisement_Mobile.objects.filter(location__in=['0','6'],is_hidden=False).first
     return render(request, 'm_aboutus_cooperation.html')
 def strategy(request):
     item_list = Press.objects
@@ -294,7 +294,7 @@ def expsubmit_task(request):
         return render(request, 'm_expsubmit_task.html', context)
     
 def mall(request):
-    ad_list = Advertisement.objects.filter(location__in=['0','5'],is_hidden=False)[0:8]
+    ad_list = Advertisement_Mobile.objects.filter(location__in=['0','5'],is_hidden=False)[0:8]
     help_list = Press.objects.filter(type='5')[0:10]
     type = request.GET.get("type", "")
     return render(request, 'mall.html', {'ad_list':ad_list,'type':type,'help_list':help_list})
