@@ -6,7 +6,7 @@ Created on 2016年8月1日
 '''
 from django.shortcuts import render
 from django.http.response import Http404, HttpResponse
-from wafuli.models import Welfare, Advertisement, Press, Hongbao, Baoyou, CouponProject,\
+from wafuli.models import Welfare, Advertisement_Mobile, Press, Hongbao, Baoyou, CouponProject,\
     Company, Coupon, Information, Task, Finance, Mark, Commodity, UserTask
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
@@ -249,7 +249,7 @@ def task_json(request):
         item_list = item_list.filter(type="middle")
     elif type == '3':
         item_list = item_list.filter(type="senior")
-    item_list = item_list[start:start+6]
+    item_list = item_list.order_by("state","-pub_date")[start:start+6]
     for wel in item_list:
         data.append({
             "title":wel.title,

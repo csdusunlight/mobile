@@ -1,6 +1,6 @@
 #coding:utf-8
 from django.shortcuts import render
-from wafuli.models import Advertisement, Welfare, MAdvert
+from wafuli.models import Advertisement_Mobile, Welfare, MAdvert
 from wafuli_admin.models import DayStatis
 from datetime import datetime, timedelta, date
 from wafuli_admin.models import GlobalStatis
@@ -45,7 +45,7 @@ def get_news(request):
         ret_list.append(attr_dic)
     return JsonResponse({'code':0,'data':ret_list})
 def get_slider(request):
-    adv_list = list(Advertisement.objects.filter(location__in=['0','1'],is_hidden=False)[0:5])
+    adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','1'],is_hidden=False)[0:5])
     ret_list = []
     for adv in adv_list:
         attr_dic = {
