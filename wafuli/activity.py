@@ -6,7 +6,7 @@ Created on 20160614
 '''
 from django.shortcuts import render
 
-from wafuli.models import Advertisement, UserWelfare, UserEvent, LotteryRecord
+from wafuli.models import Advertisement_Mobile, UserWelfare, UserEvent, LotteryRecord
 import logging
 from django.core.urlresolvers import reverse
 from django.http.response import JsonResponse, Http404

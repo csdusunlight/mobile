@@ -15,13 +15,36 @@ body {
 	display: block;
 	margin: 0;
 }
-.mui-table-view-cell img {
+.mui-table-view-cell .img-box {
+	position: relative;
 	margin-top: 0.8rem;
 	float: left;
 	height: 5.4rem;
 	width: auto !important;
 	max-width: 8rem;
 	border-radius: 0.4rem;
+	overflow: hidden;
+}
+.mui-table-view-cell .task-end:after {
+	content: "已结束";
+	position: absolute;
+	display: block;
+	box-sizing: content-box;
+	top: 0;
+	width: 100%;
+	height: 2rem;
+	color: #777;
+	font-size: 1.2rem;
+	line-height: 2rem;
+	text-align: center;
+	background-color: rgba(255,255,255,0.7);
+	border-top: 1.7rem solid rgba(0,0,0,0.4);
+	border-bottom: 1.7rem solid rgba(0,0,0,0.4);
+}
+.mui-table-view-cell .img-box img {
+	width: auto !important;
+	max-width: 8rem;
+	height: 100%;
 }
 .mui-table-view-cell .info-middle {
 	float: right;
@@ -41,6 +64,10 @@ body {
 	font-size: 1rem;
 	line-height: 1.5;
 	margin-top: 0.4rem;
+}
+.info-middle p number {
+	color: #f08519;
+	font-weight: bold;
 }
 .mui-table-view-cell .info-right {
 	display: table;
@@ -93,10 +120,6 @@ footer li {
 	width: 25%;
 	float: left;
 }
-/*footer li img {
-	width: 2.8rem;
-	height: auto;
-}*/
 footer .iconfont {
 	font-size: 2.4rem;
 	line-height: 3rem;

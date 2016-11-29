@@ -178,7 +178,7 @@ def generateCap():
 from captcha.models import get_safe_now
 def imageV(key, response):
     try:
-        CaptchaStore.objects.get(response=response, hashkey=key, expiration__gt=get_safe_now()).delete()
+        CaptchaStore.objects.get(response=response.lower(), hashkey=key, expiration__gt=get_safe_now()).delete()
     except CaptchaStore.DoesNotExist:
         return -1
     return 0
