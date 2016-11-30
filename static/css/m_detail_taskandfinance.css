@@ -118,7 +118,12 @@ p a {
 .left-btn button {
 	border-right: none;
 }
-
+.mui-popup-title {
+	display: block;
+}
+.mui-popup-title+.mui-popup-text {
+	text-align: left;
+}
 /*上传样式设置*/
 p {
 	font-family: "微软雅黑";
