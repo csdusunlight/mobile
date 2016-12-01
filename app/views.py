@@ -1,6 +1,7 @@
 #coding:utf-8
 from django.shortcuts import render
-from wafuli.models import Advertisement_Mobile, Welfare, MAdvert
+from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
+    Coupon
 from wafuli_admin.models import DayStatis
 from datetime import datetime, timedelta, date
 from wafuli_admin.models import GlobalStatis
@@ -12,7 +13,10 @@ from django.views.decorators.debug import sensitive_post_parameters
 import hashlib
 import time
 from app.models import UserToken
+import logging
+from django.views.decorators.csrf import csrf_exempt
 host = 'http://m.wafuli.cn'
+logger = logging.getLogger("wafuli")
 
 def get_news(request):
     timestamp = request.GET.get('lastDate','')
@@ -23,7 +27,7 @@ def get_news(request):
         lastDate = datetime.fromtimestamp(float(timestamp)/1000)
     except:
         lastDate = datetime.now()
-    last_wel_list = Welfare.objects.filter(is_display=True,state='1',startTime__lte=lastDate).\
+    last_wel_list = Welfare.objects.filter(is_display=True,state='1',startTime__lt=lastDate).\
         exclude(type='baoyou').order_by("-startTime")[0:10]
     ret_list = []
     for wel in last_wel_list:
@@ -94,11 +98,11 @@ def get_content_hongbao(request):
         ret_dict['message'] = u"类型错误"
         return JsonResponse(ret_dict)
     wel = wel.hongbao
-#     strategy = wel.strategy.replace('/media/', host + '/media/')
+    strategy = wel.strategy.replace('"/media/', '"' + host + '/media/')
     ret_dict = {
         'code':0,
         'image': host + wel.pic.url,
-        'strategy':wel.strategy,
+        'strategy':strategy,
         'num': wel.view_count,
         'time': wel.time_limit,
         'ismobile': wel.isonMobile,
@@ -137,7 +141,7 @@ def get_content_youhuiquan(request):
         'strategy':strategy,
         'num': wel.left_count,
         'time': wel.time_limit,
-        'url': wel.exp_url if not wel.isonMobile else wel.exp_code.url
+#         'url': wel.exp_url if not wel.isonMobile else wel.exp_code.url
     }
     return JsonResponse(ret_dict)
 
@@ -161,4 +165,41 @@ def login(request, authentication_form=AuthenticationForm):
         else:
             result.update(code=1)
         return JsonResponse(result);
-    
+
+@app_login_required
+@csrf_exempt
+def exp_welfare_youhuiquan(request):
+    user = request.user
+    result = {}
+    wel_id = request.POST.get('id', None)
+    if not wel_id:
+        logger.error("wel_id is missing!!!")
+        result['code'] = 4
+        result['msg'] = u'参数错误！'
+        return JsonResponse(result)
+    wel = CouponProject.objects.get(id=wel_id)
+    if wel.state != '1':
+        result['code'] = 3
+        result['msg'] = u'该活动已结束！'
+        return JsonResponse(result)
+    draw_count = user.user_coupons.filter(project=wel).count()
+    if draw_count >= wel.claim_limit:
+        result['code'] = 2
+        result['msg'] = u'抱歉，您已达到领取次数上限！'
+        return JsonResponse(result)
+    coupon = None
+    if wel.ctype == '2':
+        coupon = Coupon.objects.filter(project=wel,user__isnull=True).first()
+        if coupon is None:
+            result['code'] = 1
+            result['msg'] = u'抱歉，该优惠券已被领取完了'
+            return JsonResponse(result)
+        coupon.user = user
+        coupon.time = datetime.datetime.now()
+        coupon.save(update_fields=['user','time'])
+    else:
+        coupon = Coupon.objects.create(user=user, project=wel)
+    result['code'] = 0
+    result['coupon_id'] = coupon.id
+    return JsonResponse(result)
+

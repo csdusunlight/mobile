@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^recom/$', 'app.views.get_recom', name='app_recom'),
     url(r'^detail/hongbao/$', 'app.views.get_content_hongbao', name='detail_hb'),
     url(r'^detail/youhuiquan/$', 'app.views.get_content_youhuiquan', name='detail_yhq'),
+    url(r'^obtain_youhuiquan/$', 'app.views.exp_welfare_youhuiquan', name='obtain_youhuiquan'),
 ]
