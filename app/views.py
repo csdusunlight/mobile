@@ -1,18 +1,19 @@
 #coding:utf-8
-from django.shortcuts import render
-from wafuli.models import Advertisement_Mobile, Welfare, MAdvert
-from wafuli_admin.models import DayStatis
-from datetime import datetime, timedelta, date
-from wafuli_admin.models import GlobalStatis
+from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
+    Coupon
+from datetime import datetime
 from django.http.response import JsonResponse
-from django.contrib.auth.forms import AuthenticationForm
-from account.models import Userlogin
+from account.models import Userlogin, MyUser
 from .tools import app_login_required
-from django.views.decorators.debug import sensitive_post_parameters
 import hashlib
 import time
-from app.models import UserToken
+from account.models import UserToken
+import logging
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import never_cache
+from django.core.exceptions import ValidationError
 host = 'http://m.wafuli.cn'
+logger = logging.getLogger("wafuli")
 
 def get_news(request):
     timestamp = request.GET.get('lastDate','')
@@ -23,7 +24,7 @@ def get_news(request):
         lastDate = datetime.fromtimestamp(float(timestamp)/1000)
     except:
         lastDate = datetime.now()
-    last_wel_list = Welfare.objects.filter(is_display=True,state='1',startTime__lte=lastDate).\
+    last_wel_list = Welfare.objects.filter(is_display=True,state='1',startTime__lt=lastDate).\
         exclude(type='baoyou').order_by("-startTime")[0:10]
     ret_list = []
     for wel in last_wel_list:
@@ -94,11 +95,11 @@ def get_content_hongbao(request):
         ret_dict['message'] = u"类型错误"
         return JsonResponse(ret_dict)
     wel = wel.hongbao
-#     strategy = wel.strategy.replace('/media/', host + '/media/')
+    strategy = wel.strategy.replace('"/media/', '"' + host + '/media/')
     ret_dict = {
         'code':0,
         'image': host + wel.pic.url,
-        'strategy':wel.strategy,
+        'strategy':strategy,
         'num': wel.view_count,
         'time': wel.time_limit,
         'ismobile': wel.isonMobile,
@@ -137,28 +138,73 @@ def get_content_youhuiquan(request):
         'strategy':strategy,
         'num': wel.left_count,
         'time': wel.time_limit,
-        'url': wel.exp_url if not wel.isonMobile else wel.exp_code.url
+#         'url': wel.exp_url if not wel.isonMobile else wel.exp_code.url
     }
     return JsonResponse(ret_dict)
 
-@sensitive_post_parameters()
-def login(request, authentication_form=AuthenticationForm):
+
+@app_login_required
+@csrf_exempt
+def exp_welfare_youhuiquan(request):
+    user = request.user
+    result = {}
+    wel_id = request.POST.get('id', None)
+    if not wel_id:
+        logger.error("wel_id is missing!!!")
+        result['code'] = 4
+        result['msg'] = u'参数错误！'
+        return JsonResponse(result)
+    wel = CouponProject.objects.get(id=wel_id)
+    if wel.state != '1':
+        result['code'] = 3
+        result['msg'] = u'该活动已结束！'
+        return JsonResponse(result)
+    draw_count = user.user_coupons.filter(project=wel).count()
+    if draw_count >= wel.claim_limit:
+        result['code'] = 2
+        result['msg'] = u'抱歉，您已达到领取次数上限！'
+        return JsonResponse(result)
+    coupon = None
+    if wel.ctype == '2':
+        coupon = Coupon.objects.filter(project=wel,user__isnull=True).first()
+        if coupon is None:
+            result['code'] = 1
+            result['msg'] = u'抱歉，该优惠券已被领取完了'
+            return JsonResponse(result)
+        coupon.user = user
+        coupon.time = datetime.datetime.now()
+        coupon.save(update_fields=['user','time'])
+    else:
+        coupon = Coupon.objects.create(user=user, project=wel)
+    result['code'] = 0
+    result['coupon_id'] = coupon.id
+    return JsonResponse(result)
+
+@never_cache
+@csrf_exempt
+def login(request):
+    """
+    Displays the login form and handles the login action.
+    """
     result = {}
     if request.method == "POST":
-        form = authentication_form(request, data=request.POST)
-        result = {}
-        if form.is_valid():
-            user = form.get_user()           
-            Userlogin.objects.create(user=user,)
-            user.save(update_fields=["last_login_time", "this_login_time"])
-            username = request.POST.get('username')
-            password = request.POST.get('password')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            user = MyUser.objects.get_by_natural_key(username)
+            if not user.check_password(password):
+                raise ValidationError('Password Error!',code='NotPass')
+        except Exception as e:
+            result.update(code=1)
+        else:
             salt = "wafuli20161116"
             expire = int(time.time()*1000) + 2*7*24*60*60*1000
-            token = hashlib.md5(username + password + salt + expire).hexdigest()  
-            UserToken.objects.update_or_create(user=user,defaults={'token':token, 'expire':expire})
+            token = hashlib.md5(str(username) + str(password) + salt + str(expire)).hexdigest()  
+            obj, created = UserToken.objects.update_or_create(user=user,defaults={'token':token, 'expire':expire})
+            logger.info("created"+str(created))
             result.update(code=0, token=token, expire=expire)
-        else:
-            result.update(code=1)
-        return JsonResponse(result);
-    
+            user.last_login_time = user.this_login_time
+            user.this_login_time = datetime.now()
+            Userlogin.objects.create(user=user,)
+            user.save(update_fields=["last_login_time", "this_login_time"])
+        return JsonResponse(result)

@@ -4,7 +4,7 @@ Created on 20160222
 @author: lch
 '''
 from django.conf.urls import url,include
-
+from django.views.generic.base import TemplateView
 # url_about = [
 #     url(r'^aboutus/$', 'wafuli.views.aboutus', name="about"),
 #     url(r'^report/$', 'wafuli.views.report'),
@@ -70,4 +70,5 @@ urlpatterns = [
     
     url(r'^invite_accept/$', 'account.views.invite_accept', name='invite_accept'),
     url(r'^screenshot/$', 'wafuli.views.display_screenshot', name='screenshot'),
+    url(r'^task/introduction/$', TemplateView.as_view(template_name="m_task_introduction.html"),name='task_introduction'),
 ]

@@ -1,0 +1,90 @@
+body {
+	background:
+	 			url(../images/task-process-top.png) top center/100% auto no-repeat,
+	 			url(../images/task-process-bg.jpg) center center/100% auto repeat-y;
+}
+.mui-content {
+	background-color: transparent;
+}
+.mui-action-back {
+	position: absolute;
+	top: 0;
+	padding: 10px;
+}
+.container {
+	margin-top: 16rem;
+	padding-bottom: 30rem;
+}
+.left-position {
+	position: relative;
+	width: 20%;
+	/*height: auto;*/
+}
+.left-step {
+	width: 100%;
+	height: 4rem;
+	background: url(../images/left-step1.png) center center/60% auto no-repeat;
+	position: absolute;
+	right: 1rem;
+	font-size: 1.4rem;
+	color: #fff;
+}
+.left-step-01 {
+	top: -2rem;
+}
+.left-step-02 {
+	background-image: url(../images/left-step2.png);
+	top: 2rem;
+}
+.left-step-03 {
+	background-image: url(../images/left-step3.png);
+	top: 132rem;
+}
+.right-content {
+	position: relative;
+	width: 80%;
+	padding-left: 14px;
+	padding-right: 5%;
+	border-left: 2px solid #fff;
+}
+/*.right-content:before {
+	content: "";
+	display: inline;
+	width: 2px;
+	height: 100rem;
+	background-color: #fff;
+}*/
+.right-content p {
+	position: relative;
+	font-family: "浪漫雅圆";
+	font-size: 1.2rem;
+	line-height: 1.6;
+	color: #fff;
+}
+.right-content p:before{
+	content: "";
+	display: inline-block;
+	position: absolute;
+	top: 0.6rem;
+	left: -20px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #fff;
+}
+.right-content img {
+	margin-top: 1rem;
+	width: 12rem;
+}
+.step {
+	margin-bottom: 1rem;
+}
+.step1 {
+	margin-top: -1rem;
+}
+.step2 {
+	margin-top: 2rem;
+}
+.step6 {
+	margin-bottom: -25rem;
+}

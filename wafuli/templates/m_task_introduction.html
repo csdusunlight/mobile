@@ -1,0 +1,81 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<!-- 优先使用 IE 最新版本和 Chrome -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<!-- 为移动设备添加 viewport -->
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<!-- 添加到主屏后的标题（iOS 6 新增） -->
+		<meta name="apple-mobile-web-app-title" content="">
+		<!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!-- 设置苹果工具栏颜色 -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+		<meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+		<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+		<meta name="format-detection" content="telphone=no, email=no" />
+		<!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<title></title>
+
+		<link href="{%static 'css/mui.min.css' %}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{%static 'css/m_task_introduction.css' %}" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<div class="container clearfix">
+				<div class="left-position fl">
+					<div class="left-step left-step-01"></div>
+					<div class="left-step left-step-02"></div>
+					<div class="left-step left-step-03"></div>
+				</div>
+				<div class="right-content fr">
+					<div class="step step1">
+						<p>注册即送<numver>200</numver>福币</p>
+					</div>
+					<div class="step step2">
+						<p>点击“体验福利”，进入到体验福利专区</p>
+						<img src="{%static 'images/task-jietu_01.png' %}" alt="体验福利截图" />
+					</div>
+					<div class="step step3">
+						<p>体验专区分为新手入门、进阶体验、以及高手专区等三个部分，选择相应的产品，凑成<number>300</number>福币</p>
+						<img src="{%static 'images/task-jietu_02.png' %}" alt="体验福利截图" />
+					</div>
+					<div class="step step4">
+						<p>进入产品内容页，了解产品的奖励规则、体验步骤以温馨提示后，点击底部的“立即体验”，即可进行产品体验</p>
+						<img src="{%static 'images/task-jietu_03.png' %}" alt="体验福利截图" />
+					</div>
+					<div class="step step5">
+						<p>在体验过程中，截取好相应的图片，回到该页面，点击底部“任务提交”，上传相应的产品体验截图，等待审核，审核完成后，发放相应的福币奖励</p>
+						<img src="{%static 'images/task-jietu_04.png' %}" alt="体验福利截图" />
+					</div>
+					<div class="step step6">
+						<p>赚取更多福币：
+							<span><br />1、注册挖福利网站，送200福币
+								<br />2、在体验福利、理财福利专区，可获取相应数量的福币
+								<br />3、积分抽奖，可获得200、80等不同数量的福币
+								<br />4、在挖福利订阅号留言，留言中奖者可获得518福币
+								<br />5、推荐的好友提现时，可获得好友提现金额的5%*100的福币
+								<br />例：甲的好友乙提现100元，则甲获得的福币数为 100*5%*100=500
+								<br />6、在挖福利平台提交免费福利，通过审核后，方可获得300福币</span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+	</body>
+
+</html>

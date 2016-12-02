@@ -183,7 +183,11 @@
 										var li = document.createElement('li');
 										li.className = 'mui-table-view-cell';
 										str_html = '<a class="clearfix" href="' + wel.url + '"><div class="img-box"><img src="'+
-					                    	wel.picurl + '" /></div><p class="info-right"><span>';
+					                    	wel.picurl + '" /></div><p class="info-right';
+										if (wel.state=='2'){
+					                    	str_html += ' task-end';
+					                    }
+					                    str_html += '"><span>';
 					                    if(wel.money>0)
 					                    	str_html += '<b>+<number>' + wel.money + '</number>福币</b>';
 					                    if(wel.score>0)
@@ -191,7 +195,7 @@
 					                    str_html += '</span></p><div class="info-middle">'+
 					                    	'<h6>' + wel.title + '</h6>';
 					                    if (wel.state=='2'){
-					                    	str_html += '<p>已结束</p>';
+					                    	str_html += '<p>抢光啦</p>';
 					                    }
 					                    else{
 					                    	str_html += '<p>剩&nbsp;<number>'+wel.num+'</number>&nbsp;份</p>';
