@@ -6,7 +6,7 @@ Created on 20161116
 '''
 import functools
 import time
-from app.models import UserToken
+from account.models import UserToken
 from django.http.response import JsonResponse
 from account.models import MyUser
 def app_login_required(view):

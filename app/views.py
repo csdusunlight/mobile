@@ -1,20 +1,17 @@
 #coding:utf-8
-from django.shortcuts import render
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
     Coupon
-from wafuli_admin.models import DayStatis
-from datetime import datetime, timedelta, date
-from wafuli_admin.models import GlobalStatis
+from datetime import datetime
 from django.http.response import JsonResponse
-from django.contrib.auth.forms import AuthenticationForm
-from account.models import Userlogin
+from account.models import Userlogin, MyUser
 from .tools import app_login_required
-from django.views.decorators.debug import sensitive_post_parameters
 import hashlib
 import time
-from app.models import UserToken
+from account.models import UserToken
 import logging
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import never_cache
+from django.core.exceptions import ValidationError
 host = 'http://m.wafuli.cn'
 logger = logging.getLogger("wafuli")
 
@@ -145,26 +142,6 @@ def get_content_youhuiquan(request):
     }
     return JsonResponse(ret_dict)
 
-@sensitive_post_parameters()
-def login(request, authentication_form=AuthenticationForm):
-    result = {}
-    if request.method == "POST":
-        form = authentication_form(request, data=request.POST)
-        result = {}
-        if form.is_valid():
-            user = form.get_user()           
-            Userlogin.objects.create(user=user,)
-            user.save(update_fields=["last_login_time", "this_login_time"])
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            salt = "wafuli20161116"
-            expire = int(time.time()*1000) + 2*7*24*60*60*1000
-            token = hashlib.md5(username + password + salt + expire).hexdigest()  
-            UserToken.objects.update_or_create(user=user,defaults={'token':token, 'expire':expire})
-            result.update(code=0, token=token, expire=expire)
-        else:
-            result.update(code=1)
-        return JsonResponse(result);
 
 @app_login_required
 @csrf_exempt
@@ -203,3 +180,31 @@ def exp_welfare_youhuiquan(request):
     result['coupon_id'] = coupon.id
     return JsonResponse(result)
 
+@never_cache
+@csrf_exempt
+def login(request):
+    """
+    Displays the login form and handles the login action.
+    """
+    result = {}
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            user = MyUser.objects.get_by_natural_key(username)
+            if not user.check_password(password):
+                raise ValidationError('Password Error!',code='NotPass')
+        except Exception as e:
+            result.update(code=1)
+        else:
+            salt = "wafuli20161116"
+            expire = int(time.time()*1000) + 2*7*24*60*60*1000
+            token = hashlib.md5(str(username) + str(password) + salt + str(expire)).hexdigest()  
+            obj, created = UserToken.objects.update_or_create(user=user,defaults={'token':token, 'expire':expire})
+            logger.info("created"+str(created))
+            result.update(code=0, token=token, expire=expire)
+            user.last_login_time = user.this_login_time
+            user.this_login_time = datetime.now()
+            Userlogin.objects.create(user=user,)
+            user.save(update_fields=["last_login_time", "this_login_time"])
+        return JsonResponse(result)
