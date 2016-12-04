@@ -97,7 +97,7 @@ def exp_welfare_erweima(request):
         logger.error(str(model) + ":" + str(wel.id) + " is not onMobile wel !!!")
         raise Http404
     result['code'] = '1'
-    if wel_type == "Task":
+    if wel_type == "Task" and not wel.is_forbidden:
         obj, created = UserTask.objects.get_or_create(user=request.user, task=wel)
         if created:
             if wel.left_num <=1:
@@ -117,7 +117,7 @@ def exp_welfare_openwindow(request):
     wel_type = str(wel_type)
     model = globals()[wel_type]
     wel = model.objects.get(id=wel_id)
-    if wel_type == "Task":
+    if wel_type == "Task" and not wel.is_forbidden:
         obj, created = UserTask.objects.get_or_create(user=request.user, task=wel)
         if created:
             if wel.left_num <=1:
@@ -261,7 +261,8 @@ def task_json(request):
             'money':wel.moneyToAdd,
             'score':wel.scoreToAdd,
             'num':wel.left_num,
-            'state':wel.state
+            'state':wel.state,
+            'is_forbidden':wel.is_forbidden
             })
     return JsonResponse(data,safe=False)
             

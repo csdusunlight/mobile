@@ -191,6 +191,7 @@ class Coupon(models.Model):
         return endTime < today
 class Task(News):
     type = models.CharField(max_length=10, choices=TASK_TYPE, verbose_name=u"任务类型")
+    is_forbidden = models.BooleanField(u"禁止用户领取（暂停任务）", default=False)
     left_num = models.IntegerField(u"剩余数量")
     moneyToAdd = models.IntegerField(u"奖励福币")
     scoreToAdd = models.IntegerField(u"奖励积分",default=0)

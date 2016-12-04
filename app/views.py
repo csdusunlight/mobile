@@ -138,7 +138,8 @@ def get_content_youhuiquan(request):
         'strategy':strategy,
         'num': wel.left_count,
         'time': wel.time_limit,
-#         'url': wel.exp_url if not wel.isonMobile else wel.exp_code.url
+        'url': wel.exp_url,
+        'title':wel.title,
     }
     return JsonResponse(ret_dict)
 
@@ -172,12 +173,13 @@ def exp_welfare_youhuiquan(request):
             result['msg'] = u'抱歉，该优惠券已被领取完了'
             return JsonResponse(result)
         coupon.user = user
-        coupon.time = datetime.datetime.now()
+        coupon.time = datetime.now()
         coupon.save(update_fields=['user','time'])
     else:
         coupon = Coupon.objects.create(user=user, project=wel)
     result['code'] = 0
     result['coupon_id'] = coupon.id
+    result['exchange_code'] = coupon.exchange_code
     return JsonResponse(result)
 
 @never_cache
@@ -199,9 +201,9 @@ def login(request):
         else:
             salt = "wafuli20161116"
             expire = int(time.time()*1000) + 2*7*24*60*60*1000
-            token = hashlib.md5(str(username) + str(password) + salt + str(expire)).hexdigest()  
-            obj, created = UserToken.objects.update_or_create(user=user,defaults={'token':token, 'expire':expire})
-            logger.info("created"+str(created))
+            token = hashlib.md5(str(username) + str(password) + salt + str(expire)).hexdigest()
+            UserToken.objects.filter(user=user).delete()
+            UserToken.objects.create(user=user,token=token,expire=expire)
             result.update(code=0, token=token, expire=expire)
             user.last_login_time = user.this_login_time
             user.this_login_time = datetime.now()

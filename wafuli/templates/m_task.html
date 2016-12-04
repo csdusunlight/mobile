@@ -197,6 +197,9 @@
 					                    if (wel.state=='2'){
 					                    	str_html += '<p>抢光啦</p>';
 					                    }
+					                    else if(wel.is_forbidden){
+					                    	str_html += '<p>已暂停（数据审核中...）</p>'
+					                    }
 					                    else{
 					                    	str_html += '<p>剩&nbsp;<number>'+wel.num+'</number>&nbsp;份</p>';
 					                    }

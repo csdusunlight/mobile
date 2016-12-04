@@ -155,4 +155,4 @@ class AdminPermission(models.Model):
 class UserToken(models.Model):
     token = models.CharField("token", max_length=32, primary_key=True)
     user = models.ForeignKey(MyUser,related_name = 'tokens',)
-    expire = models.IntegerField(u"expire_time")
+    expire = models.BigIntegerField(u"expire_time")

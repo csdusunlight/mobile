@@ -28,7 +28,7 @@ def app_login_required(view):
             except:
                 ret.update(code=-2,msg='Invalid Token')
             else:
-                ret = view(request)
+                return view(request)
         return JsonResponse(ret)
     return decorator
 
