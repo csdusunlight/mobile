@@ -530,7 +530,9 @@
 
 
 /*公共样式*/
-
+* {
+  -webkit-user-select: auto;
+}
 html,
 body,
 div,
