@@ -249,7 +249,7 @@ def task_json(request):
         item_list = item_list.filter(type="middle")
     elif type == '3':
         item_list = item_list.filter(type="senior")
-    item_list = item_list.order_by("state","-pub_date")[start:start+6]
+    item_list = item_list.order_by("state","is_forbidden","-pub_date")[start:start+6]
     for wel in item_list:
         data.append({
             "title":wel.title,

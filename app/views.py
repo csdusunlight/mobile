@@ -46,7 +46,11 @@ def get_news(request):
         ret_list.append(attr_dic)
     return JsonResponse({'code':0,'data':ret_list})
 def get_slider(request):
-    adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','1'],is_hidden=False)[0:5])
+    type = request.GET.get("type","index")
+    if type=="task":
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','3'],is_hidden=False)[0:5])
+    else:
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','1'],is_hidden=False)[0:5])
     ret_list = []
     for adv in adv_list:
         attr_dic = {
