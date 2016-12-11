@@ -9,6 +9,8 @@ import time
 from account.models import UserToken
 from django.http.response import JsonResponse
 from account.models import MyUser
+
+
 def app_login_required(view):
     @functools.wraps(view)
     def decorator(request):
