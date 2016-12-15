@@ -46,7 +46,13 @@ def get_news(request):
         ret_list.append(attr_dic)
     return JsonResponse({'code':0,'data':ret_list})
 def get_slider(request):
-    adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','1'],is_hidden=False)[0:5])
+    type = request.GET.get("type","index")
+    if type=="task":
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','3'],is_hidden=False)[0:5])
+    elif type=="finance":
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','4'],is_hidden=False)[0:5])
+    else:
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','1'],is_hidden=False)[0:5])
     ret_list = []
     for adv in adv_list:
         attr_dic = {
@@ -210,3 +216,12 @@ def login(request):
             Userlogin.objects.create(user=user,)
             user.save(update_fields=["last_login_time", "this_login_time"])
         return JsonResponse(result)
+
+
+@app_login_required
+@csrf_exempt
+def get_user_info(request):
+    user = request.user
+    result = {'code':0, 'accu_income':user.accu_income, 'balance':user.balance, 
+              'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores}
+    return JsonResponse(result)
