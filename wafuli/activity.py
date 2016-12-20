@@ -217,3 +217,6 @@ def get_lottery(request):
             translist.save(update_fields=['user_event'])
     return JsonResponse(result)
 
+
+def Christmas(request):
+    return render(request,'m_activity_Christmas.html')

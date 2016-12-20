@@ -1,0 +1,111 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>喜迎双旦</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+		<link rel="stylesheet" href="{% static 'css/m_common.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/m_activity_Christmas.css' %}" />
+	</head>
+
+	<body>		
+		<div id="article">
+			<div class="page section1 current">
+				<div class="contain">	
+					<h1>喜迎双旦</h1>
+					<div class="title-after"></div>
+					<h3>土豪老板要任性</h4>
+					<!--<p>双旦同庆，挖福利小编教你怎么坑土豪老板！签到抢红包！做任务拿现金！邀请好友一起赚！还有终极大奖等你拿。888现金？苹果7？拭目以待吧！</p>-->
+				</div>
+			</div>
+			<div class="page section2">
+				<div class="contain">
+					<h2>签到<span>送现金</span></h2>
+					<h4>94这么任性!</h4>
+					<p class="first-text">每天登录签到，</p>
+					<p class="center-text">即可<span class="mark-red">获积分</span>！</p>
+					<p class="bottom-text">不够？加送<span class="mark-red">现金红包</span>！</p>
+					<a class="mark-red" href="#">点击签到>></a>
+				</div>
+			</div>
+			<div class="page section3">
+				<div class="contain">
+					<h2>体验<span>赚现金</span></h2>
+					<h4>感觉能赚一个亿</h4>
+					<p class="first-text">完成指定福利，</p>
+					<p class="center-text">得<span class="mark-red">奖励</span>的同时，</p>
+					<p class="bottom-text">还能<span class="mark-red">抢红包</span>！</p>
+					<a class="mark-red" href="#">点我体验>></a>
+				</div>
+			</div>
+			<div class="page section4">
+				<div class="contain">
+					<h2>有钱<span>一起赚</span></h2>
+					<h4>朋友多了钱好赚</h4>
+					<p class="first-text">拉上好友注册，</p>
+					<p class="center-text">不仅赚<span class="mark-yellow">积分</span>,</p>
+					<p class="bottom-text">还能<span class="mark-yellow">赚大钱</span>！</p>
+					<a class="mark-yellow" href="#">点我赚大钱>></a>
+				</div>				
+			</div>
+			<div class="page section5">
+				<div class="contain">
+					<h2>好友<span>大比拼</span></h2>
+					<h4>拼人品的时候到了</h4>
+					<p class="first-text">好友完成任务，你拿<span class="mark-yellow">佣金</span>！</p>
+					<p class="center-text">好友提现总计排名前三，</p>
+					<p class="bottom-text"><span class="mark-yellow">苹果7？现金？</span>随你拿！</p>
+					<a class="mark-yellow" href="#">查看人品>></a>
+				</div>
+			</div>
+			<div class="page section6">
+				<div class="contain">
+					<h2>福利<span>齐分享</span></h2>
+					<h4>分享就有现金拿</h4>
+					<p class="first-text">若你也有免费福利，</p>
+					<p class="center-text">记得分享给我们，</p>
+					<p class="bottom-text">“暴走”<span class="mark-yellow">积分&现金</span>！</p>
+					<a class="mark-yellow" href="#">点我分享>></a>
+				</div>
+			</div>
+		</div>
+		<ul id="navBar">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/fullPage.min.js' %}"></script>
+		<script type="text/javascript">
+			var runPage;
+
+			runSection = new FullPage({
+
+				id: 'article', // id of contain
+				slideTime: 800, // time of slide
+				effect: { // slide effect
+					transform: {
+						translate: 'Y', // 'X'|'Y'|'XY'|'none'
+						scale: [0, 1], // [scalefrom, scaleto]
+						rotate: [0, 0] // [rotatefrom, rotateto]
+					},
+					opacity: [0, 1] // [opacityfrom, opacityto]
+				},
+				mode: 'touch,wheel,nav:navBar', // mode of fullpage
+				easing: [0, .93, .39, .98],
+			});
+		</script>
+		<script type="text/javascript">
+		mui.init({
+					swipeBack:true //启用右滑关闭功能
+				});
+
+		</script>
+	</body>
+</html>

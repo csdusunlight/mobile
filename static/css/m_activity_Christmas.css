@@ -1,0 +1,446 @@
+@font-face {
+	font-family: "浪漫雅圆";
+	src: url('../fonts/浪漫雅圆.eot');
+	/* IE9*/
+	src: url('../fonts/浪漫雅圆.eot') format('embedded-opentype'), /* IE6-IE8 */
+	url('../fonts/浪漫雅圆.woff') format('woff'), /* chrome, firefox */
+	url('../fonts/浪漫雅圆.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+	url('../fonts/浪漫雅圆.svg') format('svg');
+	/* iOS 4.1- */
+}
+
+@font-face {
+	font-family: "迷你简汉真广标";
+	src: url('../fonts/迷你简汉真广标.eot');
+	/* IE9*/
+	src: url('../fonts/迷你简汉真广标.eot') format('embedded-opentype'), /* IE6-IE8 */
+	url('../fonts/迷你简汉真广标.woff') format('woff'), /* chrome, firefox */
+	url('../fonts/迷你简汉真广标.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+	url('../fonts/迷你简汉真广标.svg') format('svg');
+	/* iOS 4.1- */
+}
+
+body {
+	width: 100%;
+	*cursor: default;
+	overflow: hidden;
+}
+
+#pageContain {
+	overflow: hidden;
+}
+
+.page {
+	box-shadow: 1px 1px 4px 0 #000;
+	display: none;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.contain {
+	width: 100%;
+	height: 100%;
+	display: none;
+	position: relative;
+	z-index: 0;
+}
+
+.current .contain,
+.slide .contain {
+	display: block;
+}
+
+.current {
+	display: block;
+	z-index: 1;
+}
+
+.slide {
+	display: block;
+	z-index: 2;
+}
+
+.swipe {
+	display: block;
+	z-index: 3;
+	transition-duration: 0ms !important;
+	-webkit-transition-duration: 0ms !important;
+}
+
+#navBar {
+	position: absolute;
+	width: 20px;
+	right: 5%;
+	;
+	top: 40%;
+	*padding-left: 80px;
+	font-size: 0px;
+	line-height: 0;
+	text-align: center;
+	z-index: 3;
+}
+
+#navBar .active {
+	background: #ccc;
+}
+
+#navBar li {
+	border: 1px solid #ccc;
+	font-size: 0px;
+	margin: 4px 4px;
+	cursor: pointer;
+	transition: all .7s ease;
+	border-radius: 50%;
+	line-height: 10px;
+	text-align: center;
+	width: 10px;
+	height: 10px;
+}
+
+.nav {
+	z-index: 5;
+	position: fixed;
+	_position: absolute;
+	box-shadow: 0 2px 10px 0px #000;
+	background: #fff;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+}
+
+
+/*页面元素*/
+.section1 .contain h1 {
+	padding-top: 23rem;
+	margin: 0 0 0.2rem -3.6rem;
+	font-size: 5rem;
+	font-family: "迷你简汉真广标";
+	color: #fd0300;
+	text-align: center;
+	animation: toBottom 1s ease-in-out;
+}
+
+.section1 .contain .title-after {
+	position: relative;
+	width: 100%;
+	height: 10rem;
+	background: url(../images/act-task-bg-hb.png) 82% center/auto 100% no-repeat;
+	z-index: 2;
+	animation: toBottom 1s ease-in-out;
+}
+
+.section1 .contain h3 {
+	margin-top: -2.2rem;
+	font-size: 2.6rem;
+	font-family: "迷你简汉真广标";
+	color: #f0cf06;
+	text-align: center;
+	animation: toTop 1s ease-in-out;
+}
+
+.contain h2 {
+	margin: 0 auto;
+	padding-top: 2.8rem;
+	width: 90%;
+	font-family: "迷你简汉真广标";
+	font-size: 4.4rem;
+	text-align: center;
+	color: #fff;
+	text-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
+	transform: skewY(-5deg);
+	animation: textLeft 1s ease-in-out;
+}
+
+.contain h2 span {
+	font-size: 5.6rem;
+}
+
+.contain h4 {
+	margin: 1rem auto 0;
+	width: 80%;
+	font-family: "迷你简汉真广标";
+	font-size: 2.4rem;
+	text-align: right;
+	color: #fff;
+	text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+	transform: skewY(-5deg);
+	animation: textRight 1.4s ease-in-out;
+}
+
+.section2 .contain h4 {
+	letter-spacing: 0.4rem;
+}
+
+.section5 .contain h4 {
+	font-size: 2.1rem;
+}
+
+.contain p {
+	font-family: "浪漫雅圆";
+	font-size: 1.6rem;
+	line-height: 1.8;
+	color: #fff;
+	text-align: center;
+}
+
+.contain p.first-text {
+	margin: 96% auto 0;
+	text-align: center;
+	animation: textRight 1s ease-in-out 0.6s;
+	animation-fill-mode: both;
+}
+
+p.center-text {
+	animation: textRight 1s ease-in-out 1s;
+	animation-fill-mode: both;
+}
+
+p.bottom-text {
+	animation: textRight 1s ease-in-out 1.4s;
+	animation-fill-mode: both;
+}
+
+.contain>a {
+	display: block;
+	font-family: "浪漫雅圆";
+	margin-top: 1.4rem;
+	font-size: 1.8rem;
+	text-align: center;
+	transform-origin: right center;
+	animation: textLeft 1s ease-in-out 2s;
+	animation-fill-mode: both;
+}
+
+.contain .mark-red {
+	color: #fa1407;
+}
+
+.contain .mark-yellow {
+	color: #fafa02;
+}
+
+@-webkit-keyframes text {
+	0% {
+		transform: translateX(-500px) scaleX(1) scaleY(1);
+		opacity: 0;
+	}
+	60% {
+		transform: translateX(0) scaleX(0.6) scaleY(1.4);
+		opacity: 1;
+	}
+	80% {
+		transform: scaleX(1.2) scaleY(0.8);
+		opacity: 1;
+	}
+	100% {
+		transform: scaleX(1) scaleY(1);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes textLeft {
+	0% {
+		transform: translateX(-500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes textRight {
+	0% {
+		transform: translateX(500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes toBottom {
+	0% {
+		transform: translateY(-500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes toTop {
+	0% {
+		transform: translateY(500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+
+/*头部页面*/
+
+@-webkit-keyframes fromTop {
+	0% {
+		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 30% -60%/60% auto no-repeat;
+		background-color: #fff;
+	}
+	100% {
+		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 30% 6%/60% auto no-repeat;
+		background-color: #fff;
+	}
+}
+
+.section1 .contain {
+	background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 30% 6%/60% auto no-repeat;
+	background-color: #fff;
+	animation: fromTop 2s ease-in-out 1s;
+	animation-fill-mode: both;
+}
+
+.section2 .contain {
+	background: url(../images/act-center-01.png) 80% 50%/auto 50% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background-color: #f3c82c;
+}
+
+.section3 .contain {
+	background: url(../images/act-center-03.png) center 46%/auto 50% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background-color: #ff9024;
+}
+
+.section4 .contain {
+	background: url(../images/act-center-04.png) center 46%/auto 44% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background-color: #ff596d;
+}
+
+.section5 .contain {
+	background: url(../images/act-center-05.png) center 46%/auto 44% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background-color: #dd903e;
+}
+
+.section6 .contain {
+	background: url(../images/act-center-02.png) center 46%/auto 42% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background-color: #e64c42;
+}
+
+
+/*红包部分*/
+
+.hongbao {
+	/*display: none;*/
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+}
+
+.hongbao .img-box {
+	display: block;
+	padding-top: 14rem;
+	margin: 30% auto;
+	width: 20rem;
+	height: 30rem;
+	background: url(../images/act-hongbao.png) center bottom/100% auto no-repeat;
+	animation: hongbao 1s ease-in-out;
+}
+
+.img-box .open {
+	width: 6rem;
+	height: 6rem;
+	margin: 0 auto;
+	color: red;
+	background: url(../images/act-open.png) center center/100% auto no-repeat;
+}
+
+.hongbao-open {
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+}
+
+.hongbao-open .img-box-open {
+	display: block;
+	width: 20rem;
+	height: 30rem;
+	margin: 30% auto;
+	border: 1px solid transparent;
+	background: url(../images/act-hongbao-open.png) center bottom/100% auto no-repeat;
+	z-index: 1000;
+	animation: hongbao-open 1.2s ease-in-out;
+}
+
+.img-box-open button {
+	display: none;
+	padding: 0;
+	margin: 6rem auto 0;
+	width: 40%;
+	height: 10%;
+	animation: close-btn 2s ease-in;
+}
+
+.img-box-open p {
+	margin-top: 17rem;
+	font-size: 2rem;
+	font-weight: bold;
+	color: #ffb403;
+	text-align: center;
+	animation: close-btn 2s ease-in;
+}
+
+@-webkit-keyframes hongbao {
+	0% {
+		transform: scale(0);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes close-btn {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes hongbao-open {
+	0% {
+		background-image: url(../images/act-hongbao.png);
+		transform: scaleX(-1) scaleY(1);
+		opacity: 1;
+	}
+	40% {
+		background-image: url(../images/act-hongbao.png);
+		transform: scaleX(0.6) scaleY(0.6);
+	}
+	60% {
+		background-image: url(../images/act-hongbao-open.png);
+		transform: scaleX(-0.6) scaleY(0.6);
+	}
+	100% {
+		transform: scaleX(1) scaleY(1);
+		opacity: 1;
+	}
+}
