@@ -1,6 +1,6 @@
 .mui-content {
 	/*padding: 0 1.875% 2rem;*/
-	
+
 }
 /*帐号部分*/
 .zhanghu {
@@ -49,18 +49,16 @@
 	right: 1.875%;
 }
 .mui-input-row {
-	margin-top: 1rem;	
+	margin-top: 1rem;
 	height: 8rem !important;
 }
 .mui-input-group .mui-input-row:after {
-	height: 0 ;	
+	height: 0 ;
 }
 .mui-input-row label {
-	height: 8rem !important;
-	line-height: 8rem;
-	padding-top: 0;
-	font-size: 6rem;
-	color: #222;
+	height: 95px;
+	width: 95px;
+	background: url(../images/fubi.png) center center/60% auto no-repeat;
 }
 .mui-input-row input {
 	height: 8rem !important;
