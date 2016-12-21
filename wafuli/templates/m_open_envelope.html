@@ -1,0 +1,117 @@
+{%load staticfiles%}
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<!-- 优先使用 IE 最新版本和 Chrome -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<!-- 为移动设备添加 viewport -->
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<!-- 添加到主屏后的标题（iOS 6 新增） -->
+		<meta name="apple-mobile-web-app-title" content="">
+		<!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!-- 设置苹果工具栏颜色 -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+		<meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+		<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+		<meta name="format-detection" content="telphone=no, email=no" />
+		<!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<title>拆红包</title>
+		<link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/m_open_envelope.css' %}" />
+
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">拆红包</h1>
+			<!--<a class="mui-icon mui-icon-paperplane mui-pull-right"></a>-->
+		</header>
+		<div class="mui-content">
+			<div id="hongbao" class="hongbao">
+				<!--这里的“hongbao”class应该调用openHongbao()动态添加-->
+				<div id="img_box" class="img-box">
+					<!--<div id="open" class="open"></div>-->
+					<p class="hb-amount">您有&nbsp;
+						<number id="left_num">{{left_num}}</number>&nbsp;个红包可拆</p>
+					<div id="hb_btn" class="hb-btn"></div>
+					<a class="hb-more" href="/activity/Christmas/">去拆更多红包>></a>
+				</div>
+			</div>
+		</div>
+		<div id="hongbao_open" class="hongbao-open">
+			<div class="hb-open-box">
+				<div class="hb-container">
+					<p class="congra">恭喜您获得：</p>
+					<p class="fubi-amount">
+						<number id="envelope_amount">500</number>福币</p>
+					<button id="continue_btn" type="button" class="continue mui-btn mui-btn-block mui-btn-yellow">再拆一个</button>
+					<a href="福币管理页面" class="fubi-msg">查看我的红包记录>></a>
+					<span id="close_btn" class="mui-icon mui-icon-closeempty close"></span>
+				</div>
+
+			</div>
+		</div>
+		</div>
+		</div>
+
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var hongbao = document.getElementById("hongbao"),
+				hb_btn = document.getElementById("hb_btn"),
+				hongbao_open = document.getElementById("hongbao_open"),
+				close_btn = document.getElementById("close_btn"),
+				continue_btn = document.getElementById("continue_btn"),
+				envelope_amount = document.getElementById("envelope_amount"),
+				left_num = {{left_num}};
+			
+			hb_btn.addEventListener("tap", function() {
+				openHongbao();
+			});
+			continue_btn.addEventListener("tap", function() {
+				hongbao_open.style.display = "none";
+				openHongbao();
+			});
+			close_btn.addEventListener("tap", function() {
+				hongbao_open.style.display = "none";
+				hongbao.style.display = "block";
+			})
+//			当用户没有红包次数的情况下调用该函数
+			function openHongbao() {
+				mui.ajax({
+					url:"/activity/Christmas/open_envelope/",
+					type:'get',
+					dataType:"json",
+					success:function(ret){
+						if (ret.code==0){
+							envelope_amount.innerText = ret.amount;
+							hongbao.style.display = "none";
+							hongbao_open.style.display = "block";
+							left_num--;
+							document.getElementById("left_num").innerText = left_num;
+						}
+						else{
+							mui.alert('亲，没有更多红包可领啦！赶快去完成任务赚取更多红包吧！','温馨提示','确定');
+							hongbao.style.display = "block";
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						alert(type);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

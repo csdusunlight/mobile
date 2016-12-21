@@ -40,6 +40,7 @@ from django.db import connection
 import logging
 from urllib import urlencode
 from wafuli.tools import get_weixin_params
+from wafuli.Christmas import produce
 logger = logging.getLogger('wafuli')
 
 def user_guide(request):
@@ -399,6 +400,7 @@ def signin(request):
     ref_url = request.META.get('HTTP_REFERER',"")
     if 'next=' in ref_url:
         context.update({'back':True})
+    produce(user,1)
     return render(request, 'account/m_signin.html',context)
 def signin_record(request):
     if not request.is_ajax():

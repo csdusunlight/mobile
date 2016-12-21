@@ -18,6 +18,8 @@ from account.transaction import charge_score, charge_money
 from wafuli.data import AwardTable
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from wafuli.Christmas import consume
+from account.models import User_Envelope
 logger = logging.getLogger('wafuli')
 
 
@@ -220,3 +222,20 @@ def get_lottery(request):
 
 def Christmas(request):
     return render(request,'m_activity_Christmas.html')
+#拆随机红包
+@login_required
+def open_envelope(request):
+    user = request.user
+    if not request.is_ajax():
+        obj,created = User_Envelope.objects.get_or_create(user=user)
+        return render(request,'m_open_envelope.html',{'left_num':obj.envelope_left})
+    else:
+        result = {}
+        ret = consume(user)
+        if ret < 0:
+            result['code'] = 1
+            result['msg'] = u"没有红包了，快去抢吧！"
+        else:
+            result['code'] = 0
+            result['amount'] = ret
+        return JsonResponse(result)

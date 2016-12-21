@@ -3,7 +3,7 @@ from .models import MyUser
 from .forms import MyUserChangeForm, MyUserCreationForm
 from django.contrib.auth.admin import UserAdmin
 from account.models import UserSignIn, Userlogin, Access_Token, MobileCode,\
-    AdminPermission
+    AdminPermission, User_Envelope
 # Register your models here.
 class MyUserAdmin(UserAdmin):
 # The forms to add and change user instances
@@ -37,3 +37,4 @@ admin.site.register(Userlogin)
 admin.site.register(Access_Token)
 admin.site.register(MobileCode)
 admin.site.register(AdminPermission)
+admin.site.register(User_Envelope)

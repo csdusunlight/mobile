@@ -73,5 +73,5 @@ urlpatterns = [
     url(r'^task/introduction/$', TemplateView.as_view(template_name="m_task_introduction.html"),name='task_introduction'),
     
     url(r'^activity/Christmas/$', 'wafuli.activity.Christmas', name='activity_Christmas'),
-#     url(r'^activity/Christmas/coupon/$', 'wafuli.activity.Christmas_coupon', name='Christmas_coupon'),
+    url(r'^activity/Christmas/open_envelope/$', 'wafuli.activity.open_envelope', name='Christmas_open_envelope'),
 ]

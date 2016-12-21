@@ -15,6 +15,7 @@ from wafuli_admin.models import DayStatis
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import logout as auth_logout
+from wafuli.Christmas import produce
 # Create your views here.
 logger = logging.getLogger('wafuli')
 def index(request):
@@ -286,6 +287,7 @@ def admin_task(request):
                     scoretranslist.user_event = event
                     scoretranslist.save(update_fields=['user_event'])
                     res['code'] = 0
+                    produce(event_user,2)
                 else:
                     res['code'] = -4
                     res['res_msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
@@ -752,7 +754,7 @@ def admin_withdraw(request):
             event.audit_state = '0'
             log.audit_result = True
             res['code'] = 0
-            #用户提现成功，立即发放邀请人100积分奖励   
+            #用户首次提现成功，立即发放邀请人100积分和三个随机红包奖励
             inviter = event.user.inviter
             if inviter:
                 if not UserEvent.objects.filter(user=event.user, event_type='2', audit_state='0').exists():
@@ -767,6 +769,7 @@ def admin_withdraw(request):
                         translist.save(update_fields=['user_event','admin_event'])
                     else:
                         logger.debug('Inviting Award scores is failed to pay!!!')
+                    produce(inviter, 4)
             trans_withdraw = event.translist.first()
             if trans_withdraw:
                 trans_withdraw.admin_event = admin_event
