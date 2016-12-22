@@ -173,9 +173,7 @@ header a img {
 }
 
 .mui-table-view-cell {
-	/*padding: 1rem 0 1rem 1.2rem;*/
 	padding: 0;
-	/*margin-top: 1px;*/
 }
 
 .mui-table-view-cell>a:not(.mui-btn) {
@@ -184,7 +182,6 @@ header a img {
 }
 .mui-table-view-cell img {
 	float: left;
-	/*margin-right: 6.5%;*/
 	width: 13rem !important;
 	max-height: 7.5rem;
 	border-radius: 4px;
@@ -219,7 +216,6 @@ h6 + .iconfont {
 }
 .li-info p.first span {
 	height: 1.2rem;
-	/*padding-left: 0;*/
 	display: inline-block;
 	padding: 0 4px;
 	color: #ff6767;
@@ -346,7 +342,6 @@ footer li.on span {
 	display: none;
 	position: fixed;
 	width: 90% !important;
-	/*height: 40rem;*/
 	padding: 10% 0;
 	top: 15%;
 	margin-left: 5%;
@@ -357,7 +352,6 @@ footer li.on span {
 .weixin-box-01 {
 	position: fixed;
 	width: 90% !important;
-	/*height: 40rem;*/
 	padding: 10% 0;
 	top: 15%;
 	margin-left: 5%;
