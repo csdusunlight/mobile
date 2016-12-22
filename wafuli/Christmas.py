@@ -23,8 +23,9 @@ def consume(user):
             return -2
         obj.envelope_left = F('envelope_left') - 1
         obj.envelope_used = F('envelope_used') + 1
-        obj.save(update_fields=['envelope_left','envelope_used'])
-        amount = random.randint(1,100)
+        amount = random.randint(1,20)
+        obj.accu_fubi = F('accu_fubi') + amount
+        obj.save()
         event = UserEvent.objects.create(user=user, event_type='8', audit_state='1',invest_amount=amount)
         translist = charge_money(user, '0', amount, u'节日红包')
         if not translist:

@@ -869,7 +869,7 @@ def get_admin_with_page(request):
         obj_user = con.user
         i = {"username":obj_user.username,
              "mobile":obj_user.mobile,
-             "balance":obj_user.balance,
+             "balance":obj_user.balance/100.0,
              "zhifubao_name":obj_user.zhifubao_name,
              "zhifubao":obj_user.zhifubao,
              "amount":con.invest_amount/100.0,

@@ -396,11 +396,11 @@ def signin(request):
         charge_score(user, '0', 5, u"签到奖励")
         if signed_conse_days%7 == 0:
             charge_score(user, '0', 20, u"连续签到7天奖励")
+        produce(user,1)
     context = {'flag':flag}
     ref_url = request.META.get('HTTP_REFERER',"")
     if 'next=' in ref_url:
         context.update({'back':True})
-    produce(user,1)
     return render(request, 'account/m_signin.html',context)
 def signin_record(request):
     if not request.is_ajax():

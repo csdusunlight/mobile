@@ -10,7 +10,6 @@ from django.utils import timezone
 from django.contrib.auth.hashers import (
     check_password, make_password,
 )
-from django.template.defaultfilters import default
 class MyUserManager(BaseUserManager):
 
     def _create_user(self, email, mobile, username, password,
@@ -162,5 +161,6 @@ class User_Envelope(models.Model):
     user = models.ForeignKey(MyUser, related_name='envelope')
     envelope_left = models.PositiveSmallIntegerField(u"剩余红包数量",default=0)
     envelope_used = models.PositiveSmallIntegerField(u"打开红包数量",default=0)
+    accu_fubi = models.PositiveIntegerField(u"累计获得福币",default=0)
     def __unicode__(self):
         return self.user.mobile
