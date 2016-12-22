@@ -1,3 +1,11 @@
+@font-face {
+	font-family: '华康少女文字W5(P)';
+	src: url('华康少女体 .eot'); /* IE9 Compat Modes */
+	src: url('华康少女体 .eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+             url('华康少女体 .woff') format('woff'), /* Modern Browsers */
+             url('华康少女体 .ttf')  format('truetype'), /* Safari, Android, iOS */
+             url('华康少女体.svg#华康少女体') format('svg'); /* Legacy iOS */
+}
 header {
 		width: 100%;
 		height: 4rem;
@@ -134,7 +142,6 @@ header a img {
 	color: #008fd7;
 	line-height: 2.6rem;
 	border-bottom: 2px solid #008fd7;
-	/*font-weight: 700;*/
 }
 .today .today-img {
 	padding-top: 0.8rem;
@@ -386,5 +393,220 @@ footer li.on span {
 
 .mui-scroll-wrapper{
 	bottom:20px;
-	/*margin-top:40px;*/
+}
+/*红包活动部分*/
+.hongbao {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 10000;
+}
+.img-box .close-hb {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 4rem;
+	color: #fff;
+}
+.hongbao .img-box {
+	font-family: "华康少女文字W5(P)";
+	position: relative;
+	display: block;
+	padding-top: 14rem;
+	margin: 30% auto;
+	width: 30rem;
+	height: 36rem;
+	background: url(../images/hongbao-index.png) center bottom/auto 100% no-repeat;
+	animation:hongbao 1s ease-in-out;
+}
+.img-box .hb-amount {
+	margin-top: 9rem;
+	font-size: 1.8rem;
+	color: #fff;
+	text-align: center;
+}
+.img-box .hb-btn {
+	display: block;
+	width: 11rem;
+	margin: 1.6rem auto 0;
+	font-size: 1.8rem;
+	color: #fff;
+	text-align: center;
+}
+.img-box .hb-btn {
+	color: #fb2a38;
+	background: #fcdb30;
+	border-color: #fcdb30;
+}
+.img-box .hb-btn:active {
+	color: #fb2a38;
+	background: #e3c42b;
+	border-color: #e3c42b;
+}
+.img-box .hb-more {
+	display: block;
+	margin-right: 20%;
+	margin-top: 1.6rem;
+	text-align: right;
+	color: #fff;
+}
+.hongbao-open {
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 10000;
+}
+.hongbao-open .hb-open-box {
+	font-family: "华康少女文字W5(P)";
+	position: relative;
+	display: block;
+	padding-top: 10rem;
+	margin: 30% auto;
+	width: 30rem;
+	height: 36rem;
+	background-image: url(../images/hongbao-open.png);
+	background-position: center bottom;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	animation:hb-open 2s ease-in-out;
+}
+.hongbao-open .hb-open-box .hb-container {
+	animation:hb-show 1.2s ease-in-out;
+}
+.hb-open-box .close {
+	position: absolute;
+	top: 14%;
+	right: 4%;
+	font-size: 4rem;
+	color: #fff;
+}
+.hb-open-box .congra {
+	width: 60%;
+	margin: 0 auto;
+	font-size: 1.2rem;
+	color: #7aafff;
+	text-align: left;
+}
+.hb-open-box .fubi-amount {
+	margin-top: 2rem;
+	font-size: 1.8rem;
+	color: #f3c92c;
+	text-align: center;
+}
+.fubi-amount number {
+	font-size: 4rem;
+}
+.hb-open-box .fubi-msg {
+	margin-top: 1rem;
+	text-align: center;
+	color: #7aafff;
+}
+.hb-open-box .continue {
+	width: 24%;
+	padding: 0;
+	margin: 2rem auto 0;
+	font-size: 1.4rem;
+	line-height: 2;
+	text-align: center;
+	color: #f3c92c;
+	border-color: #f3c92c;
+}
+.hb-open-box .fubi-btn button:active {
+	background-color: #e3c42b;
+	border-color: #e3c42b;
+}
+@-webkit-keyframes hongbao {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@-webkit-keyframes hb-show {
+    0% {
+        opacity: 0;
+    }
+	50% {
+        opacity: 0;
+        display: none;
+    }
+    51% {
+        opacity: 1;
+        display: block;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes hb-open {
+    0% {
+        background-image: url(../images/fubi.png);
+        background-size: 30% auto;
+        background-position: center 20%;
+        transform: scaleX(0);
+    }
+    10% {
+        background-image: url(../images/fubi.png);
+        transform: scaleX(-1);
+        background-size: 30% auto;
+        background-position: center 20%;
+    }
+    30% {
+        background-image: url(../images/fubi.png);
+        transform: scaleX(1);
+        background-size: 30% auto;
+        background-position: center 20%;
+        opacity: 0;
+    }
+    31% {
+    	transform: scaleY(0.4);
+        opacity: 0;
+        background-image: url(../images/hongbao-open.png);
+        background-size: auto 100%;
+        background-position: center bottom;
+    }
+    100% {
+    	background-image: url(../images/hongbao-open.png);
+    	background-size: auto 100%;
+    	background-position: center bottom;
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+@-webkit-keyframes close-btn {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes hongbao-open {
+    0% {
+    	background-image: url(../images/act-hongbao.png);
+        transform: scaleX(-1) scaleY(1);
+        opacity: 1;
+    }
+    40%{
+    	background-image: url(../images/act-hongbao.png);
+    	transform: scaleX(0.6) scaleY(0.6);
+    }
+    60%{
+    	background-image: url(../images/act-hongbao-open.png);
+    	transform: scaleX(-0.6) scaleY(0.6);
+    }
+    100% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 1;
+    }
 }
