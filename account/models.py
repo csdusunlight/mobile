@@ -160,7 +160,7 @@ class UserToken(models.Model):
 class User_Envelope(models.Model):
     user = models.ForeignKey(MyUser, related_name='envelope')
     envelope_left = models.PositiveSmallIntegerField(u"剩余红包数量",default=0)
-    envelope_used = models.PositiveSmallIntegerField(u"打开红包数量",default=0)
+    envelope_total = models.PositiveSmallIntegerField(u"累计获得红包数量",default=0)
     accu_fubi = models.PositiveIntegerField(u"累计获得福币",default=0)
     def __unicode__(self):
         return self.user.mobile

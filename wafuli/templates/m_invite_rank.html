@@ -36,7 +36,13 @@
 		<ul>
 			<li class="list-head"><span class="rank">排名</span><span class="account">手机号</span><number>好友红包</number></li>
 			{%for rank in ranks%}
-				<li class="list"><span class="rank"><number>{{rank.rank}}</number></span><span class="account">{{rank.mobile}}</span><number>{{rank.sum}}</number></li>
+				<li class="list"><span class="rank">
+				{%if rank.rank > 3 %}
+				<number>{{rank.rank}}</number>
+				{%else%}
+				<img src="{% static 'images/rank-left-icon-0' + rank.rank +'1.png' %}"/>
+				{%endif%}
+				</span><span class="account">{{rank.mobile}}</span><number>{{rank.sum}}</number></li>
 			{%endfor%}
 		</ul>
 	</div>
