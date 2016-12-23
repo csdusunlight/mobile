@@ -33,7 +33,7 @@
         <span id="close-hb" class="mui-icon mui-icon-closeempty close-hb"></span>
         <p class="hb-amount">老板，您有红包可拆</p>
         <button id="hb_btn" type="button" class="mui-btn mui-btn-yellow hb-btn">点我去拆啦</button>
-        <a class="hb-more" href="act-task.html">去拆更多红包>></a>
+        <a class="hb-more" href="/activity/Christmas/">抢更多红包>></a>
       </div>
     </div>
 </div>
@@ -346,6 +346,22 @@
             scrollToTopBox.classList.remove('hide');
             else if (mui('#pullrefresh').pullRefresh().y > window.innerHeight * (-0.5) && !scrollToTopBox.classList.contains('hide'))
             scrollToTopBox.classList.add('hide');
+        });
+        document.getElementById('hb_btn').addEventListener('tap', function() {
+        	mui.openWindow({
+                url: '/activity/Christmas/open_envelope/',
+                styles: {
+                    top: 0,
+                    bottom: 0
+                },
+                show: {
+                    aniShow: 'slide-in-right',
+                },
+                waiting: {
+                    autoShow: false, //自动显示等待框
+                    title: '正在加载...', //等待对话框上显示的提示内容
+                }
+            });
         });
     </script>
 

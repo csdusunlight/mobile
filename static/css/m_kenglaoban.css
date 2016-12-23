@@ -1,0 +1,47 @@
+@font-face {
+	font-family: '华康少女文字W5(P)';
+	src: url('../fonts/华康少女体 .eot'); /* IE9 Compat Modes */
+	src: url('../fonts/华康少女体 .eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+             url('../fonts/华康少女体 .woff') format('woff'), /* Modern Browsers */
+             url('../fonts/华康少女体 .ttf')  format('truetype'), /* Safari, Android, iOS */
+             url('../fonts/华康少女体.svg#华康少女体') format('svg'); /* Legacy iOS */
+}
+body {
+	font-family: "华康少女文字W5(P)";
+	background: #fff;
+}
+.mui-content {
+	padding: 0 6% 0;
+	background: #fff;
+}
+h2 {
+	font-size: 2rem;
+	line-height: 3.4;
+	color: #ff0505;
+	text-align: center;
+}
+p {
+	margin-bottom: 2rem;
+	font-size: 1.4rem;
+	line-height: 2.4;
+	text-align: center;
+}
+.ta-l {
+	text-align: left;
+}
+.mark {
+	color: #ff7c2c;
+}
+.mark02 {
+	color: #ff0505;
+}
+.link-icon img {
+	display: inline-block;
+	width: auto;
+	height: 3.6rem;
+	padding: 0 0.6rem 0;
+	vertical-align: middle;
+}
+footer p {
+	text-align: left;
+}

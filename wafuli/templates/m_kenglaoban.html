@@ -1,0 +1,60 @@
+{%load staticfiles%}
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<!-- 优先使用 IE 最新版本和 Chrome -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<!-- 为移动设备添加 viewport -->
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<!-- 添加到主屏后的标题（iOS 6 新增） -->
+		<meta name="apple-mobile-web-app-title" content="">
+		<!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!-- 设置苹果工具栏颜色 -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+		<meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+		<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+		<meta name="format-detection" content="telphone=no, email=no" />
+		<!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<title>坑老板</title>
+
+		<link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/m_kenglaoban.css' %}" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title"></h1>
+		</header>
+		<div class="mui-content">
+			<h2>教你如何把老板坑到哭</h2>
+			<p><span class="mark">第一式</span>：每天登录网站签到<a href="#" class="link-icon"><img src="images/klb-02.png"/></a>，拿到积分的同时，还能坑个红包哦~！</p>
+			<p><span class="mark">第二式</span>：到<a href="#" class="link-icon"><img src="images/klb-01.png"/></a>【体验福利】里做任务，不仅有奖励，还能拿到两个红包。</p>
+			<p><span class="mark">第三式</span>：<a href="#" class="link-icon"><img src="images/klb-03.png"/></a>好友注册挖福利账号，并安利Ta做任务赚福币吧！一旦好友提现成功，你能坑到老板5个红包！</p>
+			<p><span class="mark">第四式</span>：如果你从别的地方看到不错的免费福利（比如免费的爱奇艺会员、免费的流量话费），只要免费的！分享给我们<a href="#" class="link-icon"><img src="images/klb-05.png"/></a>，再送你两个红包！</p>
+			<p class="ta-l">这样一来，估计老板心情有点沉重了，不过，别这么放过他！继续——</p>
+			<p><span class="mark">坑老板终极招式</span>：让好友在挖福利疯狂赚钱吧！如果你邀请的好友足够多，好友赚的钱足够多，老板送你终极大礼物！是上千元的压岁红包<a href="#" class="link-icon"><img src="images/klb-04.png"/></a>？还是苹果7手机<a href="#" class="link-icon"><img src="images/klb-06.png"/></a>？这得看你坑老板的功力啦！</p>
+			<p>嗯，如此，你过年的压岁红包都已经坑够了！</p>
+			<p></p>
+			<p>然鹅，然鹅老板已经哭了！</p>
+			<footer>
+				<p>活动时间：2016年12月24日——2017年1月24日<br />
+				红包数量：上不封顶（保守估计在<span class="mark02">500元以上</span>）</p>
+			</footer>
+			</div>
+
+		</div>
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<script>
+			mui.init();
+		</script>
+	</body>
+
+</html>
