@@ -43,6 +43,10 @@
 					<p class="hb-amount">您有&nbsp;
 						<number id="left_num">{{left_num}}</number>&nbsp;个红包可拆</p>
 					<div id="hb_btn" class="hb-btn"></div>
+					<div class="hb-friend">
+						<p>已拆红包：<number>20</number>个</p>
+						<p>好友已拆：<number>85</number>个</p>
+					</div>
 					<a class="hb-more" href="/activity/Christmas/">去抢更多红包>></a>
 				</div>
 			</div>
@@ -54,7 +58,7 @@
 					<p class="fubi-amount">
 						<number id="envelope_amount">500</number>福币</p>
 					<button id="continue_btn" type="button" class="continue mui-btn mui-btn-block mui-btn-yellow">再拆一个</button>
-					<a href="福币管理页面" class="fubi-msg">查看我的红包记录>></a>
+					<a href="/account/welfare/" class="fubi-msg">查看我的红包记录>></a>
 					<span id="close_btn" class="mui-icon mui-icon-closeempty close"></span>
 				</div>
 
@@ -75,7 +79,7 @@
 				continue_btn = document.getElementById("continue_btn"),
 				envelope_amount = document.getElementById("envelope_amount"),
 				left_num = {{left_num}};
-			
+
 			hb_btn.addEventListener("tap", function() {
 				openHongbao();
 			});

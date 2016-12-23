@@ -42,10 +42,21 @@ body {
 	background: transparent;
 	border-radius: 50%;
 }
+.hb-friend {
+    margin-top: 1rem;
+}
+.hb-friend p{
+    padding-left: 2rem;
+    font-size: 1.2rem;
+    color: #fff;
+}
+.hb-friend p number {
+    color: #fcdb30;
+}
 .img-box .hb-more {
 	display: block;
 	margin-right: 4%;
-	margin-top: 8rem;
+	margin-top: 2rem;
 	font-size: 1.8rem;
 	text-align: right;
 	color: #fff;
@@ -160,7 +171,7 @@ body {
     0% {
         background-image: url(../images/fubi.png);
         background-size: 30% auto;
-        background-position: center 40%;
+        background-position: center 30%;
         transform: scaleX(0);
     }
     10% {
@@ -170,7 +181,7 @@ body {
         background-image: url(../images/fubi.png);
         transform: scaleX(1);
         background-size: 30% auto;
-        background-position: center 40%;
+        background-position: center 30%;
         opacity: 0;
     }
     31% {
@@ -198,7 +209,7 @@ body {
     0% {
         background-image: url(../images/fubi.png);
         background-size: 30% auto;
-        background-position: center 40%;
+        background-position: center 30%;
         transform: scaleX(0);
     }
     10% {
@@ -208,7 +219,7 @@ body {
         background-image: url(../images/fubi.png);
         transform: scaleX(1);
         background-size: 30% auto;
-        background-position: center 40%;
+        background-position: center 30%;
         opacity: 0;
     }
     31% {
