@@ -19,7 +19,6 @@
 	url('../fonts/迷你简汉真广标.svg') format('svg');
 	/* iOS 4.1- */
 }
-
 body {
 	width: 100%;
 	*cursor: default;
@@ -206,17 +205,23 @@ p.bottom-text {
 	animation-fill-mode: both;
 }
 
-.contain>a {
+.contain>.link {
 	display: block;
 	font-family: "浪漫雅圆";
-	margin-top: 1.4rem;
+	padding: 1.4rem 0;
 	font-size: 1.8rem;
 	text-align: center;
 	transform-origin: right center;
 	animation: textLeft 1s ease-in-out 2s;
 	animation-fill-mode: both;
 }
-
+.section1 .contain a {
+	position: absolute;
+	padding: 10px;
+}
+.mui-icon-back:before, .mui-icon-left-nav:before {
+	color: #fff;
+}
 .contain .mark-red {
 	color: #fa1407;
 }
@@ -333,114 +338,39 @@ p.bottom-text {
 	background: url(../images/act-center-02.png) center 46%/auto 42% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
 	background-color: #e64c42;
 }
-
-
-/*红包部分*/
-
-.hongbao {
-	/*display: none;*/
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 1000;
+.section7 .contain {
+	background: url(../images/act-center-06.png) center 0/auto 80% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background-color: #5aa9fb;
 }
-
-.hongbao .img-box {
+.section7 a {
+	margin-top: 120%;
+	color: #fafa02;
+	animation: textLeft 1s ease-in-out 0.6s;
+	animation-fill-mode: both;
+}
+.guide-icon {
+	position: absolute;
+	bottom: 2%;
+	left: 44%;
+	left: calc(50% - 2rem);
 	display: block;
-	padding-top: 14rem;
-	margin: 30% auto;
-	width: 20rem;
-	height: 30rem;
-	background: url(../images/act-hongbao.png) center bottom/100% auto no-repeat;
-	animation: hongbao 1s ease-in-out;
-}
-
-.img-box .open {
-	width: 6rem;
-	height: 6rem;
 	margin: 0 auto;
-	color: red;
-	background: url(../images/act-open.png) center center/100% auto no-repeat;
+	width: 4rem;
+	height: 4rem;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	border: 6px solid rgba(255,255,255,0.5);
+	border-right: none;
+	border-bottom: none;
+	animation: guide 1s ease-in-out infinite;
 }
-
-.hongbao-open {
-	display: none;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 1000;
-}
-
-.hongbao-open .img-box-open {
-	display: block;
-	width: 20rem;
-	height: 30rem;
-	margin: 30% auto;
-	border: 1px solid transparent;
-	background: url(../images/act-hongbao-open.png) center bottom/100% auto no-repeat;
-	z-index: 1000;
-	animation: hongbao-open 1.2s ease-in-out;
-}
-
-.img-box-open button {
-	display: none;
-	padding: 0;
-	margin: 6rem auto 0;
-	width: 40%;
-	height: 10%;
-	animation: close-btn 2s ease-in;
-}
-
-.img-box-open p {
-	margin-top: 17rem;
-	font-size: 2rem;
-	font-weight: bold;
-	color: #ffb403;
-	text-align: center;
-	animation: close-btn 2s ease-in;
-}
-
-@-webkit-keyframes hongbao {
+@-webkit-keyframes guide {
 	0% {
-		transform: scale(0);
+		transform: translateY(50px) rotate(45deg);
 		opacity: 0;
 	}
 	100% {
-		transform: scale(1);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes close-btn {
-	0% {
-		opacity: 0;
-	}
-	50% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes hongbao-open {
-	0% {
-		background-image: url(../images/act-hongbao.png);
-		transform: scaleX(-1) scaleY(1);
-		opacity: 1;
-	}
-	40% {
-		background-image: url(../images/act-hongbao.png);
-		transform: scaleX(0.6) scaleY(0.6);
-	}
-	60% {
-		background-image: url(../images/act-hongbao-open.png);
-		transform: scaleX(-0.6) scaleY(0.6);
-	}
-	100% {
-		transform: scaleX(1) scaleY(1);
+		transform: translateY(0) rotate(45deg);
 		opacity: 1;
 	}
 }
