@@ -1,11 +1,8 @@
-@font-face {
+/*@font-face {
 	font-family: '华康少女文字W5(P)';
-	src: url('../fonts/华康少女体 .eot'); /* IE9 Compat Modes */
-	src: url('../fonts/华康少女体 .eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-             url('../fonts/华康少女体 .woff') format('woff'), /* Modern Browsers */
-             url('../fonts/华康少女体 .ttf')  format('truetype'), /* Safari, Android, iOS */
-             url('../fonts/华康少女体.svg#华康少女体') format('svg'); /* Legacy iOS */
-}
+	src: url('../fonts/华康少女体.woff') format('woff'),
+       url('../fonts/华康少女体.ttf')  format('truetype');
+}*/
 body {
 	background: #fff;
 }
@@ -79,7 +76,7 @@ body {
 }
 .hongbao-open .hb-open-box .hb-container {
 	-ms-animation:hb-show 1s ease-in-out;
-  -webkitanimation:hb-show 1s ease-in-out;
+  -webkit-animation:hb-show 1s ease-in-out;
   animation:hb-show 1s ease-in-out;
 }
 .hb-open-box .close {
