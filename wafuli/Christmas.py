@@ -6,7 +6,7 @@ Created on 20161221
 '''
 from account.models import User_Envelope
 from django.db.models import F
-from wafuli.models import UserEvent
+from wafuli.models import UserEvent,Message
 import random
 from account.transaction import charge_money
 def produce(user,n):
@@ -14,6 +14,8 @@ def produce(user,n):
     obj.envelope_left = F('envelope_left') + n
     obj.envelope_total = F('envelope_total') + n
     obj.save(update_fields=['envelope_total','envelope_total'])
+    message = u"您获得了" + str(n) + u"个红包,快去打开吧~"
+    Message.objects.create(user=user,content=message)
 def consume(user):
     try:
         obj = User_Envelope.objects.get(user=user)

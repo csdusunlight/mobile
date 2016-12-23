@@ -241,7 +241,7 @@ def open_envelope(request):
         return JsonResponse(result)
 
 def invite_rank(request):
-    ranks_query = Invite_Rank.objects.all()
+    ranks_query = Invite_Rank.objects.all()[0:10]
     ranks = []
     for rank in ranks_query:
         temp = {}

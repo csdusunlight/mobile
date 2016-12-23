@@ -30,7 +30,7 @@
 <body>
 	<header id="header" class="mui-bar mui-bar-nav">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		<h1 class="mui-title">好友提现排行</h1>
+		<h1 class="mui-title">邀请排行榜</h1>
 	</header>	
 	<div class="mui-content">
 		<ul>
@@ -40,7 +40,7 @@
 				{%if rank.rank > 3 %}
 				<number>{{rank.rank}}</number>
 				{%else%}
-				<img src="{% static 'images/rank-left-icon-0' + rank.rank +'1.png' %}"/>
+				<img src="/static/images/rank-left-icon-0{{rank.rank}}.png"/>
 				{%endif%}
 				</span><span class="account">{{rank.mobile}}</span><number>{{rank.sum}}</number></li>
 			{%endfor%}

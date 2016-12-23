@@ -798,21 +798,6 @@ def useCoupon(request):
     result = {'code':code, 'res_msg':msg}
     return JsonResponse(result)
 
-@login_required
-def message(request):
-    if request.method == 'GET':
-        return render(request,'account/account_message.html')
-    elif request.method == 'POST':
-        user = request.user
-        id = request.POST.get('id', 0)
-        try:
-            msg = Message.objects.get(id=id)
-            msg.is_read = True
-            msg.save(update_fields=['is_read',])
-        except:
-            pass
-        result = {}
-        return JsonResponse(result)
 def get_user_message_page(request):
     res={'code':0,}
     if not request.user.is_authenticated():
@@ -1075,3 +1060,38 @@ def password_change(request):
         return JsonResponse(result)
     else:
         return render(request,'account/m_account_change_password.html')
+    
+@login_required
+def message_json(request):
+    count = int(request.GET.get('count', 0))
+    if not request.is_ajax():
+        logger.warning("Experience refused no-ajax request!!!")
+        raise Http404
+    data = []
+    start = 10*count
+    msg_list = Message.objects.filter(user=request.user).order_by('-time')[start:start+10]
+    for msg in msg_list:
+        data.append({
+            'title':msg.title,
+            'url':'/account/message/' + str(msg.id),
+            'content':msg.content,
+            'time':msg.time.strftime('%Y-%m-%d %H:%M:%S'),
+            'is_read':msg.is_read
+        })
+    return JsonResponse(data,safe=False)
+
+@login_required
+def message(request, id=None):
+    if id is None:
+        return render(request,'account/m_account_message.html')
+    else:
+        id = int(id)
+        msg = None
+        try:
+            msg = Message.objects.get(id=id,user=request.user)
+        except Message.DoesNotExist:
+            raise Http404(u"该消息不存在")
+        msg.is_read = True
+        msg.save(update_fields=['is_read',])
+        context={'content':msg.content}
+        return render(request, 'account/m_detail_message.html', context)

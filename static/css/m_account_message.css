@@ -1,0 +1,49 @@
+.mui-content {
+	margin-top: 44px;
+}
+/*列表样式部分*/
+.mui-table-view {
+	padding: 0.4rem 1.875% 0;
+	background: #efeff4;
+}
+.mui-table-view-cell {
+	width: 30rem;
+	padding: 0;
+	margin: 0.8rem auto;
+	border-radius: 0.4rem;
+	background: #fff;
+	}
+.mui-table-view-cell>a:not(.mui-btn) {
+	padding:0.6rem;
+	margin: 0;
+	overflow: visible;
+}
+.hongbao-msg {
+	display: inline-block;
+	width: 40%;
+	color: #333;
+}
+.date {
+	display: inline-block;
+	width: 57%;
+	font-size: 1rem;
+	text-align: right;
+}
+.msg {
+	margin-top: 0.8rem;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	color: #777;
+}
+.mui-table-view:before {
+	height: 0;
+}
+/*消息详情*/
+.msg-detail {
+	width: 30rem;
+	padding: 1rem 1.875%;
+	margin: 0.8rem auto;
+	border-radius: 0.4rem;
+	background: #fff;
+}

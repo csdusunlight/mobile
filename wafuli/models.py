@@ -262,7 +262,7 @@ class Commodity(models.Model):
         verbose_name_plural = u"积分商品"
 class Message(models.Model):
     user = models.ForeignKey(MyUser, related_name="user_msgs")
-    title = models.CharField(u"标题", max_length=30)
+    title = models.CharField(u"标题", max_length=30, default=u"系统消息")
     time = models.DateTimeField(u"日期", default=timezone.now)
     is_read = models.BooleanField(u"是否已读", default=False)
     content = models.TextField(u"消息内容")

@@ -77,7 +77,12 @@
 					},
 					dataType:"json",
 					success:function(ret){
-						mui.alert(ret.res_msg);
+						if(ret.code==0){
+							mui.alert(提交成功，审核通过后可获得2个红包！)
+						}
+						else{
+							mui.alert(ret.res_msg);
+						}
 					},
 					error:function(xhr,type,errorThrown){
 						alert(type);
