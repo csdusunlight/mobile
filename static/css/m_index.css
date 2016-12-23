@@ -284,6 +284,7 @@ footer {
 footer li {
 	width: 25%;
 	float: left;
+  position: relative;
 }
 footer .iconfont {
 	font-size: 2.4rem;
@@ -312,6 +313,16 @@ footer li span {
 }
 footer li.on span {
 	color: #f08519;
+}
+.msg:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 32%;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background: #fb3456;
 }
 /*弹出层部分*/
 @-webkit-keyframes weixin {

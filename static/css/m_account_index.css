@@ -1,4 +1,6 @@
-
+.mui-content {
+	padding-bottom: 5rem;
+}
 .mui-content .top {
 	position: relative;
 	padding: 2rem 0;
@@ -51,6 +53,16 @@
 	font-size: 1.6rem;
 	font-weight: bold;
 }
+.mui-table-view .user-msg:before {
+	content: "";
+	position: absolute;
+	top: 22px;
+	right: 36px;
+	height: 8px;
+	width: 8px;
+	border-radius: 50%;
+	background: #fb3456;
+}
 .mui-row li:not(.first):after {
 	position: absolute;
 	left: 0px;
@@ -78,7 +90,9 @@
 .icon-iconfontfuli:before,
 .icon-youhuiquan:before,
 .icon-fuligonglve:before,
-.icon-yaoqing:before {
+.icon-yaoqing:before,
+.icon-hongbao:before,
+.icon-gonggao:before {
  	font-family: wafuli-iconfont;
  	position: absolute;
  	left: 20px;
@@ -111,6 +125,13 @@
  	content: "\e664";
  	top: 11px;
 }
+.icon-hongbao:before {
+ 	content: "\e60e";
+ 	font-weight: 600;
+}
+.icon-gonggao:before {
+ 	content: "\e61b";
+}
 /*底部导航部分*/
 footer {
 	width: 100%;
@@ -123,6 +144,7 @@ footer {
 footer li {
 	width: 25%;
 	float: left;
+	position: relative;
 }
 footer .iconfont {
 	font-size: 2.4rem;
@@ -152,6 +174,16 @@ footer li span {
 footer li.on span {
 	color: #f08519;
 }
+.msg:after {
+	content: "";
+	position: absolute;
+	top: 2px;
+	right: 32%;
+	height: 8px;
+	width: 8px;
+	border-radius: 50%;
+	background: #fb3456;
+}
 /*样式覆盖*/
 .mui-table-view-cell {
 	padding: 14px 15px;
@@ -162,3 +194,4 @@ footer li.on span {
 .mui-content {
 	margin-bottom: 8rem;
 }
+

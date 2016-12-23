@@ -84,7 +84,6 @@ header a img {
 	float: right;
 	width:13rem;
 	height: auto;
-	/*margin-top: 0.4rem;*/
 }
 .container .inc2 p {
 	font-size: 1.2rem;
@@ -105,6 +104,7 @@ footer {
 footer li {
 	width: 25%;
 	float: left;
+	position: relative;
 }
 footer .iconfont {
 	font-size: 2.4rem;
@@ -134,7 +134,16 @@ footer li span {
 footer li.on span {
 	color: #f08519;
 }
-/*样式替换*/
+.msg:after {
+	content: "";
+	position: absolute;
+	top: 2px;
+	right: 32%;
+	height: 8px;
+	width: 8px;
+	border-radius: 50%;
+	background: #fb3456;
+}
 /*样式替换*/
 .mui-table-view {
 	background: none;
