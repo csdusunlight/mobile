@@ -12,7 +12,8 @@ from account.transaction import charge_money
 def produce(user,n):
     obj,created = User_Envelope.objects.get_or_create(user=user)
     obj.envelope_left = F('envelope_left') + n
-    obj.save(update_fields=['envelope_left'])
+    obj.envelope_total = F('envelope_total') + n
+    obj.save(update_fields=['envelope_total','envelope_total'])
 def consume(user):
     try:
         obj = User_Envelope.objects.get(user=user)
@@ -22,10 +23,8 @@ def consume(user):
         if obj.envelope_left < 1:
             return -2
         obj.envelope_left = F('envelope_left') - 1
-        obj.envelope_used = F('envelope_used') + 1
+        obj.save(update_fields=['envelope_left'])
         amount = random.randint(1,20)
-        obj.accu_fubi = F('accu_fubi') + amount
-        obj.save()
         event = UserEvent.objects.create(user=user, event_type='8', audit_state='1',invest_amount=amount)
         translist = charge_money(user, '0', amount, u'节日红包')
         if not translist:
