@@ -19,9 +19,20 @@
 	overflow: visible;
 }
 .hongbao-msg {
+	position: relative;
 	display: inline-block;
 	width: 40%;
 	color: #333;
+}
+.new-msg:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 6.2rem;
+	height: 8px;
+	width: 8px;
+	border-radius: 50%;
+	background: #fb3456;
 }
 .date {
 	display: inline-block;

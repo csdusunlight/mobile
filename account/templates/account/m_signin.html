@@ -63,8 +63,7 @@
 					<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
 					<div class="text">
 						<p>当前可用积分：<number>{{user.scores}}</number><br />
-						<span>今日已奖励5个积分，连续签七日可获得额外积分<br>
-									获得1个红包，可在个人中心查看</span></p>
+						<span>今日已奖励5个积分，连续签七日可获得额外积分</span></p>
 					</div>
 				</div>
 				<div class="table">
@@ -109,7 +108,8 @@
 			<div>
 			<a href="#" id="close" class="close mui-icon mui-icon-closeempty"></a>
 				<p class="top">签到成功</p>
-				<p class="bottom">今日已签到，奖励<number>5</number>积分</p>
+				<p class="bottom">今日已签到，奖励<number>5</number>积分<br>
+				获得1个红包，可在个人中心查看</p>
 			</div>
 		</div>
 		{%endif%}
