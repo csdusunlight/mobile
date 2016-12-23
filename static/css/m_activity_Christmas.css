@@ -105,7 +105,7 @@ body {
 
 /*页面元素*/
 .section1 .contain h1 {
-	padding-top: 18rem;
+	padding-top: 15rem;
 	margin: 0 0 0.2rem -3.6rem;
 	font-size: 5rem;
 	font-family: "迷你简汉真广标";
@@ -120,7 +120,6 @@ body {
 	height: 10rem;
 	background: url(../images/act-task-bg-hb.png) 82% center/auto 100% no-repeat;
 	z-index: 2;
-	animation: toBottom 1s ease-in-out;
 }
 
 .section1 .contain h3 {
@@ -129,7 +128,6 @@ body {
 	font-family: "迷你简汉真广标";
 	color: #f0cf06;
 	text-align: center;
-	animation: toTop 1s ease-in-out;
 }
 
 .contain h2 {
@@ -142,7 +140,6 @@ body {
 	color: #fff;
 	text-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
 	transform: skewY(-5deg);
-	animation: textLeft 1s ease-in-out;
 }
 
 .contain h2 span {
@@ -158,7 +155,6 @@ body {
 	color: #fff;
 	text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 	transform: skewY(-5deg);
-	animation: textRight 1.4s ease-in-out;
 }
 
 .section2 .contain h4 {
@@ -178,32 +174,8 @@ body {
 }
 
 .contain p.first-text {
-	margin: 70% auto 0;
+	margin: 60% auto 0;
 	text-align: center;
-	-ms-animation-delay: 0.6s;
-	-webkit-animation-delay: 0.6s;
-	animation-delay: 0.6s;
-}
-
-p.first-text,
-p.center-text,
-p.bottom-text {
-	-ms-animation: textRight 1s ease-in-out;
-	-ms-animation-fill-mode: both;
-	-webkit-animation: textRight 1s ease-in-out;
-	-webkit-animation-fill-mode: both;
-	animation: textRight 1s ease-in-out;
-	animation-fill-mode: both;
-}
-p.center-text {
-	-ms-animation-delay: 1s;
-	-webkit-animation-delay: 1s;
-	animation-delay: 1s;
-}
-p.bottom-text {
-	-ms-animation-delay: 1.4s;
-	-webkit-animation-delay: 1.4s;
-	animation-delay: 1.4s;
 }
 
 .contain>.link {
@@ -212,13 +184,6 @@ p.bottom-text {
 	padding: 1.4rem 0;
 	font-size: 1.8rem;
 	text-align: center;
-	transform-origin: right center;
-	-ms-animation: textLeft 1s ease-in-out 2s;
-	-ms-animation-fill-mode: both;
-	-webkit-animation: textLeft 1s ease-in-out 2s;
-	-webkit-animation-fill-mode: both;
-	animation: textLeft 1s ease-in-out 2s;
-	animation-fill-mode: both;
 }
 .section1 .contain a {
 	position: absolute;
@@ -234,259 +199,43 @@ p.bottom-text {
 .contain .mark-yellow {
 	color: #fafa02;
 }
-
-@-ms-keyframes text {
-	0% {
-		transform: translateX(-500px) scaleX(1) scaleY(1);
-		opacity: 0;
-	}
-	60% {
-		transform: translateX(0) scaleX(0.6) scaleY(1.4);
-		opacity: 1;
-	}
-	80% {
-		transform: scaleX(1.2) scaleY(0.8);
-		opacity: 1;
-	}
-	100% {
-		transform: scaleX(1) scaleY(1);
-		opacity: 1;
-	}
-}
-@-webkit-keyframes text {
-	0% {
-		transform: translateX(-500px) scaleX(1) scaleY(1);
-		opacity: 0;
-	}
-	60% {
-		transform: translateX(0) scaleX(0.6) scaleY(1.4);
-		opacity: 1;
-	}
-	80% {
-		transform: scaleX(1.2) scaleY(0.8);
-		opacity: 1;
-	}
-	100% {
-		transform: scaleX(1) scaleY(1);
-		opacity: 1;
-	}
-}
-@keyframes text {
-	0% {
-		transform: translateX(-500px) scaleX(1) scaleY(1);
-		opacity: 0;
-	}
-	60% {
-		transform: translateX(0) scaleX(0.6) scaleY(1.4);
-		opacity: 1;
-	}
-	80% {
-		transform: scaleX(1.2) scaleY(0.8);
-		opacity: 1;
-	}
-	100% {
-		transform: scaleX(1) scaleY(1);
-		opacity: 1;
-	}
-}
-@-ms-keyframes textLeft {
-	0% {
-		transform: translateX(-500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0);
-		opacity: 1;
-	}
-}
-@-webkit-keyframes textLeft {
-	0% {
-		transform: translateX(-500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0);
-		opacity: 1;
-	}
-}
-@keyframes textLeft {
-	0% {
-		transform: translateX(-500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0);
-		opacity: 1;
-	}
-}
-
-@-ms-keyframes textRight {
-	0% {
-		transform: translateX(500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0);
-		opacity: 1;
-	}
-}
-@-webkit-keyframes textRight {
-	0% {
-		transform: translateX(500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0);
-		opacity: 1;
-	}
-}
-@keyframes textRight {
-	0% {
-		transform: translateX(500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0);
-		opacity: 1;
-	}
-}
-
-@-ms-keyframes toBottom {
-	0% {
-		transform: translateY(-500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-@-webkit-keyframes toBottom {
-	0% {
-		transform: translateY(-500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-@keyframes toBottom {
-	0% {
-		transform: translateY(-500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-
-@-ms-keyframes toTop {
-	0% {
-		transform: translateY(500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-@-webkit-keyframes toTop {
-	0% {
-		transform: translateY(500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-@keyframes toTop {
-	0% {
-		transform: translateY(500px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-
-
 /*头部页面*/
-
-@-ms-keyframes fromTop {
-	0% {
-		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 40% -60%/50% auto no-repeat;
-		background-color: #fff;
-	}
-	100% {
-		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 40% 6%/50% auto no-repeat;
-		background-color: #fff;
-	}
-}
-@-webkit-keyframes fromTop {
-	0% {
-		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 40% -60%/50% auto no-repeat;
-		background-color: #fff;
-	}
-	100% {
-		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 40% 6%/50% auto no-repeat;
-		background-color: #fff;
-	}
-}
-@keyframes fromTop {
-	0% {
-		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 40% -60%/50% auto no-repeat;
-		background-color: #fff;
-	}
-	100% {
-		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 40% 6%/50% auto no-repeat;
-		background-color: #fff;
-	}
-}
-
 .section1 .contain {
-	background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 40% 6%/50% auto no-repeat;
+	background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 40% -2%/50% auto no-repeat;
 	background-color: #fff;
-	animation: fromTop 2s ease-in-out 1s;
-	animation-fill-mode: both;
 }
 
 .section2 .contain {
-	background: url(../images/act-center-01.png) 60% 40%/auto 40% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background: url(../images/act-center-01.png) center 46%/auto 40% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
 	background-color: #f3c82c;
 }
 
 .section3 .contain {
-	background: url(../images/act-center-03.png) center 30%/auto 40% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background: url(../images/act-center-03.png) center 36%/auto 40% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
 	background-color: #ff9024;
 }
 
 .section4 .contain {
-	background: url(../images/act-center-04.png) center 30%/auto 36% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background: url(../images/act-center-04.png) center 36%/auto 36% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
 	background-color: #ff596d;
 }
 
 .section5 .contain {
-	background: url(../images/act-center-05.png) center 30%/auto 36% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background: url(../images/act-center-05.png) center 36%/auto 36% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
 	background-color: #dd903e;
 }
 
 .section6 .contain {
-	background: url(../images/act-center-02.png) center 30%/auto 36% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background: url(../images/act-center-02.png) center 36%/auto 36% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
 	background-color: #e64c42;
 }
 .section7 .contain {
-	background: url(../images/act-center-06.png) center 0/auto 60% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
+	background: url(../images/act-center-06.png) center 6%/auto 60% no-repeat, url(../images/act-task-bg-all.png) center center/100% 100% no-repeat;
 	background-color: #5aa9fb;
 }
 .section7 a {
-	margin-top: 90%;
+	margin-top: 80%;
 	color: #fafa02;
-	animation: textLeft 1s ease-in-out 0.6s;
-	animation-fill-mode: both;
 }
 .guide-icon {
 	position: absolute;
@@ -502,6 +251,8 @@ p.bottom-text {
 	border: 6px solid rgba(255,255,255,0.5);
 	border-right: none;
 	border-bottom: none;
+	-ms-animation: guide 1s ease-in-out infinite;
+	-webkit-animation: guide 1s ease-in-out infinite;
 	animation: guide 1s ease-in-out infinite;
 }
 @-ms-keyframes guide {
