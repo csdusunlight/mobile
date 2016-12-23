@@ -13,7 +13,7 @@ body {
 	color: #333;
 }
 .list {
-	border-bottom: 1px solid #e4e4e4;	
+	border-bottom: 1px solid #e4e4e4;
 }
 .list-head {
 	background-color: #52c5ff;
@@ -34,7 +34,8 @@ body {
 }
 .list .account {
 	display: inline-block;
-	width: 11rem;
+	width: 13rem;
+	text-align: right;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -47,7 +48,7 @@ body {
 }
 .list>number {
 	display: inline-block;
-	width: 10rem;
+	width: 12rem;
 	padding-left: 1rem;
 	padding-right: 4rem;
 	color: #f08519;
@@ -61,8 +62,8 @@ body {
 }
 .list-head .account {
 	display: inline-block;
-	width: 9.2rem;
-	text-align: center;
+	width: 11rem;
+	text-align: right;
 }
 .list-head .amount {
 	display: inline-block;
@@ -71,6 +72,6 @@ body {
 }
 .list-head number {
 	display: inline-block;
-	width: 9rem;
-	text-align: center;
+	width: 14rem;
+	text-align: right;
 }
