@@ -242,10 +242,13 @@ def open_envelope(request):
 
 def invite_rank(request):
     ranks_query = Invite_Rank.objects.all()
-    ranks = {}
+    ranks = []
     for rank in ranks_query:
-        ranks.update(rank=rank.rank,sum=rank.num)
+        temp = {}
+        temp.update(rank=rank.rank,sum=rank.num)
         mobile = rank.user.mobile
         if len(mobile)==11:
             mobile = mobile[0:3] + '****' + mobile[7:]
+        temp.update(mobile=mobile)
+        ranks.append(temp)
     return render(request,'m_invite_rank.html',{'ranks':ranks})
