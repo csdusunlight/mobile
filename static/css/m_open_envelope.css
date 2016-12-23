@@ -24,7 +24,7 @@ body {
 	position: relative;
 	display: block;
 	padding-top: 4rem;
-	margin: 30% auto;
+	margin: 15% auto;
 	width: 28rem;
 	height: 36rem;
 	background: url(../images/hb-manage.png) center top/100% auto no-repeat;
@@ -59,7 +59,7 @@ body {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0,0,0,0.5);
-	z-index: 10000;	
+	z-index: 10000;
 }
 .hongbao-open .hb-open-box {
 	font-family: "华康少女文字W5(P)";
@@ -73,11 +73,14 @@ body {
 	background-position: center bottom;
 	background-size: 100% auto;
 	background-repeat: no-repeat;
+  -ms-animation:hb-open 1.4s ease-in-out;
+  -webkit-animation:hb-open 1.4s ease-in-out;
 	animation:hb-open 1.4s ease-in-out;
 }
 .hongbao-open .hb-open-box .hb-container {
-	/*display: none;*/
-	animation:hb-show 1s ease-in-out;
+	-ms-animation:hb-show 1s ease-in-out;
+  -webkitanimation:hb-show 1s ease-in-out;
+  animation:hb-show 1s ease-in-out;
 }
 .hb-open-box .close {
 	position: absolute;
@@ -126,7 +129,7 @@ body {
 	border-color: #d9aa6c;
 	color: #d13c4a;
 }
-@-webkit-keyframes hb-show {
+@-ms-keyframes hb-show {
     0% {
         opacity: 0;
     }
@@ -142,7 +145,39 @@ body {
         opacity: 1;
     }
 }
-@-webkit-keyframes hb-open {
+@-webkit-keyframes hb-show {
+    0% {
+        opacity: 0;
+    }
+  42% {
+        opacity: 0;
+        display: none;
+    }
+    43% {
+        opacity: 1;
+        display: block;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes hb-show {
+    0% {
+        opacity: 0;
+    }
+  42% {
+        opacity: 0;
+        display: none;
+    }
+    43% {
+        opacity: 1;
+        display: block;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@-ms-keyframes hb-open {
     0% {
         background-image: url(../images/fubi.png);
         background-size: 30% auto;
@@ -180,33 +215,79 @@ body {
         opacity: 1;
     }
 }
-@-webkit-keyframes close-btn {
+@-webkit-keyframes hb-open {
     0% {
+        background-image: url(../images/fubi.png);
+        background-size: 30% auto;
+        background-position: center 40%;
+        transform: scaleX(0);
+    }
+    10% {
+        transform: scaleX(-1);
+    }
+    30% {
+        background-image: url(../images/fubi.png);
+        transform: scaleX(1);
+        background-size: 30% auto;
+        background-position: center 40%;
         opacity: 0;
     }
-    50% {
+    31% {
+      transform: scale(0.4);
         opacity: 0;
+        background-image: url(../images/hb-manage-open.png);
+        background-size: 100% auto;
+        background-position: center bottom;
+    }
+    80% {
+      transform: scale(1.1);
+    }
+    90% {
+      transform: scale(0.96);
     }
     100% {
+      background-image: url(../images/hb-manage-open.png);
+        background-size: 100% auto;
+      background-position: center bottom;
+        transform: scale(1);
         opacity: 1;
     }
 }
-@-webkit-keyframes hongbao-open {
+@keyframes hb-open {
     0% {
-    	background-image: url(../images/act-hongbao.png);
-        transform: scaleX(-1) scaleY(1);
-        opacity: 1;
+        background-image: url(../images/fubi.png);
+        background-size: 30% auto;
+        background-position: center 40%;
+        transform: scaleX(0);
     }
-    40%{
-    	background-image: url(../images/act-hongbao.png);
-    	transform: scaleX(0.6) scaleY(0.6);
+    10% {
+        transform: scaleX(-1);
     }
-    60%{
-    	background-image: url(../images/act-hongbao-open.png);
-    	transform: scaleX(-0.6) scaleY(0.6);
+    30% {
+        background-image: url(../images/fubi.png);
+        transform: scaleX(1);
+        background-size: 30% auto;
+        background-position: center 40%;
+        opacity: 0;
+    }
+    31% {
+      transform: scale(0.4);
+        opacity: 0;
+        background-image: url(../images/hb-manage-open.png);
+        background-size: 100% auto;
+        background-position: center bottom;
+    }
+    80% {
+      transform: scale(1.1);
+    }
+    90% {
+      transform: scale(0.96);
     }
     100% {
-        transform: scaleX(1) scaleY(1);
+      background-image: url(../images/hb-manage-open.png);
+        background-size: 100% auto;
+      background-position: center bottom;
+        transform: scale(1);
         opacity: 1;
     }
 }

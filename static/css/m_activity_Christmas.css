@@ -1,23 +1,12 @@
 @font-face {
 	font-family: "浪漫雅圆";
-	src: url('../fonts/浪漫雅圆.eot');
-	/* IE9*/
-	src: url('../fonts/浪漫雅圆.eot') format('embedded-opentype'), /* IE6-IE8 */
-	url('../fonts/浪漫雅圆.woff') format('woff'), /* chrome, firefox */
-	url('../fonts/浪漫雅圆.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-	url('../fonts/浪漫雅圆.svg') format('svg');
-	/* iOS 4.1- */
+	src: url('../fonts/浪漫雅圆.ttf') format('truetype');
+
 }
 
 @font-face {
 	font-family: "迷你简汉真广标";
-	src: url('../fonts/迷你简汉真广标.eot');
-	/* IE9*/
-	src: url('../fonts/迷你简汉真广标.eot') format('embedded-opentype'), /* IE6-IE8 */
-	url('../fonts/迷你简汉真广标.woff') format('woff'), /* chrome, firefox */
-	url('../fonts/迷你简汉真广标.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-	url('../fonts/迷你简汉真广标.svg') format('svg');
-	/* iOS 4.1- */
+	src: url('../fonts/迷你简汉真广标.ttf') format('truetype');
 }
 body {
 	width: 100%;
@@ -116,7 +105,7 @@ body {
 
 /*页面元素*/
 .section1 .contain h1 {
-	padding-top: 23rem;
+	padding-top: 18rem;
 	margin: 0 0 0.2rem -3.6rem;
 	font-size: 5rem;
 	font-family: "迷你简汉真广标";
@@ -189,20 +178,32 @@ body {
 }
 
 .contain p.first-text {
-	margin: 96% auto 0;
+	margin: 70% auto 0;
 	text-align: center;
-	animation: textRight 1s ease-in-out 0.6s;
-	animation-fill-mode: both;
+	-ms-animation-delay: 0.6s;
+	-webkit-animation-delay: 0.6s;
+	animation-delay: 0.6s;
 }
 
-p.center-text {
-	animation: textRight 1s ease-in-out 1s;
-	animation-fill-mode: both;
-}
-
+p.first-text,
+p.center-text,
 p.bottom-text {
-	animation: textRight 1s ease-in-out 1.4s;
+	-ms-animation: textRight 1s ease-in-out;
+	-ms-animation-fill-mode: both;
+	-webkit-animation: textRight 1s ease-in-out;
+	-webkit-animation-fill-mode: both;
+	animation: textRight 1s ease-in-out;
 	animation-fill-mode: both;
+}
+p.center-text {
+	-ms-animation-delay: 1s;
+	-webkit-animation-delay: 1s;
+	animation-delay: 1s;
+}
+p.bottom-text {
+	-ms-animation-delay: 1.4s;
+	-webkit-animation-delay: 1.4s;
+	animation-delay: 1.4s;
 }
 
 .contain>.link {
@@ -212,6 +213,10 @@ p.bottom-text {
 	font-size: 1.8rem;
 	text-align: center;
 	transform-origin: right center;
+	-ms-animation: textLeft 1s ease-in-out 2s;
+	-ms-animation-fill-mode: both;
+	-webkit-animation: textLeft 1s ease-in-out 2s;
+	-webkit-animation-fill-mode: both;
 	animation: textLeft 1s ease-in-out 2s;
 	animation-fill-mode: both;
 }
@@ -230,6 +235,24 @@ p.bottom-text {
 	color: #fafa02;
 }
 
+@-ms-keyframes text {
+	0% {
+		transform: translateX(-500px) scaleX(1) scaleY(1);
+		opacity: 0;
+	}
+	60% {
+		transform: translateX(0) scaleX(0.6) scaleY(1.4);
+		opacity: 1;
+	}
+	80% {
+		transform: scaleX(1.2) scaleY(0.8);
+		opacity: 1;
+	}
+	100% {
+		transform: scaleX(1) scaleY(1);
+		opacity: 1;
+	}
+}
 @-webkit-keyframes text {
 	0% {
 		transform: translateX(-500px) scaleX(1) scaleY(1);
@@ -248,7 +271,34 @@ p.bottom-text {
 		opacity: 1;
 	}
 }
-
+@keyframes text {
+	0% {
+		transform: translateX(-500px) scaleX(1) scaleY(1);
+		opacity: 0;
+	}
+	60% {
+		transform: translateX(0) scaleX(0.6) scaleY(1.4);
+		opacity: 1;
+	}
+	80% {
+		transform: scaleX(1.2) scaleY(0.8);
+		opacity: 1;
+	}
+	100% {
+		transform: scaleX(1) scaleY(1);
+		opacity: 1;
+	}
+}
+@-ms-keyframes textLeft {
+	0% {
+		transform: translateX(-500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
 @-webkit-keyframes textLeft {
 	0% {
 		transform: translateX(-500px);
@@ -259,7 +309,27 @@ p.bottom-text {
 		opacity: 1;
 	}
 }
+@keyframes textLeft {
+	0% {
+		transform: translateX(-500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
 
+@-ms-keyframes textRight {
+	0% {
+		transform: translateX(500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
 @-webkit-keyframes textRight {
 	0% {
 		transform: translateX(500px);
@@ -270,7 +340,27 @@ p.bottom-text {
 		opacity: 1;
 	}
 }
+@keyframes textRight {
+	0% {
+		transform: translateX(500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
 
+@-ms-keyframes toBottom {
+	0% {
+		transform: translateY(-500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
 @-webkit-keyframes toBottom {
 	0% {
 		transform: translateY(-500px);
@@ -281,8 +371,38 @@ p.bottom-text {
 		opacity: 1;
 	}
 }
+@keyframes toBottom {
+	0% {
+		transform: translateY(-500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
 
+@-ms-keyframes toTop {
+	0% {
+		transform: translateY(500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
 @-webkit-keyframes toTop {
+	0% {
+		transform: translateY(500px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+@keyframes toTop {
 	0% {
 		transform: translateY(500px);
 		opacity: 0;
@@ -296,7 +416,27 @@ p.bottom-text {
 
 /*头部页面*/
 
+@-ms-keyframes fromTop {
+	0% {
+		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 30% -60%/60% auto no-repeat;
+		background-color: #fff;
+	}
+	100% {
+		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 30% 6%/60% auto no-repeat;
+		background-color: #fff;
+	}
+}
 @-webkit-keyframes fromTop {
+	0% {
+		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 30% -60%/60% auto no-repeat;
+		background-color: #fff;
+	}
+	100% {
+		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 30% 6%/60% auto no-repeat;
+		background-color: #fff;
+	}
+}
+@keyframes fromTop {
 	0% {
 		background: url(../images/act-center-00.png) center 98%/94% auto no-repeat, url(../images/act-task-bg.png) center center/100% 100% no-repeat, url(../images/act-task-bg-top.png) 30% -60%/60% auto no-repeat;
 		background-color: #fff;
@@ -364,7 +504,27 @@ p.bottom-text {
 	border-bottom: none;
 	animation: guide 1s ease-in-out infinite;
 }
+@-ms-keyframes guide {
+	0% {
+		transform: translateY(50px) rotate(45deg);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0) rotate(45deg);
+		opacity: 1;
+	}
+}
 @-webkit-keyframes guide {
+	0% {
+		transform: translateY(50px) rotate(45deg);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0) rotate(45deg);
+		opacity: 1;
+	}
+}
+@keyframes guide {
 	0% {
 		transform: translateY(50px) rotate(45deg);
 		opacity: 0;
