@@ -11,7 +11,7 @@ import logging
 from django.core.urlresolvers import reverse
 from django.http.response import JsonResponse, Http404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from wafuli_admin.models import RecommendRank
+from wafuli_admin.models import RecommendRank, Invite_Rank
 import datetime
 from wafuli.tools import weighted_random
 from account.transaction import charge_score, charge_money
@@ -239,3 +239,13 @@ def open_envelope(request):
             result['code'] = 0
             result['amount'] = ret
         return JsonResponse(result)
+
+def invite_rank(request):
+    ranks_query = Invite_Rank.objects.all()
+    ranks = {}
+    for rank in ranks_query:
+        ranks.update(rank=rank.rank,sum=rank.num)
+        mobile = rank.user.mobile
+        if len(mobile)==11:
+            mobile = mobile[0:3] + '****' + mobile[7:]
+    return render(request,'m_invite_rank.html',{'ranks':ranks})
