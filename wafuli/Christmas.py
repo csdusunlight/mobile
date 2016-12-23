@@ -13,7 +13,7 @@ def produce(user,n):
     obj,created = User_Envelope.objects.get_or_create(user=user)
     obj.envelope_left = F('envelope_left') + n
     obj.envelope_total = F('envelope_total') + n
-    obj.save(update_fields=['envelope_total','envelope_total'])
+    obj.save(update_fields=['envelope_left','envelope_total'])
     message = u"您获得了" + str(n) + u"个红包,快去打开吧~"
     Message.objects.create(user=user,content=message)
 def consume(user):
