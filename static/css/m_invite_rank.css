@@ -1,0 +1,76 @@
+body {
+	background: #fff;
+}
+
+.mui-content {
+	padding: 0 1.875% 0;
+	background: #fff;
+}
+.list,.list-head {
+	padding-left: 1rem;
+	font-size: 1.6rem;
+	line-height: 3;
+	color: #333;
+}
+.list {
+	border-bottom: 1px solid #e4e4e4;	
+}
+.list-head {
+	background-color: #52c5ff;
+	color: #333333;
+	border-radius: 0 0 0.8rem 0.8rem;
+	color: #fff;
+}
+.list .rank {
+	display: inline-block;
+	width: 3.4rem;
+	text-align: center;
+}
+.list .rank img {
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	vertical-align: middle;
+}
+.list .account {
+	display: inline-block;
+	width: 11rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	vertical-align: top;
+}
+.list .amount {
+	display: inline-block;
+	width: 4rem;
+	text-align: center;
+}
+.list>number {
+	display: inline-block;
+	width: 10rem;
+	padding-left: 1rem;
+	padding-right: 4rem;
+	color: #f08519;
+	text-align: right;
+	background: url(../images/hongbao-icon.png) right center/3rem auto no-repeat;
+}
+.list-head .rank {
+	display: inline-block;
+	width: 3.4rem;
+	text-align: center;
+}
+.list-head .account {
+	display: inline-block;
+	width: 9.2rem;
+	text-align: center;
+}
+.list-head .amount {
+	display: inline-block;
+	width: 7.2rem;
+	text-align: center;
+}
+.list-head number {
+	display: inline-block;
+	width: 9rem;
+	text-align: center;
+}
