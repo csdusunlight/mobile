@@ -78,6 +78,7 @@
 							var li = document.createElement('li');
 							li.className = 'mui-table-view-cell';
 							str_block = '<a class="clearfix" href="' + msg.url + '"><div><h4 class="';
+							console.log(msg.is_read);
 							if (!msg.is_read){
 								str_block += 'hongbao-msg new-msg';
 							}

@@ -26,7 +26,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.contrib.contenttypes.models import ContentType
-from account.models import UserSignIn, EmailActCode
+from account.models import UserSignIn, EmailActCode,User_Envelope
 from datetime import date, timedelta, datetime
 import time as ttime
 from django.core.urlresolvers import reverse
@@ -41,6 +41,7 @@ import logging
 from urllib import urlencode
 from wafuli.tools import get_weixin_params
 from wafuli.Christmas import produce
+from wafuli_admin.models import Invite_Rank
 logger = logging.getLogger('wafuli')
 
 def user_guide(request):
@@ -372,7 +373,7 @@ def phoneImageV(request):
 @login_required
 def account(request):
     ref_url = request.META.get('HTTP_REFERER',"")
-    anyhongbao = User_Envelope.objects.filter(user=request.user,envelope_left>0).exists()
+    anyhongbao = User_Envelope.objects.filter(user=request.user,envelope_left__gt=0).exists()
     anymessage = Message.objects.filter(user=request.user,is_read=False).exists()
     context={'anyhongbao':anyhongbao,'anymessage':anymessage}
     if 'next=' in ref_url:
