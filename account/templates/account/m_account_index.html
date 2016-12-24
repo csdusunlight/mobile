@@ -101,13 +101,20 @@
               </li>
 			</ul>
       <ul class="mui-table-view">
-
-              <li class="mui-table-view-cell user-msg">
+			{%if anyhongtbao%}
+            <li class="mui-table-view-cell user-msg">
+            {%else%}
+            <li class="mui-table-view-cell">
+            {%endif%}
                   <a class="icon-hongbao mui-navigate-right" href="/activity/Christmas/open_envelope/">
                         拆红包
                   </a>
               </li>
-              <li class="mui-table-view-cell">
+            {%if anymessage%}
+            <li class="mui-table-view-cell user-msg">
+            {%else%}
+            <li class="mui-table-view-cell">
+            {%endif%}
                   <a class="icon-gonggao mui-navigate-right" href="/account/message/">
                         消息中心
                   </a>

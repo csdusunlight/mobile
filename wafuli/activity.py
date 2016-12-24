@@ -228,7 +228,16 @@ def open_envelope(request):
     user = request.user
     if not request.is_ajax():
         obj,created = User_Envelope.objects.get_or_create(user=user)
-        return render(request,'m_open_envelope.html',{'left_num':obj.envelope_left})
+        opend_envelope = obj.envelope_total - obj.envelope_left
+        
+        invite_envelope = 0
+        try:
+            rank = Invite_Rank.objects.get(user=user)
+        except:
+            invite_envelope = 0
+        else:
+            invite_envelope = rank.num
+        return render(request,'m_open_envelope.html',{'left_num':obj.envelope_left,'opend_num':opend_envelope,'invite_num':invite_envelope})
     else:
         result = {}
         ret = consume(user)

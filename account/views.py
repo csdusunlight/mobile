@@ -372,9 +372,11 @@ def phoneImageV(request):
 @login_required
 def account(request):
     ref_url = request.META.get('HTTP_REFERER',"")
-    context={}
+    anyhongbao = User_Envelope.objects.filter(user=request.user,envelope_left>0).exists()
+    anymessage = Message.objects.filter(user=request.user,is_read=False).exists()
+    context={'anyhongbao':anyhongbao,'anymessage':anymessage}
     if 'next=' in ref_url:
-        context.update({'back':True})
+        context.update(back=True)
     return render(request, 'account/m_account_index.html', context)
 @login_required
 def account_settings(request):
