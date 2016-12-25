@@ -4,7 +4,7 @@ from django.http.response import HttpResponse,Http404
 import logging
 logger = logging.getLogger('wafuli')
 def token_verify(request):
-    token = 'Q5l1JNdTlyAlJ5evuJPE'
+    token = '1hblsqTsdfsdfsd'
     timestamp = str(request.GET.get('timestamp'))
     nonce = str(request.GET.get('nonce'))
     signature = str(request.GET.get('signature'))
@@ -16,7 +16,7 @@ def token_verify(request):
     logger.info(siggen)
     logger.info(signature) 
     if siggen==signature:
-        return HttpResponse(echostr)
+        return HttpResponse()
     else:
         raise Http404
     
