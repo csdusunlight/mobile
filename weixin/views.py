@@ -9,7 +9,8 @@ def token_verify(request):
     nonce = str(request.GET.get('nonce'))
     signature = str(request.GET.get('signature'))
     echostr = str(request.GET.get('echostr'))
-    paralist = [token,timestamp,nonce].sort()
+    paralist = [token,timestamp,nonce]
+    paralist.sort()
     parastr = ''.join(paralist)
     siggen = hashlib.sha1(parastr).hexdigest()
     logger.info(siggen)
