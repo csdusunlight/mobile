@@ -3,7 +3,7 @@ import hashlib
 from django.http.response import HttpResponse,Http404
 import logging
 logger = logging.getLogger('wafuli')
-def token_verify(request):
+def weixin(request):
     token = '1hblsqTsdfsdfsd'
     timestamp = str(request.GET.get('timestamp'))
     nonce = str(request.GET.get('nonce'))
@@ -16,7 +16,7 @@ def token_verify(request):
     logger.info(siggen)
     logger.info(signature) 
     if siggen==signature:
-        return HttpResponse()
+        return HttpResponse(echostr)
     else:
         raise Http404
     
