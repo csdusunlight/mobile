@@ -6,7 +6,7 @@ Created on 20161225
 from django.conf.urls import url,include
 
 urlpatterns = [
-    url(r'^$', 'weixin.views.weixin', name='token_verify'),
+    url(r'^$', 'weixin.views.bind_user', name='token_verify'),
     url(r'^bind-user/$', 'weixin.views.bind_user', name='bind-user'),
 #     url(r'^slider/$', 'app.views.get_slider', name='app_slider'),
 #     url(r'^recom/$', 'app.views.get_recom', name='app_recom'),
