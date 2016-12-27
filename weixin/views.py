@@ -19,4 +19,6 @@ def weixin(request):
         return HttpResponse(echostr)
     else:
         raise Http404
-    
+
+def bind_user(request):
+    return render(request, 'm_login.html')
