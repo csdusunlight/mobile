@@ -81,8 +81,8 @@ body {
 	background-position: center bottom;
 	background-size: 100% auto;
 	background-repeat: no-repeat;
-  -webkit-animation:hb-open 1.4s ease-in-out;
-	animation:hb-open 1.4s ease-in-out;
+    -webkit-animation:hb-open 1.4s ease-in-out;
+	/*animation:hb-open 1.4s ease-in-out;*/
 }
 .hongbao-open .hb-open-box .hb-container {
   -webkit-animation:hb-show 1s ease-in-out;
@@ -135,11 +135,27 @@ body {
 	border-color: #d9aa6c;
 	color: #d13c4a;
 }
+@-ms-keyframes hb-show {
+    0% {
+        opacity: 0;
+    }
+    42% {
+        opacity: 0;
+        display: none;
+    }
+    43% {
+        opacity: 1;
+        display: block;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 @-webkit-keyframes hb-show {
     0% {
         opacity: 0;
     }
-  42% {
+    42% {
         opacity: 0;
         display: none;
     }
@@ -155,7 +171,7 @@ body {
     0% {
         opacity: 0;
     }
-  42% {
+    42% {
         opacity: 0;
         display: none;
     }
@@ -167,45 +183,83 @@ body {
         opacity: 1;
     }
 }
+/*@-ms-keyframes hb-open {
+    0% {
+        background-image: url(../images/fubi.png);
+        background-size: 30% auto;
+        background-position: center 30%;
+        -ms-transform: scaleX(0);
+    }
+    10% {
+        transform: scaleX(-1);
+    }
+    30% {
+        background-image: url(../images/fubi.png);
+        -ms-transform: scaleX(1);
+        background-size: 30% auto;
+        background-position: center 30%;
+        opacity: 0;
+    }
+    31% {
+        background-image: url(../images/hb-manage-open.png);
+        -ms-transform: scale(0.4);
+        opacity: 0;
+        background-size: 100% auto;
+        background-position: center bottom;
+    }
+    80% {
+        -ms-transform: scale(1.1);
+    }
+    90% {
+        -ms-transform: scale(0.96);
+    }
+    100% {
+        background-image: url(../images/hb-manage-open.png);
+        background-size: 100% auto;
+        background-position: center bottom;
+        -ms-transform: scale(1);
+        opacity: 1;
+    }
+}*/
 @-webkit-keyframes hb-open {
     0% {
         background-image: url(../images/fubi.png);
         background-size: 30% auto;
         background-position: center 30%;
-        transform: scaleX(0);
+        -webkit-transform: scaleX(0);
     }
     10% {
-        transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
     }
     30% {
         background-image: url(../images/fubi.png);
-        transform: scaleX(1);
+        -webkit-transform: scaleX(1);
         background-size: 30% auto;
         background-position: center 30%;
         opacity: 0;
     }
     31% {
-      transform: scale(0.4);
-        opacity: 0;
         background-image: url(../images/hb-manage-open.png);
+        -webkit-transform: scale(0.4);
+        opacity: 0;
         background-size: 100% auto;
         background-position: center bottom;
     }
     80% {
-      transform: scale(1.1);
+        -webkit-transform: scale(1.1);
     }
     90% {
-      transform: scale(0.96);
+        -webkit-transform: scale(0.96);
     }
     100% {
-      background-image: url(../images/hb-manage-open.png);
+        background-image: url(../images/hb-manage-open.png);
         background-size: 100% auto;
-      background-position: center bottom;
-        transform: scale(1);
+        background-position: center bottom;
+        -webkit-transform: scale(1);
         opacity: 1;
     }
 }
-@keyframes hb-open {
+/*@keyframes hb-open {
     0% {
         background-image: url(../images/fubi.png);
         background-size: 30% auto;
@@ -223,9 +277,9 @@ body {
         opacity: 0;
     }
     31% {
-      transform: scale(0.4);
-        opacity: 0;
         background-image: url(../images/hb-manage-open.png);
+        transform: scale(0.4);
+        opacity: 0;
         background-size: 100% auto;
         background-position: center bottom;
     }
@@ -236,10 +290,11 @@ body {
       transform: scale(0.96);
     }
     100% {
-      background-image: url(../images/hb-manage-open.png);
+        background-image: url(../images/hb-manage-open.png);
         background-size: 100% auto;
-      background-position: center bottom;
+        background-position: center bottom;
         transform: scale(1);
         opacity: 1;
     }
-}
+}*/
+

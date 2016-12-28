@@ -257,21 +257,21 @@ body {
 }
 @-ms-keyframes guide {
 	0% {
-		transform: translateY(50px) rotate(45deg);
+		-ms-transform: translateY(50px) rotate(45deg);
 		opacity: 0;
 	}
 	100% {
-		transform: translateY(0) rotate(45deg);
+		-ms-transform: translateY(0) rotate(45deg);
 		opacity: 1;
 	}
 }
 @-webkit-keyframes guide {
 	0% {
-		transform: translateY(50px) rotate(45deg);
+		-webkit-transform: translateY(50px) rotate(45deg);
 		opacity: 0;
 	}
 	100% {
-		transform: translateY(0) rotate(45deg);
+		-webkit-transform: translateY(0) rotate(45deg);
 		opacity: 1;
 	}
 }
