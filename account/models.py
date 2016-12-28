@@ -43,6 +43,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('email address', max_length=255)
     mobile = models.CharField('mobile number', max_length=11, unique=True,)
     username = models.CharField(u'用户昵称', max_length=30, unique=True)
+    open_id = models.CharField(u'公众号关注者编号', max_length=30)
     inviter = models.ForeignKey('self', related_name = 'invitees', 
                                 blank=True, null=True, on_delete=models.SET_NULL)
     invite_code = models.CharField(u"邀请码", unique=True, blank=True, max_length=20)

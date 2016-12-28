@@ -333,6 +333,13 @@ def phoneImageV(request):
             result['message'] = u"尚未登录"
             return JsonResponse(result)
         phone = request.user.mobile
+    elif action=="bind_weixin":
+        phone = request.GET.get('phone', None)
+        openid = request.session.get('openid',None)
+        if not openid:
+            result['code'] = 1
+            result['message'] = u"请在微信中打开网页"
+            return JsonResponse(result)
     stamp = str(phone)
     lasttime = request.session.get(stamp, None)
     now = int(ttime.time())
