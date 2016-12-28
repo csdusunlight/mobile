@@ -79,10 +79,10 @@ def bind_user(request):
             else:
                 user.backend = 'django.contrib.auth.backends.ModelBackend'#为了略过用户名和密码验证
                 auth_login(request, user)
-                redirect('account_index')
+                return redirect('account_index')
         else:
             logger.error('（zhuanfa?）Getting access_token error:' + str(json_ret) )
-            return HttpResponse(u"本页面转发无效，请在微信公众号中打开")
+            return HttpResponse(u"本页面转发或刷新无效，请在微信公众号中重新打开")
 
 def bind_user_success(request):
     return render(request, 'm_bind_success.html')
