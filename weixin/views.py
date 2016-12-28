@@ -13,8 +13,6 @@ def weixin(request):
     paralist.sort()
     parastr = ''.join(paralist)
     siggen = hashlib.sha1(parastr).hexdigest()
-    logger.info(siggen)
-    logger.info(signature) 
     if siggen==signature:
         return HttpResponse(echostr)
     else:
