@@ -103,7 +103,6 @@
 			    },1000)
 			}
 			var sendTelVerifyCodeImageV = function(mobile) {
-				alert(sendtelcode_url);
 				mui.ajax({
 					url : sendtelcode_url,
 					data : {
@@ -112,7 +111,6 @@
 						},
 					timeout : 3000,
 					success : function(data) {
-						alert(data.code);
 						if (data.code != 0) {
 							mui.alert(data.message);
 						}
