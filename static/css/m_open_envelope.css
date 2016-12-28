@@ -186,10 +186,10 @@ body {
 }
 .hongbao-open .fubi-rotate {
     position: absolute;
-    margin-top: 40%;
+    margin-top: 50%;
     opacity: 0;
     width: 100%;
-    height: 20%;
+    height: 30%;
     background: url(../images/fubi.png) center center/30% auto no-repeat;
     -ms-animation:fubi 0.4s ease-in-out;
     -webkit-animation:fubi 0.4s ease-in-out;
