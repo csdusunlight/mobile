@@ -183,7 +183,7 @@ body {
         opacity: 1;
     }
 }
-@-ms-keyframes hb-open {
+/*@-ms-keyframes hb-open {
     0% {
         background-image: url(../images/fubi.png);
         background-size: 30% auto;
@@ -220,7 +220,7 @@ body {
         -ms-transform: scale(1);
         opacity: 1;
     }
-}
+}*/
 @-webkit-keyframes hb-open {
     0% {
         background-image: url(../images/fubi.png);
@@ -229,7 +229,7 @@ body {
         -webkit-transform: scaleX(0);
     }
     10% {
-        transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
     }
     30% {
         background-image: url(../images/fubi.png);
@@ -297,3 +297,4 @@ body {
         opacity: 1;
     }
 }
+
