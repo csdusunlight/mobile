@@ -102,16 +102,6 @@
 			    	settime(val);
 			    },1000)
 			}
-			document.getElementById("id_checkImg").addEventListener('tap',function(){
-				mui.getJSON(coderefresh_url, null, function(data) {
-					var new_cptch_key = data.key;
-					var new_cptch_image = data.image_url;
-					key = document.getElementById("id_hashkey");
-					img = document.getElementById("id_checkImg");
-					key.value = new_cptch_key;
-					img.src = new_cptch_image;
-				});
-			});
 			var sendTelVerifyCodeImageV = function(mobile) {
 				alert(sendtelcode_url);
 				mui.ajax({
