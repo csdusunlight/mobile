@@ -81,12 +81,13 @@ body {
 	background-position: center bottom;
 	background-size: 100% auto;
 	background-repeat: no-repeat;
-    -webkit-animation:hb-open 1.4s ease-in-out;
-	/*animation:hb-open 1.4s ease-in-out;*/
-}
-.hongbao-open .hb-open-box .hb-container {
-  -webkit-animation:hb-show 1s ease-in-out;
-  animation:hb-show 1s ease-in-out;
+    z-index: 10;
+    -ms-animation:hb-open 0.8s ease-in-out 0.4s;
+    -webkit-animation:hb-open 0.8s ease-in-out 0.4s;
+    animation:hb-open 0.8s ease-in-out 0.4s;
+    -ms-animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 .hb-open-box .close {
 	position: absolute;
@@ -135,77 +136,10 @@ body {
 	border-color: #d9aa6c;
 	color: #d13c4a;
 }
-@-ms-keyframes hb-show {
+@-ms-keyframes hb-open {
     0% {
+        -ms-transform: scale(0);
         opacity: 0;
-    }
-    42% {
-        opacity: 0;
-        display: none;
-    }
-    43% {
-        opacity: 1;
-        display: block;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-@-webkit-keyframes hb-show {
-    0% {
-        opacity: 0;
-    }
-    42% {
-        opacity: 0;
-        display: none;
-    }
-    43% {
-        opacity: 1;
-        display: block;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-@keyframes hb-show {
-    0% {
-        opacity: 0;
-    }
-    42% {
-        opacity: 0;
-        display: none;
-    }
-    43% {
-        opacity: 1;
-        display: block;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-/*@-ms-keyframes hb-open {
-    0% {
-        background-image: url(../images/fubi.png);
-        background-size: 30% auto;
-        background-position: center 30%;
-        -ms-transform: scaleX(0);
-    }
-    10% {
-        transform: scaleX(-1);
-    }
-    30% {
-        background-image: url(../images/fubi.png);
-        -ms-transform: scaleX(1);
-        background-size: 30% auto;
-        background-position: center 30%;
-        opacity: 0;
-    }
-    31% {
-        background-image: url(../images/hb-manage-open.png);
-        -ms-transform: scale(0.4);
-        opacity: 0;
-        background-size: 100% auto;
-        background-position: center bottom;
     }
     80% {
         -ms-transform: scale(1.1);
@@ -214,36 +148,14 @@ body {
         -ms-transform: scale(0.96);
     }
     100% {
-        background-image: url(../images/hb-manage-open.png);
-        background-size: 100% auto;
-        background-position: center bottom;
         -ms-transform: scale(1);
         opacity: 1;
     }
-}*/
+}
 @-webkit-keyframes hb-open {
     0% {
-        background-image: url(../images/fubi.png);
-        background-size: 30% auto;
-        background-position: center 30%;
-        -webkit-transform: scaleX(0);
-    }
-    10% {
-        -webkit-transform: scaleX(-1);
-    }
-    30% {
-        background-image: url(../images/fubi.png);
-        -webkit-transform: scaleX(1);
-        background-size: 30% auto;
-        background-position: center 30%;
+        -webkit-transform: scale(0);
         opacity: 0;
-    }
-    31% {
-        background-image: url(../images/hb-manage-open.png);
-        -webkit-transform: scale(0.4);
-        opacity: 0;
-        background-size: 100% auto;
-        background-position: center bottom;
     }
     80% {
         -webkit-transform: scale(1.1);
@@ -252,49 +164,76 @@ body {
         -webkit-transform: scale(0.96);
     }
     100% {
-        background-image: url(../images/hb-manage-open.png);
-        background-size: 100% auto;
-        background-position: center bottom;
         -webkit-transform: scale(1);
         opacity: 1;
     }
 }
-/*@keyframes hb-open {
+@keyframes hb-open {
     0% {
-        background-image: url(../images/fubi.png);
-        background-size: 30% auto;
-        background-position: center 30%;
-        transform: scaleX(0);
-    }
-    10% {
-        transform: scaleX(-1);
-    }
-    30% {
-        background-image: url(../images/fubi.png);
-        transform: scaleX(1);
-        background-size: 30% auto;
-        background-position: center 30%;
+        transform: scale(0);
         opacity: 0;
-    }
-    31% {
-        background-image: url(../images/hb-manage-open.png);
-        transform: scale(0.4);
-        opacity: 0;
-        background-size: 100% auto;
-        background-position: center bottom;
     }
     80% {
-      transform: scale(1.1);
+        transform: scale(1.1);
     }
     90% {
-      transform: scale(0.96);
+        transform: scale(0.96);
     }
     100% {
-        background-image: url(../images/hb-manage-open.png);
-        background-size: 100% auto;
-        background-position: center bottom;
         transform: scale(1);
         opacity: 1;
     }
-}*/
-
+}
+.hongbao-open .fubi-rotate {
+    position: absolute;
+    margin-top: 58%;
+    opacity: 0;
+    width: 100%;
+    height: 20%;
+    background: url(../images/fubi.png) center center/26% auto no-repeat;
+    -ms-animation:fubi 0.4s ease-in-out;
+    -webkit-animation:fubi 0.4s ease-in-out;
+    animation:fubi 0.4s ease-in-out;
+    -ms-animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+@-ms-keyframes fubi {
+    0% {
+        -ms-transform: scaleX(-1);
+        opacity: 1;
+    }
+    66% {
+        -ms-transform: scaleX(1);
+    }
+    100% {
+        -ms-transform: scaleX(0);
+        opacity: 0;
+    }
+}
+@-webkit-keyframes fubi {
+    0% {
+        -webkit-transform: scaleX(-1);
+        opacity: 1;
+    }
+    66% {
+        -webkit-transform: scaleX(1);
+    }
+    100% {
+        -webkit-transform: scaleX(0);
+        opacity: 0;
+    }
+}
+@keyframes fubi {
+    0% {
+        transform: scaleX(-1);
+        opacity: 1;
+    }
+    66% {
+        transform: scaleX(1);
+    }
+    100% {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+}
