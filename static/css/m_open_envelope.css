@@ -81,8 +81,8 @@ body {
 	background-position: center bottom;
 	background-size: 100% auto;
 	background-repeat: no-repeat;
-  -webkit-animation:hb-open 1.4s ease-in-out;
-	animation:hb-open 1.4s ease-in-out;
+    -webkit-animation:hb-open 1.4s ease-in-out;
+	/*animation:hb-open 1.4s ease-in-out;*/
 }
 .hongbao-open .hb-open-box .hb-container {
   -webkit-animation:hb-show 1s ease-in-out;
@@ -259,7 +259,7 @@ body {
         opacity: 1;
     }
 }
-@keyframes hb-open {
+/*@keyframes hb-open {
     0% {
         background-image: url(../images/fubi.png);
         background-size: 30% auto;
@@ -296,5 +296,5 @@ body {
         transform: scale(1);
         opacity: 1;
     }
-}
+}*/
 
