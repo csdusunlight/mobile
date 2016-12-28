@@ -40,11 +40,9 @@
 				swipeBack:true //启用右滑关闭功能
 			});
 	      	var countdown=60;
-			var coderefresh_url = "{% url 'captcha-refresh' %}";
-			var phoneimageV_url = "{% url 'phoneImageV' %}";
 			var sendtelcode_url = "{% url 'phoneImageV' %}";
 			var bind_url = "{% url 'bind-user' %}";
-			var index_url = "{% url 'freshman_introduction' %}";
+			var index_url = "{% url 'account_index' %}";
 			document.getElementById("register").addEventListener('tap', function() {
 				var mobile = document.getElementById("mobile").value;
 				if(!validatePhone(mobile)) {
@@ -115,31 +113,16 @@
 				});
 			});
 			var sendTelVerifyCodeImageV = function(mobile) {
-				var hashkey = document.getElementById("id_hashkey").value;
-				var response = document.getElementById("x_yanzhengma").value;
-				if (!response){
-					mui.alert("请输入图形验证码!");
-					countdown = 0;
-					return;
-				}
 				mui.ajax({
 					url : sendtelcode_url,
 					data : {
 						'phone' : mobile,
-						'action' : 'register',
-						'hashkey': hashkey,
-						'response': response,
+						'action' : 'bind_weixin',
 						},
 					timeout : 3000,
 					success : function(data) {
 						if (data.code != 0) {
 							mui.alert(data.message);
-							var new_cptch_key = data.key;
-					        var new_cptch_image = data.image_url;
-					        key = document.getElementById("id_hashkey");
-							img = document.getElementById("id_checkImg");
-							key.value = new_cptch_key;
-							img.src = new_cptch_image;
 						}
 						if (data.code == 1){
 							countdown = 0;
