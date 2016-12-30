@@ -1,6 +1,6 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
-    Coupon
+    Coupon, TransList
 from datetime import datetime
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser
@@ -12,6 +12,7 @@ import logging
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 host = 'http://m.wafuli.cn'
 logger = logging.getLogger("wafuli")
 
@@ -225,3 +226,31 @@ def get_user_info(request):
     result = {'code':0, 'accu_income':user.accu_income, 'balance':user.balance, 
               'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores}
     return JsonResponse(result)
+
+@app_login_required
+def charge_json(request):
+    user = request.user
+    res={'code':0,}
+    if not user.is_authenticated():
+        res['code'] = -1
+        res['url'] = reverse('user_guide') + "?next=" + reverse('account_charge')
+        return JsonResponse(res)
+    count = int(request.GET.get('count', 0))
+    type = str(request.GET.get('type', '0'))
+    start = 6*count
+    item_list = TransList.objects.filter(user=request.user, transType=type)[start:start+6]
+    data = []
+    for con in item_list:      
+        i = {"reason":con.reason,
+             "amount":con.transAmount,
+             "date":con.time.strftime("%Y-%m-%d"),
+             }
+        if type == '1':
+            event = con.user_event
+            if event:
+                state = event.get_audit_state_display()
+            else:
+                state = u"无"
+            i.update({"state":state,})   
+        data.append(i)
+    return JsonResponse(data, safe=False)
