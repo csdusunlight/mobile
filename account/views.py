@@ -136,6 +136,7 @@ def login(request, template_name='registration/m_login.html',
         }
         return render(request, template_name, context)
 
+@csrf_exempt
 def register(request):
     if request.method == 'POST':
         if not request.is_ajax():
@@ -1001,6 +1002,7 @@ def get_user_invite_page(request):
     res["data"] = data
     return JsonResponse(res)
 
+@csrf_exempt
 def password_reset(request):
     if request.method == 'POST':
         if not request.is_ajax():

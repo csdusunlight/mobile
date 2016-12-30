@@ -1,5 +1,5 @@
 #coding:utf-8
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import hashlib
 from django.http.response import HttpResponse,Http404, JsonResponse
 import logging
@@ -18,8 +18,6 @@ def weixin(request):
     paralist.sort()
     parastr = ''.join(paralist)
     siggen = hashlib.sha1(parastr).hexdigest()
-    logger.info(siggen)
-    logger.info(signature) 
     if siggen==signature:
         return HttpResponse(echostr)
     else:
@@ -74,10 +72,17 @@ def bind_user(request):
         if 'openid' in json_ret:
             openid = json_ret['openid']
             request.session['openid'] = openid
-            return render(request, 'm_bind.html')
+            try:
+                user = MyUser.objects.get(open_id=openid)
+            except MyUser.DoesNotExist:
+                return render(request, 'm_bind.html')
+            else:
+                user.backend = 'django.contrib.auth.backends.ModelBackend'#为了略过用户名和密码验证
+                auth_login(request, user)
+                return redirect('account_index')
         else:
-            logger.error('Getting access_token error:' + str(json_ret) )
-            return HttpResponse(u"获取token失败，请稍后再试")
+            logger.error('（zhuanfa?）Getting access_token error:' + str(json_ret) )
+            return HttpResponse(u"本页面转发或刷新无效，请在微信公众号中重新打开")
 
 def bind_user_success(request):
     return render(request, 'm_bind_success.html')
