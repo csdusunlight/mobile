@@ -15,7 +15,7 @@ def app_login_required(view):
     @functools.wraps(view)
     def decorator(request):
         ret = {}
-        token = request.POST.get("token")
+        token = request.POST.get("token") or request.GET.get("token")
         if not token:
             ret.update(code=-1,msg='Token missing')
         else:
