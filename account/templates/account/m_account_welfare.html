@@ -22,7 +22,6 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>福利管理</title>
-    <script src="{%static 'js/mui.min.js'%}"></script>
     <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_account_welfare.css'%}"/>
@@ -148,8 +147,8 @@
 									var wel = data[i];
 									var li = document.createElement('li');
 									li.className = 'list clearfix';
-									str_html = '<span class="li-01">' + wel.title +
-										'</span><span class="li-02"><number>' + wel.username +
+									str_html = '<span class="li-01"><b>' + wel.title +
+										'</b></span><span class="li-02"><number>' + wel.username +
 										'</number></span><span class="li-03"><number>' + wel.time +
 										'</number></span><span class="li-04">' + wel.state;
 									li.innerHTML = str_html

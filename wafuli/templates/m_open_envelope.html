@@ -98,6 +98,7 @@
 					url:"/activity/Christmas/open_envelope/",
 					type:'get',
 					dataType:"json",
+					cache:false,
 					success:function(ret){
 						if (ret.code==0){
 							envelope_amount.innerText = ret.amount;

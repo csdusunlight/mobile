@@ -142,11 +142,11 @@ footer li span {
 
 }
 .delete div {
-	position: relative;
+	position: absolute;
 	width: 80%;
 	height: 34rem;
 	margin-left: 10%;
-  top: 20%;
+  top: 15%;
 	border-radius: 0.4rem;
 	overflow: hidden;
 	background: #fff;
