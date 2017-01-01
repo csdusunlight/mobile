@@ -231,10 +231,6 @@ def get_user_info(request):
 def charge_json(request):
     user = request.user
     res={'code':0,}
-    if not user.is_authenticated():
-        res['code'] = -1
-        res['url'] = reverse('user_guide') + "?next=" + reverse('account_charge')
-        return JsonResponse(res)
     count = int(request.GET.get('count', 0))
     type = str(request.GET.get('type', '0'))
     start = 6*count
