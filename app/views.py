@@ -230,7 +230,7 @@ def get_user_info(request):
 @app_login_required
 def charge_json(request):
     user = request.user
-    res={'code':0,}
+    logger.info("@@@@@@@@@@@@" + user.mobile)
     count = int(request.GET.get('count', 0))
     type = str(request.GET.get('type', '0'))
     start = 6*count
