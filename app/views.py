@@ -12,7 +12,7 @@ import logging
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 from django.core.exceptions import ValidationError
-host = 'http://m.wafuli.cn'
+host = 'http://test.wafuli.cn'
 logger = logging.getLogger("wafuli")
 
 def get_news(request):

@@ -76,4 +76,6 @@ urlpatterns = [
     url(r'^activity/Christmas/open_envelope/$', 'wafuli.activity.open_envelope', name='Christmas_open_envelope'),
     url(r'^activity/Christmas/kenglaoban/$', TemplateView.as_view(template_name="m_kenglaoban.html"), name='Christmas_kenglaoban'),
     url(r'^activity/Christmas/invite_rank/$', 'wafuli.activity.invite_rank', name='Christmas_invite_rank'),
+    
+#     url(r'^task/question$', TemplateView.as_view(template_name="m_task_question.html"), name='task_question'),
 ]
