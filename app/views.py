@@ -224,7 +224,8 @@ def login(request):
 def get_user_info(request):
     user = request.user
     result = {'code':0, 'accu_income':user.accu_income, 'balance':user.balance, 
-              'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores}
+              'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores,
+              'accu_scores':user.accu_scores}
     return JsonResponse(result)
 
 @app_login_required
