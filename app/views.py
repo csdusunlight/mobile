@@ -1,6 +1,6 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
-    Coupon, TransList, ScoreTranlist
+    Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent
 from datetime import datetime
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser
@@ -12,6 +12,7 @@ import logging
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 from django.core.exceptions import ValidationError
+from account.transaction import charge_score
 host = 'http://test.wafuli.cn'
 from django.core.urlresolvers import reverse
 logger = logging.getLogger("wafuli")
@@ -273,3 +274,28 @@ def score_json(request):
             i.update({"state":state})
         data.append(i)
     return JsonResponse(data, safe=False)
+
+@app_login_required
+def submit_order(request):
+    result={'code':0, 'url':''}
+    name = request.GET.get("name", '')
+    tel = request.GET.get("tel", '')
+    addr = request.GET.get("addr", '')
+    remark= request.GET.get("remark", '')
+    good_id= request.GET.get("id", '')
+    good_id = int(good_id)
+    commodity = Commodity.objects.get(pk=good_id)
+    ret = charge_score(request.user, '1', commodity.price, commodity.name)
+    if ret is not None:
+        logger.debug('Exchanging scores is successfully reduced!')
+        exg_obj = ExchangeRecord.objects.create(tranlist=ret,commodity=commodity,
+                                      name=name,tel=tel,addr=addr,message=remark)
+        event = UserEvent.objects.create(user=request.user, event_type='3',invest_amount=commodity.price,
+                         audit_state='1',remark=remark, content_object=exg_obj)
+        ret.user_event = event
+        ret.save(update_fields=['user_event'])
+        result['code'] = 0
+    else:
+        logger.debug('Exchanging scores is failed to reduce!!!')
+        result['code'] = 1
+    return JsonResponse(result)

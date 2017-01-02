@@ -692,7 +692,8 @@ def exchange_introduction(request):
     return render(request, 'm_exchange_introduction.html', {})
 def exchange_questions(request):
     return render(request, 'm_exchange_questions.html', {})
-@login_required
+
+
 def commodity_json(request):
     count = int(request.GET.get('count', 0))
     data = []
