@@ -18,4 +18,5 @@ urlpatterns = [
     
     url(r'^charge_json/$', 'app.views.charge_json'),
     url(r'^score_json/$', 'app.views.score_json'),
+    url(r'^submit_order/$', 'app.views.submit_order'),
 ]
