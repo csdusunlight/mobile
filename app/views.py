@@ -1,6 +1,6 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
-    Coupon, TransList
+    Coupon, TransList, ScoreTranlist
 from datetime import datetime
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser
@@ -233,7 +233,7 @@ def charge_json(request):
     count = int(request.GET.get('count', 0))
     type = str(request.GET.get('type', '0'))
     start = 6*count
-    item_list = TransList.objects.filter(user=request.user, transType=type)[start:start+6]
+    item_list = TransList.objects.filter(user=user, transType=type)[start:start+6]
     data = []
     for con in item_list:      
         i = {"reason":con.reason,
@@ -247,5 +247,28 @@ def charge_json(request):
             else:
                 state = u"无"
             i.update({"state":state,})   
+        data.append(i)
+    return JsonResponse(data, safe=False)
+
+@app_login_required
+def score_json(request):
+    user = request.user
+    count = int(request.GET.get('count', 0))
+    type = str(request.GET.get('type', '0'))
+    start = 6*count
+    item_list = ScoreTranlist.objects.filter(user=user, transType=type)[start:start+6]
+    data = []
+    for con in item_list:      
+        i = {"reason":con.reason,
+             "amount":con.transAmount,
+             "date":con.time.strftime("%Y-%m-%d"),
+             }
+        if type == '1':
+            event = con.user_event
+            if event and event.event_type == '3':
+                state = event.get_audit_state_display()
+            else:
+                state = u"无"
+            i.update({"state":state})
         data.append(i)
     return JsonResponse(data, safe=False)

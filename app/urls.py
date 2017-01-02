@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^user/$', 'app.views.get_user_info', name='user_info'),
     
     url(r'^charge_json/$', 'app.views.charge_json'),
+    url(r'^score_json/$', 'app.views.score_json'),
 ]
