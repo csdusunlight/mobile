@@ -12,7 +12,7 @@ import logging
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 from django.core.exceptions import ValidationError
-from account.transaction import charge_score
+from account.transaction import charge_score, charge_money
 host = 'http://test.wafuli.cn'
 from django.core.urlresolvers import reverse
 logger = logging.getLogger("wafuli")
@@ -298,4 +298,41 @@ def submit_order(request):
     else:
         logger.debug('Exchanging scores is failed to reduce!!!')
         result['code'] = 1
+    return JsonResponse(result)
+
+@csrf_exempt
+@app_login_required
+def withdraw(request):
+    user = request.user
+    result = {'code':-1, 'res_msg':''}
+    withdraw_amount = request.POST.get("amount", None)
+    if not withdraw_amount:
+        result['code'] = 3
+        result['res_msg'] = u'传入参数不足！'
+        return JsonResponse(result)
+    try:
+        withdraw_amount = int(withdraw_amount)
+    except ValueError:
+        result['code'] = -1
+        result['res_msg'] = u'参数不合法！'
+        return JsonResponse(result)
+    if withdraw_amount < 1000 or withdraw_amount > user.balance:
+        result['code'] = -1
+        result['res_msg'] = u'余额不足！'
+        return JsonResponse(result)
+    if not user.zhifubao or not user.zhifubao_name:
+        result['code'] = -1
+        result['res_msg'] = u'请先绑定支付宝！'
+    else:
+        translist = charge_money(user, '1', withdraw_amount, u'提现')
+        if translist:
+            event = UserEvent.objects.create(user=user, event_type='2', invest_account=user.zhifubao,
+                        invest_amount=withdraw_amount, audit_state='1')
+            translist.user_event = event
+            translist.save(update_fields=['user_event'])
+            result['code'] = 0
+            result['res_msg'] = u'提交成功，请耐心等待审核通过！'
+        else:
+            result['code'] = -2
+            result['res_msg'] = u'提交失败！'
     return JsonResponse(result)
