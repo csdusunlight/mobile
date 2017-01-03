@@ -40,3 +40,21 @@ def app_login_required(view):
 #         request.user = MyUser.objects.get(id=1)
 #         return view(request)
 #     return decorator
+
+def is_authenticated_app(request):
+    token = request.POST.get("token") or request.GET.get("token")
+    if not token:
+        return False
+    else:
+        try:
+            now = int(time.time()*1000)
+            token = UserToken.objects.get(token=token)
+            expire = token.expire
+            if expire < now:
+                return False
+            else:
+                request.user = token.user
+        except:
+            return False
+        else:
+            return True

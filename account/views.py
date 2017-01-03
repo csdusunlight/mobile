@@ -42,6 +42,7 @@ from urllib import urlencode
 from wafuli.tools import get_weixin_params
 from wafuli.Christmas import produce
 from wafuli_admin.models import Invite_Rank
+from app.tools import is_authenticated_app
 logger = logging.getLogger('wafuli')
 
 def user_guide(request):
@@ -329,7 +330,7 @@ def phoneImageV(request):
             result.update(generateCap())
             return JsonResponse(result)
     elif action=="change_zhifubao":
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated() or not is_authenticated_app(request):
             result['code'] = 1
             result['message'] = u"尚未登录"
             return JsonResponse(result)
