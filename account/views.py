@@ -330,7 +330,7 @@ def phoneImageV(request):
             result.update(generateCap())
             return JsonResponse(result)
     elif action=="change_zhifubao":
-        if not request.user.is_authenticated() or not is_authenticated_app(request):
+        if not request.user.is_authenticated() and not is_authenticated_app(request):
             result['code'] = 1
             result['message'] = u"尚未登录"
             return JsonResponse(result)
