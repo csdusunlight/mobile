@@ -438,8 +438,6 @@ def get_user_welfare_json(request):
     if not request.is_ajax():
         raise Http404
     res={'code':0,}
-    if not request.user.is_authenticated():
-        raise Http404
     type = request.GET.get("type", 0)
     count = request.GET.get("count", 0)
     try:
