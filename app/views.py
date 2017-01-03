@@ -13,6 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 from django.core.exceptions import ValidationError
 from account.transaction import charge_score, charge_money
+from account.varify import verifymobilecode
 host = 'http://test.wafuli.cn'
 from django.core.urlresolvers import reverse
 logger = logging.getLogger("wafuli")
@@ -335,4 +336,47 @@ def withdraw(request):
         else:
             result['code'] = -2
             result['res_msg'] = u'提交失败！'
+    return JsonResponse(result)
+
+@app_login_required
+def bind_zhifubao(request):
+    result={}
+    user = request.user
+    zhifubao = request.POST.get("account", '')
+    zhifubao_name = request.POST.get("name", '')
+    if not user.zhifubao:
+        user.zhifubao = zhifubao
+        user.zhifubao_name = zhifubao_name
+        user.save(update_fields=["zhifubao","zhifubao_name",])
+        result['code'] = 0
+        result['res_msg'] = u'绑定成功！'
+    else:
+       result['code'] = 3 
+       result['res_msg'] = u'您已绑定过支付宝！'
+    return JsonResponse(result)
+
+@csrf_exempt
+@app_login_required
+def change_zhifubao(request):
+    result={}
+    user = request.user
+    zhifubao = request.POST.get("account", '')
+    zhifubao_name = request.POST.get("name", '')
+    telcode = request.POST.get("telcode", '')
+    ret = verifymobilecode(user.mobile,telcode)
+    if ret != 0:
+        result['code'] = 2
+        if ret == -1:
+            result['res_msg'] = u'请先获取手机验证码！'
+        elif ret == 1:
+            result['res_msg'] = u'手机验证码输入错误！'
+        elif ret == 2:
+            result['res_msg'] = u'手机验证码已过期，请重新获取'
+        return JsonResponse(result)
+    else:
+        user.zhifubao = zhifubao
+        user.zhifubao_name = zhifubao_name
+        user.save(update_fields=["zhifubao","zhifubao_name",])
+        result['code'] = 0
+        result['res_msg'] = u"支付宝账号更改成功！"
     return JsonResponse(result)
