@@ -1,6 +1,7 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
-    Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent
+    Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent, Task,\
+    Finance
 from datetime import datetime
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser
@@ -14,6 +15,7 @@ from django.views.decorators.cache import never_cache
 from django.core.exceptions import ValidationError
 from account.transaction import charge_score, charge_money
 from account.varify import verifymobilecode
+from django.contrib.contenttypes.models import ContentType
 host = 'http://test.wafuli.cn'
 from django.core.urlresolvers import reverse
 logger = logging.getLogger("wafuli")
@@ -225,9 +227,14 @@ def login(request):
 @csrf_exempt
 def get_user_info(request):
     user = request.user
+    ttype = ContentType.objects.get_for_model(Task)
+    ftype = ContentType.objects.get_for_model(Finance)
+    tcount_u = UserEvent.objects.filter(user=user, content_type = ttype.id).count()
+    fcount_u = UserEvent.objects.filter(user=user, content_type = ftype.id).count()
     result = {'code':0, 'accu_income':user.accu_income, 'balance':user.balance, 
               'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores,
-              'accu_scores':user.accu_scores, 'zhifubao':user.zhifubao}
+              'accu_scores':user.accu_scores, 'zhifubao':user.zhifubao, 'tcount_u':tcount_u,
+              'fcount_u':fcount_u}
     return JsonResponse(result)
 
 @app_login_required
