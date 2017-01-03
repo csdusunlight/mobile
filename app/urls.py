@@ -23,4 +23,5 @@ urlpatterns = [
     
     url(r'^bind_zhifubao/$', 'app.views.bind_zhifubao'),
     url(r'^change_zhifubao/$', 'app.views.change_zhifubao'),
+    url(r'^password_change/$', 'app.views.password_change'),
 ]

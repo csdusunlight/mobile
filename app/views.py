@@ -380,3 +380,24 @@ def change_zhifubao(request):
         result['code'] = 0
         result['res_msg'] = u"支付宝账号更改成功！"
     return JsonResponse(result)
+
+@csrf_exempt
+@app_login_required
+def password_change(request):
+    result={}
+    init_password = request.POST.get("initp", '')
+    new_password = request.POST.get("newp", '')
+    if not (init_password and new_password):
+        result['code'] = 1
+        result['res_msg'] = u'请输入密码！'
+        return JsonResponse(result)
+    user = request.user
+    if not user.check_password(init_password):
+        result['code'] = 2
+        result['res_msg'] = u'当前密码输入错误！'
+    else:
+        user.set_password(new_password)
+        user.save(update_fields=["password"])
+        result['code'] = 0
+        result['res_msg'] = u'密码修改成功！'
+    return JsonResponse(result)
