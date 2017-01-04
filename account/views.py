@@ -783,8 +783,7 @@ def get_user_coupon_exchange_detail(request):
 
 @csrf_exempt
 def useCoupon(request):
-    user = request.user
-    if not user.is_authenticated() and not is_authenticated_app(request):
+    if not request.user.is_authenticated() and not is_authenticated_app(request):
         res={'code':-1,'res_msg':u"尚未登录"}
         return JsonResponse(res)
     coupon_id = request.POST.get('id', None)
@@ -809,7 +808,7 @@ def useCoupon(request):
                 code = '2'
                 msg = u'该账号已领取奖励，请不要重复提交！'
     if code!='2':
-        UserEvent.objects.create(user=user, event_type='4', invest_account=telnum,
+        UserEvent.objects.create(user=request.user, event_type='4', invest_account=telnum,
                      content_object=coupon, audit_state='1',remark=remark,)
         code = '1'
         msg = u'提交成功，请查看兑换记录！'
