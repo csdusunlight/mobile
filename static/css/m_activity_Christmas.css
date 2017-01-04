@@ -1,13 +1,23 @@
-/*@font-face {
-	font-family: "浪漫雅圆";
-	src: url('../fonts/浪漫雅圆.ttf') format('truetype');
-
-}
-
 @font-face {
-	font-family: "迷你简汉真广标";
-	src: url('../fonts/迷你简汉真广标.ttf') format('truetype');
-}*/
+  font-family: "浪漫雅圆";
+  src: url('../fonts/langmanyayuan.eot');
+  src:
+      url('../fonts/langmanyayuan.woff') format('woff'),
+      url('../fonts/langmanyayuan.ttf') format('truetype'),
+      url('../fonts/langmanyayuan.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "迷你简汉真广标";
+  src: url('../fonts/minijianhan.eot');
+  src:
+      url('../fonts/minijianhan.woff') format('woff'),
+      url('../fonts/minijianhan.ttf') format('truetype'),
+      url('../fonts/minijianhan.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
 	width: 100%;
 	*cursor: default;

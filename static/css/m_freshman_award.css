@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "华康少女文字W5(P)";
+  src: url('../fonts/huakangshaonv.eot');
+  src:
+      url('../fonts/huakangshaonv.woff') format('woff'),
+      url('../fonts/huakangshaonv.ttf') format('truetype'),
+      url('../fonts/huakangshaonv.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
 	background: #ffeb93;
 }
@@ -16,7 +26,7 @@ body {
      	-webkit-transform: scale(1.4);
      	transform: scale(1.4);
      	top: 0rem;
-     }      
+     }
      100% {
         top: 5rem;
         opacity: 1;
@@ -24,7 +34,7 @@ body {
 }
 .mui-content .top {
 	position: absolute;
-	width: 100%;	
+	width: 100%;
 	padding: 0 3rem;
 	top: 5rem;
 	animation: active 1s linear;
@@ -32,7 +42,7 @@ body {
 }
 .top img {
 	width: 100%;
-} 
+}
 .mui-content .textbox {
 	position: relative;
 	padding: 0 1rem;
@@ -47,7 +57,7 @@ body {
 	font-size: 1.6rem;
 	color: #568542;
 	top: 4rem;
-	left: 13rem;	
+	left: 13rem;
 }
 .textbox p {
 	position: absolute;
@@ -56,7 +66,7 @@ body {
 	color: #ae8649;
 	top: 6.6rem;
 	left: 5rem;
-	text-align: left;	
+	text-align: left;
 }
 .mui-content .textbox-01 {
 	margin-top: 16rem;
@@ -76,7 +86,7 @@ body {
 	font-size: 1.2rem;
 	color: #8f451c;
 	top: 17.6rem;
-	left: 13rem;	
+	left: 13rem;
 }
 .textbox-01 a {
 	-webkit-transform: rotate(4deg);
@@ -84,36 +94,21 @@ body {
 	transform: rotate(4deg);
 }
 @-webkit-keyframes active-02 {
-     /*0% {
-	   	opacity: 0;
-	   	-webkit-transform: scale(1) translateY(-30px);
-	 	transform: scale(1) translateY(-30px);
-     }   
-     75% {
-        opacity: 0.75;
-		-webkit-transform: scale(1.2) translateY(5px);
-     	transform: scale(1.2) translateY(5px);
-     }  
-     100% {
-        opacity: 1;
-		-webkit-transform: scale(1) translateY(0px);
-     	transform: scale(1) translateY(0px);
-     }*/
      0% {
        	opacity: 0.2;
        	-webkit-transform: scale(0.4) rotate(-180deg);
      	transform: scale(0.4) rotate(-180deg);
-     } 
+     }
      50% {
         opacity: 1;
 		-webkit-transform: scale(1) rotate(20deg);
      	transform: scale(1) rotate(20deg);
-     } 
+     }
      60% {
         opacity: 1;
 		-webkit-transform: scaleY(1.6) rotate(-10deg);
      	transform: scaleY(1.6) rotate(-10deg);
-     } 
+     }
      100% {
         opacity: 1;
 		-webkit-transform: scale(1) rotate(0deg);
@@ -155,12 +150,12 @@ body {
 	color: #777;
 }
 .mui-content .bottom {
-	width: 100%;	
+	width: 100%;
 	margin-top: 4rem;
 }
 .bottom img {
 	width: 100%;
-} 
+}
 /*样式覆盖*/
 .mui-bar {
 	background: #ffeb93;
