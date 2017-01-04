@@ -722,7 +722,10 @@ def coupon(request):
     return render(request, 'account/m_account_coupon.html', {'dict':dict})
 
 def user_coupon_json(request):
-    res={'code':0,}
+    user = request.user
+    if not user.is_authenticated() and not is_authenticated_app(request):
+        res={'code':-1,}
+        return JsonResponse(res)
     count = int(request.GET.get('count', 0))
     type = str(request.GET.get("type", ''))
     #移动端顺序是使用0、现金1、加息2，数据库是使用2、现金0、加息1
@@ -755,13 +758,16 @@ def user_coupon_json(request):
         data.append(i)
     return JsonResponse(data,safe=False)
 def get_user_coupon_exchange_detail(request):
-    res={'code':0,}
+    user = request.user
+    if not user.is_authenticated() and not is_authenticated_app(request):
+        res={'code':-1,}
+        return JsonResponse(res)
     count = int(request.GET.get('count', 0))
     type = request.GET.get("type", '')
     data = []
     count = int(count)
     start = 12*count
-    item_list = UserEvent.objects.filter(user=request.user,event_type='4')[start:start+12]
+    item_list = UserEvent.objects.filter(user=user,event_type='4')[start:start+12]
     data = []
     for con in item_list:
         coupon = con.content_object
@@ -775,11 +781,13 @@ def get_user_coupon_exchange_detail(request):
         }
         data.append(i)
     return JsonResponse(data,safe=False)
+
+@csrf_exempt
 def useCoupon(request):
     user = request.user
-    res={'code':0,}
-    if not user.is_authenticated():
-        raise Http404
+    if not user.is_authenticated() and not is_authenticated_app(request):
+        res={'code':-1,'res_msg':u"尚未登录"}
+        return JsonResponse(res)
     coupon_id = request.POST.get('id', None)
     telnum = request.POST.get('telnum', None)
     remark = request.POST.get('remark', '')
