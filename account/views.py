@@ -758,8 +758,7 @@ def user_coupon_json(request):
         data.append(i)
     return JsonResponse(data,safe=False)
 def get_user_coupon_exchange_detail(request):
-    user = request.user
-    if not user.is_authenticated() and not is_authenticated_app(request):
+    if not request.user.is_authenticated() and not is_authenticated_app(request):
         res={'code':-1,}
         return JsonResponse(res)
     count = int(request.GET.get('count', 0))
@@ -767,7 +766,7 @@ def get_user_coupon_exchange_detail(request):
     data = []
     count = int(count)
     start = 12*count
-    item_list = UserEvent.objects.filter(user=user,event_type='4')[start:start+12]
+    item_list = UserEvent.objects.filter(user=request.user,event_type='4')[start:start+12]
     data = []
     for con in item_list:
         coupon = con.content_object
