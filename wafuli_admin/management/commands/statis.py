@@ -97,7 +97,7 @@ class Command(BaseCommand):
             n = r.acc_num
             r.save(update_fields=['rank'])
         
-        item_list = MyUser.objects.values('id').annotate(sum=Sum('invitees__envelope__envelope_total')).order_by('-sum')
+        item_list = MyUser.objects.values('id').annotate(sum=Sum('invitees__envelope__envelope_total')).filter(sum__gt=0).order_by('-sum')
         for dic in item_list:
             print dic
             user=MyUser.objects.get(id=dic.get('id'))
