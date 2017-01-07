@@ -30,11 +30,11 @@ def deliver_coupon(request):
         result = {'code':0}
         if not ( admin_user.is_authenticated() and admin_user.is_staff):
             result['code'] = -4
-            result['res_msg'] = u'请登录！'
+            result['msg'] = u'请登录！'
             return JsonResponse(result)
         if not admin_user.has_admin_perms('006'):
             result['code'] = -5
-            result['res_msg'] = u'您没有操作权限！'
+            result['msg'] = u'您没有操作权限！'
             return JsonResponse(result)
         coupon_type = request.POST.get('selecttype')
         project_id = request.POST.get('selectproject')
@@ -111,14 +111,14 @@ def parse_file(request):
     file = request.FILES.get('file')
     if not file:
         res['code'] = -2
-        res['res_msg'] = u'请先选择文件！'
+        res['msg'] = u'请先选择文件！'
     else:
         try:
             res['list'] = handle_uploaded_file(file)
         except Exception, e:
             logger.info(e)
             res['code'] = -3
-            res['res_msg'] = u'文件格式有误！'
+            res['msg'] = u'文件格式有误！'
         else:
             res['code'] = 0
     
@@ -152,7 +152,7 @@ def admin_coupon(request):
             return JsonResponse(res)
         if not admin_user.has_admin_perms('002'):
             res['code'] = -5
-            res['res_msg'] = u'您没有操作权限！'
+            res['msg'] = u'您没有操作权限！'
             return JsonResponse(res)
         event_id = request.POST.get('id', None)
         cash = request.POST.get('cash', None)
@@ -162,7 +162,7 @@ def admin_coupon(request):
         type = int(type)
         if not event_id or type==1 and not (cash and score) or type==2 and not reason or type!=1 and type!=2:
             res['code'] = -2
-            res['res_msg'] = u'传入参数不足，请联系技术人员！'
+            res['msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         event = UserEvent.objects.get(id=event_id)
         event_user = event.user
@@ -176,20 +176,20 @@ def admin_coupon(request):
                 score = int(score)
             except:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if cash < 0 or score < 0:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if event.audit_state != '1':
                 res['code'] = -3
-                res['res_msg'] = u'该项目已审核过，不要重复审核！'
+                res['msg'] = u'该项目已审核过，不要重复审核！'
                 return JsonResponse(res)
             if event.translist.exists():
                 logger.critical("Returning cash is repetitive!!!")
                 res['code'] = -3
-                res['res_msg'] = u"操作失败，返现重复！"
+                res['msg'] = u"操作失败，返现重复！"
             else:
                 log.audit_result = True
                 translist = charge_money(event_user, '0', cash, u'优惠券兑换')
@@ -203,13 +203,13 @@ def admin_coupon(request):
                     res['code'] = 0
                 else:
                     res['code'] = -4
-                    res['res_msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
+                    res['msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
                     if not translist:
                         logger.error(u"Charging cash is failed!!!")
-                        res['res_msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
+                        res['msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
                     if not scoretranslist:
                         logger.error(u"Charging score is failed!!!")
-                        res['res_msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
+                        res['msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
         else:
             event.audit_state = '2'
             log.audit_result = False

@@ -24,4 +24,7 @@ urlpatterns = [
     url(r'^bind_zhifubao/$', 'app.views.bind_zhifubao'),
     url(r'^change_zhifubao/$', 'app.views.change_zhifubao'),
     url(r'^password_change/$', 'app.views.password_change'),
+    
+    url(r'^invite_to_balance/$', 'app.views.invite_to_balance'),
+    url(r'^get_invite_info/$', 'app.views.get_invite_info'),
 ]

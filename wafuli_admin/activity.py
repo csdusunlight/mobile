@@ -30,7 +30,7 @@ def admin_recommend_return(request):
         res = {}
         if not admin_user.has_admin_perms('003'):
             res['code'] = -5
-            res['res_msg'] = u'您没有操作权限！'
+            res['msg'] = u'您没有操作权限！'
             return JsonResponse(res)
         if not request.is_ajax():
             raise Http404
@@ -47,7 +47,7 @@ def admin_recommend_return(request):
         type = int(type)
         if not event_id or type==1 and not (cash and score) or type==2 and not reason or type!=1 and type!=2:
             res['code'] = -2
-            res['res_msg'] = u'传入参数不足，请联系技术人员！'
+            res['msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         event = UserEvent.objects.get(id=event_id)
         event_user = event.user
@@ -61,20 +61,20 @@ def admin_recommend_return(request):
                 score = int(score)
             except:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if cash < 0 or score < 0:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if event.audit_state != '1':
                 res['code'] = -3
-                res['res_msg'] = u'该项目已审核过，不要重复审核！'
+                res['msg'] = u'该项目已审核过，不要重复审核！'
                 return JsonResponse(res)
             if event.translist.exists():
                 logger.critical("Returning cash is repetitive!!!")
                 res['code'] = -3
-                res['res_msg'] = u"操作失败，返现重复！"
+                res['msg'] = u"操作失败，返现重复！"
             else:
                 log.audit_result = True
                 translist = charge_money(event_user, '0', cash, u'活动奖励')
@@ -89,13 +89,13 @@ def admin_recommend_return(request):
                     produce(event_user,3)
                 else:
                     res['code'] = -4
-                    res['res_msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
+                    res['msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
                     if not translist:
                         logger.error(u"Charging cash is failed!!!")
-                        res['res_msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
+                        res['msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
                     if not scoretranslist:
                         logger.error(u"Charging score is failed!!!")
-                        res['res_msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
+                        res['msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
         else:
             event.audit_state = '2'
             log.audit_result = False

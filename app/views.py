@@ -19,6 +19,8 @@ from django.contrib.contenttypes.models import ContentType
 host = 'http://test.wafuli.cn'
 from django.core.urlresolvers import reverse
 logger = logging.getLogger("wafuli")
+from django.conf import settings
+from django.db.models import Sum
 
 def get_news(request):
     timestamp = request.GET.get('lastDate','')
@@ -46,7 +48,7 @@ def get_news(request):
             'time': wel.time_limit,
             'source': wel.provider,
             'view': wel.view_count,
-            'type':wel.type
+            'type':wel.type,
         }
         ret_list.append(attr_dic)
     return JsonResponse({'code':0,'data':ret_list})
@@ -234,7 +236,7 @@ def get_user_info(request):
     result = {'code':0, 'accu_income':user.accu_income, 'balance':user.balance, 
               'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores,
               'accu_scores':user.accu_scores, 'zhifubao':user.zhifubao, 'tcount_u':tcount_u,
-              'fcount_u':fcount_u}
+              'fcount_u':fcount_u,'invite_code':user.invite_code}
     return JsonResponse(result)
 
 @app_login_required
@@ -312,25 +314,25 @@ def submit_order(request):
 @app_login_required
 def withdraw(request):
     user = request.user
-    result = {'code':-1, 'res_msg':''}
+    result = {'code':-1, 'msg':''}
     withdraw_amount = request.POST.get("amount", None)
     if not withdraw_amount:
         result['code'] = 3
-        result['res_msg'] = u'传入参数不足！'
+        result['msg'] = u'传入参数不足！'
         return JsonResponse(result)
     try:
         withdraw_amount = int(withdraw_amount)
     except ValueError:
         result['code'] = -1
-        result['res_msg'] = u'参数不合法！'
+        result['msg'] = u'参数不合法！'
         return JsonResponse(result)
     if withdraw_amount < 1000 or withdraw_amount > user.balance:
         result['code'] = -1
-        result['res_msg'] = u'余额不足！'
+        result['msg'] = u'余额不足！'
         return JsonResponse(result)
     if not user.zhifubao or not user.zhifubao_name:
         result['code'] = -1
-        result['res_msg'] = u'请先绑定支付宝！'
+        result['msg'] = u'请先绑定支付宝！'
     else:
         translist = charge_money(user, '1', withdraw_amount, u'提现')
         if translist:
@@ -339,10 +341,10 @@ def withdraw(request):
             translist.user_event = event
             translist.save(update_fields=['user_event'])
             result['code'] = 0
-            result['res_msg'] = u'提交成功，请耐心等待审核通过！'
+            result['msg'] = u'提交成功，请耐心等待审核通过！'
         else:
             result['code'] = -2
-            result['res_msg'] = u'提交失败！'
+            result['msg'] = u'提交失败！'
     return JsonResponse(result)
 
 @app_login_required
@@ -356,10 +358,10 @@ def bind_zhifubao(request):
         user.zhifubao_name = zhifubao_name
         user.save(update_fields=["zhifubao","zhifubao_name",])
         result['code'] = 0
-        result['res_msg'] = u'绑定成功！'
+        result['msg'] = u'绑定成功！'
     else:
        result['code'] = 3 
-       result['res_msg'] = u'您已绑定过支付宝！'
+       result['msg'] = u'您已绑定过支付宝！'
     return JsonResponse(result)
 
 @csrf_exempt
@@ -374,18 +376,18 @@ def change_zhifubao(request):
     if ret != 0:
         result['code'] = 2
         if ret == -1:
-            result['res_msg'] = u'请先获取手机验证码！'
+            result['msg'] = u'请先获取手机验证码！'
         elif ret == 1:
-            result['res_msg'] = u'手机验证码输入错误！'
+            result['msg'] = u'手机验证码输入错误！'
         elif ret == 2:
-            result['res_msg'] = u'手机验证码已过期，请重新获取'
+            result['msg'] = u'手机验证码已过期，请重新获取'
         return JsonResponse(result)
     else:
         user.zhifubao = zhifubao
         user.zhifubao_name = zhifubao_name
         user.save(update_fields=["zhifubao","zhifubao_name",])
         result['code'] = 0
-        result['res_msg'] = u"支付宝账号更改成功！"
+        result['msg'] = u"支付宝账号更改成功！"
     return JsonResponse(result)
 
 @csrf_exempt
@@ -396,15 +398,63 @@ def password_change(request):
     new_password = request.POST.get("newp", '')
     if not (init_password and new_password):
         result['code'] = 1
-        result['res_msg'] = u'请输入密码！'
+        result['msg'] = u'请输入密码！'
         return JsonResponse(result)
     user = request.user
     if not user.check_password(init_password):
         result['code'] = 2
-        result['res_msg'] = u'当前密码输入错误！'
+        result['msg'] = u'当前密码输入错误！'
     else:
         user.set_password(new_password)
         user.save(update_fields=["password"])
         result['code'] = 0
-        result['res_msg'] = u'密码修改成功！'
+        result['msg'] = u'密码修改成功！'
     return JsonResponse(result)
+
+@csrf_exempt
+@app_login_required
+def invite_to_balance(request):
+    inviter = request.user
+    left_award = inviter.invite_account
+    result = {}
+    if left_award == 0:
+        result['code'] = 1
+        result['msg'] = u'邀请奖励结余为0'
+    else:
+        translist = charge_money(inviter, '0', left_award, u'邀请奖励')
+        if translist:
+            inviter.invite_account = 0
+            inviter.save(update_fields=['invite_account'])
+            event = UserEvent.objects.create(user=inviter, event_type='5',
+                        invest_amount=left_award, audit_state='1')
+            translist.user_event = event
+            translist.save(update_fields=['user_event'])
+            result['code'] = 0
+        else:
+            result['code'] = 2
+            result['msg'] = u'操作失败，请联系客服！'
+    return JsonResponse(result)
+
+
+@app_login_required
+@csrf_exempt
+def get_invite_info(request):
+    inviter = request.user
+    withdraw_thismonth = UserEvent.objects.filter(user__inviter=inviter, event_type='2',
+                audit_state='0',audit_time__year=time.localtime()[0],audit_time__month=time.localtime()[1]).\
+                aggregate(sumofwith=Sum('invest_amount'))
+    acc_count = inviter.invitees.count()
+    acc_with_count = UserEvent.objects.filter(user__inviter=inviter, event_type='2',
+                audit_state='0').values('user__mobile').distinct().order_by().count()
+    this_month_award = float(withdraw_thismonth.get('sumofwith') or 0)*settings.AWARD_RATE
+    this_month_award = int(this_month_award)
+    statis = {
+        'code':0,
+        'left_award':inviter.invite_account,
+        'accu_invite_award':inviter.invite_income,   
+        'accu_invite_scores':inviter.invite_scores,
+        'acc_count':acc_count,
+        'acc_with_count':acc_with_count,
+        'this_month_award':this_month_award, 
+    }
+    return JsonResponse(statis)

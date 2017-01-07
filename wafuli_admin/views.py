@@ -142,7 +142,7 @@ def admin_finance(request):
             return JsonResponse(res)
         if not admin_user.has_admin_perms('002'):
             res['code'] = -5
-            res['res_msg'] = u'您没有操作权限！'
+            res['msg'] = u'您没有操作权限！'
             return JsonResponse(res) 
         event_id = request.POST.get('id', None)
         cash = request.POST.get('cash', None)
@@ -152,7 +152,7 @@ def admin_finance(request):
         type = int(type)
         if not event_id or type==1 and not (cash and score) or type==2 and not reason or type!=1 and type!=2:
             res['code'] = -2
-            res['res_msg'] = u'传入参数不足，请联系技术人员！'
+            res['msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         event = UserEvent.objects.get(id=event_id)
         event_user = event.user
@@ -167,20 +167,20 @@ def admin_finance(request):
                 score = int(score)
             except:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if cash < 0 or score < 0:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if event.audit_state != '1':
                 res['code'] = -3
-                res['res_msg'] = u'该项目已审核过，不要重复审核！'
+                res['msg'] = u'该项目已审核过，不要重复审核！'
                 return JsonResponse(res)
             if event.translist.exists():
                 logger.critical("Returning cash is repetitive!!!")
                 res['code'] = -3
-                res['res_msg'] = u"操作失败，返现重复！"
+                res['msg'] = u"操作失败，返现重复！"
             else:
                 log.audit_result = True
                 translist = charge_money(event_user, '0', cash, u'福利返现')
@@ -194,13 +194,13 @@ def admin_finance(request):
                     res['code'] = 0
                 else:
                     res['code'] = -4
-                    res['res_msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
+                    res['msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
                     if not translist:
                         logger.error(u"Charging cash is failed!!!")
-                        res['res_msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
+                        res['msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
                     if not scoretranslist:
                         logger.error(u"Charging score is failed!!!")
-                        res['res_msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
+                        res['msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
         else:
             event.audit_state = '2'
             log.audit_result = False
@@ -238,7 +238,7 @@ def admin_task(request):
             return JsonResponse(res)
         if not admin_user.has_admin_perms('002'):
             res['code'] = -5
-            res['res_msg'] = u'您没有操作权限！'
+            res['msg'] = u'您没有操作权限！'
             return JsonResponse(res) 
         event_id = request.POST.get('id', None)
         cash = request.POST.get('cash', None)
@@ -248,7 +248,7 @@ def admin_task(request):
         type = int(type)
         if not event_id or type==1 and not (cash and score) or type==2 and not reason or type!=1 and type!=2:
             res['code'] = -2
-            res['res_msg'] = u'传入参数不足，请联系技术人员！'
+            res['msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         event = UserEvent.objects.get(id=event_id)
         event_user = event.user
@@ -262,20 +262,20 @@ def admin_task(request):
                 score = int(score)
             except:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if cash < 0 or score < 0:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if event.audit_state != '1':
                 res['code'] = -3
-                res['res_msg'] = u'该项目已审核过，不要重复审核！'
+                res['msg'] = u'该项目已审核过，不要重复审核！'
                 return JsonResponse(res)
             if event.translist.exists():
                 logger.critical("Returning cash is repetitive!!!")
                 res['code'] = -3
-                res['res_msg'] = u"操作失败，返现重复！"
+                res['msg'] = u"操作失败，返现重复！"
             else:
                 log.audit_result = True
                 translist = charge_money(event_user, '0', cash, u'福利返现')
@@ -290,13 +290,13 @@ def admin_task(request):
                     produce(event_user,2)
                 else:
                     res['code'] = -4
-                    res['res_msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
+                    res['msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
                     if not translist:
                         logger.error(u"Charging cash is failed!!!")
-                        res['res_msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
+                        res['msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
                     if not scoretranslist:
                         logger.error(u"Charging score is failed!!!")
-                        res['res_msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
+                        res['msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
         else:
             event.audit_state = '2'
             log.audit_result = False
@@ -517,7 +517,7 @@ def admin_user(request):
         res = {}
         if not admin_user.has_admin_perms('005'):
             res['code'] = -5
-            res['res_msg'] = u'您没有操作权限！'
+            res['msg'] = u'您没有操作权限！'
             return JsonResponse(res)
         if not request.is_ajax():
             raise Http404
@@ -530,7 +530,7 @@ def admin_user(request):
         type = int(type)
 #         if not user_id or type==1 and not (cash and score) or type==2 and not reason or type!=1 and type!=2:
 #             res['code'] = -2
-#             res['res_msg'] = u'传入参数不足，请联系技术人员！'
+#             res['msg'] = u'传入参数不足，请联系技术人员！'
 #             return JsonResponse(res)
         obj_user = MyUser.objects.get(id=user_id) 
         if type==1:
@@ -543,7 +543,7 @@ def admin_user(request):
             reason = request.POST.get('reason', '')
             if not pcash and not mcash or pcash and mcash or not reason:
                 res['code'] = -2
-                res['res_msg'] = u'传入参数不足，请联系技术人员！'
+                res['msg'] = u'传入参数不足，请联系技术人员！'
                 return JsonResponse(res)
             try:
                 pcash = float(pcash)*100
@@ -552,11 +552,11 @@ def admin_user(request):
                 mcash = int(mcash)
             except:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if pcash < 0 or mcash < 0:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             translist = None
             if pcash > 0:
@@ -570,7 +570,7 @@ def admin_user(request):
                 res['code'] = 0
             else:
                 res['code'] = -4
-                res['res_msg'] = "现金记账失败，请检查输入合法性后再次提交！"
+                res['msg'] = "现金记账失败，请检查输入合法性后再次提交！"
         elif type == 2:
             pscore = request.POST.get('pscore', 0)
             mscore = request.POST.get('mscore', 0)
@@ -581,18 +581,18 @@ def admin_user(request):
             reason = request.POST.get('reason', '')
             if not pscore and not mscore or pscore and mscore or not reason:
                 res['code'] = -2
-                res['res_msg'] = u'传入参数不足，请联系技术人员！'
+                res['msg'] = u'传入参数不足，请联系技术人员！'
                 return JsonResponse(res)
             try:
                 pscore = int(pscore)
                 mscore = int(mscore)
             except:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if pscore < 0 or mscore < 0:
                 res['code'] = -2
-                res['res_msg'] = u"操作失败，输入不合法！"
+                res['msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             
             scoretranslist = None
@@ -607,7 +607,7 @@ def admin_user(request):
                 res['code'] = 0
             else:
                 res['code'] = -4
-                res['res_msg'] = "积分记账失败，请检查输入合法性后再次提交！"
+                res['msg'] = "积分记账失败，请检查输入合法性后再次提交！"
         elif type == 3:
             obj_user.is_active = False
             obj_user.save(update_fields=['is_active'])
@@ -727,7 +727,7 @@ def admin_withdraw(request):
         res = {}
         if not admin_user.has_admin_perms('004'):
             res['code'] = -5
-            res['res_msg'] = u'您没有操作权限！'
+            res['msg'] = u'您没有操作权限！'
             return JsonResponse(res)
         if not request.is_ajax():
             raise Http404
@@ -739,14 +739,14 @@ def admin_withdraw(request):
         type = request.POST.get('type', None)
         if not event_id or not type:
             res['code'] = -2
-            res['res_msg'] = u'传入参数不足，请联系技术人员！'
+            res['msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         type = int(type)
         event_id = int(event_id)
         event = UserEvent.objects.get(id=event_id)
         if event.audit_state != '1':
             res['code'] = -3
-            res['res_msg'] = u'该项目已审核过，不要重复审核！'
+            res['msg'] = u'该项目已审核过，不要重复审核！'
             return JsonResponse(res)
         log = AuditLog(user=admin_user,item=event)
         admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=event.user, event_type='2')
@@ -778,7 +778,7 @@ def admin_withdraw(request):
             reason = request.POST.get('reason', '')
             if not reason:
                 res['code'] = -2
-                res['res_msg'] = u'传入参数不足，请联系技术人员！'
+                res['msg'] = u'传入参数不足，请联系技术人员！'
                 return JsonResponse(res)
             event.audit_state = '2'
             log.reason = reason
@@ -792,7 +792,7 @@ def admin_withdraw(request):
             else:
                 logger.critical(u"Charging cash is failed!!!")
                 res['code'] = -2
-                res['res_msg'] = u"现金记账失败，请检查输入合法性后再次提交！"
+                res['msg'] = u"现金记账失败，请检查输入合法性后再次提交！"
                 return JsonResponse(res)
         log.admin_item = admin_event
         log.save()
@@ -898,7 +898,7 @@ def admin_score(request):
         res = {}
         if not admin_user.has_admin_perms('003'):
             res['code'] = -5
-            res['res_msg'] = u'您没有操作权限！'
+            res['msg'] = u'您没有操作权限！'
             return JsonResponse(res)
         if not request.is_ajax():
             raise Http404
@@ -910,7 +910,7 @@ def admin_score(request):
         type = request.POST.get('type', None)
         if not event_id or not type:
             res['code'] = -2
-            res['res_msg'] = u'传入参数不足，请联系技术人员！'
+            res['msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         type = int(type)
         event_id = int(event_id)
@@ -918,7 +918,7 @@ def admin_score(request):
         log = AuditLog(user=admin_user,item=event)
         if event.audit_state != '1':
             res['code'] = -3
-            res['res_msg'] = u'该项目已审核过，不要重复审核！'
+            res['msg'] = u'该项目已审核过，不要重复审核！'
             return JsonResponse(res)
         if type==1:
             event.audit_state = '0'
@@ -928,7 +928,7 @@ def admin_score(request):
             reason = request.POST.get('reason', '')
             if not reason:
                 res['code'] = -2
-                res['res_msg'] = u'传入参数不足，请联系技术人员！'
+                res['msg'] = u'传入参数不足，请联系技术人员！'
                 return JsonResponse(res)
             event.audit_state = '2'
             log.reason = reason
@@ -941,7 +941,7 @@ def admin_score(request):
             else:
                 logger.critical(u"Charging score is failed!!!")
                 res['code'] = -2
-                res['res_msg'] = u"现金记账失败，请检查输入合法性后再次提交！"
+                res['msg'] = u"现金记账失败，请检查输入合法性后再次提交！"
                 return JsonResponse(res)
         admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=event.user, event_type='8')
         log.admin_item = admin_event

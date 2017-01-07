@@ -149,21 +149,21 @@ def register(request):
         invite_code = request.POST.get('invite', None)
         if not (telcode and mobile and password):
             result['code'] = '3'
-            result['res_msg'] = u'传入参数不足！'
+            result['msg'] = u'传入参数不足！'
             return JsonResponse(result)
         if MyUser.objects.filter(mobile=mobile).exists():
             result['code'] = '1'
-            result['res_msg'] = u'该手机号码已被注册，请直接登录！'
+            result['msg'] = u'该手机号码已被注册，请直接登录！'
             return JsonResponse(result)
         ret = verifymobilecode(mobile,telcode)
         if ret != 0:
             result['code'] = '2'
             if ret == -1:
-                result['res_msg'] = u'请先获取手机验证码'
+                result['msg'] = u'请先获取手机验证码'
             elif ret == 1:
-                result['res_msg'] = u'手机验证码输入错误！'
+                result['msg'] = u'手机验证码输入错误！'
             elif ret == 2:
-                result['res_msg'] = u'手机验证码已过期，请重新获取'
+                result['msg'] = u'手机验证码已过期，请重新获取'
             return JsonResponse(result)
         inviter = None
         if invite_code:
@@ -171,7 +171,7 @@ def register(request):
                 inviter = MyUser.objects.get(invite_code=invite_code)
             except MyUser.DoesNotExist:
                 result['code'] = '2'
-                result['res_msg'] = u'该邀请码不存在，请检查'
+                result['msg'] = u'该邀请码不存在，请检查'
                 return JsonResponse(result)
         try:
             username = 'm' + str(mobile)
@@ -189,7 +189,7 @@ def register(request):
         except Exception,e:
             logger.error(e)
             result['code'] = '4'
-            result['res_msg'] = u'创建用户失败！'
+            result['msg'] = u'创建用户失败！'
         else:
             result['code'] = '0'
             # 邀请人奖励10积分
@@ -574,10 +574,10 @@ def bind_zhifubao(request):
             user.zhifubao_name = zhifubao_name
             user.save(update_fields=["zhifubao","zhifubao_name",])
             result['code'] = 0
-            result['res_msg'] = u'绑定成功！'
+            result['msg'] = u'绑定成功！'
         else:
            result['code'] = 3 
-           result['res_msg'] = u'您已绑定过支付宝！'
+           result['msg'] = u'您已绑定过支付宝！'
         return JsonResponse(result)
     else:
         return render(request, 'account/m_account_bind_zhifubao.html')
@@ -596,18 +596,18 @@ def change_zhifubao(request):
         if ret != 0:
             result['code'] = 2
             if ret == -1:
-                result['res_msg'] = u'请先获取手机验证码！'
+                result['msg'] = u'请先获取手机验证码！'
             elif ret == 1:
-                result['res_msg'] = u'手机验证码输入错误！'
+                result['msg'] = u'手机验证码输入错误！'
             elif ret == 2:
-                result['res_msg'] = u'手机验证码已过期，请重新获取'
+                result['msg'] = u'手机验证码已过期，请重新获取'
             return JsonResponse(result)
         else:
             user.zhifubao = zhifubao
             user.zhifubao_name = zhifubao_name
             user.save(update_fields=["zhifubao","zhifubao_name",])
             result['code'] = 0
-            result['res_msg'] = u"支付宝账号更改成功！"
+            result['msg'] = u"支付宝账号更改成功！"
         return JsonResponse(result)
     else:
         return render(request, 'account/m_account_change_zhifubao.html')
@@ -651,25 +651,25 @@ def withdraw(request):
         return render(request,'account/m_account_withdraw.html')
     elif request.method == 'POST':
         user = request.user
-        result = {'code':-1, 'res_msg':''}
+        result = {'code':-1, 'msg':''}
         withdraw_amount = request.POST.get("amount", None)
         if not withdraw_amount:
             result['code'] = 3
-            result['res_msg'] = u'传入参数不足！'
+            result['msg'] = u'传入参数不足！'
             return JsonResponse(result)
         try:
             withdraw_amount = int(withdraw_amount)
         except ValueError:
             result['code'] = -1
-            result['res_msg'] = u'参数不合法！'
+            result['msg'] = u'参数不合法！'
             return JsonResponse(result)
         if withdraw_amount < 1000 or withdraw_amount > user.balance:
             result['code'] = -1
-            result['res_msg'] = u'余额不足！'
+            result['msg'] = u'余额不足！'
             return JsonResponse(result)
         if not user.zhifubao or not user.zhifubao_name:
             result['code'] = -1
-            result['res_msg'] = u'请先绑定支付宝！'
+            result['msg'] = u'请先绑定支付宝！'
         else:
             translist = charge_money(user, '1', withdraw_amount, u'提现')
             if translist:
@@ -678,10 +678,10 @@ def withdraw(request):
                 translist.user_event = event
                 translist.save(update_fields=['user_event'])
                 result['code'] = 0
-                result['res_msg'] = u'提交成功，请耐心等待审核通过！'
+                result['msg'] = u'提交成功，请耐心等待审核通过！'
             else:
                 result['code'] = -2
-                result['res_msg'] = u'提交失败！'
+                result['msg'] = u'提交失败！'
         return JsonResponse(result)
 
 @login_required
@@ -784,7 +784,7 @@ def get_user_coupon_exchange_detail(request):
 @csrf_exempt
 def useCoupon(request):
     if not request.user.is_authenticated() and not is_authenticated_app(request):
-        res={'code':-1,'res_msg':u"尚未登录"}
+        res={'code':-1,'msg':u"尚未登录"}
         return JsonResponse(res)
     coupon_id = request.POST.get('id', None)
     telnum = request.POST.get('telnum', None)
@@ -814,7 +814,7 @@ def useCoupon(request):
         msg = u'提交成功，请查看兑换记录！'
         coupon.is_used = True
         coupon.save(update_fields=['is_used'],)
-    result = {'code':code, 'res_msg':msg}
+    result = {'code':code, 'msg':msg}
     return JsonResponse(result)
 
 def get_user_message_page(request):
@@ -872,7 +872,7 @@ def invite(request):
         statis = {
             'left_award':inviter.invite_account,
             'accu_invite_award':inviter.invite_income,   
-            'accu_invite_scores':inviter.invite_scores,   
+            'accu_invite_scores':inviter.invite_scores,
             'acc_count':acc_count,
             'acc_with_count':acc_with_count,
             'this_month_award':this_month_award, 
@@ -882,10 +882,10 @@ def invite(request):
         weixin_params = get_weixin_params(url)
         return render(request,'account/m_account_invite.html', {'statis':statis, 'weixin_params':weixin_params})
     elif request.method == 'POST':
-        result = {'code':-1, 'res_msg':''}
+        result = {'code':-1, 'msg':''}
         left_award = inviter.invite_account
         if left_award == 0:
-            result['res_msg'] = u'邀请奖励结余为0'
+            result['msg'] = u'邀请奖励结余为0'
         else:
             translist = charge_money(inviter, '0', left_award, u'邀请奖励')
             if translist:
@@ -898,7 +898,7 @@ def invite(request):
                 result['code'] = 0
             else:
                 result['code'] = -2
-                result['res_msg'] = u'操作失败，请联系客服！'
+                result['msg'] = u'操作失败，请联系客服！'
         return JsonResponse(result)
     
 def get_user_invite_page(request):
@@ -1021,29 +1021,29 @@ def password_reset(request):
         password = request.POST.get('password', None)
         if not (telcode and mobile and password):
             result['code'] = '3'
-            result['res_msg'] = u'传入参数不足！'
+            result['msg'] = u'传入参数不足！'
             return JsonResponse(result)
         user = None
         try:
             user = MyUser.objects.get(mobile=mobile)
         except:
             result['code'] = '1'
-            result['res_msg'] = u'该手机号码尚未注册！'
+            result['msg'] = u'该手机号码尚未注册！'
             return JsonResponse(result)
         ret = verifymobilecode(mobile,telcode)
         if ret != 0:
             result['code'] = '2'
             if ret == -1:
-                result['res_msg'] = u'请先获取手机验证码'
+                result['msg'] = u'请先获取手机验证码'
             elif ret == 1:
-                result['res_msg'] = u'手机验证码输入错误！'
+                result['msg'] = u'手机验证码输入错误！'
             elif ret == 2:
-                result['res_msg'] = u'手机验证码已过期，请重新获取'
+                result['msg'] = u'手机验证码已过期，请重新获取'
         else:
             user.set_password(password)
             user.save(update_fields=["password"])
             result['code'] = 0
-            result['res_msg'] = u'密码重置成功！'
+            result['msg'] = u'密码重置成功！'
         return JsonResponse(result)
     else:
         hashkey = CaptchaStore.generate_key()
@@ -1059,24 +1059,24 @@ def password_change(request):
     if request.method == 'POST':
         if not request.is_ajax():
             raise Http404
-        result={'code':-1, 'res_msg':''}
+        result={'code':-1, 'msg':''}
         init_password = request.POST.get("initp", '')
         new_password = request.POST.get("newp", '')
         if not (init_password and new_password):
             result['code'] = -1
-            result['res_msg'] = u'请输入密码！'
+            result['msg'] = u'请输入密码！'
             return JsonResponse(result)
         user = request.user
         if not user.check_password(init_password):
             result['code'] = 2
-            result['res_msg'] = u'当前密码输入错误！'
+            result['msg'] = u'当前密码输入错误！'
         else:
             user.set_password(new_password)
             user.save(update_fields=["password"])
             userl = authenticate(username=user.mobile, password=new_password)
             auth_login(request, userl)
             result['code'] = 0
-            result['res_msg'] = u'密码修改成功！'
+            result['msg'] = u'密码修改成功！'
         return JsonResponse(result)
     else:
         return render(request,'account/m_account_change_password.html')
