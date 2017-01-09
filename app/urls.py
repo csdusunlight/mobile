@@ -27,4 +27,6 @@ urlpatterns = [
     
     url(r'^invite_to_balance/$', 'app.views.invite_to_balance'),
     url(r'^get_invite_info/$', 'app.views.get_invite_info'),
+    
+    url(r'^strategy/$', 'app.views.strategy'),
 ]

@@ -464,7 +464,9 @@ def strategy(request):
     strategy_list = item_list.filter(type='2')
     notice_list = item_list.filter(type='1')
     slist = []
-    
+    for s in strategy_list:
+        slist.append({'id':s.id, 'title':s.title})
     nlist = []
-    
+    for n in notice_list:
+        nlist.append({'id':n.id, 'title':n.title})
     return JsonResponse({'slist':slist,'nlist':nlist})
