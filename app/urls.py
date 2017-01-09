@@ -29,4 +29,6 @@ urlpatterns = [
     url(r'^get_invite_info/$', 'app.views.get_invite_info'),
     
     url(r'^strategy/$', 'app.views.strategy'),
+    
+    url(r'^detail/press/$', 'app.views.get_content_press'),
 ]

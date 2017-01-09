@@ -470,3 +470,9 @@ def strategy(request):
     for n in notice_list:
         nlist.append({'id':n.id, 'title':n.title})
     return JsonResponse({'slist':slist,'nlist':nlist})
+
+def get_content_press(request):
+    id = request.GET.get('id')
+    press = None
+    press = Press.objects.get(id=id)
+    return JsonResponse({'content':press.content})
