@@ -475,4 +475,6 @@ def get_content_press(request):
     id = request.GET.get('id')
     press = None
     press = Press.objects.get(id=id)
-    return JsonResponse({'content':press.content})
+    strategy = press.content
+    strategy = strategy.replace('"/media/', '"' + host + '/media/')
+    return JsonResponse({'content':strategy})
