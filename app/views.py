@@ -1,7 +1,7 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
     Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent, Task,\
-    Finance
+    Finance, Press
 from datetime import datetime
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser
@@ -458,3 +458,13 @@ def get_invite_info(request):
         'this_month_award':this_month_award, 
     }
     return JsonResponse(statis)
+
+def strategy(request):
+    item_list = Press.objects
+    strategy_list = item_list.filter(type='2')
+    notice_list = item_list.filter(type='1')
+    slist = []
+    
+    nlist = []
+    
+    return JsonResponse({'slist':slist,'nlist':nlist})
