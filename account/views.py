@@ -415,7 +415,7 @@ def signin(request):
         context.update({'back':True})
     return render(request, 'account/m_signin.html',context)
 def signin_record(request):
-    if not request.is_ajax():
+    if not request.user.is_authenticated() and not is_authenticated_app(request):
         raise Http404
     today = date.today()
     first_day_of_month = today - timedelta(today.day-1)
