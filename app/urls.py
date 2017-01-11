@@ -31,4 +31,6 @@ urlpatterns = [
     url(r'^strategy/$', 'app.views.strategy'),
     
     url(r'^detail/press/$', 'app.views.get_content_press'),
+    
+    url(r'^signin$', 'app.views.signin$'),
 ]
