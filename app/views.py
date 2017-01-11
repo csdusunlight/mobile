@@ -2,7 +2,7 @@
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
     Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent, Task,\
     Finance, Press
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser, UserSignIn
 from .tools import app_login_required
@@ -482,20 +482,20 @@ def get_content_press(request):
 @app_login_required
 def signin(request):
     result = {}
-    today = datetime.date.today()
+    today = date.today()
     signin_last = UserSignIn.objects.filter(user=request.user).first()
     if signin_last and signin_last.date == today:
         result['code'] = 1
     else:
         signed_conse_days = 1
-        if signin_last and signin_last.date == today - datetime.timedelta(days=1):
+        if signin_last and signin_last.date == today - timedelta(days=1):
             signed_conse_days += signin_last.signed_conse_days
-        UserSignIn.objects.create(user=request.user, date=datetime.date.today(), signed_conse_days=signed_conse_days)
+        UserSignIn.objects.create(user=request.user, date=date.today(), signed_conse_days=signed_conse_days)
         charge_score(request.user, '0', 5, u"签到奖励")
         if signed_conse_days%7 == 0:
             charge_score(request.user, '0', 20, u"连续签到7天奖励")
         result['code'] = 0
-    first_day_of_month = today - datetime.timedelta(today.day-1)
+    first_day_of_month = today - timedelta(today.day-1)
     sign_days = UserSignIn.objects.filter(user=request.user,date__gte=first_day_of_month).values('date');
     records = []
     for day in sign_days:
