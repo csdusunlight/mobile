@@ -501,5 +501,5 @@ def signin(request):
     for day in sign_days:
         records.append(day.get('date').day);
     result['records'] = records
-    result.update(scores=request.user.scores, userimg=request.id%4)
+    result.update(scores=request.user.scores, userimg=request.user.id%4)
     return JsonResponse(result)
