@@ -32,5 +32,5 @@ urlpatterns = [
     
     url(r'^detail/press/$', 'app.views.get_content_press'),
     
-    url(r'^signin$', 'app.views.signin$'),
+    url(r'^signin/$', 'app.views.signin$'),
 ]
