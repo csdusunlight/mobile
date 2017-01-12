@@ -5,7 +5,7 @@ from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,
 from datetime import datetime, date, timedelta
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser, UserSignIn
-from .tools import app_login_required
+from .tools import app_login_required, user_info
 import hashlib
 import time
 from account.models import UserToken
@@ -222,6 +222,8 @@ def login(request):
             user.this_login_time = datetime.now()
             Userlogin.objects.create(user=user,)
             user.save(update_fields=["last_login_time", "this_login_time"])
+            info = user_info(user)
+            result.update(info=info)
         return JsonResponse(result)
 
 
@@ -229,14 +231,9 @@ def login(request):
 @csrf_exempt
 def get_user_info(request):
     user = request.user
-    ttype = ContentType.objects.get_for_model(Task)
-    ftype = ContentType.objects.get_for_model(Finance)
-    tcount_u = UserEvent.objects.filter(user=user, content_type = ttype.id).count()
-    fcount_u = UserEvent.objects.filter(user=user, content_type = ftype.id).count()
-    result = {'code':0, 'accu_income':user.accu_income, 'balance':user.balance, 
-              'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores,
-              'accu_scores':user.accu_scores, 'zhifubao':user.zhifubao, 'tcount_u':tcount_u,
-              'fcount_u':fcount_u,'invite_code':user.invite_code}
+    info = user_info(user)
+    result = {'code':0}
+    result.update(info=info)
     return JsonResponse(result)
 
 @app_login_required
@@ -501,5 +498,5 @@ def signin(request):
     for day in sign_days:
         records.append(day.get('date').day);
     result['records'] = records
-    result.update(scores=request.user.scores, userimg=request.user.id%4)
+#     result.update(scores=request.user.scores, userimg=request.user.id%4)
     return JsonResponse(result)
