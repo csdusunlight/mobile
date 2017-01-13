@@ -11,7 +11,9 @@ urlpatterns = [
     url(r'^recom/$', 'app.views.get_recom', name='app_recom'),
     url(r'^detail/hongbao/$', 'app.views.get_content_hongbao', name='detail_hb'),
     url(r'^detail/youhuiquan/$', 'app.views.get_content_youhuiquan', name='detail_yhq'),
+    url(r'^detail/task/$', 'app.views.get_content_task'),
     url(r'^obtain_youhuiquan/$', 'app.views.exp_welfare_youhuiquan'),
+    url(r'^get_user_task_state/$', 'app.views.get_user_task_state'),
     
     url(r'^login/$', 'app.views.login'),
     url(r'^user/$', 'app.views.get_user_info', name='user_info'),

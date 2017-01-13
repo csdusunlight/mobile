@@ -1,11 +1,11 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
     Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent, Task,\
-    Finance, Press
+    Finance, Press, UserTask
 from datetime import datetime, date, timedelta
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser, UserSignIn
-from .tools import app_login_required, user_info
+from .tools import app_login_required, user_info, is_authenticated_app
 import hashlib
 import time
 from account.models import UserToken
@@ -16,6 +16,7 @@ from django.core.exceptions import ValidationError
 from account.transaction import charge_score, charge_money
 from account.varify import verifymobilecode
 from django.contrib.contenttypes.models import ContentType
+from app.tools import is_authenticated_app
 host = 'http://test.wafuli.cn'
 from django.core.urlresolvers import reverse
 logger = logging.getLogger("wafuli")
@@ -156,6 +157,58 @@ def get_content_youhuiquan(request):
     }
     return JsonResponse(ret_dict)
 
+def get_content_task(request):
+    ret_dict = {}
+    id = request.GET.get("id")
+    id = int(id)
+    news = None
+    try:
+        news = Task.objects.get(id=id)
+    except Task.DoesNotExist:
+        ret_dict['code'] = 1
+        ret_dict['msg'] = u"该任务不存在"
+    else:
+        ret_dict['code'] = 0
+        strategy = news.strategy.replace('"/media/', '"' + host + '/media/')
+        rules = news.rules.replace('"/media/', '"' + host + '/media/')
+        taskinfo = {
+            'is_forbidden': news.is_forbidden,
+            'left_num':news.left_num,
+            'rules':rules,
+            'strategy':strategy,
+            'url': news.exp_url if not news.isonMobile else (host + news.exp_code.url),
+            'title':news.title
+        }
+        ret_dict['taskinfo'] = taskinfo
+        if is_authenticated_app(request):
+            try:
+                UserTask.objects.get(user=request.user,task=news)
+            except UserTask.DoesNotExist:
+                ret_dict.update(accepted=0)
+            else:
+                ret_dict.update(accepted=1)
+    return JsonResponse(ret_dict)
+
+@app_login_required
+def get_user_task_state(request):
+    ret = {}
+    id = request.GET.get("id")
+    id = int(id)
+    news = None
+    try:
+        news = Task.objects.get(id=id)
+    except Task.DoesNotExist:
+        ret['code'] = 1
+        ret['msg'] = u"该任务不存在"
+    else:
+        ret['code'] = 0
+    try:
+        UserTask.objects.get(user=request.user,task=news)
+    except UserTask.DoesNotExist:
+        ret.update(accepted=0)
+    else:
+        ret.update(accepted=1)
+    return JsonResponse(ret)
 
 @app_login_required
 @csrf_exempt
