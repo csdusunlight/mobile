@@ -177,7 +177,8 @@ def get_content_task(request):
             'rules':rules,
             'strategy':strategy,
             'url': news.exp_url if not news.isonMobile else (host + news.exp_code.url),
-            'title':news.title
+            'title':news.title,
+            'ismobile': news.isonMobile,
         }
         ret_dict['taskinfo'] = taskinfo
         if is_authenticated_app(request):
