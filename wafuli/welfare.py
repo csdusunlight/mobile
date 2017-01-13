@@ -228,6 +228,7 @@ def finance_json(request):
             "benefit":wel.benefit,
             "url":wel.url,
             'picurl':wel.pic.url,
+            'id':wel.id,
         })
     return JsonResponse(data,safe=False)
 
@@ -262,7 +263,8 @@ def task_json(request):
             'score':wel.scoreToAdd,
             'num':wel.left_num,
             'state':wel.state,
-            'is_forbidden':wel.is_forbidden
+            'is_forbidden':wel.is_forbidden,
+            'id':wel.id,
             })
     return JsonResponse(data,safe=False)
             

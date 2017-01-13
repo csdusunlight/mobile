@@ -213,6 +213,7 @@ def get_user_task_state(request):
         ret.update(accepted=1)
     return JsonResponse(ret)
 
+@csrf_exempt
 @app_login_required
 def submit_task(request):
     news_id = request.POST.get('id', None)
@@ -242,7 +243,7 @@ def submit_task(request):
             else:
                 userlog = UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum,
                                  invest_image='', content_object=news, audit_state='1',remark=remark,)
-                code = 1
+                code = 0
                 msg = u'提交成功，请通过用户中心查询！'
     except Exception, e:
         logger.info(e)
