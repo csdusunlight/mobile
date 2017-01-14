@@ -17,13 +17,13 @@ from account.transaction import charge_score, charge_money
 from account.varify import verifymobilecode
 from django.contrib.contenttypes.models import ContentType
 from app.tools import is_authenticated_app
-from wafuli.tools import saveImgAndGenerateUrl
+from wafuli.tools import saveImgAndGenerateUrl, update_view_count
 from django.db import transaction
 host = 'http://test.wafuli.cn'
 from django.core.urlresolvers import reverse
 logger = logging.getLogger("wafuli")
 from django.conf import settings
-from django.db.models import Sum
+from django.db.models import Sum,Q,F
 
 def get_news(request):
     timestamp = request.GET.get('lastDate','')
@@ -212,6 +212,36 @@ def get_user_task_state(request):
     else:
         ret.update(accepted=1)
     return JsonResponse(ret)
+@app_login_required
+def accept_task(request):
+    ret = {}
+    id = request.GET.get("id")
+    id = int(id)
+    news = None
+    wel_id = request.GET.get('id', None)
+    if not wel_id:
+        logger.error("wel_id is missing!!!")
+        ret['code'] = 1
+        ret['msg'] = u"该任务不存在"
+        return JsonResponse(ret)
+    wel_id = int(wel_id)
+    wel = Task.objects.get(id=wel_id)
+    if wel.left_num <= 0:
+        ret['code'] = 2
+        ret['msg'] = u"已经被抢光啦~"
+    elif wel.is_forbidden:
+        ret['code'] = 3
+        ret['msg'] = u"数据统计中，暂停领取"
+    else:
+        obj, created = UserTask.objects.get_or_create(user=request.user, task=wel)
+        if created:
+            if wel.left_num <=1:
+                wel.state = '2'
+            wel.left_num = F("left_num")-1
+            wel.save(update_fields=["left_num","state"])
+        ret['code'] = 0
+    return JsonResponse(ret)
+
 
 @csrf_exempt
 @app_login_required

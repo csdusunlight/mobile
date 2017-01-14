@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^detail/task/$', 'app.views.get_content_task'),
     url(r'^obtain_youhuiquan/$', 'app.views.exp_welfare_youhuiquan'),
     url(r'^get_user_task_state/$', 'app.views.get_user_task_state'),
+    url(r'^accept_task/$', 'app.views.accept_task'),
     
     url(r'^login/$', 'app.views.login'),
     url(r'^user/$', 'app.views.get_user_info', name='user_info'),
