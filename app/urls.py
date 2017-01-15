@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^detail/youhuiquan/$', 'app.views.get_content_youhuiquan', name='detail_yhq'),
     url(r'^detail/task/$', 'app.views.get_content_task'),
     url(r'^detail/finance/$', 'app.views.get_content_finance'),
+    url(r'^detail/information/$', 'app.views.get_content_information'),
     url(r'^obtain_youhuiquan/$', 'app.views.exp_welfare_youhuiquan'),
     url(r'^get_user_task_state/$', 'app.views.get_user_task_state'),
     url(r'^accept_task/$', 'app.views.accept_task'),
