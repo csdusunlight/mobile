@@ -19,6 +19,7 @@ from django.contrib.contenttypes.models import ContentType
 from app.tools import is_authenticated_app
 from wafuli.tools import saveImgAndGenerateUrl, update_view_count
 from django.db import transaction
+from decimal import Decimal
 host = 'http://test.wafuli.cn'
 from django.core.urlresolvers import reverse
 logger = logging.getLogger("wafuli")
@@ -301,6 +302,77 @@ def submit_task(request):
         record.delete()
     result = {'code':code, 'msg':msg}
     return JsonResponse(result)
+
+def get_content_finance(request):
+    ret_dict = {}
+    id = request.GET.get("id")
+    id = int(id)
+    news = None
+    try:
+        news = Finance.objects.get(id=id)
+    except Finance.DoesNotExist:
+        ret_dict['code'] = 1
+        ret_dict['msg'] = u"该福利不存在"
+    else:
+        ret_dict['code'] = 0
+        strategy = news.strategy.replace('"/media/', '"' + host + '/media/')
+        rules = news.rules.replace('"/media/', '"' + host + '/media/')
+        financeinfo = {
+            'rules':rules,
+            'strategy':strategy,
+            'url': news.exp_url if not news.isonMobile else (host + news.exp_code.url),
+            'title':news.title,
+            'ismobile': news.isonMobile,
+            'state': news.state
+        }
+        ret_dict['financeinfo'] = financeinfo
+    return JsonResponse(ret_dict)
+
+@app_login_required
+@csrf_exempt
+def submit_finance(request):
+    ret = {}
+    news_id = request.POST.get('id', None)
+    telnum = request.POST.get('telnum', '').strip()
+    remark = request.POST.get('remark', '')
+    term = request.POST.get('term', '').strip()
+    amount = request.POST.get('amount',0)
+    amount = Decimal(amount)
+    if not (news_id and telnum):
+        logger.error("news_id or telnum is missing!!!")
+        ret['code'] = 1
+        ret['msg'] = u"参数错误"
+        return JsonResponse(ret)
+    if len(telnum)>11 or len(remark)>200:
+        ret['code'] = 3
+        ret['msg'] = u"账号或备注过长"
+        return JsonResponse(ret)
+    news = None
+#     if news.state != '1':
+#         code = '4'
+#         msg = u'该项目已结束或未开始！'
+#         result = {'code':code, 'msg':msg}
+#         return JsonResponse(result)
+    news = Finance.objects.get(pk=news_id)
+    is_futou = news.is_futou
+    info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + str(is_futou)
+    logger.info(info_str)
+    if is_futou:
+        remark = u"复投：" + remark
+    try:
+        with transaction.atomic():
+            if not is_futou and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+                raise ValueError('This invest_account is repective in project:' + str(news.id))
+            else:
+                UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term,
+                                 invest_amount=amount, content_object=news, audit_state='1',remark=remark,)
+                ret['code'] = 0
+    except Exception, e:
+        logger.info(e)
+        ret['code'] = '2'
+        ret['msg'] = u'该注册手机号已被提交过，请不要重复提交！'
+    return JsonResponse(ret)
+
 
 @app_login_required
 @csrf_exempt

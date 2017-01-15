@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^detail/hongbao/$', 'app.views.get_content_hongbao', name='detail_hb'),
     url(r'^detail/youhuiquan/$', 'app.views.get_content_youhuiquan', name='detail_yhq'),
     url(r'^detail/task/$', 'app.views.get_content_task'),
+    url(r'^detail/finance/$', 'app.views.get_content_finance'),
     url(r'^obtain_youhuiquan/$', 'app.views.exp_welfare_youhuiquan'),
     url(r'^get_user_task_state/$', 'app.views.get_user_task_state'),
     url(r'^accept_task/$', 'app.views.accept_task'),
@@ -38,4 +39,5 @@ urlpatterns = [
     url(r'^signin/$', 'app.views.signin'),
     
     url(r'^submit_task/$', 'app.views.submit_task'),
+    url(r'^submit_finance/$', 'app.views.submit_finance'),
 ]
