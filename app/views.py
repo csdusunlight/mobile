@@ -1,7 +1,7 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
     Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent, Task,\
-    Finance, Press, UserTask
+    Finance, Press, UserTask, Information
 from datetime import datetime, date, timedelta
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser, UserSignIn
@@ -326,6 +326,27 @@ def get_content_finance(request):
             'state': news.state
         }
         ret_dict['financeinfo'] = financeinfo
+    return JsonResponse(ret_dict)
+
+def get_content_information(request):
+    ret_dict = {}
+    id = request.GET.get("id")
+    id = int(id)
+    news = None
+    try:
+        news = Information.objects.get(id=id)
+    except Information.DoesNotExist:
+        ret_dict['code'] = 1
+        ret_dict['msg'] = u"该新闻不存在"
+    else:
+        ret_dict['code'] = 0
+        content = news.content.replace('"/media/', '"' + host + '/media/')
+        info = {
+            'source':news.rules,
+            'content':content,
+            'time': news.pub_date.strftime("%Y-%m-%d %H:%M"),
+        }
+        ret_dict['info'] = info
     return JsonResponse(ret_dict)
 
 @app_login_required
