@@ -342,7 +342,7 @@ def get_content_information(request):
         ret_dict['code'] = 0
         content = news.content.replace('"/media/', '"' + host + '/media/')
         info = {
-            'source':news.rules,
+            'source':news.source,
             'content':content,
             'time': news.pub_date.strftime("%Y-%m-%d %H:%M"),
         }
