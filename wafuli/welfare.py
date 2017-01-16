@@ -348,7 +348,8 @@ def baoyou_json(request):
             'mprice':wel.mprice,
             'nprice':wel.nprice,
             'desc':wel.desc,
-            'id':wel.id
+            'id':wel.id,
+            'exp_url':wel.exp_url,
         })
     return JsonResponse(data,safe=False)
 
