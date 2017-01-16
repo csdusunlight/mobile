@@ -54,6 +54,7 @@ def get_news(request):
             'type':wel.type,
         }
         ret_list.append(attr_dic)
+    logger.debug(str(len(ret_list)))
     return JsonResponse({'code':0,'data':ret_list})
 def get_slider(request):
     type = request.GET.get("type","index")
