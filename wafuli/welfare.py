@@ -373,5 +373,6 @@ def information_json(request):
             'title':info.title,
             'summary':info.summary,
             'view_count':info.view_count,
+            'id':info.id
         })
     return JsonResponse(data,safe=False)

@@ -1,7 +1,7 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
     Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent, Task,\
-    Finance, Press, UserTask
+    Finance, Press, UserTask, Information
 from datetime import datetime, date, timedelta
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser, UserSignIn
@@ -17,13 +17,14 @@ from account.transaction import charge_score, charge_money
 from account.varify import verifymobilecode
 from django.contrib.contenttypes.models import ContentType
 from app.tools import is_authenticated_app
-from wafuli.tools import saveImgAndGenerateUrl
+from wafuli.tools import saveImgAndGenerateUrl, update_view_count
 from django.db import transaction
+from decimal import Decimal
 host = 'http://test.wafuli.cn'
 from django.core.urlresolvers import reverse
 logger = logging.getLogger("wafuli")
 from django.conf import settings
-from django.db.models import Sum
+from django.db.models import Sum,Q,F
 
 def get_news(request):
     timestamp = request.GET.get('lastDate','')
@@ -213,6 +214,36 @@ def get_user_task_state(request):
     else:
         ret.update(accepted=1)
     return JsonResponse(ret)
+@app_login_required
+def accept_task(request):
+    ret = {}
+    id = request.GET.get("id")
+    id = int(id)
+    news = None
+    wel_id = request.GET.get('id', None)
+    if not wel_id:
+        logger.error("wel_id is missing!!!")
+        ret['code'] = 1
+        ret['msg'] = u"该任务不存在"
+        return JsonResponse(ret)
+    wel_id = int(wel_id)
+    wel = Task.objects.get(id=wel_id)
+    if wel.left_num <= 0:
+        ret['code'] = 2
+        ret['msg'] = u"已经被抢光啦~"
+    elif wel.is_forbidden:
+        ret['code'] = 3
+        ret['msg'] = u"数据统计中，暂停领取"
+    else:
+        obj, created = UserTask.objects.get_or_create(user=request.user, task=wel)
+        if created:
+            if wel.left_num <=1:
+                wel.state = '2'
+            wel.left_num = F("left_num")-1
+            wel.save(update_fields=["left_num","state"])
+        ret['code'] = 0
+    return JsonResponse(ret)
+
 
 @csrf_exempt
 @app_login_required
@@ -272,6 +303,98 @@ def submit_task(request):
         record.delete()
     result = {'code':code, 'msg':msg}
     return JsonResponse(result)
+
+def get_content_finance(request):
+    ret_dict = {}
+    id = request.GET.get("id")
+    id = int(id)
+    news = None
+    try:
+        news = Finance.objects.get(id=id)
+    except Finance.DoesNotExist:
+        ret_dict['code'] = 1
+        ret_dict['msg'] = u"该福利不存在"
+    else:
+        ret_dict['code'] = 0
+        strategy = news.strategy.replace('"/media/', '"' + host + '/media/')
+        rules = news.rules.replace('"/media/', '"' + host + '/media/')
+        financeinfo = {
+            'rules':rules,
+            'strategy':strategy,
+            'url': news.exp_url if not news.isonMobile else (host + news.exp_code.url),
+            'title':news.title,
+            'ismobile': news.isonMobile,
+            'state': news.state
+        }
+        ret_dict['financeinfo'] = financeinfo
+    return JsonResponse(ret_dict)
+
+def get_content_information(request):
+    ret_dict = {}
+    id = request.GET.get("id")
+    id = int(id)
+    news = None
+    try:
+        news = Information.objects.get(id=id)
+    except Information.DoesNotExist:
+        ret_dict['code'] = 1
+        ret_dict['msg'] = u"该新闻不存在"
+    else:
+        ret_dict['code'] = 0
+        content = news.content.replace('"/media/', '"' + host + '/media/')
+        info = {
+            'source':news.source,
+            'content':content,
+            'time': news.pub_date.strftime("%Y-%m-%d %H:%M"),
+        }
+        ret_dict['info'] = info
+    return JsonResponse(ret_dict)
+
+@app_login_required
+@csrf_exempt
+def submit_finance(request):
+    ret = {}
+    news_id = request.POST.get('id', None)
+    telnum = request.POST.get('telnum', '').strip()
+    remark = request.POST.get('remark', '')
+    term = request.POST.get('term', '').strip()
+    amount = request.POST.get('amount',0)
+    amount = Decimal(amount)
+    if not (news_id and telnum):
+        logger.error("news_id or telnum is missing!!!")
+        ret['code'] = 1
+        ret['msg'] = u"参数错误"
+        return JsonResponse(ret)
+    if len(telnum)>11 or len(remark)>200:
+        ret['code'] = 3
+        ret['msg'] = u"账号或备注过长"
+        return JsonResponse(ret)
+    news = None
+#     if news.state != '1':
+#         code = '4'
+#         msg = u'该项目已结束或未开始！'
+#         result = {'code':code, 'msg':msg}
+#         return JsonResponse(result)
+    news = Finance.objects.get(pk=news_id)
+    is_futou = news.is_futou
+    info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + str(is_futou)
+    logger.info(info_str)
+    if is_futou:
+        remark = u"复投：" + remark
+    try:
+        with transaction.atomic():
+            if not is_futou and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+                raise ValueError('This invest_account is repective in project:' + str(news.id))
+            else:
+                UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term,
+                                 invest_amount=amount, content_object=news, audit_state='1',remark=remark,)
+                ret['code'] = 0
+    except Exception, e:
+        logger.info(e)
+        ret['code'] = '2'
+        ret['msg'] = u'该注册手机号已被提交过，请不要重复提交！'
+    return JsonResponse(ret)
+
 
 @app_login_required
 @csrf_exempt
