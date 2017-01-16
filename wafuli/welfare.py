@@ -299,6 +299,7 @@ def hongbao_json(request):
             'provider':wel.provider,
             'time_limit':wel.time_limit,
             'marks':mlist,
+            'id':wel.id
         })
     return JsonResponse(data,safe=False)
 
@@ -323,6 +324,7 @@ def youhuiquan_json(request):
             'provider':wel.provider,
             'time_limit':wel.time_limit,
             'marks':mlist,
+            'id':wel.id
         })
     return JsonResponse(data,safe=False)
 
@@ -346,6 +348,7 @@ def baoyou_json(request):
             'mprice':wel.mprice,
             'nprice':wel.nprice,
             'desc':wel.desc,
+            'id':wel.id
         })
     return JsonResponse(data,safe=False)
 
