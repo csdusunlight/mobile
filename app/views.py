@@ -82,6 +82,7 @@ def get_recom(request):
         adv_today = MAdvert_App.objects.filter(location=str(i),is_hidden=False).first()
         if adv_today:
             wel_id = adv_today.wel_id.id,
+            logger.error(str(wel_id))
             type = Welfare.objects.get(id=wel_id).type
             image = host + adv_today.pic.url,
             location = i
