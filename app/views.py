@@ -81,8 +81,8 @@ def get_recom(request):
     for i in rlist:
         adv_today = MAdvert_App.objects.filter(location=str(i),is_hidden=False).first()
         if adv_today:
-            wel = adv_today.wel_id,
-            image = host + adv_today.pic.url,
+            wel = adv_today.wel_id
+            image = host + adv_today.pic.url
             location = i
             ret_list.append({
                 'id':adv_today.id,
