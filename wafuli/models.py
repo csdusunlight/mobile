@@ -429,8 +429,8 @@ class MAdvert_App(Base):
     wel_id = models.ForeignKey(Welfare, verbose_name="展示福利")
     class Meta:
         ordering = ["-news_priority","-pub_date"]
-        verbose_name = u"普通广告"
-        verbose_name_plural = u"普通广告"
+        verbose_name = u"app今日推荐"
+        verbose_name_plural = u"app今日推荐"
     def clean(self):
         if self.pic and self.pic.size > 30000:
             raise ValidationError({'pic': u'图片大小不能超过30k'})
