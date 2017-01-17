@@ -8,3 +8,4 @@ settings.py
 .settings/
 uwsgi.ini
 reload
+.pydevproject

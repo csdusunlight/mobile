@@ -1,7 +1,7 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
     Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent, Task,\
-    Finance, Press, UserTask, Information
+    Finance, Press, UserTask, Information, MAdvert_App
 from datetime import datetime, date, timedelta
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser, UserSignIn
@@ -76,22 +76,21 @@ def get_slider(request):
         ret_list.append(attr_dic)
     return JsonResponse({'code':0,'data':ret_list})
 def get_recom(request):
-    adv_today1 = MAdvert.objects.filter(location='1',is_hidden=False).first()
-    adv_today2 = MAdvert.objects.filter(location='2',is_hidden=False).first()
-    adv_today3 = MAdvert.objects.filter(location='3',is_hidden=False).first()
-    ret_list = [{
-        'id':adv_today1.id,
-        'image': host + adv_today1.pic.url,
-        'location': 1,
-    },{
-        'id':adv_today2.id,
-        'image': host + adv_today2.pic.url,
-        'location': 2,
-    },{
-        'id':adv_today3.id,
-        'image': host + adv_today3.pic.url,
-        'location': 3,
-    }]
+    rlist = range(1,4)
+    ret_list = []
+    for i in rlist:
+        adv_today = MAdvert_App.objects.filter(location=str(i),is_hidden=False).first()
+        if adv_today:
+            id = adv_today.wel_id,
+            type = Welfare.objects.get(id=id).type
+            image = host + adv_today.pic.url,
+            location = i
+            ret_list.append({
+                'id':id,
+                'image':image,
+                'type':type,
+                'location': location,             
+            })
     return JsonResponse({'code':0,'data':ret_list})
 def get_content_hongbao(request):
     ret_dict = {}
