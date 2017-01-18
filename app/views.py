@@ -90,7 +90,8 @@ def get_recom(request):
                 'wel_id':wel.id,
                 'image':image,
                 'type':wel.type,
-                'location': location,             
+                'location': location,
+                'title':wel.title     
             })
     return JsonResponse({'code':0,'data':ret_list})
 
