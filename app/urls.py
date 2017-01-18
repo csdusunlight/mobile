@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^news/$', 'app.views.get_news', name='app_news'),
     url(r'^slider/$', 'app.views.get_slider', name='app_slider'),
     url(r'^recom/$', 'app.views.get_recom', name='app_recom'),
+    url(r'^get_today_num/$', 'app.views.get_today_num'),
     url(r'^detail/hongbao/$', 'app.views.get_content_hongbao', name='detail_hb'),
     url(r'^detail/youhuiquan/$', 'app.views.get_content_youhuiquan', name='detail_yhq'),
     url(r'^detail/task/$', 'app.views.get_content_task'),

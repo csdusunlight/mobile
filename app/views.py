@@ -92,6 +92,22 @@ def get_recom(request):
                 'location': location,             
             })
     return JsonResponse({'code':0,'data':ret_list})
+
+def get_today_num(request):
+    try:
+        statis = DayStatis.objects.get(date=date.today())
+    except:
+        new_wel_num = 0
+    else:
+        new_wel_num = statis.new_wel_num
+    glo_statis = GlobalStatis.objects.first()
+    if glo_statis:
+        all_wel_num = glo_statis.all_wel_num
+    else:
+        withdraw_total = 0
+        all_wel_num = 0
+    return JsonResponse({'code':0, 'new_num':new_wel_num, 'all_num':all_wel_num})
+
 def get_content_hongbao(request):
     ret_dict = {}
     id = request.GET.get('id', '')
