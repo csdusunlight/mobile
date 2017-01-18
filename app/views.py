@@ -25,6 +25,7 @@ from django.core.urlresolvers import reverse
 logger = logging.getLogger("wafuli")
 from django.conf import settings
 from django.db.models import Sum,Q,F
+from wafuli_admin.models import DayStatis, GlobalStatis
 
 def get_news(request):
     timestamp = request.GET.get('lastDate','')
