@@ -762,7 +762,7 @@ def signin(request):
 def recom_submit(request):
     user = request.user
     result = {}
-    sumbit_num_today = UserWelfare.objects.filter(user=user, date__gte=datetime.date.today()).count()
+    sumbit_num_today = UserWelfare.objects.filter(user=user, date__gte=date.today()).count()
     if sumbit_num_today>=5:
         result['code'] = 4
         result['msg'] = u'每天最多只能提交5条哦，请明日再来！'
