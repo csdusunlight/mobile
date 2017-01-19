@@ -757,6 +757,7 @@ def signin(request):
 #     result.update(scores=request.user.scores, userimg=request.user.id%4)
     return JsonResponse(result)
 
+@csrf_exempt
 @app_login_required
 def recom_submit(request):
     user = request.user
