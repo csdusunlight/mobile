@@ -411,7 +411,7 @@ $(document).ready(function() {
 							window.location.href = index_url;
 						}
 						else {
-							alert(data.res_msg);
+							alert(data.msg);
 						}
 					},
 					error : function() {

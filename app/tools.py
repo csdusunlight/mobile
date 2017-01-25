@@ -9,6 +9,8 @@ import time
 from account.models import UserToken
 from django.http.response import JsonResponse
 from account.models import MyUser
+from django.contrib.contenttypes.models import ContentType
+from wafuli.models import UserEvent, Task, Finance
 
 
 def app_login_required(view):
@@ -58,3 +60,14 @@ def is_authenticated_app(request):
             return False
         else:
             return True
+
+def user_info(user):
+    ttype = ContentType.objects.get_for_model(Task)
+    ftype = ContentType.objects.get_for_model(Finance)
+    tcount_u = UserEvent.objects.filter(user=user, content_type = ttype.id).count()
+    fcount_u = UserEvent.objects.filter(user=user, content_type = ftype.id).count()
+    result = {'accu_income':user.accu_income, 'balance':user.balance, 
+              'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores,
+              'accu_scores':user.accu_scores, 'zhifubao':user.zhifubao, 'tcount_u':tcount_u,
+              'fcount_u':fcount_u,'invite_code':user.invite_code}
+    return result

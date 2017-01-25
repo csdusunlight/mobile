@@ -78,7 +78,7 @@
 							csrfmiddlewaretoken:csrfmiddlewaretoken
 						},
 						success:function(ret){
-							mui.alert(ret.res_msg,callback=function(){
+							mui.alert(ret.msg,callback=function(){
 								window.history.back();
 								return;
 							});

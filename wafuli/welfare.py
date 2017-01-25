@@ -228,6 +228,7 @@ def finance_json(request):
             "benefit":wel.benefit,
             "url":wel.url,
             'picurl':wel.pic.url,
+            'id':wel.id,
         })
     return JsonResponse(data,safe=False)
 
@@ -262,7 +263,8 @@ def task_json(request):
             'score':wel.scoreToAdd,
             'num':wel.left_num,
             'state':wel.state,
-            'is_forbidden':wel.is_forbidden
+            'is_forbidden':wel.is_forbidden,
+            'id':wel.id,
             })
     return JsonResponse(data,safe=False)
             
@@ -297,6 +299,7 @@ def hongbao_json(request):
             'provider':wel.provider,
             'time_limit':wel.time_limit,
             'marks':mlist,
+            'id':wel.id
         })
     return JsonResponse(data,safe=False)
 
@@ -321,6 +324,7 @@ def youhuiquan_json(request):
             'provider':wel.provider,
             'time_limit':wel.time_limit,
             'marks':mlist,
+            'id':wel.id
         })
     return JsonResponse(data,safe=False)
 
@@ -344,6 +348,8 @@ def baoyou_json(request):
             'mprice':wel.mprice,
             'nprice':wel.nprice,
             'desc':wel.desc,
+            'id':wel.id,
+            'exp_url':wel.exp_url,
         })
     return JsonResponse(data,safe=False)
 
@@ -371,5 +377,6 @@ def information_json(request):
             'title':info.title,
             'summary':info.summary,
             'view_count':info.view_count,
+            'id':info.id
         })
     return JsonResponse(data,safe=False)

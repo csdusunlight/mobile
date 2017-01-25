@@ -20,6 +20,8 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from wafuli.Christmas import consume
 from account.models import User_Envelope
+from django.views.decorators.csrf import csrf_exempt
+from app.tools import is_authenticated_app
 logger = logging.getLogger('wafuli')
 
 
@@ -40,25 +42,25 @@ def recom_submit(request):
         sumbit_num_today = UserWelfare.objects.filter(user=user, date__gte=datetime.date.today()).count()
         if sumbit_num_today>=5:
             result['code'] = 4
-            result['res_msg'] = u'每天最多只能提交5条哦，请明日再来！'
+            result['msg'] = u'每天最多只能提交5条哦，请明日再来！'
             return JsonResponse(result)
         title = request.POST.get('title', '')
         url = request.POST.get('url', '')
         reason = request.POST.get('reason', '')
         if not (title and url) or len(title)>200 or len(url)>200 or len(reason)>200:
             result['code'] = 3
-            result['res_msg'] = u'输入参数长度有误！'
+            result['msg'] = u'输入参数长度有误！'
         else:
             try:
                 wel = UserWelfare.objects.create(user=user, title=title,url=url,reason=reason)
                 UserEvent.objects.create(user=user, event_type='6', content_object=wel, audit_state='1')
             except Exception as e:
                 result['code'] = 2
-                result['res_msg'] = u'重复提交或数据有误！'
+                result['msg'] = u'重复提交或数据有误！'
                 logger.warning(e)
             else:
                 result['code'] = 0
-                result['res_msg'] = u'提交成功！'
+                result['msg'] = u'提交成功！'
         return JsonResponse(result)
     else:
         ref_url = request.META.get('HTTP_REFERER',"")
@@ -174,47 +176,47 @@ def lottery(request):
     context = {"record":record_list_c};
     return render(request, 'm_activity_lottery.html',context)
 
+@csrf_exempt
 def get_lottery(request):
-    user = request.user
     if request.method != "POST" or not request.is_ajax():
         logger.warning("Experience refused no-ajax request!!!")
         raise Http404
     result = {}
-    if not user.is_authenticated():
+    if not request.user.is_authenticated() and not is_authenticated_app(request):
         result['code'] = -1
         result['url'] = reverse('login') + "?next=" + reverse('activity_lottery')
         return JsonResponse(result)
-    if user.scores < 10:
+    if request.user.scores < 10:
         result['code'] = -2
         return JsonResponse(result)
-    trans = charge_score(user, '1', 10, u"积分抽奖")
+    trans = charge_score(request.user, '1', 10, u"积分抽奖")
     if not trans:
         result['code'] = -3
         logger.error("lottery 10 scores charge error!")
         return JsonResponse(result)
-    event = UserEvent.objects.create(user=user, event_type='7', audit_state='1')
+    event = UserEvent.objects.create(user=request.user, event_type='7', audit_state='1')
     trans.user_event = event
     trans.save(update_fields=['user_event'])
     award_list = [(1, 61), (2, 30), (3, 6), (4, 2), (5, 1), (6, 0),]
     itemid = weighted_random(award_list)
     translist = None
     if itemid == 2:
-        translist = charge_score(user, '0', 10, u'抽奖获奖')
+        translist = charge_score(request.user, '0', 10, u'抽奖获奖')
     elif itemid == 3:
-        translist = charge_score(user, '0', 50, u'抽奖获奖')
+        translist = charge_score(request.user, '0', 50, u'抽奖获奖')
     elif itemid == 4:
-        translist = charge_money(user, '0', 80, u'抽奖获奖')
+        translist = charge_money(request.user, '0', 80, u'抽奖获奖')
     elif itemid == 5:
-        translist = charge_money(user, '0', 200, u'抽奖获奖')
+        translist = charge_money(request.user, '0', 200, u'抽奖获奖')
     if itemid!=1 and not translist:
-        result['code'] = -4
+        result['code'] = 4
         logger.error("Get lottery award charge error!")
-        result['res_msg'] = "记账失败！"
+        result['msg'] = "记账失败！"
     else:
         result['code'] = 0
         result['itemid'] = itemid
         if itemid != 1:
-            LotteryRecord.objects.create(user=user, award = AwardTable.get(itemid, u'未知'))
+            LotteryRecord.objects.create(user=request.user, award = AwardTable.get(itemid, u'未知'))
             translist.user_event = event
             translist.save(update_fields=['user_event'])
     return JsonResponse(result)

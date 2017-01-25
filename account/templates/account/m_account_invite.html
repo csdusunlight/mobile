@@ -35,7 +35,7 @@
 	<div class="mui-content">
 		<div class="top">
 			<p>我的邀请人数&nbsp;<span>{{statis.acc_count}}</span>&nbsp;人</p>
-			<p>我的奖励&nbsp;<span>{{statis.accu_invite_award}}</span>&nbsp;福币，<span>10</span>&nbsp积分;</p>
+			<p>我的奖励&nbsp;<span>{{statis.accu_invite_award}}</span>&nbsp;福币，<span>{{statis.accu_invite_scores}}</span>&nbsp积分;</p>
 			<p>本月待发奖励&nbsp;<span>{{statis.this_month_award}}</span>&nbsp;福币</p>
 			<p>邀请奖励结余&nbsp;<span>{{statis.left_award}}</span>&nbsp;福币</p>
 			<button id="transfer_btn" type="button" class="mui-btn mui-btn-blue">转至余额</button>
@@ -71,7 +71,7 @@
 				type:'POST',
 				success:function(ret){
 					if(ret.code!=0){
-						mui.alert(ret.res_msg);
+						mui.alert(ret.msg);
 					}
 					else {
 						mui.alert("您的邀请奖励已成功转至账户余额！");
