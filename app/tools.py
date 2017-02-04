@@ -11,7 +11,6 @@ from django.http.response import JsonResponse
 from account.models import MyUser
 from django.contrib.contenttypes.models import ContentType
 from wafuli.models import UserEvent, Task, Finance
-from account.tools import logger
 
 
 def app_login_required(view):
@@ -53,14 +52,11 @@ def is_authenticated_app(request):
             now = int(time.time()*1000)
             token = UserToken.objects.get(token=token)
             expire = token.expire
-            logger.error(str(token));
             if expire < now:
-                logger.error("asdfggdddddddddddddddddd");
                 return False
             else:
                 request.user = token.user
         except:
-            logger.error("asdfggggggggggggggggggggggggg");
             return False
         else:
             return True
