@@ -16,7 +16,6 @@ from account.transaction import charge_money, charge_score
 import logging
 from account.models import MyUser
 from wafuli_admin.models import RecommendRank
-from wafuli.Christmas import produce
 # Create your views here.
 logger = logging.getLogger('wafuli')
 
@@ -86,7 +85,6 @@ def admin_recommend_return(request):
                     scoretranslist.user_event = event
                     scoretranslist.save(update_fields=['user_event'])
                     res['code'] = 0
-                    produce(event_user,3)
                 else:
                     res['code'] = -4
                     res['msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
