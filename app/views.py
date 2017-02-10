@@ -1,7 +1,7 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
     Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent, Task,\
-    Finance, Press, UserTask, Information, MAdvert_App
+    Finance, Press, UserTask, Information, MAdvert_App,UserWelfare
 from datetime import datetime, date, timedelta
 from django.http.response import JsonResponse
 from account.models import Userlogin, MyUser, UserSignIn
@@ -20,13 +20,13 @@ from app.tools import is_authenticated_app
 from wafuli.tools import saveImgAndGenerateUrl, update_view_count
 from django.db import transaction
 from decimal import Decimal
-host = 'http://test.wafuli.cn'
 from django.core.urlresolvers import reverse
-logger = logging.getLogger("wafuli")
 from django.conf import settings
 from django.db.models import Sum,Q,F
-from wafuli_admin.models import DayStatis, GlobalStatis
+from wafuli_admin.models import DayStatis, GlobalStatis, RecommendRank
 
+host = 'http://test.wafuli.cn'
+logger = logging.getLogger("wafuli")
 def get_news(request):
     timestamp = request.GET.get('lastDate','')
     if not timestamp:
@@ -756,3 +756,74 @@ def signin(request):
     result['records'] = records
 #     result.update(scores=request.user.scores, userimg=request.user.id%4)
     return JsonResponse(result)
+
+@csrf_exempt
+@app_login_required
+def recom_submit(request):
+    user = request.user
+    result = {}
+    sumbit_num_today = UserWelfare.objects.filter(user=user, date__gte=date.today()).count()
+    if sumbit_num_today>=5:
+        result['code'] = 4
+        result['msg'] = u'每天最多只能提交5条哦，请明日再来！'
+        return JsonResponse(result)
+    title = request.POST.get('title', '')
+    url = request.POST.get('url', '')
+    reason = request.POST.get('reason', '')
+    if not (title and url) or len(title)>200 or len(url)>200 or len(reason)>200:
+        result['code'] = 3
+        result['msg'] = u'输入参数长度有误！'
+    else:
+        try:
+            wel = UserWelfare.objects.create(user=user, title=title,url=url,reason=reason)
+            UserEvent.objects.create(user=user, event_type='6', content_object=wel, audit_state='1')
+        except Exception as e:
+            result['code'] = 2
+            result['msg'] = u'重复提交或数据有误！'
+            logger.warning(e)
+        else:
+            result['code'] = 0
+            result['msg'] = u'提交成功！'
+    return JsonResponse(result)
+
+
+def recom_rank(request):
+    res={'code':0,}
+    count = request.GET.get("count", 0)
+    try:
+        count = int(count)
+    except ValueError:
+        count = 0
+    item_list = []
+    start = 12*count
+    item_list = RecommendRank.objects.all()[start:start+12]
+    data = []
+    for con in item_list:
+        username = con.user.get_abbre_name()
+        i = {"username":username,
+             "num":con.acc_num,
+             "rank":con.rank,
+             "award":con.award,
+             }
+        data.append(i)
+    return JsonResponse(data, safe=False) 
+
+@app_login_required
+def recom_info(request):
+    user = request.user
+    count = request.GET.get("count", 0)
+    try:
+        count = int(count)
+    except ValueError:
+        count = 0
+    item_list = []
+    start = 12*count
+    item_list = UserEvent.objects.filter(user=user,event_type='6')[start:start+12]
+    data = []
+    for con in item_list:
+        i = {"title":con.content_object.title,
+             "time":con.time.strftime("%Y-%m-%d"),
+             "state":con.get_audit_state_display(),
+             }
+        data.append(i)
+    return JsonResponse(data, safe=False) 

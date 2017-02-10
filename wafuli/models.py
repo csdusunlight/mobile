@@ -407,7 +407,7 @@ class Advertisement_Mobile(Base):
         verbose_name_plural = u"横幅广告-移动端"
     def clean(self):
         if self.mpic and self.mpic.size > 30000:
-            raise ValidationError({'pic': u'图片大小不能超过30k'})
+            raise ValidationError({'mpic': u'图片大小不能超过30k'})
 class MAdvert(Base):
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', blank=False,
                              verbose_name=u"banner图片上传(1920*300)，小于100k")

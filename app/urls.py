@@ -42,4 +42,8 @@ urlpatterns = [
     
     url(r'^submit_task/$', 'app.views.submit_task'),
     url(r'^submit_finance/$', 'app.views.submit_finance'),
+    
+    url(r'^activity/recom_submit/$', 'app.views.recom_submit'),
+    url(r'^activity/recom_info/$', 'app.views.recom_info'),
+    url(r'^activity/recom_rank/$', 'app.views.recom_rank'),
 ]
