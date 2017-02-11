@@ -305,11 +305,7 @@
 			interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
 		});
         // 红包活动部分
-        var hongbao = document.getElementById("hongbao"),
-            close_hb = document.getElementById("close-hb");
-        close_hb.addEventListener("tap",function(){
-            hongbao.style.display = "none";
-        })
+
     </script>
     <script>
         var weixin_btn = document.getElementById("weixin_btn"),
@@ -338,22 +334,6 @@
             scrollToTopBox.classList.remove('hide');
             else if (mui('#pullrefresh').pullRefresh().y > window.innerHeight * (-0.5) && !scrollToTopBox.classList.contains('hide'))
             scrollToTopBox.classList.add('hide');
-        });
-        document.getElementById('hb_btn').addEventListener('tap', function() {
-        	mui.openWindow({
-                url: '/activity/Christmas/open_envelope/',
-                styles: {
-                    top: 0,
-                    bottom: 0
-                },
-                show: {
-                    aniShow: 'slide-in-right',
-                },
-                waiting: {
-                    autoShow: false, //自动显示等待框
-                    title: '正在加载...', //等待对话框上显示的提示内容
-                }
-            });
         });
     </script>
 
