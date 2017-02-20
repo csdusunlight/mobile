@@ -27,7 +27,7 @@
 	<link href="{% static 'images/favicon.ico'%}" rel="shortcut icon"/>
     <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
-    <link rel="stylesheet" type="text/css" href="{%static 'css/m_detail_taskandfinance.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_detail_finance.css'%}"/>
 </head>
 
 	<body>
@@ -37,20 +37,41 @@
 			<a id="share" class="share iconfont icon-fenxiang"></a>
 		</header>
 		<div class="mui-content">
-			<div class="ad">
+<!-- 			<div class="ad">
 				<img src="{{news.pic.url}}">
+			</div> -->
+			<div class="top">
+				<img src="{{news.pic.url}}" />
+				<div class="top-content">
+					<p class="finance-mark"><span>小标签</span><span>小标签</span><span>小标签</span></p>
+					<div id="text_box" class="text-box"><p id="intro" class="introduction">介绍这里是产品简单介绍介绍这里是产品简单介绍介绍这里简单介绍介绍这里是产品简单介绍介绍这里是产品简单介绍介绍这里简单介绍这里简单介绍介绍这里是产品简单介绍介绍这里是产品简单介绍介绍这里简单介绍这里简单介绍介绍这里是产品简单介绍介绍这里是产品简单介绍介绍这里简单介绍</p></div>
+				</div>
+			</div>
+			<div class="info">
+				<p><span>平台背景</span><span>民营系</span></p>
+				<p><span>注册资本</span><span>1000万</span></p>
+				<p><span>上线时间</span><span>2017-01-12</span></p>
+				<p><span>是否银行存管</span><span>是</span></p>
+				<p><span>ICP号</span><span>12345678</span></p>
+			</div>
+			<div class="taste">
+				<p>此处为上传表格位置</p>
 			</div>
 			<!--体验步骤部分-->
-			<div class="taste">
-				<h3 class="reward"><i class="iconfont">&#xe613;</i>奖励规则</h3>
-				{{news.rules|safe}}
-			</div>
 			<div class="taste-02">
 				<h3><i class="iconfont">&#xe61c;</i>体验步骤</h3>
 				<div class="detail-html">{{news.strategy|safe}}</div>
 			</div>
+			<div class="taste-03">
+	        <a class="contact-qq" target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=34f2461e64f2fb28ac36d1eab0d303760c68cdff632c46f62bd8abda313e30dc">加入QQ群</a>
+					<a class="contact-qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=122142551&site=qq&menu=yes">联系客服</a>
+			</div>
+			<div class="taste">
+				<h3 class="reward"><i class="iconfont">&#xe613;</i>奖励规则</h3>
+				{{news.rules|safe}}
+			</div>
 			<!--温馨提示部分-->
-			<div class="prompt">
+			<!-- <div class="prompt">
 				<h3><i class="iconfont">&#xe60b;</i>温馨提示</h3>
 				<p><number>1、</number>为了让您畅快的享受福利，请您务必按照体验步骤详情操作，并在完成后返回本页面<span style="color:#ff6767">提交相关数据</span>，以便工作人员进行数据审核，发放相应福利；</p>
 				<p><number>2、</number>用户提交数据后，挖福利工作人员将在48小时内完成审核，并发放相应奖励至用户账户；</p>
@@ -58,7 +79,7 @@
 				<p><number>4、</number>投资有风险，入市需谨慎；挖福利尽最大可能的提供最优质的理财渠道、筛选有诚信的合作平台，但是挖福利不对合作平台提供任何的风险担保；</p>
 				<p><number>5、</number>挖福利对福利数据的审核具有最终解释权。</p>
 				<p class="contact">如有疑问请联系<strong>在线客服</strong>或拨打 <strong>服务热线：0734-8344414</strong></p>
-			</div>
+			</div> -->
 			<!--立即体验部分-->
 			<div class="mui-row">
 		        <div class="left-btn mui-col-sm-6 mui-col-xs-6">
@@ -180,6 +201,14 @@
 			            }
 			        });
 				});
+
+				// 理财介绍超出隐藏
+				var text_box = document.getElementById("text_box"),
+				intro = document.getElementById("intro");
+				var box_height = text_box.offsetHeight - intro.offsetHeight;
+				if(box_height<0){
+						text_box.setAttribute("class","text-box toolong");
+				}
 			});
 		</script>
 	{%if back %}
