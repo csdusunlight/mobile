@@ -78,10 +78,9 @@ header a img {
 	padding: 2px 0;
 }
 .container img {
-	width: 12rem !important;
+	width: 14rem !important;
 	/*max-height: 8rem;*/
 	float: left;
-	background: url(../images/business-logo.png) center center no-repeat;
 	border: 1px solid #ececec;
 }
 
