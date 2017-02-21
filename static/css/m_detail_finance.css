@@ -2,7 +2,7 @@
 	padding-bottom: 4rem;
 }
 .top {
-    background: #fff;	
+    background: #fff;
     /*height: 11rem;*/
    padding-bottom: 0.4rem;
 }
@@ -75,11 +75,15 @@
 	padding: 0 1rem;
 	font-size: 1.2rem;
 	line-height: 2.4;
-	color: #333;
-	border: 1px solid #333;
+	color: #fff;
 	border-radius: 4px;
+	background-color: #52c5ff;
 }
-.taste h3, 
+.contact-qq:active {
+	color: #fff;
+	background-color: #00a0ea;
+}
+.taste h3,
 .taste-02 h3,
 .prompt h3 {
 	padding-top: 1rem;
@@ -133,7 +137,7 @@ p a {
         -webkit-transform: scale(0) rotate(180deg);
         transform: scale(0) rotate(180deg);
         opacity: 0;
-     }          
+     }
      100% {
         -webkit-transform: scale(1) rotate(360deg);
         transform: scale(1) rotate(360deg);
