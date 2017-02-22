@@ -125,7 +125,7 @@ def exp_welfare_openwindow(request):
             wel.left_num = F("left_num")-1
             wel.save(update_fields=["left_num","state"])
     update_view_count(wel)
-    url = wel.exp_url
+    url = wel.exp_url_mobile
     js = "<script>window.location.href='"+url+"';</script>"
     return HttpResponse(js)
 

@@ -47,8 +47,10 @@ class News(Base):
     state = models.CharField(u"项目状态", max_length=1, choices=STATE)
     is_futou = models.BooleanField(u'是否允许复投（重复提交同一手机号）', default= False)
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', verbose_name=u"标志图片上传（最大不超过30k，越小越好）")
-    isonMobile = models.BooleanField(u'是否为移动端活动', default= False)
+    isonMobile = models.BooleanField(u'是否只限移动端（pc端显示二维码）？', default= False)
     exp_url = models.CharField(u"活动地址", blank=True, max_length=200)
+    exp_url_pc = models.CharField(u"活动地址pc", blank=True, max_length=200)
+    exp_url_mobile = models.CharField(u"活动地址mobile", blank=True, max_length=200)
     exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
     advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
     company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True)
@@ -59,10 +61,12 @@ class News(Base):
     class Meta:
         abstract = True
     def clean(self):
-        if self.isonMobile == False and self.exp_url == '':
-            raise ValidationError({'exp_url': u'请输入活动体验地址'})
-        elif self.isonMobile == True and self.exp_code == '':
-            raise ValidationError({'exp_code': u'请上传手机扫描二维码'})
+        if self.exp_url_mobile == '':
+                raise ValidationError({'exp_url_mobile': u'请输入活动体验地址'})
+        if self.isonMobile == False and self.exp_url_pc == '':
+                raise ValidationError({'exp_url_pc': u'请输入活动体验地址'})
+        if self.isonMobile and self.exp_code == '':
+            raise ValidationError({'exp_code': u'请上传二维码'})
         if self.pic and self.pic.size > 30000:
             raise ValidationError({'pic': u'图片大小不能超过30k'})
     def is_expired(self):
@@ -103,8 +107,18 @@ class Welfare(Base):
                          filePath="photos/%(year)s/%(month)s/%(day)s/", 
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
     advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
-    exp_url = models.CharField(u"商家地址", blank=True, max_length=200)
+    isonMobile = models.BooleanField(u'是否为移动端活动', default= False)
+    exp_url = models.CharField(u"活动地址", blank=True, max_length=200)
+    exp_url_pc = models.CharField(u"活动地址pc", blank=True, max_length=200)
+    exp_url_mobile = models.CharField(u"活动地址mobile", blank=True, max_length=200)
+    exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
     def clean(self):
+        if self.exp_url_mobile == '':
+                raise ValidationError({'exp_url_mobile': u'请输入活动体验地址'})
+        if self.isonMobile == False and self.exp_url_pc == '':
+                raise ValidationError({'exp_url_pc': u'请输入活动体验地址'})
+        if self.isonMobile and self.exp_code == '':
+            raise ValidationError({'exp_code': u'请上传二维码'})
         if self.pic and self.pic.size > 30000:
             raise ValidationError({'pic': u'图片大小不能超过30k'})
     def is_expired(self):
@@ -122,14 +136,6 @@ class Welfare(Base):
     def get_type_url(self):
         return reverse('welfare')
 class Hongbao(Welfare):
-    isonMobile = models.BooleanField(u'是否为移动端活动', default= False)
-    exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
-    def clean(self):
-        super(Hongbao, self).clean()
-        if self.isonMobile == False and self.exp_url == '':
-            raise ValidationError({'exp_url': u'请输入活动体验地址'})
-        elif self.isonMobile == True and self.exp_code == '':
-            raise ValidationError({'exp_code': u'请上传手机扫描二维码'})
     class Meta:
         verbose_name = u"红包"
         verbose_name_plural = u"红包"
@@ -137,14 +143,6 @@ class Baoyou(Welfare):
     mprice = models.CharField(u"市场价", max_length=10)
     nprice = models.CharField(u"现价", max_length=10)
     desc = models.CharField(u"描述", max_length=20)
-    isonMobile = models.BooleanField(u'是否为移动端活动', default= False)
-    exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
-    def clean(self):
-        super(Baoyou, self).clean()
-        if self.isonMobile == False and self.exp_url == '':
-            raise ValidationError({'exp_url': u'请输入活动体验地址'})
-        elif self.isonMobile == True and self.exp_code == '':
-            raise ValidationError({'exp_code': u'请上传手机扫描二维码'})
     class Meta:
         verbose_name = u"9.9包邮"
         verbose_name_plural = u"9.9包邮"
@@ -160,10 +158,6 @@ class CouponProject(Welfare):
         ordering = ['-pub_date']
         verbose_name = u"优惠券项目"
         verbose_name_plural = u"优惠券项目"
-    def clean(self):
-        super(CouponProject, self).clean()
-        if not self.exp_url:
-            raise ValidationError({'exp_url': u'请输入活动体验地址'})
 class Coupon(models.Model):
     user = models.ForeignKey(MyUser, related_name="user_coupons", null=True)
     project = models.ForeignKey(CouponProject, related_name="coupons")
@@ -426,7 +420,7 @@ class MAdvert_App(Base):
                              verbose_name=u"banner图片上传(1920*300)，小于100k")
     location = models.CharField(u"广告位置", max_length=2, choices=MADLOCATION)
     is_hidden = models.BooleanField(u"是否隐藏",default=False)
-    wel_id = models.ForeignKey(Welfare, related_name="mas",verbose_name="展示福利")
+    wel_id = models.ForeignKey(Welfare, verbose_name="展示福利")
     class Meta:
         ordering = ["-news_priority","-pub_date"]
         verbose_name = u"app今日推荐"
