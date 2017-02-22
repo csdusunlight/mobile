@@ -3,7 +3,6 @@
 }
 .top {
     background: #fff;
-    /*height: 11rem;*/
    padding-bottom: 0.4rem;
 }
 .top>img {
@@ -164,75 +163,7 @@ p a {
 }
 .right{
 }
-/*弹出层部分*/
-@-webkit-keyframes weixin {
-     0% {
-        -webkit-transform: scale(0) rotate(180deg);
-        transform: scale(0) rotate(180deg);
-        opacity: 0;
-     }
-     100% {
-        -webkit-transform: scale(1) rotate(360deg);
-        transform: scale(1) rotate(360deg);
-        opacity: 1;
-     }
-}
-.er-wei-ma-bg {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	width: 100%;
-	height: 100%;
-	display: none;
-	background-color: rgba(0,0,0,0.5);
-	z-index: 1000;
-}
-.weixin-box-00 {
-	display: none;
-	position: fixed;
-	width: 90% !important;
-	padding: 10% 0;
-	top: 20%;
-	margin-left: 5%;
-	background: #fff;
-	overflow: hidden;
-	z-index: 1001;
-}
-.weixin-box-01 {
-	position: fixed;
-	width: 90% !important;
-	padding: 10% 0;
-	top: 20%;
-	margin-left: 5%;
-	background: #fff;
-	overflow: hidden;
-	z-index: 1001;
-	animation: weixin 1s linear;
-	-webkit-animation: weixin 1s linear;
-}
-.weixin-box-02 {
-	display: none;
 
-}
-.weixin-box p {
-	font-size: 1.6rem;
-	color: #333;
-	text-align: center;
-}
-.weixin-box img {
-	text-align: center;
-	width: 90%;
-	margin-left: 5%;
-}
-.weixin-box span {
-	position: absolute;
-	left: 0.4rem;
-	top: 0.4rem;
-	font-size: 3rem;
-}
-.weixin-box span:active {
-	color: #ff6767;
-}
 /*样式替换*/
 .mui-btn-blue {
 	color: #fff;
