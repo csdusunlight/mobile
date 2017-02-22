@@ -26,7 +26,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.contrib.contenttypes.models import ContentType
-from account.models import UserSignIn, EmailActCode,User_Envelope
+from account.models import UserSignIn, EmailActCode
 from datetime import date, timedelta, datetime
 import time as ttime
 from django.core.urlresolvers import reverse
@@ -40,7 +40,6 @@ from django.db import connection
 import logging
 from urllib import urlencode
 from wafuli.tools import get_weixin_params
-from wafuli.Christmas import produce
 from wafuli_admin.models import Invite_Rank
 from app.tools import is_authenticated_app
 logger = logging.getLogger('wafuli')
@@ -382,9 +381,9 @@ def phoneImageV(request):
 @login_required
 def account(request):
     ref_url = request.META.get('HTTP_REFERER',"")
-    anyhongbao = User_Envelope.objects.filter(user=request.user,envelope_left__gt=0).exists()
+#     anyhongbao = User_Envelope.objects.filter(user=request.user,envelope_left__gt=0).exists()
     anymessage = Message.objects.filter(user=request.user,is_read=False).exists()
-    context={'anyhongbao':anyhongbao,'anymessage':anymessage}
+    context={'anymessage':anymessage}
     if 'next=' in ref_url:
         context.update(back=True)
     return render(request, 'account/m_account_index.html', context)
@@ -408,7 +407,6 @@ def signin(request):
         charge_score(user, '0', 5, u"签到奖励")
         if signed_conse_days%7 == 0:
             charge_score(user, '0', 20, u"连续签到7天奖励")
-        produce(user,1)
     context = {'flag':flag}
     ref_url = request.META.get('HTTP_REFERER',"")
     if 'next=' in ref_url:

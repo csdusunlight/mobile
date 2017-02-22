@@ -192,10 +192,12 @@
 										var li = document.createElement('li');
 										li.className = 'mui-table-view-cell';
 										li.innerHTML = '<a href="' + wel.url + '"><div class="title"><strong>'+ wel.title +
-											'</strong><span>官网利息：<font>' + wel.interest + '</font></span></div>'+
+											'</strong><span>标签</span><span>小标签</span></div>'+
 											'<div class="container clearfix">'+
-											'<div><img src="' + wel.picurl + '" /><span>' + wel.category + '</span>'+
-											'</div><div class="inc2"><p>补贴收益：<number>+' + wel.benefit +
+											'<div><img src="' + wel.picurl + '" /><span class="mark">' + wel.category + '</span>'+
+											'</div><div class="inc2">'+
+                      '<p>官网利息：<number>'+wel.interest+'</number></p>'+
+                      '<p>补贴收益：<number>+' + wel.benefit +
 											'</number></p><p>起投金额：' + wel.amount +
 											'</p><p>标期长度：' + wel.time + '</p></div></div></a>';
 										ul.appendChild(li);

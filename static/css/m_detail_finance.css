@@ -1,0 +1,181 @@
+.mui-content {
+	padding-bottom: 4rem;
+}
+.top {
+    background: #fff;
+   padding-bottom: 0.4rem;
+}
+.top>img {
+	display: block;
+	height: 9rem;
+	margin: 0.8rem;
+	float: left;
+}
+.finance-mark {
+	height: 34px;
+	padding-top: 0.8rem;
+}
+.finance-mark span {
+	height: 1.6rem;
+	display: inline-block;
+	padding: 0 4px;
+	color: #ff6767;
+	margin-left: 8px;
+	font-size: 1rem;
+	line-height: 1.6rem;
+	text-align: center;
+	border: 1px solid #fb3456;
+	border-radius: 4px;
+}
+.text-box {
+	margin-top: 0.6rem;
+	position:relative;
+	line-height:20px;
+	height: 6.8rem;
+	overflow: hidden;
+}
+.introduction {
+    line-height:1.7rem;
+    font-size: 1.2rem;
+}
+
+.toolong::after {
+    content:"...";
+    position:absolute;
+    bottom:0;
+    right:0;
+    height: 20px;
+    padding:0 4px 0px 10px;
+   background:-webkit-linear-gradient(left,transparent, #fff 40%);
+   background:linear-gradient(left,transparent, #fff 40%);
+}
+
+.info {
+	margin-top: 1rem;
+	background-color: #fff;
+}
+.info p span:first-child {
+	display: inline-block;
+	width: 140px;
+	margin-left: 20px;
+}
+
+.taste,
+.taste-02,
+.taste-03,
+.prompt {
+	margin-top: 1rem;
+	padding: 0 1.875% 0;
+	background: #fff;
+}
+.finance-table {
+	text-align: center;
+}
+.finance-table span{
+	display: inline-block;
+	line-height: 3;
+	border-bottom: 1px solid#e4e4e4;
+
+}
+.table-head span {
+	font-size: 1.2rem;
+	color: #333;
+}
+.table-list  span {
+	font-size: 1rem;
+	color: #777;
+}
+.table-head span:nth-child(1),
+.table-list span:nth-child(1){
+	width: 23%;
+}
+.table-head span:nth-child(2),
+.table-list span:nth-child(2){
+	width: 20%;
+}
+.table-head span:nth-child(3),
+.table-list span:nth-child(3){
+	width: 30%;
+}
+.table-head span:nth-child(4),
+.table-list span:nth-child(4){
+	width: 27%;
+}
+.contact-qq {
+	display: inline-block;
+	margin: 2rem 1rem 2rem 0;
+	padding: 0 1rem;
+	font-size: 1.2rem;
+	line-height: 2.4;
+	color: #fff;
+	border-radius: 4px;
+	background-color: #52c5ff;
+}
+.contact-qq:active {
+	color: #fff;
+	background-color: #00a0ea;
+}
+.taste h3,
+.taste-02 h3,
+.prompt h3 {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	color: #222;
+	font-size: 1.6rem;
+	color: #008fd7;
+}
+.mui-content .iconfont {
+	font-size: 2rem;
+	margin-right: 0.4rem;
+}
+.taste h4 {
+	color: #333;
+	font-size: 1.4rem;
+	line-height: 3rem;
+}
+p a {
+	color: #008FD7;
+}
+.prompt{
+	color: #FB3456 !important;
+}
+.prompt .contact strong {
+	font-size: 1.2rem;
+	color: #f29840;
+	line-height: 2rem;;
+}
+/*立即体验部分*/
+.mui-row {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	margin-top: 1rem;
+	background: #fff;
+}
+
+.mui-row button {
+	height: 4rem;
+	width: 100%;
+	border-radius: 0;;
+}
+.mui-row div:first-child button {
+	border-left: 0 !important;
+}
+.right{
+}
+
+/*样式替换*/
+.mui-btn-blue {
+	color: #fff;
+	border: none;
+	border: 1px solid #e4e4e4;
+}
+.left-btn button {
+	border-right: none;
+}
+.mui-popup-title {
+	display: block;
+}
+.mui-popup-title+.mui-popup-text {
+	text-align: left;
+}
