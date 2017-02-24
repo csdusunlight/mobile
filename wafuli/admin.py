@@ -15,11 +15,12 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = ['news_priority', 'change_user',]
     def save_model(self, request, obj, form, change):
         obj.change_user = str(request.user)
-        if obj.advert is None:
-            obj.advert = Advertisement.objects.filter(location='7',is_hidden=False).first()
+#         if obj.advert is None:
+#             obj.advert = Advertisement.objects.filter(location='7',is_hidden=False).first()
         obj.save()
 class FinanceAdmin(NewsAdmin):
     readonly_fields = ('url','pub_date','change_user')
+    filter_horizontal = ('marks',)
     def save_model(self, request, obj, form, change):
         super(FinanceAdmin,self).save_model (request, obj, form, change)
         if not change:
@@ -109,8 +110,8 @@ class WelfareAdmin(admin.ModelAdmin):
     filter_horizontal = ('marks',)
     def save_model(self, request, obj, form, change):
         obj.change_user = str(request.user)
-        if obj.advert is None:
-            obj.advert = Advertisement.objects.filter(location='7',is_hidden=False).first()
+#         if obj.advert is None:
+#             obj.advert = Advertisement.objects.filter(location='7',is_hidden=False).first()
         super(WelfareAdmin,self).save_model (request, obj, form, change)
         if not change:
             obj.url = reverse('welfare', kwargs={'id': obj.pk})
@@ -125,8 +126,8 @@ class BaoyouAdmin(WelfareAdmin):
         if not change:
             obj.type = 'baoyou'
         obj.change_user = str(request.user)
-        if obj.advert is None:
-            obj.advert = Advertisement.objects.filter(location='7',is_hidden=False).first()
+#         if obj.advert is None:
+#             obj.advert = Advertisement.objects.filter(location='7',is_hidden=False).first()
         if not change:
             obj.save()
         obj.url = reverse('exp_welfare_openwindow') + '?id=' + str(obj.id) + "&type=Welfare"

@@ -216,9 +216,13 @@ def finance_json(request):
     wel_list = Finance.objects.filter(state='1')
     if type == '0':
         wel_list = wel_list.order_by('-pub_date')[start:start+6]
-    if type == '1' or type == '2':
+    else:
         wel_list = wel_list.filter(f_type=type).order_by('-view_count')[start:start+6]
     for wel in wel_list:
+        marks = wel.marks.all()[0:3]
+        mlist = []
+        for mark in marks:
+            mlist.append(mark.name)
         data.append({
             "title":wel.title,
             "interest":wel.interest,
@@ -229,6 +233,7 @@ def finance_json(request):
             "url":wel.url,
             'picurl':wel.pic.url,
             'id':wel.id,
+            'marks':mlist,
         })
     return JsonResponse(data,safe=False)
 
