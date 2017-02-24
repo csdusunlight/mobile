@@ -40,30 +40,30 @@
 			<div class="top">
 				<img src="{{news.pic.url}}" />
 				<div class="top-content">
-					<p class="finance-mark"><span>小标签</span><span>小标签</span><span>小标签</span></p>
-					<div id="text_box" class="text-box"><p id="intro" class="introduction">介绍这里是产品简单介绍介绍这里是产品简单介绍介绍这里简单介绍介绍这里是产品简单介绍介绍这里是产品简单介绍介绍这里简单介绍这里简单介绍介绍这里是产品简单介绍介绍这里是产品简单介绍介绍这里简单介绍这里简单介绍介绍这里是产品简单介绍介绍这里是产品简单介绍介绍这里简单介绍</p></div>
+					<p class="finance-mark">
+						{% for mark in news.marks.all|slice:":3" %}
+				          	<span>{{mark.name}}</span>
+				         {% endfor %}
+					</p>
+					<div id="text_box" class="text-box"><p id="intro" class="introduction">{{news.introduction}}</p></div>
 				</div>
 			</div>
 			<div class="info">
-				<p><span>平台背景</span><span>民营系</span></p>
-				<p><span>注册资本</span><span>1000万</span></p>
-				<p><span>上线时间</span><span>2017-01-12</span></p>
-				<p><span>是否银行存管</span><span>是</span></p>
-				<p><span>ICP号</span><span>12345678</span></p>
+				<p><span>平台背景</span><span>{{news.background}}</span></p>
+				<p><span>注册资本</span><span>{{news.regcap}}</span></p>
+				<p><span>上线时间</span><span>{{news.onlinedate}}</span></p>
+				<p><span>是否银行存管</span><span>{{news.depository}}</span></p>
+				<p><span>ICP号</span><span>{{news.ICP}}</span></p>
 			</div>
 			<div class="taste finance-table">
         <div class="table-head">
-          <span>投资金融</span><span>投资期限</span><span>挖福利返现</span><span>综合年化收益</span>
+          <span>投资金额</span><span>投资期限</span><span>挖福利返现</span><span>综合年化收益</span>
         </div>
-        <div class="table-list">
-          <span>一万及以上</span><span>30天</span><span>投资金额*1.05%</span><span>25.00%</span>
-        </div>
-        <div class="table-list">
-          <span>二万及以上</span><span>30天</span><span>投资金额*1.05%</span><span>25.00%</span>
-        </div>
-        <div class="table-list">
-          <span>三万及以上</span><span>30天</span><span>投资金额*1.05%</span><span>25.00%</span>
-        </div>
+        {%for row in table %}
+	      <div class="table-list">
+		      {%for column in row %}<span>{{column}}</span>{%endfor%}
+	      </div>
+	    {%endfor%}
       </div>
 			<!--体验步骤部分-->
 			<div class="taste-02">
@@ -133,39 +133,10 @@
 			});
 			var id = '{{news.id}}';
 			var type = '{{type}}';
-			{%if news.isonMobile %}
-			var ismobile = true;
-			var url_get_erweima = "{%url 'exp_welfare_erweima' %}"
-			{%else%}
-			var ismobile = false;
 			var url_openwindow = "{% url 'exp_welfare_openwindow' %}";
-			{%endif%}
 			mui.ready(function(){
 				document.getElementById("exp_btn").addEventListener('tap', function() {
-					if(ismobile){
-						mui.ajax({
-							url:url_get_erweima + "?id=" + id + "&type=" + type,
-							dataType:"json",
-							success:function(ret){
-								if(ret.code==0){
-									window.location.href = ret.url;
-								}
-								else if(ret.code==1){
-									document.getElementById('erweima_img').src = ret.url;
-									document.getElementById("ding_yue").style.display="block";
-								}
-							},
-							error:function(xhr,type,errorThrown){
-								mui.alert(type);
-							}
-						});
-					}
-					else {
-						window.open(url_openwindow + "?id=" + id + "&type=" + type);
-					}
-				});
-				document.getElementById("close_01").addEventListener('tap', function() {
-					document.getElementById("ding_yue").style.display="none";
+					window.open(url_openwindow + "?id=" + id + "&type=" + type);
 				});
 				document.getElementById("reg_btn").addEventListener('tap', function() {
 					var exp_url = "";

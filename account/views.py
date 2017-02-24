@@ -746,7 +746,7 @@ def user_coupon_json(request):
         i = {"title":project.title,
              "amount":project.amount,
              "introduction":project.introduction,
-             "url":project.exp_url,
+             "url":project.exp_url_mobile,
              'endtime':project.endtime,
              'id':con.id,
              'code':con.exchange_code,

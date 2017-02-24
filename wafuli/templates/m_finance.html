@@ -1,7 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-
 	<head lang="en">
 		<meta charset="UTF-8">
 		<!-- 优先使用 IE 最新版本和 Chrome -->
@@ -32,20 +31,16 @@
 	</head>
 
 	<body>
-		<header class="clearfix">
-        <img src="{%static 'images/logo.png'%}" alt="wafuli_logo" />
-        <a  class="fr" href="#"><img src="{%static 'images/diannao.png'%}" alt="前往pc端" /></a>
-    </header>
 		<div class="mui-content">
 			<!--选项卡部分-->
 			<div id="finance_slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<a class="mui-control-item" href="#item1">最新</a>
-					<a class="mui-control-item" href="#item2">高收益</a>
-					<a class="mui-control-item" href="#item3">低风险</a>
-					<!--<a class="mui-control-item" href="#item5">优惠券</a>-->
+					<a class="mui-control-item" href="#item2">新手</a>
+					<a class="mui-control-item" href="#item3">稳健投资</a>
+					<a class="mui-control-item" href="#item4">高收益区</a>
 				</div>
-				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
 				<div class="mui-slider-group">
 					<div id="item1" class="mui-slider-item mui-control-content mui-active" value="1">
 						<div id="scroll1" class="mui-scroll-wrapper">
@@ -94,6 +89,14 @@
 						</div>
 					</div>
 					<div id="item3" class="mui-slider-item mui-control-content" value="3">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item4" class="mui-slider-item mui-control-content" value="4">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view">
@@ -191,15 +194,19 @@
 										var wel = data[i];
 										var li = document.createElement('li');
 										li.className = 'mui-table-view-cell';
-										li.innerHTML = '<a href="' + wel.url + '"><div class="title"><strong>'+ wel.title +
-											'</strong><span>标签</span><span>小标签</span></div>'+
-											'<div class="container clearfix">'+
+										var str_block = '<a href="' + wel.url + '"><div class="title"><strong>'+ wel.title +'</strong>';
+										var marks = wel.marks;
+										for (var j in marks){
+											str_block += '<span>' + marks[j] + '</span>';
+										}
+										str_block += '</div><div class="container clearfix">'+
 											'<div><img src="' + wel.picurl + '" /><span class="mark">' + wel.category + '</span>'+
 											'</div><div class="inc2">'+
-                      '<p>官网利息：<number>'+wel.interest+'</number></p>'+
-                      '<p>补贴收益：<number>+' + wel.benefit +
+						                    '<p>官网利息：<number>'+wel.interest+'</number></p>'+
+						                    '<p>补贴收益：<number>+' + wel.benefit +
 											'</number></p><p>起投金额：' + wel.amount +
 											'</p><p>标期长度：' + wel.time + '</p></div></div></a>';
+										li.innerHTML = str_block;
 										ul.appendChild(li);
 									}
 								}

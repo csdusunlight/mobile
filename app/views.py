@@ -137,8 +137,7 @@ def get_content_hongbao(request):
         'strategy':strategy,
         'num': wel.view_count,
         'time': wel.time_limit,
-        'ismobile': wel.isonMobile,
-        'url': wel.exp_url if not wel.isonMobile else (host + wel.exp_code.url),
+        'url': wel.exp_url_mobile,
         'title':wel.title
     }
     return JsonResponse(ret_dict)
@@ -173,7 +172,7 @@ def get_content_youhuiquan(request):
         'strategy':strategy,
         'num': wel.left_count,
         'time': wel.time_limit,
-        'url': wel.exp_url,
+        'url': wel.exp_url_mobile,
         'title':wel.title,
     }
     return JsonResponse(ret_dict)
@@ -197,9 +196,8 @@ def get_content_task(request):
             'left_num':news.left_num,
             'rules':rules,
             'strategy':strategy,
-            'url': news.exp_url if not news.isonMobile else (host + news.exp_code.url),
+            'url': news.exp_url_mobile,
             'title':news.title,
-            'ismobile': news.isonMobile,
         }
         ret_dict['taskinfo'] = taskinfo
         if is_authenticated_app(request):
@@ -335,13 +333,30 @@ def get_content_finance(request):
         ret_dict['code'] = 0
         strategy = news.strategy.replace('"/media/', '"' + host + '/media/')
         rules = news.rules.replace('"/media/', '"' + host + '/media/')
+        marks = news.marks.all()[0:3]
+        mlist = []
+        for mark in marks:
+            mlist.append(mark.name)
+        scheme = news.scheme
+        table = []
+        str_rows = scheme.split('|')
+        for str_row in str_rows:
+            row = str_row.split('#')
+            table.append(row);
         financeinfo = {
             'rules':rules,
             'strategy':strategy,
-            'url': news.exp_url if not news.isonMobile else (host + news.exp_code.url),
+            'url': news.exp_url_mobile,
             'title':news.title,
-            'ismobile': news.isonMobile,
-            'state': news.state
+            'state': news.state,
+            'introduction':news.introduction,
+            'background':news.background,
+            'regcap':news.regcap,
+            'onlinedate':news.onlinedate,
+            'depository':news.depository,
+            'ICP':news.ICP,
+            'marks':mlist,
+            'scheme':table
         }
         ret_dict['financeinfo'] = financeinfo
     return JsonResponse(ret_dict)
