@@ -74,7 +74,7 @@
 .info p span:last-child {
 	display: inline-block;
 	padding: 0 1rem;
-	border-radius: 1.2rem;
+	border-radius: 4px;
 	background: #e4e4e4;
 }
 
