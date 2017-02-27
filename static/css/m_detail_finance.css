@@ -103,20 +103,6 @@
 .table-list span:nth-child(4){
 	width: 27%;
 }
-.contact-qq {
-	display: inline-block;
-	margin: 2rem 1rem 2rem 0;
-	padding: 0 1rem;
-	font-size: 1.2rem;
-	line-height: 2.4;
-	color: #fff;
-	border-radius: 4px;
-	background-color: #52c5ff;
-}
-.contact-qq:active {
-	color: #fff;
-	background-color: #00a0ea;
-}
 .taste h3,
 .taste-02 h3,
 .prompt h3 {
