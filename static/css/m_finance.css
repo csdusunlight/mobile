@@ -46,16 +46,16 @@ header a img {
 	border-bottom: 2px solid #f3a156;
 }
 .mui-table-view-cell .title span {
-	height: 1.4rem;
+	height: 1.6rem;
 	display: inline-block;
 	padding: 0 4px;
-	color: #ff6767;
+	color: #fff;
 	margin-left: 1rem;
 	font-size: 1rem;
-	line-height: 1.4rem;
+	line-height: 1.6rem;
 	text-align: center;
-	border: 1px solid #fb6767;
-	border-radius: 4px;
+	border-radius: 2px;
+	background: #f08519;
 }
 .mui-table-view-cell .title span font {
 	font-size: 1.4rem;

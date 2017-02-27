@@ -19,13 +19,13 @@
 	height: 1.6rem;
 	display: inline-block;
 	padding: 0 4px;
-	color: #ff6767;
+	color: #fff;
 	margin-left: 8px;
 	font-size: 1rem;
 	line-height: 1.6rem;
 	text-align: center;
-	border: 1px solid #fb3456;
-	border-radius: 4px;
+	background: #f08519;
+	border-radius: 2px;
 }
 .text-box {
 	margin-top: 0.6rem;
@@ -78,12 +78,14 @@
 
 }
 .table-head span {
-	font-size: 1.2rem;
+	font-size: 1rem;
 	color: #333;
+	border-bottom: 1px solid #ebebeb;
 }
 .table-list  span {
 	font-size: 1rem;
 	color: #777;
+	border-bottom: 1px solid #efefef;
 }
 .table-head span:nth-child(1),
 .table-list span:nth-child(1){
