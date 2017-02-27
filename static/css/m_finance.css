@@ -63,19 +63,7 @@ header a img {
 	color: #f3a156;
 }
 .container {
-	position: relative;
 	margin-top: 1rem;
-}
-.container>div .mark {
-	position: absolute;
-	left: 10rem;
-	bottom: 0;
-	width: 4rem;
-	color: #fff;
-	font-size: 1rem;
-	text-align: center;
-	background: #be5eff;
-	padding: 2px 0;
 }
 .container img {
 	width: 14rem !important;
