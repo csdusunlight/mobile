@@ -31,11 +31,6 @@
 
 	<body>
 		<div class="mui-content">
-			<!-- <div class="top">
-        <a id="switch_device" class="diannao">切换到电脑版</a>
-        	<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
-				<a href="{% url 'account_settings' %}"><number>{{user.mobile}}</number><i class="icon iconfont">&#xe63d;</i></a>
-			</div> -->
       <div class="top">
         <a id="settings" class="diannao" href="{% url 'account_settings' %}"><i class="icon iconfont">&#xe631;</i></a>
         <img id="userimg" src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
@@ -47,6 +42,8 @@
       <div class="person-bg">
         <img src="images/person-bg.png" alt="背景图片" />
       </div>
+      <p id="add_jifen" class="add-jifen">
+        <number>+5</number>积分</p>
 
 			<div class="mui-row row-middle">
 		        <div class="mui-col-sm-4 mui-col-xs-4">
@@ -72,56 +69,6 @@
 		        </div>
     		</div>
 
-			<!-- <ul class="mui-table-view">
-			        <li class="mui-table-view-cell">
-			            <a class="icon-qiandai mui-navigate-right" href="{% url 'account_charge' %}">
-			                 福币管理
-			            </a>
-			        </li>
-			        <li class="mui-table-view-cell">
-			            <a class="icon-jifen mui-navigate-right"  href="{% url 'account_score' %}">
-			                 	积分管理
-			            </a>
-			        </li>
-
-			</ul>
-			<ul class="mui-table-view">
-
-			        <li class="mui-table-view-cell">
-			            <a class="icon-iconfontfuli mui-navigate-right"  href="{% url 'account_welfare' %}">
-			                 	福利管理
-			            </a>
-			        </li>
-			       <li class="mui-table-view-cell">
-			            <a class="icon-youhuiquan mui-navigate-right"  href="{% url 'account_coupon' %}">
-			                 	优惠券管理
-			            </a>
-			        </li>
-			</ul>
-			<ul class="mui-table-view">
-
-			        <li class="mui-table-view-cell">
-			            <a class="icon-fuligonglve mui-navigate-right"  href="{% url 'strategy' %}">
-			                 	挖福利攻略
-			            </a>
-			        </li>
-              <li class="mui-table-view-cell">
-                  <a class="icon-yaoqing mui-navigate-right"  href="{% url 'account_invite' %}">
-                        邀请好友
-                  </a>
-              </li>
-			</ul>
-      <ul class="mui-table-view">
-            {%if anymessage%}
-            <li class="mui-table-view-cell user-msg">
-            {%else%}
-            <li class="mui-table-view-cell">
-            {%endif%}
-                  <a class="icon-gonggao mui-navigate-right" href="/account/message/">
-                        消息中心
-                  </a>
-              </li>
-      </ul> -->
       <ul class="mui-row row-bottom">
         <li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3">
           <a class="icon-url" href="{% url 'account_withdraw' %}">
@@ -246,12 +193,12 @@
 	};
 	</script>
 	{%endif%}
-	<script>
+<!-- 	<script>
 	document.getElementById("switch_device").addEventListener("tap",function(){
     	setCookie('mode', 'pc', 1, 'wafuli.cn');
     	window.location.href = "http://www.wafuli.cn";
     });
-	</script>
+	</script> -->
 	<script src="{%static 'js/cookie.js'%}"></script>
 	</body>
 
