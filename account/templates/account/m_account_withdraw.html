@@ -38,7 +38,7 @@
 			<!--帐号部分-->
 			<div class="zhanghu">
 				<div class="msg clearfix">
-					<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户图标" />
+					<img src="{% static 'images/user.png' %}" alt="用户图标" />
 					<div class="text">
 						<p><number>{{user.mobile}}</number><br />
 						{%if user.zhifubao %}
