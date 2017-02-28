@@ -637,7 +637,7 @@ def charge_json(request):
                 state = event.get_audit_state_display()
             else:
                 state = u"无"
-            i.update({"state":state,})   
+            i.update({"state":state,})
         data.append(i)
     return JsonResponse(data, safe=False)
 
