@@ -24,7 +24,7 @@
 	font-size: 1rem;
 	line-height: 1.6rem;
 	text-align: center;
-	background: #f08519;
+	background: #66cccc;
 	border-radius: 2px;
 }
 .text-box {
@@ -80,8 +80,7 @@
 
 .taste,
 .taste-02,
-.taste-03,
-.prompt {
+.taste-03 {
 	margin-top: 1rem;
 	padding: 0 1.875% 0;
 	background: #fff;
@@ -122,8 +121,7 @@
 	width: 27%;
 }
 .taste h3,
-.taste-02 h3,
-.prompt h3 {
+.taste-02 h3 {
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 	color: #222;
@@ -142,13 +140,58 @@
 p a {
 	color: #008FD7;
 }
-.prompt{
-	color: #FB3456 !important;
+
+/*温馨提示部分*/
+.kind-prompt {
+	width: 100%;
+	margin-top: 1.4rem;
+	padding: 0 1.875% 0;
 }
-.prompt .contact strong {
+.kind-prompt h5 {
+	font-size: 1.4rem;
+	text-align: center;
+	line-height: 2rem;
+	color: #8f8f8f;
+}
+.kind-prompt h5:before {
+	content: "";
+	float: left;
+	width: 34%;
+	height: 2px;
+	margin-top: 1.2rem;
+	background: #e4e4e4;
+	position: relative;
+	bottom: 0.3rem;
+}
+.kind-prompt h5:after {
+	content: "";
+	float: right;
+	width: 34%;
+	height: 2px;
+	margin-top: 1.2rem;
+	background: #e4e4e4;
+	position: relative;
+	bottom: 0.3rem;
+}
+.prompt-text {
+	padding: 0.6rem;
+	margin: 0.8rem 0;
+	border: 1px solid #bbb;
+	border-radius: 10px;
+}
+.prompt-text p {
 	font-size: 1.2rem;
-	color: #f29840;
-	line-height: 2rem;;
+	line-height: 1.8rem;
+	margin-bottom: 0.6rem;
+	color: #bbb;
+}
+.prompt-text p:last-child {
+	margin-bottom: 0;
+}
+.kind-prompt>p {
+		font-size: 1rem ;
+	line-height: 1.4rem;
+	color: #bbb;
 }
 /*立即体验部分*/
 .mui-row {
