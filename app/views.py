@@ -25,7 +25,7 @@ from django.conf import settings
 from django.db.models import Sum,Q,F
 from wafuli_admin.models import DayStatis, GlobalStatis, RecommendRank
 
-host = 'http://test.wafuli.cn'
+host = 'http://m.wafuli.cn'
 logger = logging.getLogger("wafuli")
 def get_news(request):
     timestamp = request.GET.get('lastDate','')

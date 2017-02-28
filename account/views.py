@@ -386,6 +386,12 @@ def account(request):
     context={'anymessage':anymessage}
     if 'next=' in ref_url:
         context.update(back=True)
+    signin_last = UserSignIn.objects.filter(user=request.user).first()
+    isSigned = False
+    signed_conse_days = 0
+    if signin_last and signin_last.date == date.today():
+        isSigned = True
+    context.update(isSigned=isSigned)
     return render(request, 'account/m_account_index.html', context)
 @login_required
 def account_settings(request):
@@ -394,24 +400,39 @@ def account_settings(request):
 def signin(request):
     user = request.user
     signin_last = UserSignIn.objects.filter(user=user).first()
-    flag = None
-    today = date.today()
-    if signin_last and signin_last.date == today:
-        flag = 0
+    if request.is_ajax():
+        result={'code':-1, 'url':''}
+        if signin_last and signin_last.date == date.today():
+            result['code'] = 1
+        else:
+            signed_conse_days = 1
+            if signin_last and signin_last.date == date.today() - timedelta(days=1):
+                signed_conse_days += signin_last.signed_conse_days
+            UserSignIn.objects.create(user=request.user, date=date.today(), signed_conse_days=signed_conse_days)
+            charge_score(request.user, '0', 5, u"签到奖励")
+            if signed_conse_days%7 == 0:
+                charge_score(request.user, '0', 20, u"连续签到7天奖励")
+            result['code'] = 0
+        return JsonResponse(result)
     else:
-        flag = 1
-        signed_conse_days = 1
-        if signin_last and signin_last.date == today - timedelta(days=1):
-            signed_conse_days += signin_last.signed_conse_days
-        UserSignIn.objects.create(user=user, date=today, signed_conse_days=signed_conse_days)
-        charge_score(user, '0', 5, u"签到奖励")
-        if signed_conse_days%7 == 0:
-            charge_score(user, '0', 20, u"连续签到7天奖励")
-    context = {'flag':flag}
-    ref_url = request.META.get('HTTP_REFERER',"")
-    if 'next=' in ref_url:
-        context.update({'back':True})
-    return render(request, 'account/m_signin.html',context)
+        flag = None
+        today = date.today()
+        if signin_last and signin_last.date == today:
+            flag = 0
+        else:
+            flag = 1
+            signed_conse_days = 1
+            if signin_last and signin_last.date == today - timedelta(days=1):
+                signed_conse_days += signin_last.signed_conse_days
+            UserSignIn.objects.create(user=user, date=today, signed_conse_days=signed_conse_days)
+            charge_score(user, '0', 5, u"签到奖励")
+            if signed_conse_days%7 == 0:
+                charge_score(user, '0', 20, u"连续签到7天奖励")
+        context = {'flag':flag}
+        ref_url = request.META.get('HTTP_REFERER',"")
+        if 'next=' in ref_url:
+            context.update({'back':True})
+        return render(request, 'account/m_signin.html',context)
 def signin_record(request):
     if not request.user.is_authenticated() and not is_authenticated_app(request):
         raise Http404

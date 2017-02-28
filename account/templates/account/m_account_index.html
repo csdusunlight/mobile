@@ -34,10 +34,15 @@
       <div class="top">
         <a id="settings" class="diannao" href="{% url 'account_settings' %}"><i class="icon iconfont">&#xe631;</i></a>
         <img id="userimg" src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
-        <a href="#">
+        <a>
           <number id="mobile">{{user.mobile}}</number>
         </a>
-        <button id="qiandao" type="button" class="mui-btn qiandao">签到+5积分</button>
+        {% if isSigned %}
+        	<button id="qiandao" type="button" disabled="disabled" class="mui-btn qiandao">今日已签到</button>
+        {% else %}
+        	<button id="qiandao" type="button" class="mui-btn qiandao">签到+5积分</button>
+        {% endif %}
+        
       </div>
       <div class="person-bg">
         <img src="{% static 'images/person-bg.png' %}" alt="背景图片" />
@@ -175,9 +180,28 @@
         var qiandao_btn = document.getElementById("qiandao"),
         add_jifen = document.getElementById("add_jifen");
         qiandao_btn.addEventListener("tap",function () {
-          add_jifen.style.display = "block";
-          qiandao_btn.innerHTML = "今日已签到";
-          qiandao_btn.disabled = "disabled";
+        	mui.ajax({
+    			url:"{%url 'signin' %}",
+    			dataType:"json",
+    			success:function(ret){
+    				if(ret.code==0){
+    					add_jifen.style.display = "block";
+   			            qiandao_btn.innerHTML = "今日已签到";
+   			            qiandao_btn.disabled = "disabled";
+    				}
+    				else if((ret.code==1)){
+    			        qiandao_btn.innerHTML = "今日已签到";
+    			        qiandao_btn.disabled = "disabled";
+    				}
+    				else if(ret.code==-1){
+    					alert("该页面已过期，请重新登录！");
+    					window.location.href = ret.url;
+    				}
+    			},
+    			error:function(){
+    				alert("请检查网络连接");
+    			}
+    		});
         });
     </script>
     {%if back %}

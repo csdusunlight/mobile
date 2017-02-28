@@ -6,11 +6,12 @@ Created on 20161116
 '''
 import functools
 import time
-from account.models import UserToken
+from account.models import UserToken, UserSignIn
 from django.http.response import JsonResponse
 from account.models import MyUser
 from django.contrib.contenttypes.models import ContentType
 from wafuli.models import UserEvent, Task, Finance
+from datetime import datetime,date
 
 
 def app_login_required(view):
@@ -66,8 +67,12 @@ def user_info(user):
     ftype = ContentType.objects.get_for_model(Finance)
     tcount_u = UserEvent.objects.filter(user=user, content_type = ttype.id).count()
     fcount_u = UserEvent.objects.filter(user=user, content_type = ftype.id).count()
+    signin_last = UserSignIn.objects.filter(user=user).first()
+    isSigned = 0
+    if signin_last and signin_last.date == date.today():
+        isSigned = 1
     result = {'accu_income':user.accu_income, 'balance':user.balance, 
               'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores,
               'accu_scores':user.accu_scores, 'zhifubao':user.zhifubao, 'tcount_u':tcount_u,
-              'fcount_u':fcount_u,'invite_code':user.invite_code}
+              'fcount_u':fcount_u,'invite_code':user.invite_code,'isSigned':isSigned}
     return result
