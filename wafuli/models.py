@@ -220,7 +220,7 @@ class Finance(News):
     scheme = models.CharField(u"奖励方案",max_length=200,help_text="用‘#’分列，‘|’分行，只能包含4列，行数不限，示例：\
         1000元#10天#投资额*2%#25%|2000元#20天#投资额*3%#30%|...")
     marks = models.ManyToManyField(Mark, verbose_name=u'标签', related_name="finance_set", blank=True)
-    scrores = models.CharField(u"补贴积分", max_length=100)
+    revenue = models.CharField(u"综合年化收益", max_length=10)
     benefit = models.CharField(u"补贴收益", max_length=100)
     amount_to_invest = models.IntegerField(u"起投额度")
     investTime = models.CharField(u"标期长度", max_length=100)
