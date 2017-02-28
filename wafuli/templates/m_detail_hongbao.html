@@ -64,15 +64,6 @@
 
 			</div>
 		</div>
-		<!--弹出二维码部分-->
-		<div id="ding_yue" class="er-wei-ma">
-			<div class="box">
-				<span id="close_01" class="mui-icon mui-icon-close"></span>
-				<p>长安识别图中二维码</p>
-				<img id="erweima_img"/>
-				<p>{{news.title}}</p>
-			</div>
-		</div>
 
 		<script src="{% static 'js/mui.min.js' %}"></script>
 		<script type="text/javascript">
@@ -116,39 +107,10 @@
 			});
 			var id = '{{news.id}}'
 			var type = '{{type}}'
-			{%if news.isonMobile %}
-			var ismobile = true;
-			var url_get_erweima = "{%url 'exp_welfare_erweima' %}"
-			{%else%}
-			var ismobile = false;
 			var url_openwindow = "{% url 'exp_welfare_openwindow' %}";
-			{%endif%}
 			mui.ready(function(){
 				document.getElementById("exp_btn").addEventListener('tap', function() {
-					if(ismobile){
-						mui.ajax({
-							url:url_get_erweima + "?id=" + id + "&type=" + type,
-							dataType:"json",
-							success:function(ret){
-								if(ret.code==0){
-									window.location.href = ret.url;
-								}
-								else if(ret.code==1){
-									document.getElementById('erweima_img').src = ret.url;
-									document.getElementById("ding_yue").style.display="block";
-								}
-							},
-							error:function(xhr,type,errorThrown){
-								mui.alert(type);
-							}
-						});
-					}
-					else {
-						window.open(url_openwindow + "?id=" + id + "&type=" + type);
-					}
-				});
-				document.getElementById("close_01").addEventListener('tap', function() {
-					document.getElementById("ding_yue").style.display="none";
+					window.open(url_openwindow + "?id=" + id + "&type=" + type);
 				});
 			});
 		</script>

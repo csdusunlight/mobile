@@ -47,10 +47,12 @@ class News(Base):
     state = models.CharField(u"项目状态", max_length=1, choices=STATE)
     is_futou = models.BooleanField(u'是否允许复投（重复提交同一手机号）', default= False)
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', verbose_name=u"标志图片上传（最大不超过30k，越小越好）")
-    isonMobile = models.BooleanField(u'是否为移动端活动', default= False)
-    exp_url = models.CharField(u"活动地址", blank=True, max_length=200)
+    isonMobile = models.BooleanField(u'是否只限移动端（pc端显示二维码）？', default= False)
+    exp_url = models.CharField(u"活动地址（已废弃）", blank=True, max_length=200)
+    exp_url_pc = models.CharField(u"活动地址pc", blank=True, max_length=200)
+    exp_url_mobile = models.CharField(u"活动地址mobile", blank=True, max_length=200)
     exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
-    advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
+#     advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
     company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True)
     #增加title、keywords、description等seo字段
     seo_title = models.CharField(max_length=200, verbose_name=u"SEO标题", blank=True)
@@ -59,10 +61,12 @@ class News(Base):
     class Meta:
         abstract = True
     def clean(self):
-        if self.isonMobile == False and self.exp_url == '':
-            raise ValidationError({'exp_url': u'请输入活动体验地址'})
-        elif self.isonMobile == True and self.exp_code == '':
-            raise ValidationError({'exp_code': u'请上传手机扫描二维码'})
+        if self.exp_url_mobile == '':
+                raise ValidationError({'exp_url_mobile': u'请输入活动体验地址'})
+        if self.isonMobile == False and self.exp_url_pc == '':
+                raise ValidationError({'exp_url_pc': u'请输入活动体验地址'})
+        if self.isonMobile and self.exp_code == '':
+            raise ValidationError({'exp_code': u'请上传二维码'})
         if self.pic and self.pic.size > 30000:
             raise ValidationError({'pic': u'图片大小不能超过30k'})
     def is_expired(self):
@@ -102,9 +106,19 @@ class Welfare(Base):
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
                          filePath="photos/%(year)s/%(month)s/%(day)s/", 
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
-    advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
-    exp_url = models.CharField(u"商家地址", blank=True, max_length=200)
+#     advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
+    isonMobile = models.BooleanField(u'是否只限移动端（pc端显示二维码）？', default= False)
+    exp_url = models.CharField(u"活动地址（已废弃）", blank=True, max_length=200)
+    exp_url_pc = models.CharField(u"活动地址pc", blank=True, max_length=200)
+    exp_url_mobile = models.CharField(u"活动地址mobile", blank=True, max_length=200)
+    exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
     def clean(self):
+        if self.exp_url_mobile == '':
+                raise ValidationError({'exp_url_mobile': u'请输入活动体验地址'})
+        if self.isonMobile == False and self.exp_url_pc == '':
+                raise ValidationError({'exp_url_pc': u'请输入活动体验地址'})
+        if self.isonMobile and self.exp_code == '':
+            raise ValidationError({'exp_code': u'请上传二维码'})
         if self.pic and self.pic.size > 30000:
             raise ValidationError({'pic': u'图片大小不能超过30k'})
     def is_expired(self):
@@ -122,14 +136,6 @@ class Welfare(Base):
     def get_type_url(self):
         return reverse('welfare')
 class Hongbao(Welfare):
-    isonMobile = models.BooleanField(u'是否为移动端活动', default= False)
-    exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
-    def clean(self):
-        super(Hongbao, self).clean()
-        if self.isonMobile == False and self.exp_url == '':
-            raise ValidationError({'exp_url': u'请输入活动体验地址'})
-        elif self.isonMobile == True and self.exp_code == '':
-            raise ValidationError({'exp_code': u'请上传手机扫描二维码'})
     class Meta:
         verbose_name = u"红包"
         verbose_name_plural = u"红包"
@@ -137,14 +143,6 @@ class Baoyou(Welfare):
     mprice = models.CharField(u"市场价", max_length=10)
     nprice = models.CharField(u"现价", max_length=10)
     desc = models.CharField(u"描述", max_length=20)
-    isonMobile = models.BooleanField(u'是否为移动端活动', default= False)
-    exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
-    def clean(self):
-        super(Baoyou, self).clean()
-        if self.isonMobile == False and self.exp_url == '':
-            raise ValidationError({'exp_url': u'请输入活动体验地址'})
-        elif self.isonMobile == True and self.exp_code == '':
-            raise ValidationError({'exp_code': u'请上传手机扫描二维码'})
     class Meta:
         verbose_name = u"9.9包邮"
         verbose_name_plural = u"9.9包邮"
@@ -160,10 +158,6 @@ class CouponProject(Welfare):
         ordering = ['-pub_date']
         verbose_name = u"优惠券项目"
         verbose_name_plural = u"优惠券项目"
-    def clean(self):
-        super(CouponProject, self).clean()
-        if not self.exp_url:
-            raise ValidationError({'exp_url': u'请输入活动体验地址'})
 class Coupon(models.Model):
     user = models.ForeignKey(MyUser, related_name="user_coupons", null=True)
     project = models.ForeignKey(CouponProject, related_name="coupons")
@@ -217,16 +211,25 @@ class Task(News):
 class Finance(News):
     f_type = models.CharField(u"项目类别", max_length=1, choices=FINANCE_TYPE)
     filter = models.CharField(u"项目系列", max_length=2, choices=FILTER)
+    introduction = models.TextField(u"平台简介",max_length=50)
+    background = models.CharField(u"平台背景", max_length=20)
+    regcap = models.CharField(u"注册资本", max_length=10)
+    onlinedate = models.CharField(u"上线时间", max_length=12)
+    depository = models.CharField(u"银行存管", max_length=10)
+    ICP = models.CharField(u"ICP号", max_length=30)
+    scheme = models.CharField(u"奖励方案",max_length=200,help_text="用‘#’分列，‘|’分行，只能包含4列，行数不限，示例：\
+        1000元#10天#投资额*2%#25%|2000元#20天#投资额*3%#30%|...")
+    marks = models.ManyToManyField(Mark, verbose_name=u'标签', related_name="finance_set", blank=True)
     scrores = models.CharField(u"补贴积分", max_length=100)
     benefit = models.CharField(u"补贴收益", max_length=100)
     amount_to_invest = models.IntegerField(u"起投额度")
     investTime = models.CharField(u"标期长度", max_length=100)
     interest = models.CharField(u"官网利息",max_length=8)
-    rules =UEditorField(u"奖励规则", width=900, height=300, toolbars="full", 
+    strategy =UEditorField(u"体验步骤", width=900, height=300, toolbars="full", 
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
                          filePath="photos/%(year)s/%(month)s/%(day)s/", 
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
-    strategy =UEditorField(u"体验步骤", width=900, height=300, toolbars="full", 
+    rules =UEditorField(u"注意事项", width=900, height=300, toolbars="full", 
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
                          filePath="photos/%(year)s/%(month)s/%(day)s/", 
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
@@ -246,7 +249,7 @@ class Commodity(models.Model):
     category = models.CharField(u"商品分类", max_length=8, choices=CATEGORY)
     item = models.CharField(u"商品子类", max_length=8, choices=ITEM)
     url = models.CharField(u"本页面地址",max_length=200)
-    advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
+#     advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
     rules =UEditorField(u"奖品介绍", width=900, height=300, toolbars="full", 
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
                          filePath="photos/%(year)s/%(month)s/%(day)s/", 
@@ -426,7 +429,7 @@ class MAdvert_App(Base):
                              verbose_name=u"banner图片上传(1920*300)，小于100k")
     location = models.CharField(u"广告位置", max_length=2, choices=MADLOCATION)
     is_hidden = models.BooleanField(u"是否隐藏",default=False)
-    wel_id = models.ForeignKey(Welfare, related_name="mas",verbose_name="展示福利")
+    wel_id = models.ForeignKey(Welfare, verbose_name="展示福利")
     class Meta:
         ordering = ["-news_priority","-pub_date"]
         verbose_name = u"app今日推荐"

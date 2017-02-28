@@ -27,7 +27,7 @@
 	<link href="{% static 'images/favicon.ico'%}" rel="shortcut icon"/>
     <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
-    <link rel="stylesheet" type="text/css" href="{%static 'css/m_detail_taskandfinance.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_detail_finance.css'%}"/>
 </head>
 
 	<body>
@@ -37,28 +37,53 @@
 			<a id="share" class="share iconfont icon-fenxiang"></a>
 		</header>
 		<div class="mui-content">
-			<div class="ad">
-				<img src="{{news.pic.url}}">
+			<div class="top">
+				<img src="{{news.pic.url}}" />
+				<div class="top-content">
+					<p class="finance-mark">
+						{% for mark in news.marks.all|slice:":3" %}
+				          	<span>{{mark.name}}</span>
+				         {% endfor %}
+					</p>
+					<div id="text_box" class="text-box"><p id="intro" class="introduction">{{news.introduction}}</p></div>
+				</div>
 			</div>
+			<div class="info">
+				<p><span>平台背景</span><span>{{news.background}}</span></p>
+				<p><span>注册资本</span><span>{{news.regcap}}</span></p>
+				<p><span>上线时间</span><span>{{news.onlinedate}}</span></p>
+				<p><span>银行存管机构</span><span>{{news.depository}}</span></p>
+				<p><span>ICP号</span><span>{{news.ICP}}</span></p>
+			</div>
+			<div class="taste finance-table">
+        <div class="table-head">
+          <span>投资金额</span><span>投资期限</span><span>挖福利返现</span><span>综合年化收益</span>
+        </div>
+        {%for row in table %}
+	      <div class="table-list">
+		      {%for column in row %}<span>{{column}}</span>{%endfor%}
+	      </div>
+	    {%endfor%}
+      </div>
 			<!--体验步骤部分-->
-			<div class="taste">
-				<h3 class="reward"><i class="iconfont">&#xe613;</i>奖励规则</h3>
-				{{news.rules|safe}}
-			</div>
 			<div class="taste-02">
-				<h3><i class="iconfont">&#xe61c;</i>体验步骤</h3>
+				<h3><i class="iconfont">&#xe61c;</i>投资流程</h3>
 				<div class="detail-html">{{news.strategy|safe}}</div>
 			</div>
-			<!--温馨提示部分-->
-			<div class="prompt">
-				<h3><i class="iconfont">&#xe60b;</i>温馨提示</h3>
-				<p><number>1、</number>为了让您畅快的享受福利，请您务必按照体验步骤详情操作，并在完成后返回本页面<span style="color:#ff6767">提交相关数据</span>，以便工作人员进行数据审核，发放相应福利；</p>
-				<p><number>2、</number>用户提交数据后，挖福利工作人员将在48小时内完成审核，并发放相应奖励至用户账户；</p>
-				<p><number>3、</number>用户赚取的福币可在个人中心以100：1的比例兑换成现金并提现至支付宝账户（100个福币兑换成1元现金）； 积分则可在积分商城兑换相应的奖品；</p>
-				<p><number>4、</number>投资有风险，入市需谨慎；挖福利尽最大可能的提供最优质的理财渠道、筛选有诚信的合作平台，但是挖福利不对合作平台提供任何的风险担保；</p>
-				<p><number>5、</number>挖福利对福利数据的审核具有最终解释权。</p>
-				<p class="contact">如有疑问请联系<strong>在线客服</strong>或拨打 <strong>服务热线：0734-8344414</strong></p>
+			<div class="taste">
+				<h3 class="reward"><i class="iconfont">&#xe613;</i>注意事项</h3>
+				{{news.rules|safe}}
 			</div>
+      <!--温馨提示部分-->
+      <div class="kind-prompt">
+        <h5>温馨提示</h5>
+        <div class="prompt-text">
+          <p><number>1、</number>请您务必按照“投资流程”操作，并在完成后返回本页面提交相关数据，以便进行审核与发放相应福利；</p>
+          <p><number>2、</number>福币可在个人中心以100：1的比例兑换成现金并提现至支付宝账户；</p>
+          <p><number>3、</number>挖福利尽最大可能的提供最优质的理财渠道、筛选有诚信的合作平台，但是挖福利不对合作平台提供任何的风险担保；</p>
+        </div>
+        <p>如有疑问请联系在线客服或拨打服务热线：0734-8344414</p>
+      </div>
 			<!--立即体验部分-->
 			<div class="mui-row">
 		        <div class="left-btn mui-col-sm-6 mui-col-xs-6">
@@ -69,15 +94,6 @@
 		        </div>
 		    </div>
 
-		</div>
-		<!--弹出二维码部分-->
-		<div id="ding_yue" class="er-wei-ma">
-			<div class="box">
-				<span id="close_01" class="mui-icon mui-icon-close"></span>
-				<p>长安识别图中二维码</p>
-				<img id="erweima_img"/>
-				<p>{{news.title}}</p>
-			</div>
 		</div>
 
 		<script src="{%static 'js/mui.min.js'%}"></script>
@@ -123,39 +139,10 @@
 			});
 			var id = '{{news.id}}';
 			var type = '{{type}}';
-			{%if news.isonMobile %}
-			var ismobile = true;
-			var url_get_erweima = "{%url 'exp_welfare_erweima' %}"
-			{%else%}
-			var ismobile = false;
 			var url_openwindow = "{% url 'exp_welfare_openwindow' %}";
-			{%endif%}
 			mui.ready(function(){
 				document.getElementById("exp_btn").addEventListener('tap', function() {
-					if(ismobile){
-						mui.ajax({
-							url:url_get_erweima + "?id=" + id + "&type=" + type,
-							dataType:"json",
-							success:function(ret){
-								if(ret.code==0){
-									window.location.href = ret.url;
-								}
-								else if(ret.code==1){
-									document.getElementById('erweima_img').src = ret.url;
-									document.getElementById("ding_yue").style.display="block";
-								}
-							},
-							error:function(xhr,type,errorThrown){
-								mui.alert(type);
-							}
-						});
-					}
-					else {
-						window.open(url_openwindow + "?id=" + id + "&type=" + type);
-					}
-				});
-				document.getElementById("close_01").addEventListener('tap', function() {
-					document.getElementById("ding_yue").style.display="none";
+					window.open(url_openwindow + "?id=" + id + "&type=" + type);
 				});
 				document.getElementById("reg_btn").addEventListener('tap', function() {
 					var exp_url = "";
@@ -180,6 +167,14 @@
 			            }
 			        });
 				});
+
+				// 理财介绍超出隐藏
+				var text_box = document.getElementById("text_box"),
+				intro = document.getElementById("intro");
+				var box_height = text_box.offsetHeight - intro.offsetHeight;
+				if(box_height<0){
+						text_box.setAttribute("class","text-box toolong");
+				}
 			});
 		</script>
 	{%if back %}

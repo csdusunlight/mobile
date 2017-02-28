@@ -72,8 +72,17 @@ def finance(request, id=None):
             news = Finance.objects.get(id=id)
         except Finance.DoesNotExist:
             raise Http404(u"该页面不存在")
-        other_wel_list = Finance.objects.filter(state='1').order_by('-view_count')[0:10]
-        context = {'news':news,'type':'Finance','other_wel_list':other_wel_list}
+        scheme = news.scheme
+        table = []
+        str_rows = scheme.split('|')
+        for str_row in str_rows:
+            row = str_row.split('#')
+            table.append(row);
+        context = {
+                   'news':news,
+                   'type':'Finance',
+                   'table':table,
+        }
         ref_url = request.META.get('HTTP_REFERER',"")
         if 'next=' in ref_url:
             context.update({'back':True})

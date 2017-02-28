@@ -83,7 +83,7 @@
                 </li>
             	<li>
                 	<a href="{% url 'activity' %}">
-                    	<i class="icon iconfont ic-03">&#xe616;</i>
+                    	<i class="icon iconfont ic-03">&#xe8f1;</i>
                         <span>要赚福币</span>
                     </a>
                 </li>
@@ -249,7 +249,7 @@
 							var wel = data[i];
 							var li = document.createElement('li');
 							li.className = 'mui-table-view-cell';
-							str_block = '<a class="clearfix" href="' + wel.url + '"><img src="'+
+							var str_block = '<a class="clearfix" href="' + wel.url + '"><img src="'+
 											wel.picurl + '" /><div class="li-info"><h6>' + wel.title + '</h6>';
 							if (wel.is_hot){
 								str_block += '<i class="icon iconfont">&#xe621;</i>';
@@ -258,7 +258,7 @@
 							// 	str_block += '<span class="after-new">new</span>';
 							// }
 							str_block += '<p class="first">';
-							marks = wel.marks;
+							var marks = wel.marks;
 							for (var j in marks){
 								str_block += '<span>' + marks[j] + '</span>';
 							}

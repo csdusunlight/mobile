@@ -63,53 +63,13 @@ p a {
 }
 
 .mui-row button {
-	/*margin-bottom: 1rem;*/
 	width: 100%;
 	border-radius: 0;;
 }
 .mui-row button:first {
 	border: 0 !important;
 }
-.right{
-	/*margin-left: 10%;*/
-}
-/*弹出层部分*/
-.er-wei-ma {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	display: none;
-	background-color: rgba(0,0,0,0.5);
-	z-index: 1000;
-}
-.er-wei-ma .box {
-	position: relative;
-	width: 90% !important;
-	/*height: 40rem;*/
-	padding: 10% 0;
-	margin-top: 20%;
-	margin-left: 5%;
-	background: #fff;
-}
-.er-wei-ma .box p {
-	font-size: 1.6rem;
-	color: #333;
-	text-align: center;
-}
-.er-wei-ma .box img {
-	text-align: center;
-	width: 90%;
-	margin-left: 5%;
-}
-.er-wei-ma span {
-	position: absolute;
-	left: 0.4rem;
-	top: 0.4rem;
-	font-size: 3rem;
-}
-.er-wei-ma span:active {
-	color: #ff6767;
-}
+
 /*样式替换*/
 .mui-btn-blue {
 	color: #fff;
