@@ -102,7 +102,7 @@
 	content: "";
 	position: absolute;
 	top: 6px;
-	right: 32px;
+	right: 20px;
 	height: 8px;
 	width: 8px;
 	border-radius: 50%;
@@ -183,14 +183,4 @@ footer li span {
 }
 footer li.on span {
 	color: #f08519;
-}
-.msg:after {
-	content: "";
-	position: absolute;
-	top: 2px;
-	right: 20%;
-	height: 8px;
-	width: 8px;
-	border-radius: 50%;
-	background: #fb3456;
 }
