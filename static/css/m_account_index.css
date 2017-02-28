@@ -121,15 +121,15 @@
 }
 .mui-table-view-cell>a:not(.mui-btn) {
 	display: block;
-	padding: 16px;
+	padding: 16px 0;
 }
 .mui-table-view-cell:after {
 	height: 0;
 }
 .icon-url i{
 	display: block;
-	color: #7a7d82;
-	font-size: 2.8rem;
+	color: #8f8f8f;
+	font-size: 2.6rem;
 	text-align: center;
 }
 .icon-url p {
