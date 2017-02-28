@@ -20,7 +20,7 @@
 	display: inline-block;
 	padding: 0 4px;
 	color: #fff;
-	margin-left: 8px;
+	margin-right: 8px;
 	font-size: 1rem;
 	line-height: 1.6rem;
 	text-align: center;
@@ -96,12 +96,12 @@
 
 }
 .table-head span {
-	font-size: 1rem;
+	font-size: 1.2rem;
 	color: #333;
 	border-bottom: 1px solid #ebebeb;
 }
 .table-list  span {
-	font-size: 1rem;
+	font-size: 1.2rem;
 	color: #777;
 	border-bottom: 1px solid #efefef;
 }
