@@ -30,8 +30,9 @@
 .text-box {
 	margin-top: 0.6rem;
 	position:relative;
-	line-height:20px;
+	margin-right: 10px;
 	height: 6.8rem;
+	line-height:20px;
 	overflow: hidden;
 }
 .introduction {
