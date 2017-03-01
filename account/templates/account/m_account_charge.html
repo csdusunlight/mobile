@@ -218,6 +218,11 @@
 		            }
 		        });
 			});
+
+			// 审核拒绝原因弹窗
+	    mui('.mui-table-view').on('tap','.review-refuse',function(){
+	        mui.alert('支付宝绑定不正确','审未通过原因','确定');
+	    });
 		</script>
 	</body>
 

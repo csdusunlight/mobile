@@ -121,3 +121,14 @@ body {
 .mui-table-view-cell {
 	padding: 0;
 }
+/*样式覆盖*/
+.mui-popup-title {
+	display: block;
+}
+.review-refuse {
+	color: #ff6767;
+	text-decoration: underline;
+}
+.review-pass {
+	color: #00d6b3;
+}

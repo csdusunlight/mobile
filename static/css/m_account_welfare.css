@@ -82,3 +82,13 @@ li.head-02 span {
 	padding: 1rem 0;
 	text-align: center;
 }
+.mui-popup-title {
+	display: block;
+}
+.review-refuse {
+	color: #ff6767;
+	text-decoration: underline;
+}
+.review-pass {
+	color: #00d6b3;
+}
