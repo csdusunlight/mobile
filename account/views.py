@@ -486,6 +486,8 @@ def get_user_welfare_json(request):
              "username":con.invest_account,
              "time":con.time.strftime("%Y-%m-%d"),
              "state":con.get_audit_state_display(),
+             "state_int":con.audit_state,
+             "reason":reason
              }
         data.append(i)
     return JsonResponse(data, safe=False)
