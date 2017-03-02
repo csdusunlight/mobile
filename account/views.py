@@ -478,7 +478,7 @@ def get_user_welfare_json(request):
     data = []
     for con in item_list:
         reason = con.remark
-        if filter == 3:
+        if con.audit_state == '2':
             log = con.audited_logs.first()
             if log:
                 reason = log.reason

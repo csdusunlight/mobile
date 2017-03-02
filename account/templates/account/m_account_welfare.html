@@ -152,7 +152,7 @@
 										'</number></span><span class="li-03"><number>' + wel.time +
 										'</number></span>';
 									if (wel.state_int=='2'){
-										str_html += '<span class="li-04 review-refuse">未通过：' + wel.reason + '</span>';
+										str_html += '<span class="li-04 review-refuse" reason="' + wel.reason + '">'+ wel.state + '</span>';
 									}
 									else if(wel.state_int=='0'){
 										str_html += '<span class="li-04 review-pass">' + wel.state + '</span>';
@@ -173,7 +173,8 @@
   <script>
     // 审核拒绝原因弹窗
     mui('.mui-table-view').on('tap','.review-refuse',function(){
-        mui.alert('支付宝绑定不正确','审未通过原因','确定');
+    	var reason = this.getAttribute("reason");
+        mui.alert(reason,'审核未通过原因','确定');
     });
   </script>
 </body>
