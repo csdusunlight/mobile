@@ -638,29 +638,36 @@ def charge(request):
     return render(request, 'account/m_account_charge.html', {})
 
 def charge_json(request):
-    user = request.user
+    if not request.is_ajax():
+        raise Http404
     res={'code':0,}
-    if not user.is_authenticated():
-        res['code'] = -1
-        res['url'] = reverse('user_guide') + "?next=" + reverse('account_charge')
-        return JsonResponse(res)
+    if not request.user.is_authenticated() and not is_authenticated_app(request):
+        raise Http404
+    user = request.user
     count = int(request.GET.get('count', 0))
     type = str(request.GET.get('type', '0'))
     start = 6*count
     item_list = TransList.objects.filter(user=request.user, transType=type)[start:start+6]
     data = []
     for con in item_list:      
-        i = {"reason":con.reason,
+        i = {"item":con.reason,
              "amount":con.transAmount,
              "date":con.time.strftime("%Y-%m-%d"),
              }
         if type == '1':
             event = con.user_event
             if event:
+                reason = event.remark
+                if event.audit_state == '2':
+                    log = event.audited_logs.first()
+                    if log:
+                        reason = log.reason
                 state = event.get_audit_state_display()
+                state_int = event.audit_state;
+                i.update(state_int=event.audit_state,reason=reason)
             else:
                 state = u"无"
-            i.update({"state":state,})
+            i.update(state=state)
         data.append(i)
     return JsonResponse(data, safe=False)
 

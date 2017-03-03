@@ -154,7 +154,7 @@
 										var li = document.createElement('li');
 										li.className = 'mui-table-view-cell';
 										str_html = '<li class="list clearfix"><span><number>' + record.date +
-										'</number></span><span>' + record.reason + '</span><span><number>';
+										'</number></span><span>' + record.item + '</span><span><number>';
 										if (index===0){
 											str_html += '+ ';
 										}
@@ -166,7 +166,15 @@
 											str_html += '</li>';
 										}
 										else if(index===1){
-											str_html += '<span>' + record.state + '</span></li>';
+											if (record.state_int=='2'){
+												str_html += '<span class="li-04 review-refuse" reason="' + record.reason + '">'+ record.state + '</span></li>';
+											}
+											else if(record.state_int=='0'){
+												str_html += '<span class="li-04 review-pass">' + record.state + '</span></li>';
+											}
+											else{
+												str_html += '<span class="li-04">' + record.state + '</span>';
+											}
 										}
 										li.innerHTML = str_html
 										ul.appendChild(li);
@@ -220,9 +228,10 @@
 			});
 
 			// 审核拒绝原因弹窗
-	    mui('.mui-table-view').on('tap','.review-refuse',function(){
-	        mui.alert('支付宝绑定不正确','审未通过原因','确定');
-	    });
+	    	mui('.mui-table-view').on('tap','.review-refuse',function(){
+		        var reason = this.getAttribute("reason");
+        		mui.alert(reason,'审核未通过原因','确定');
+		    });
 		</script>
 	</body>
 
