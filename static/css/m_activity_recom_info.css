@@ -39,3 +39,13 @@ body {
 .mui-content>.mui-table-view:first-child {
 	margin-top: 0;
 }
+.mui-popup-title {
+	display: block;
+}
+.review-refuse {
+	color: #ff6767;
+	text-decoration: underline;
+}
+.review-pass {
+	color: #00d6b3;
+}

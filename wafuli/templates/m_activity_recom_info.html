@@ -124,6 +124,11 @@
 		function pullupRefresh() {
 			get_record_list(count++);
 		}
+    // 审核拒绝原因弹窗
+    mui('.mui-table-view').on('tap','.review-refuse',function(){
+      var reason = this.getAttribute("reason");
+          mui.alert(reason,'审核未通过原因','确定');
+    });
     </script>
 	 {%if back %}
 		<script>

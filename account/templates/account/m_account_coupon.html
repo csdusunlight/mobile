@@ -33,7 +33,7 @@
 	<h1 class="mui-title">优惠券管理</h1>
 </header>
 <div class="mui-content">
-	
+
     <!--选项卡部分-->
     <div id="finance_slider" class="mui-slider mui-fullscreen">
         <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
@@ -47,7 +47,7 @@
             <div id="item1" class="mui-slider-item mui-control-content mui-active">
             	<div id="scroll1" class="mui-scroll-wrapper">
             	<div class="mui-scroll">
-                <ul class="mui-table-view">                	
+                <ul class="mui-table-view">
                 </ul>
                 </div>
                 </div>
@@ -55,7 +55,7 @@
             <div id="item2" class="mui-slider-item mui-control-content">
             	<div id="scroll2" class="mui-scroll-wrapper">
             	<div class="mui-scroll">
-                <ul class="mui-table-view">                	
+                <ul class="mui-table-view">
                 </ul>
                 </div>
                 </div>
@@ -63,16 +63,16 @@
             <div id="item3" class="mui-slider-item mui-control-content">
             	<div id="scroll3" class="mui-scroll-wrapper">
             	<div class="mui-scroll">
-                <ul class="mui-table-view">                	
+                <ul class="mui-table-view">
                 </ul>
                 </div>
                 </div>
             </div>
-            
+
             <div id="item4" class="mui-slider-item mui-control-content">
             	<div id="scroll4" class="mui-scroll-wrapper">
             	<div class="mui-scroll">
-                <ul id="list-box" class="list-box mui-table-view">                			        
+                <ul id="list-box" class="list-box mui-table-view">
 			        <li class="clearfix">
 			            <span>类型</span>
 			            <span>项目</span>
@@ -86,11 +86,11 @@
 
         </div>
     </div>
-    
+
 
     <!--测试-->
-    
-</div>	
+
+</div>
 
  <!--温馨提示-信息填写-->
   <div id="popup_03" class="popup-03 popup" style="display:none;">
@@ -107,7 +107,7 @@
 					<label>备注</label>
 					<input id="remark" type="text" placeholder="可不填">
 				</div>
-			
+
 		</form>
 		<p><!--注：请填写真实有效信息，如因填写信息错误导致无法收货，责任由用户承担。--></p>
             <div class="btn_cont only-btn">
@@ -127,10 +127,10 @@
             	<button type="button" class="mui-btn mui-btn-yellow">确定</button>
             </div>
         </div>
-        <span class="btn_x mui-icon mui-icon-closeempty"></span>		        
+        <span class="btn_x mui-icon mui-icon-closeempty"></span>
     </div>
-  </div>   
-  
+  </div>
+
     <script src="{%static 'js/mui.min.js'%}"></script>
     <script src="{%static 'js/jquery-1.11.2.min.js'%}"></script>
 		<script src="{%static 'js/mui.pullToRefresh.js'%}"></script>
@@ -191,10 +191,10 @@
 							var coupon = data[i];
 							var li = document.createElement('li');
 							li.className = 'mui-table-view-cell';
-							str_html = '<a class="clearfix" href="' + coupon.url + 
-								'"><div class="youhuiquan-left fl"><p class="use clearfix">' + 
-								'<span class="use-01">使用说明：</span><span class="use-02">' + coupon.introduction + 
-								'</span></p><p>有效期至：<number>' + coupon.endtime + 
+							str_html = '<a class="clearfix" href="' + coupon.url +
+								'"><div class="youhuiquan-left fl"><p class="use clearfix">' +
+								'<span class="use-01">使用说明：</span><span class="use-02">' + coupon.introduction +
+								'</span></p><p>有效期至：<number>' + coupon.endtime +
 								'</number></p>';
 							if ( index==0 ){
 								str_html += '<p><span>优惠券码：</span><number>' + coupon.code + '</number></p>';
@@ -205,11 +205,11 @@
 							if ( index==1||index==2 ){
 								var is_used = coupon.is_used;
 								if (is_used){
-									str_html += '<button type="button" disabled="disabled"' + 
+									str_html += '<button type="button" disabled="disabled"' +
 										' class="duihuan-btn mui-btn mui-btn-yellow">已兑换</button>';
 								}
 								else{
-									str_html += '<button type="button" coupon_id="' + coupon.id + 
+									str_html += '<button type="button" coupon_id="' + coupon.id +
 										'" class="duihuan-btn mui-btn mui-btn-yellow">兑换</button>';
 								}
 							}
@@ -307,12 +307,19 @@
 			this.parentNode.parentNode.style.display="none";
 		});
 	</script>
+  <script type="text/javascript">
+    // 审核拒绝原因弹窗
+    mui('.mui-table-view').on('tap','.review-refuse',function(){
+      var reason = this.getAttribute("reason");
+          mui.alert(reason,'审核未通过原因','确定');
+    });
+  </script>
 </body>
 </html>
 
-			            
-			            
-			            
-			            
-			            
-			            	            
+
+
+
+
+
+
