@@ -46,21 +46,6 @@
     <!--选项卡部分-->
         <ul class="list-box mui-table-view">
 
-	        <li class="list clearfix">
-	            <span class=""><number>2016-07-13-12:30</number></span>
-	            <span>滴滴打车</span>
-	            <span>审核通过</span>
-	        </li>
-	        <li class="list clearfix">
-	            <span><number>2016-07-13-12:30</number></span>
-	            <span>滴滴打车</span>
-	            <span>审核通过</span>
-	        </li>
-	        <li class="list clearfix">
-	            <span><number>2016-07-13-12:30</number></span>
-	            <span>滴滴打车</span>
-	            <span>审核通过</span>
-	        </li>
 
         </ul>
 
@@ -109,7 +94,16 @@
 							var li = document.createElement('li');
 							li.className = 'list clearfix';
 							str_block = '<span><number>' + record.time + '</number></span><span>' +
-								record.title + '</span><span>' + record.state + '</span>';
+								record.title + '</span>';
+							if (record.state_int=='2'){
+								str_block += '<span class="review-refuse" reason="' + record.reason + '">'+ record.state + '</span>';
+							}
+							else if(record.state_int=='0'){
+								str_block += '<span class="review-pass">' + record.state + '</span>';
+							}
+							else{
+								str_block += '<span>' + record.state + '</span>';
+							}
 							li.innerHTML = str_block;
 							table.appendChild(li);
 						}

@@ -42,7 +42,7 @@
 					<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
 					<div class="text">
 						<p><number>{{user.mobile}}</number><br />
-						<span>剩余福币：<strong><number>&nbsp;{{user.balance}}&nbsp;</number></strong>个</p>
+						<span>余额：<strong><number>&nbsp;{{user.balance}}&nbsp;</number></strong></p>
 					</div>
 				    <button id="Btn" type="button" class="mui-btn mui-btn-warning">提&nbsp;现</button>
 				</div>
@@ -153,7 +153,7 @@
 										var record = data[i];
 										var li = document.createElement('li');
 										li.className = 'mui-table-view-cell';
-										str_html = '<li class="list clearfix"><span><number>' + record.date +
+										str_html = '<span><number>' + record.date +
 										'</number></span><span>' + record.item + '</span><span><number>';
 										if (index===0){
 											str_html += '+ ';
@@ -162,15 +162,12 @@
 											str_html += '- ';
 										}
 										str_html += record.amount + '</number></span>';
-										if (index===0){
-											str_html += '</li>';
-										}
-										else if(index===1){
+										if(index===1){
 											if (record.state_int=='2'){
-												str_html += '<span class="li-04 review-refuse" reason="' + record.reason + '">'+ record.state + '</span></li>';
+												str_html += '<span class="li-04 review-refuse" reason="' + record.reason + '">'+ record.state + '</span>';
 											}
 											else if(record.state_int=='0'){
-												str_html += '<span class="li-04 review-pass">' + record.state + '</span></li>';
+												str_html += '<span class="li-04 review-pass">' + record.state + '</span>';
 											}
 											else{
 												str_html += '<span class="li-04">' + record.state + '</span>';

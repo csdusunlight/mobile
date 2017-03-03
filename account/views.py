@@ -798,13 +798,20 @@ def get_user_coupon_exchange_detail(request):
     data = []
     for con in item_list:
         coupon = con.content_object
+        reason = con.remark
+        if con.audit_state == '2':
+            log = con.audited_logs.first()
+            if log:
+                reason = log.reason
         i = {"title":coupon.project.title,
              "amount":coupon.project.amount,
              "account":con.invest_account,
              "state":con.get_audit_state_display(),
              'remark':con.remark,
              'time':con.time.strftime("%Y-%m-%d %H:%M:%S"),
-             'type':coupon.project.get_ctype_display()
+             'type':coupon.project.get_ctype_display(),
+             'state_int':con.audit_state,
+             'reason':reason
         }
         data.append(i)
     return JsonResponse(data,safe=False)

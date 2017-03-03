@@ -836,9 +836,16 @@ def recom_info(request):
     item_list = UserEvent.objects.filter(user=user,event_type='6')[start:start+12]
     data = []
     for con in item_list:
+        reason = con.remark
+        if con.audit_state == '2':
+            log = con.audited_logs.first()
+            if log:
+                reason = log.reason
         i = {"title":con.content_object.title,
              "time":con.time.strftime("%Y-%m-%d"),
              "state":con.get_audit_state_display(),
+             "state_int":con.audit_state,
+             'reason':reason
              }
         data.append(i)
     return JsonResponse(data, safe=False) 
