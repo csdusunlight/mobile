@@ -126,7 +126,16 @@ def exp_welfare_openwindow(request):
             wel.save(update_fields=["left_num","state"])
     update_view_count(wel)
     url = wel.exp_url_mobile
-    js = "<script>window.location.href='"+url+"';</script>"
+    if url=='':
+        js = ''' 
+        <script>
+        alert("本项目仅限电脑端体验，请前往电脑端。");
+        window.close();
+        </script>
+        
+        '''
+    else:
+        js = "<script>window.location.href='"+url+"';</script>"
     return HttpResponse(js)
 
 def exp_welfare_youhuiquan(request):
