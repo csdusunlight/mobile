@@ -130,7 +130,7 @@ def exp_welfare_openwindow(request):
         js = ''' 
         <script>
         alert("本项目仅限电脑端体验，请前往电脑端。");
-        window.close();
+        window.history.back();
         </script>
         
         '''
