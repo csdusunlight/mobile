@@ -105,12 +105,12 @@
 }
 .table-list {
 	overflow: hidden;
-	height: 3.6rem;
+	height: 4rem;
 	border-bottom: 1px solid #efefef;
 }
-.table-list span:nth-child(1){
+.table-list span {
 	line-height: 1.4rem;
-	margin-top: 1.8rem;
+	margin-top: 2rem;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
 }

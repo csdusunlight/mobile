@@ -48,7 +48,6 @@ class News(Base):
     is_futou = models.BooleanField(u'是否允许复投（重复提交同一手机号）', default= False)
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', verbose_name=u"标志图片上传（最大不超过30k，越小越好）")
     isonMobile = models.BooleanField(u'是否只限移动端（pc端显示二维码）？', default= False)
-    exp_url = models.CharField(u"活动地址（已废弃）", blank=True, max_length=200)
     exp_url_pc = models.CharField(u"活动地址pc", blank=True, max_length=200)
     exp_url_mobile = models.CharField(u"活动地址mobile", blank=True, max_length=200)
     exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
@@ -61,8 +60,6 @@ class News(Base):
     class Meta:
         abstract = True
     def clean(self):
-        if self.exp_url_mobile == '':
-                raise ValidationError({'exp_url_mobile': u'请输入活动体验地址'})
         if self.isonMobile == False and self.exp_url_pc == '':
                 raise ValidationError({'exp_url_pc': u'请输入活动体验地址'})
         if self.isonMobile and self.exp_code == '':
