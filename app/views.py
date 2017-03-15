@@ -3,7 +3,7 @@ from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,
     Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent, Task,\
     Finance, Press, UserTask, Information, MAdvert_App,UserWelfare
 from datetime import datetime, date, timedelta
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, Http404
 from account.models import Userlogin, MyUser, UserSignIn
 from .tools import app_login_required, user_info, is_authenticated_app
 import hashlib
@@ -849,3 +849,16 @@ def recom_info(request):
              }
         data.append(i)
     return JsonResponse(data, safe=False) 
+
+def checkupdate(request):
+    version = request.GET.get("version",0)
+    ret={}
+    if version == 0:
+        raise Http404
+    version = float(version)
+    if version < settings.APP_VERSION - 0.001:
+        ret["url"] = settings.APP_URL
+        ret["code"] = 1
+    else:
+        ret["code"] = 0;
+    return JsonResponse(ret)

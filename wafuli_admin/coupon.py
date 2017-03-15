@@ -218,7 +218,7 @@ def admin_coupon(request):
         
         
         if res['code'] == 0:
-            admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=event_user, event_type='8')
+            admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=event_user, event_type='10')
             if translist:
                 translist.admin_event = admin_event
                 translist.save(update_fields=['admin_event'])
