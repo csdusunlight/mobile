@@ -1,6 +1,7 @@
 #coding:utf-8
 from django.db import models
 from account.models import MyUser
+from django.utils import timezone
 class DayStatis(models.Model):
     date = models.DateField(u"日期", primary_key=True)
     new_reg_num = models.PositiveIntegerField(u"新注册人数", default=0)
@@ -56,3 +57,27 @@ class Invite_Rank(models.Model):
         return self.user.username +',' + str(self.num) +','+str(self.rank)
     class Meta:
         ordering = ['rank']
+        
+class Invest_Record(models.Model):
+    invest_date = models.DateField(u"创建时间", default=timezone.now)
+    invest_company = models.CharField(max_length=20)
+    qq_number = models.CharField(max_length=15)
+    user_name = models.CharField(max_length=20)
+    zhifubao = models.CharField(max_length=50)
+    invest_mobile = models.CharField(max_length=11)
+    invest_period = models.CharField(max_length=10)
+    invest_amount = models.IntegerField()
+    return_amount = models.IntegerField()
+    wafuli_account = models.CharField(max_length=11)
+    return_date = models.DateField(u"创建时间", default=timezone.now)
+    is_futou = models.BooleanField(u"是否复投", default=False)
+    coupon = models.CharField(u"优惠券", max_length=100,blank=True)
+    remark = models.CharField(u"备注", max_length=100,blank=True)
+
+class Message_Record(models.Model):
+    time = models.DateField(u"群发时间", default=timezone.now)
+    msgid = models.CharField(u"批次号",max_length=32)
+    content = models.CharField(max_length=200)
+    class Meta:
+        verbose_name_plural = u"短信群发记录"
+        verbose_name = u"短信群发记录"
