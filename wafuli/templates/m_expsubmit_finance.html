@@ -68,7 +68,7 @@
 					var telnum = document.getElementById('telnum').value;
 					var remark = document.getElementById('remark').value;
 					var amount = document.getElementById('amount').value;
-					amount = parseFloat(amount);
+					// amount = parseFloat(amount);
 					var term = document.getElementById('term').value;
 					var re=/^1[1,2,3,4,6,5,7,8,9]\d{9}$/;
           var re_amount=/^\d+(\.\d+)?$/;
@@ -80,18 +80,10 @@
             alert("投资金额不能为空且必须为纯数字格式！")
             return;
           }
-					// if(isNaN(amount)){
-					// 	mui.alert("投资金额必须为数字！")
-					// 	return;
-					// }
           if(!re_amount.test(term)){
             alert("投资标期不能为空且必须为纯数字格式！")
             return;
           }
-					// if(!term){
-					// 	mui.alert("请输入投资标期！")
-					// 	return;
-					// }
 	                var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 					mui.ajax({
 						url:"{%url 'expsubmit_finance' %}",
