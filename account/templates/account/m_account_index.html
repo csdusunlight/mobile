@@ -42,7 +42,7 @@
         {% else %}
         	<button id="qiandao" type="button" class="mui-btn qiandao">签到+5积分</button>
         {% endif %}
-        
+
       </div>
       <div class="person-bg">
         <img src="{% static 'images/person-bg.png' %}" alt="背景图片" />
@@ -137,7 +137,7 @@
           </a>
         </li>
         <li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3">
-          <a class="icon-url" target="_blank" href="{% url 'account_custom_service' %}">
+          <a class="icon-url" href="{% url 'account_custom_service' %}">
             <i class="icon iconfont">&#xe643;</i>
             <p>QQ客服</p>
           </a>
