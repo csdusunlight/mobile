@@ -6,7 +6,7 @@ Created on 2016年7月17日
 '''
 from django.shortcuts import render, redirect
 from wafuli.models import UserEvent, AdminEvent, AuditLog, TransList, UserWelfare,\
-    CouponProject, Coupon
+    CouponProject, Coupon, Message
 import datetime
 from django.core.urlresolvers import reverse
 from django.http.response import JsonResponse, Http404
@@ -71,6 +71,8 @@ def deliver_coupon(request):
                     try:
                         user = MyUser.objects.get(username = username)
                         Coupon.objects.create(user=user, project=project)
+                        msg_content = u'您收到一张优惠券：' + project.title + '，到期日为' + u'"体验福利已审核通过'
+                        Message.objects.create(user, content=msg_content, title=u"新的优惠券");
                     except:
                         fail_list.append(username)
                     else:

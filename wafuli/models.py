@@ -67,7 +67,7 @@ class News(Base):
         if self.pic and self.pic.size > 30000:
             raise ValidationError({'pic': u'图片大小不能超过30k'})
     def is_expired(self):
-        return self.state == '2'
+        return self.state == '2' or self.state == '3'
 class ZeroPrice(News):
     provider = models.CharField(u"商家", max_length=10)
     time_limit = models.CharField(u"活动时间", max_length=24)
@@ -119,7 +119,7 @@ class Welfare(Base):
         if self.pic and self.pic.size > 30000:
             raise ValidationError({'pic': u'图片大小不能超过30k'})
     def is_expired(self):
-        return self.state == '2'
+        return self.state == '2' or self.state == '3'
     class Meta:
         ordering = ["-news_priority", "-startTime"]
     def is_new(self):
