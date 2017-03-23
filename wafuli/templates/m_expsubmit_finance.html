@@ -41,12 +41,12 @@
 					<input id="telnum" type="text" maxlength=11 placeholder="请输入注册手机号">
 				</div>
         <div class="mui-input-row">
-          <label>投资金额</label>
-          <input type="text" placeholder="请输入投资金额（数字格式）" id="amount">
+          <label>投资金额（元）</label>
+          <input type="text" placeholder="请输入投资金额（仅限数字）" id="amount">
         </div>
         <div class="mui-input-row">
-          <label>投资标期</label>
-          <input type="text" placeholder="请输入投资标期" id="term">
+          <label>投资标期（天）</label>
+          <input type="text" placeholder="请输入投资标期（仅限数字）" id="term">
         </div>
 
 			</form>
@@ -71,18 +71,27 @@
 					amount = parseFloat(amount);
 					var term = document.getElementById('term').value;
 					var re=/^1[1,2,3,4,6,5,7,8,9]\d{9}$/;
-					if(!re.test(telnum)){
-						mui.alert("手机号格式不正确！");
-						return;
-					}
-					if(isNaN(amount)){
-						mui.alert("投资金额必须为数字！")
-						return;
-					}
-					if(!term){
-						mui.alert("请输入投资标期！")
-						return;
-					}
+          var re_amount=/^\d+(\.\d+)?$/;
+          if(!re.test(telnum)){
+            mui.alert("手机号格式不正确！");
+            return;
+          }
+          if(!re_amount.test(amount)){
+            alert("投资金额不能为空且必须为纯数字格式！")
+            return;
+          }
+					// if(isNaN(amount)){
+					// 	mui.alert("投资金额必须为数字！")
+					// 	return;
+					// }
+          if(!re_amount.test(term)){
+            alert("投资标期不能为空且必须为纯数字格式！")
+            return;
+          }
+					// if(!term){
+					// 	mui.alert("请输入投资标期！")
+					// 	return;
+					// }
 	                var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 					mui.ajax({
 						url:"{%url 'expsubmit_finance' %}",

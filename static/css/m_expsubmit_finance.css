@@ -83,3 +83,9 @@ form.mui-input-group .mui-input-row:after {
 	padding-right: 24px;
 	text-align: right;
 }
+.mui-input-row label {
+	width: 45%;
+}
+.mui-input-row label~input {
+	width: 55%;
+}
