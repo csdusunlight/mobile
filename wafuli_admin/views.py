@@ -1,7 +1,7 @@
 #coding:utf-8
 from django.shortcuts import render, redirect
 from wafuli.models import UserEvent, AdminEvent, AuditLog, TransList, Company,\
-    Finance, Task, Welfare
+    Finance, Task, Welfare, Message
 import datetime
 from django.db.models import Sum, Count
 from django.core.urlresolvers import reverse
@@ -11,10 +11,11 @@ from account.transaction import charge_money, charge_score
 import logging
 from account.models import MyUser
 from django.db.models import Q,F
-from wafuli_admin.models import DayStatis
+from wafuli_admin.models import DayStatis, Invest_Record
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import logout as auth_logout
+from account.varify import send_multimsg_bydhst
 # Create your views here.
 logger = logging.getLogger('wafuli')
 def index(request):
@@ -65,7 +66,7 @@ def index(request):
     
     dict_score = UserEvent.objects.filter(event_type='3',audit_state='0').\
             aggregate(sum=Sum('score_translist__transAmount'))
-    total['ret_count'] = (dict_ret.get('cou') or 0)/100.0
+    total['ret_count'] = (dict_ret.get('cou') or 0)
     total['score_exchange_total'] = dict_score.get('sum')
     return render(request,"admin_index.html",{'num':num,'num_today':num_today,'total':total})
 
@@ -116,6 +117,9 @@ def get_admin_index_page(request):
              "exchange_scores":con.exchange_scores,
              "lottery_people":con.lottery_people,
              "lottery_num":con.lottery_num,
+             "envelope_people":con.envelope_people,
+             "envelope_num":con.envelope_num,
+             "envelope_money":con.envelope_money,
              }
         data.append(i)
     if data:
@@ -141,7 +145,7 @@ def admin_finance(request):
             return JsonResponse(res)
         if not admin_user.has_admin_perms('002'):
             res['code'] = -5
-            res['msg'] = u'您没有操作权限！'
+            res['res_msg'] = u'您没有操作权限！'
             return JsonResponse(res) 
         event_id = request.POST.get('id', None)
         cash = request.POST.get('cash', None)
@@ -151,7 +155,7 @@ def admin_finance(request):
         type = int(type)
         if not event_id or type==1 and not (cash and score) or type==2 and not reason or type!=1 and type!=2:
             res['code'] = -2
-            res['msg'] = u'传入参数不足，请联系技术人员！'
+            res['res_msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         event = UserEvent.objects.get(id=event_id)
         event_user = event.user
@@ -162,24 +166,23 @@ def admin_finance(request):
             try:
                 cash = float(cash)*100
                 cash = int(cash)
-                print cash
                 score = int(score)
             except:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if cash < 0 or score < 0:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if event.audit_state != '1':
                 res['code'] = -3
-                res['msg'] = u'该项目已审核过，不要重复审核！'
+                res['res_msg'] = u'该项目已审核过，不要重复审核！'
                 return JsonResponse(res)
             if event.translist.exists():
                 logger.critical("Returning cash is repetitive!!!")
                 res['code'] = -3
-                res['msg'] = u"操作失败，返现重复！"
+                res['res_msg'] = u"操作失败，返现重复！"
             else:
                 log.audit_result = True
                 translist = charge_money(event_user, '0', cash, u'福利返现')
@@ -191,20 +194,31 @@ def admin_finance(request):
                     scoretranslist.user_event = event
                     scoretranslist.save(update_fields=['user_event'])
                     res['code'] = 0
+                    #更新投资记录表
+                    Invest_Record.objects.create(invest_date=event.time,invest_company=event.content_object.company.name,
+                                                 user_name=event_user.zhifubao_name,zhifubao=event_user.zhifubao,
+                                                 invest_mobile=event.invest_account,invest_period=event.invest_term,
+                                                 invest_amount=event.invest_amount,return_amount=cash/100.0,wafuli_account=event_user.mobile,
+                                                 return_date=datetime.date.today(),remark=event.remark)    
+                    msg_content = u'您提交的"' + event.content_object.title + u'"理财福利已审核通过。'
+                    Message.objects.create(user=event_user, content=msg_content, title=u"福利审核");
                 else:
                     res['code'] = -4
-                    res['msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
+                    res['res_msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
                     if not translist:
                         logger.error(u"Charging cash is failed!!!")
-                        res['msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
+                        res['res_msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
                     if not scoretranslist:
                         logger.error(u"Charging score is failed!!!")
-                        res['msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
+                        res['res_msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
         else:
             event.audit_state = '2'
             log.audit_result = False
             log.reason = reason
             res['code'] = 0
+            
+            msg_content = u'您提交的"' + event.content_object.title + u'"理财福利审核未通过，原因：' + reason
+            Message.objects.create(user=event_user, content=msg_content, title=u"福利审核");
         
         
         if res['code'] == 0:
@@ -237,7 +251,7 @@ def admin_task(request):
             return JsonResponse(res)
         if not admin_user.has_admin_perms('002'):
             res['code'] = -5
-            res['msg'] = u'您没有操作权限！'
+            res['res_msg'] = u'您没有操作权限！'
             return JsonResponse(res) 
         event_id = request.POST.get('id', None)
         cash = request.POST.get('cash', None)
@@ -247,7 +261,7 @@ def admin_task(request):
         type = int(type)
         if not event_id or type==1 and not (cash and score) or type==2 and not reason or type!=1 and type!=2:
             res['code'] = -2
-            res['msg'] = u'传入参数不足，请联系技术人员！'
+            res['res_msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         event = UserEvent.objects.get(id=event_id)
         event_user = event.user
@@ -261,20 +275,20 @@ def admin_task(request):
                 score = int(score)
             except:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if cash < 0 or score < 0:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if event.audit_state != '1':
                 res['code'] = -3
-                res['msg'] = u'该项目已审核过，不要重复审核！'
+                res['res_msg'] = u'该项目已审核过，不要重复审核！'
                 return JsonResponse(res)
             if event.translist.exists():
                 logger.critical("Returning cash is repetitive!!!")
                 res['code'] = -3
-                res['msg'] = u"操作失败，返现重复！"
+                res['res_msg'] = u"操作失败，返现重复！"
             else:
                 log.audit_result = True
                 translist = charge_money(event_user, '0', cash, u'福利返现')
@@ -286,15 +300,17 @@ def admin_task(request):
                     scoretranslist.user_event = event
                     scoretranslist.save(update_fields=['user_event'])
                     res['code'] = 0
+                    msg_content = u'您提交的"' + event.content_object.title + u'"体验福利已审核通过。'
+                    Message.objects.create(user=event_user, content=msg_content, title=u"福利审核");
                 else:
                     res['code'] = -4
-                    res['msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
+                    res['res_msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
                     if not translist:
                         logger.error(u"Charging cash is failed!!!")
-                        res['msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
+                        res['res_msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
                     if not scoretranslist:
                         logger.error(u"Charging score is failed!!!")
-                        res['msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
+                        res['res_msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
         else:
             event.audit_state = '2'
             log.audit_result = False
@@ -304,6 +320,8 @@ def admin_task(request):
             task.save(update_fields=['left_num'])
             res['code'] = 0
         
+            msg_content = u'您提交的"' + event.content_object.title + u'"体验福利审核未通过，原因：' + reason
+            Message.objects.create(user=event_user, content=msg_content, title=u"福利审核");
         
         if res['code'] == 0:
             admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=event_user, event_type='1')
@@ -515,7 +533,7 @@ def admin_user(request):
         res = {}
         if not admin_user.has_admin_perms('005'):
             res['code'] = -5
-            res['msg'] = u'您没有操作权限！'
+            res['res_msg'] = u'您没有操作权限！'
             return JsonResponse(res)
         if not request.is_ajax():
             raise Http404
@@ -528,7 +546,7 @@ def admin_user(request):
         type = int(type)
 #         if not user_id or type==1 and not (cash and score) or type==2 and not reason or type!=1 and type!=2:
 #             res['code'] = -2
-#             res['msg'] = u'传入参数不足，请联系技术人员！'
+#             res['res_msg'] = u'传入参数不足，请联系技术人员！'
 #             return JsonResponse(res)
         obj_user = MyUser.objects.get(id=user_id) 
         if type==1:
@@ -541,7 +559,7 @@ def admin_user(request):
             reason = request.POST.get('reason', '')
             if not pcash and not mcash or pcash and mcash or not reason:
                 res['code'] = -2
-                res['msg'] = u'传入参数不足，请联系技术人员！'
+                res['res_msg'] = u'传入参数不足，请联系技术人员！'
                 return JsonResponse(res)
             try:
                 pcash = float(pcash)*100
@@ -550,11 +568,11 @@ def admin_user(request):
                 mcash = int(mcash)
             except:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if pcash < 0 or mcash < 0:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             translist = None
             if pcash > 0:
@@ -568,7 +586,7 @@ def admin_user(request):
                 res['code'] = 0
             else:
                 res['code'] = -4
-                res['msg'] = "现金记账失败，请检查输入合法性后再次提交！"
+                res['res_msg'] = "现金记账失败，请检查输入合法性后再次提交！"
         elif type == 2:
             pscore = request.POST.get('pscore', 0)
             mscore = request.POST.get('mscore', 0)
@@ -579,18 +597,18 @@ def admin_user(request):
             reason = request.POST.get('reason', '')
             if not pscore and not mscore or pscore and mscore or not reason:
                 res['code'] = -2
-                res['msg'] = u'传入参数不足，请联系技术人员！'
+                res['res_msg'] = u'传入参数不足，请联系技术人员！'
                 return JsonResponse(res)
             try:
                 pscore = int(pscore)
                 mscore = int(mscore)
             except:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if pscore < 0 or mscore < 0:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             
             scoretranslist = None
@@ -605,7 +623,7 @@ def admin_user(request):
                 res['code'] = 0
             else:
                 res['code'] = -4
-                res['msg'] = "积分记账失败，请检查输入合法性后再次提交！"
+                res['res_msg'] = "积分记账失败，请检查输入合法性后再次提交！"
         elif type == 3:
             obj_user.is_active = False
             obj_user.save(update_fields=['is_active'])
@@ -725,7 +743,7 @@ def admin_withdraw(request):
         res = {}
         if not admin_user.has_admin_perms('004'):
             res['code'] = -5
-            res['msg'] = u'您没有操作权限！'
+            res['res_msg'] = u'您没有操作权限！'
             return JsonResponse(res)
         if not request.is_ajax():
             raise Http404
@@ -737,14 +755,14 @@ def admin_withdraw(request):
         type = request.POST.get('type', None)
         if not event_id or not type:
             res['code'] = -2
-            res['msg'] = u'传入参数不足，请联系技术人员！'
+            res['res_msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         type = int(type)
         event_id = int(event_id)
         event = UserEvent.objects.get(id=event_id)
         if event.audit_state != '1':
             res['code'] = -3
-            res['msg'] = u'该项目已审核过，不要重复审核！'
+            res['res_msg'] = u'该项目已审核过，不要重复审核！'
             return JsonResponse(res)
         log = AuditLog(user=admin_user,item=event)
         admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=event.user, event_type='2')
@@ -771,11 +789,14 @@ def admin_withdraw(request):
             if trans_withdraw:
                 trans_withdraw.admin_event = admin_event
                 trans_withdraw.save(update_fields=['admin_event'])
+            msg_content = u'您提现的' + str(event.invest_amount) + u'福币，已发放到您的支付宝账号中，请注意查收'
+            Message.objects.create(user=event.user, content=msg_content, title=u"提现审核")
+        
         elif type == 2:
             reason = request.POST.get('reason', '')
             if not reason:
                 res['code'] = -2
-                res['msg'] = u'传入参数不足，请联系技术人员！'
+                res['res_msg'] = u'传入参数不足，请联系技术人员！'
                 return JsonResponse(res)
             event.audit_state = '2'
             log.reason = reason
@@ -786,10 +807,12 @@ def admin_withdraw(request):
                 translist.admin_event = admin_event
                 translist.save(update_fields=['user_event','admin_event'])
                 res['code'] = 0
+                msg_content = u'您提现的' + str(event.invest_amount) + u'福币未审核成功，原因：' + reason
+                Message.objects.create(user=event.user, content=msg_content, title=u"提现审核");
             else:
                 logger.critical(u"Charging cash is failed!!!")
                 res['code'] = -2
-                res['msg'] = u"现金记账失败，请检查输入合法性后再次提交！"
+                res['res_msg'] = u"现金记账失败，请检查输入合法性后再次提交！"
                 return JsonResponse(res)
         log.admin_item = admin_event
         log.save()
@@ -895,7 +918,7 @@ def admin_score(request):
         res = {}
         if not admin_user.has_admin_perms('003'):
             res['code'] = -5
-            res['msg'] = u'您没有操作权限！'
+            res['res_msg'] = u'您没有操作权限！'
             return JsonResponse(res)
         if not request.is_ajax():
             raise Http404
@@ -907,7 +930,7 @@ def admin_score(request):
         type = request.POST.get('type', None)
         if not event_id or not type:
             res['code'] = -2
-            res['msg'] = u'传入参数不足，请联系技术人员！'
+            res['res_msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         type = int(type)
         event_id = int(event_id)
@@ -915,17 +938,19 @@ def admin_score(request):
         log = AuditLog(user=admin_user,item=event)
         if event.audit_state != '1':
             res['code'] = -3
-            res['msg'] = u'该项目已审核过，不要重复审核！'
+            res['res_msg'] = u'该项目已审核过，不要重复审核！'
             return JsonResponse(res)
         if type==1:
             event.audit_state = '0'
             log.audit_result = True
             res['code'] = 0
+            msg_content = u'您已成功兑换' + event.content_object.commodity.name + u'，消耗积分' + event.invest_amount
+            Message.objects.create(user=event.user, content=msg_content, title=u"积分兑换");
         elif type == 2:
             reason = request.POST.get('reason', '')
             if not reason:
                 res['code'] = -2
-                res['msg'] = u'传入参数不足，请联系技术人员！'
+                res['res_msg'] = u'传入参数不足，请联系技术人员！'
                 return JsonResponse(res)
             event.audit_state = '2'
             log.reason = reason
@@ -935,10 +960,12 @@ def admin_score(request):
                 scoretranslist.user_event = event
                 scoretranslist.save(update_fields=['user_event'])
                 res['code'] = 0
+                msg_content = u'您兑换的' + event.content_object.commodity.name + u'未成功，原因：' + reason
+                Message.objects.create(user=event.user, content=msg_content, title=u"积分兑换");
             else:
                 logger.critical(u"Charging score is failed!!!")
                 res['code'] = -2
-                res['msg'] = u"现金记账失败，请检查输入合法性后再次提交！"
+                res['res_msg'] = u"现金记账失败，请检查输入合法性后再次提交！"
                 return JsonResponse(res)
         admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=event.user, event_type='8')
         log.admin_item = admin_event
@@ -1043,7 +1070,7 @@ def get_admin_charge_page(request):
     user = request.user
     if not ( user.is_authenticated() and user.is_staff):
         res['code'] = -1
-        res['url'] = reverse('admin:login') + "?next=" + reverse('admin_finance')
+        res['url'] = reverse('admin:login') + "?next=" + reverse('admin_charge')
         return JsonResponse(res)
     page = request.GET.get("page", None)
     size = request.GET.get("size", 10)
@@ -1102,4 +1129,155 @@ def get_admin_charge_page(request):
     res["pageCount"] = paginator.num_pages
     res["recordCount"] = item_list.count()
     res["data"] = data
+    return JsonResponse(res)
+
+def admin_investrecord(request):
+    admin_user = request.user
+    if request.method == "GET":
+        if not ( admin_user.is_authenticated() and admin_user.is_staff):
+            return redirect(reverse('admin:login') + "?next=" + reverse('admin_investrecord'))
+        return render(request,"admin_investrecord.html")
+def get_admin_investrecord_page(request):
+    res={'code':0,}
+    user = request.user
+    if not ( user.is_authenticated() and user.is_staff):
+        res['code'] = -1
+        res['url'] = reverse('admin:login') + "?next=" + reverse('admin_investrecord')
+        return JsonResponse(res)
+    page = request.GET.get("page", None)
+    size = request.GET.get("size", 10)
+    try:
+        size = int(size)
+    except ValueError:
+        size = 10
+
+    if not page or size <= 0:
+        raise Http404
+    item_list = []
+
+    item_list = Invest_Record.objects.all()
+    startTime = request.GET.get("startTime", None)
+    endTime = request.GET.get("endTime", None)
+    if startTime and endTime:
+        s = datetime.datetime.strptime(startTime,'%Y-%m-%d')
+        e = datetime.datetime.strptime(endTime,'%Y-%m-%d')
+        item_list = item_list.filter(invest_date__range=(s,e))
+    amountfrom = request.GET.get("amountfrom", None)
+    amountto = request.GET.get("amountto", None)
+    if amountfrom and amountto:
+        af = request.GET.get("amountfrom", 0)
+        at = request.GET.get("amountto", 0)
+        item_list = item_list.filter(invest_amount__range=(af,at))
+    username = request.GET.get("username", None)
+    if username:
+        item_list = item_list.filter(user_name=username)
+    
+    mobile = request.GET.get("mobile", None)
+    if mobile:
+        item_list = item_list.filter(invest_mobile=mobile)
+        
+    projectname = request.GET.get("projectname", None)
+    if projectname:
+        item_list = item_list.filter(invest_company__contains=projectname)
+    
+    paginator = Paginator(item_list, size)
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+    # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+    # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+    data = []
+    for con in contacts:
+        i = {
+             "invest_date": con.invest_date.strftime("%Y-%m-%d") if con.invest_date else '',
+             'invest_company':con.invest_company,
+             'qq_number':con.qq_number,
+             "user_name":con.user_name,
+             "zhifubao":con.zhifubao,
+             "invest_mobile":con.invest_mobile,
+             'invest_period':con.invest_period,
+             'invest_amount':con.invest_amount,
+             'return_amount':con.return_amount,
+             'wafuli_account':con.wafuli_account,
+             }
+        data.append(i)
+    if data:
+        res['code'] = 1
+    res["pageCount"] = paginator.num_pages
+    res["recordCount"] = item_list.count()
+    res["data"] = data
+    return JsonResponse(res)
+
+def send_multiple_msg(request):
+    res={'code':0,}
+    user = request.user
+    content = request.POST.get('content')
+    if not ( user.is_authenticated() and user.is_staff):
+        res['code'] = -1
+        res['url'] = reverse('admin:login') + "?next=" + reverse('admin_investrecord')
+        return JsonResponse(res)
+    if not user.has_admin_perms('007'):
+        res['code'] = -5
+        res['res_msg'] = u'您没有操作权限！'
+        return JsonResponse(res)
+    if not content or len(content)==0:
+        res['code'] = -6
+        res['res_msg'] = u'短信内容不能为空！'
+        return JsonResponse(res)
+    item_list = Invest_Record.objects.all()
+    startTime = request.POST.get("startTime", None)
+    endTime = request.POST.get("endTime", None)
+    if startTime and endTime:
+        s = datetime.datetime.strptime(startTime,'%Y-%m-%d')
+        e = datetime.datetime.strptime(endTime,'%Y-%m-%d')
+        item_list = item_list.filter(invest_date__range=(s,e))
+    amountfrom = request.POST.get("amountfrom", None)
+    amountto = request.POST.get("amountto", None)
+    if not amountfrom is None and not amountto is None:
+        item_list = item_list.filter(invest_amount__range=(amountfrom,amountto))
+    username = request.POST.get("username", None)
+    if username:
+        item_list = item_list.filter(user_name=username)
+    
+    mobile = request.POST.get("mobile", None)
+    if mobile:
+        item_list = item_list.filter(invest_mobile=mobile)
+        
+    projectname = request.POST.get("projectname", None)
+    if projectname:
+        item_list = item_list.filter(invest_company__contains=projectname)
+    phone_set = set([])
+    for item in item_list:
+        phone = item.invest_mobile
+        if phone and len(phone)==11:
+            phone_set.add(phone)
+    if len(phone_set)>0:
+        phone_list = list(phone_set)
+        length = len(phone_list)
+        times = length/500
+        treg = 0
+        tnum = 0
+        if length%500 > 0:
+            times += 1
+        for t in range(times):
+            frag_list = phone_list[t*500:t*500+500]
+            phones = ','.join(frag_list)
+            logger.info("Sending mobile messages to users:" + phones + "; content:" + content);
+            reg = send_multimsg_bydhst(phones, content)
+            if reg==0:
+                tnum += len(frag_list)
+            else:
+                treg = 1
+        if treg==0:
+            res['code'] = 0
+            res['num'] = tnum
+        else:
+            res['code'] = -1
+            res['res_msg'] = u"发送短信失败，实际发送数量：" + str(tnum) 
+    else:
+        res['code'] = 0
+        res['res_msg'] = u"不存在符合条件的手机号码"
     return JsonResponse(res)
