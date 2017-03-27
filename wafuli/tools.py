@@ -10,7 +10,7 @@ from hashlib import sha1
 logger = logging.getLogger('wafuli')
 def createUrl():
     tstr = time.strftime('%Y/%m/%d/')
-    html_name = str(int(time.time()))+'.html'
+    html_name = str(int(time.time()*1000))+'.html'
     directory = os.path.join(settings.MEDIA_ROOT, 'html',  tstr).replace('\\','/')
     if not os.path.exists(directory):
         os.makedirs(directory)

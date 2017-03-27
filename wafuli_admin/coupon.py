@@ -6,7 +6,7 @@ Created on 2016年7月17日
 '''
 from django.shortcuts import render, redirect
 from wafuli.models import UserEvent, AdminEvent, AuditLog, TransList, UserWelfare,\
-    CouponProject, Coupon
+    CouponProject, Coupon, Message
 import datetime
 from django.core.urlresolvers import reverse
 from django.http.response import JsonResponse, Http404
@@ -30,11 +30,11 @@ def deliver_coupon(request):
         result = {'code':0}
         if not ( admin_user.is_authenticated() and admin_user.is_staff):
             result['code'] = -4
-            result['msg'] = u'请登录！'
+            result['res_msg'] = u'请登录！'
             return JsonResponse(result)
         if not admin_user.has_admin_perms('006'):
             result['code'] = -5
-            result['msg'] = u'您没有操作权限！'
+            result['res_msg'] = u'您没有操作权限！'
             return JsonResponse(result)
         coupon_type = request.POST.get('selecttype')
         project_id = request.POST.get('selectproject')
@@ -55,6 +55,9 @@ def deliver_coupon(request):
             if select_user == '1':
                 for user in MyUser.objects.all():
                     Coupon.objects.create(user=user, project=project)
+                    msg_content = u'您收到一张优惠券：' + project.title + u'，到期日为' + \
+                        project.endtime.strftime("%Y-%m-%d") + u"，请及时使用。"
+                    Message.objects.create(user=user, content=msg_content, title=u"新的优惠券");
                     success_count += 1
             elif select_user == '2':
                 select_list_str = request.POST.get('users')
@@ -71,6 +74,9 @@ def deliver_coupon(request):
                     try:
                         user = MyUser.objects.get(username = username)
                         Coupon.objects.create(user=user, project=project)
+                        msg_content = u'您收到一张优惠券：' + project.title + u'，到期日为' + \
+                            project.endtime.strftime("%Y-%m-%d") + u"，请及时使用。"
+                        Message.objects.create(user=user, content=msg_content, title=u"新的优惠券");
                     except:
                         fail_list.append(username)
                     else:
@@ -111,14 +117,14 @@ def parse_file(request):
     file = request.FILES.get('file')
     if not file:
         res['code'] = -2
-        res['msg'] = u'请先选择文件！'
+        res['res_msg'] = u'请先选择文件！'
     else:
         try:
             res['list'] = handle_uploaded_file(file)
         except Exception, e:
             logger.info(e)
             res['code'] = -3
-            res['msg'] = u'文件格式有误！'
+            res['res_msg'] = u'文件格式有误！'
         else:
             res['code'] = 0
     
@@ -152,7 +158,7 @@ def admin_coupon(request):
             return JsonResponse(res)
         if not admin_user.has_admin_perms('002'):
             res['code'] = -5
-            res['msg'] = u'您没有操作权限！'
+            res['res_msg'] = u'您没有操作权限！'
             return JsonResponse(res)
         event_id = request.POST.get('id', None)
         cash = request.POST.get('cash', None)
@@ -162,7 +168,7 @@ def admin_coupon(request):
         type = int(type)
         if not event_id or type==1 and not (cash and score) or type==2 and not reason or type!=1 and type!=2:
             res['code'] = -2
-            res['msg'] = u'传入参数不足，请联系技术人员！'
+            res['res_msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         event = UserEvent.objects.get(id=event_id)
         event_user = event.user
@@ -176,20 +182,20 @@ def admin_coupon(request):
                 score = int(score)
             except:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if cash < 0 or score < 0:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if event.audit_state != '1':
                 res['code'] = -3
-                res['msg'] = u'该项目已审核过，不要重复审核！'
+                res['res_msg'] = u'该项目已审核过，不要重复审核！'
                 return JsonResponse(res)
             if event.translist.exists():
                 logger.critical("Returning cash is repetitive!!!")
                 res['code'] = -3
-                res['msg'] = u"操作失败，返现重复！"
+                res['res_msg'] = u"操作失败，返现重复！"
             else:
                 log.audit_result = True
                 translist = charge_money(event_user, '0', cash, u'优惠券兑换')
@@ -201,21 +207,28 @@ def admin_coupon(request):
                     scoretranslist.user_event = event
                     scoretranslist.save(update_fields=['user_event'])
                     res['code'] = 0
+                    
+                    project = event.content_object.project
+                    msg_content = u'您提交的"' + project.title + u'"兑换申请已审核通过。'
+                    Message.objects.create(user=event_user, content=msg_content, title=u"优惠券兑换审核");
                 else:
                     res['code'] = -4
-                    res['msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
+                    res['res_msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
                     if not translist:
                         logger.error(u"Charging cash is failed!!!")
-                        res['msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
+                        res['res_msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
                     if not scoretranslist:
                         logger.error(u"Charging score is failed!!!")
-                        res['msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
+                        res['res_msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
         else:
             event.audit_state = '2'
             log.audit_result = False
             log.reason = reason
             res['code'] = 0
-        
+            
+            project = event.content_object.project
+            msg_content = u'您提交的"' + project.title + u'"兑换申请审核未通过，原因：' + reason
+            Message.objects.create(user=event_user, content=msg_content, title=u"优惠券兑换审核");
         
         if res['code'] == 0:
             admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=event_user, event_type='10')
@@ -304,7 +317,7 @@ def get_admin_coupon_page(request):
         coupon = con.content_object
         i = {"username":con.user.username,
              "mobile":con.user.mobile,
-             "type":coupon.project.get_type_display(),
+             "type":coupon.project.get_ctype_display(),
              "company":coupon.project.provider,
              "project":coupon.project.title,
              "mobile_sub":con.invest_account,

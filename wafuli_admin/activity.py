@@ -6,7 +6,8 @@ Created on 20160617
 '''
 
 from django.shortcuts import render, redirect
-from wafuli.models import UserEvent, AdminEvent, AuditLog, TransList, UserWelfare
+from wafuli.models import UserEvent, AdminEvent, AuditLog, TransList, UserWelfare,\
+    Message
 import datetime
 from django.db.models import Sum, Count
 from django.core.urlresolvers import reverse
@@ -29,7 +30,7 @@ def admin_recommend_return(request):
         res = {}
         if not admin_user.has_admin_perms('003'):
             res['code'] = -5
-            res['msg'] = u'您没有操作权限！'
+            res['res_msg'] = u'您没有操作权限！'
             return JsonResponse(res)
         if not request.is_ajax():
             raise Http404
@@ -46,7 +47,7 @@ def admin_recommend_return(request):
         type = int(type)
         if not event_id or type==1 and not (cash and score) or type==2 and not reason or type!=1 and type!=2:
             res['code'] = -2
-            res['msg'] = u'传入参数不足，请联系技术人员！'
+            res['res_msg'] = u'传入参数不足，请联系技术人员！'
             return JsonResponse(res)
         event = UserEvent.objects.get(id=event_id)
         event_user = event.user
@@ -60,20 +61,20 @@ def admin_recommend_return(request):
                 score = int(score)
             except:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if cash < 0 or score < 0:
                 res['code'] = -2
-                res['msg'] = u"操作失败，输入不合法！"
+                res['res_msg'] = u"操作失败，输入不合法！"
                 return JsonResponse(res)
             if event.audit_state != '1':
                 res['code'] = -3
-                res['msg'] = u'该项目已审核过，不要重复审核！'
+                res['res_msg'] = u'该项目已审核过，不要重复审核！'
                 return JsonResponse(res)
             if event.translist.exists():
                 logger.critical("Returning cash is repetitive!!!")
                 res['code'] = -3
-                res['msg'] = u"操作失败，返现重复！"
+                res['res_msg'] = u"操作失败，返现重复！"
             else:
                 log.audit_result = True
                 translist = charge_money(event_user, '0', cash, u'活动奖励')
@@ -85,21 +86,26 @@ def admin_recommend_return(request):
                     scoretranslist.user_event = event
                     scoretranslist.save(update_fields=['user_event'])
                     res['code'] = 0
+                    
+                    msg_content = u'您推荐的"' + event.content_object.title + u'"福利已审核通过。'
+                    Message.objects.create(user=event_user, content=msg_content, title=u"福利推荐审核");
                 else:
                     res['code'] = -4
-                    res['msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
+                    res['res_msg'] = "注意，重复提交时只提交失败项目，成功的可以输入0。\n"
                     if not translist:
                         logger.error(u"Charging cash is failed!!!")
-                        res['msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
+                        res['res_msg'] += u"现金记账失败，请检查输入合法性后再次提交！"
                     if not scoretranslist:
                         logger.error(u"Charging score is failed!!!")
-                        res['msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
+                        res['res_msg'] += u"积分记账失败，请检查输入合法性后再次提交！"
         else:
             event.audit_state = '2'
             log.audit_result = False
             log.reason = reason
             res['code'] = 0
-        
+            
+            msg_content = u'您推荐的"' + event.content_object.title + u'"福利审核未通过，原因：' + reason
+            Message.objects.create(user=event_user, content=msg_content, title=u"福利推荐审核");
         
         if res['code'] == 0:
             admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=event_user, event_type='9')

@@ -93,7 +93,7 @@
     					alert("成功新建优惠券"+succ_num+"张" + fail_str);
     				}
     				else {
-    					alert(ret.msg);
+    					alert(ret.res_msg);
     				}
     			},
     			error:function(){
@@ -127,7 +127,7 @@
     	                $("#"+areaId).val(value);
 	            	}
 	            	else {
-	            		alert(data.msg);
+	            		alert(data.res_msg);
 	            	}
 	            },  
 	            error: function (data, status, e) {  

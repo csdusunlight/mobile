@@ -3,10 +3,10 @@
 <script type="text/javascript"> 
 var data = '<table width="100%"><tr><th>日期</th><th>新注册用户数</th><th>活跃用户数</th><th>成功提现金额</th>'+
 	'<th>成功提现用户数</th><th>返现金额</th><th>返现积分</th><th>返现用户数</th><th>红包兑现金额</th>'+
-	'<th>兑换积分</th><th>抽奖人数</th><th>抽奖次数</th>[data]<tr><td>{date}</td><td>{new_reg_num}</td><td>{active_num}</td>'+
+	'<th>兑换积分</th><th>抽奖人数</th><th>抽奖次数</th><th>拆红包人数</th><th>拆红包数量</th><th>拆红包金额</th>[data]<tr><td>{date}</td><td>{new_reg_num}</td><td>{active_num}</td>'+
 	'<td>{with_amount}</td><td>{with_num}</td><td>{ret_amount}</td><td>{ret_scores}</td>'+
 	'<td>{ret_num}</td><td>{coupon_amount}</td><td>{exchange_scores}</td>'+
-	'<td>{lottery_people}</td><td>{lottery_num}</td></tr>[/data]</table>';
+	'<td>{lottery_people}</td><td>{lottery_num}</td><td>{envelope_people}</td><td>{envelope_num}</td><td>{envelope_money}</td></tr>[/data]</table>';
 var url = "{% url 'get_admin_index_page' %}" + "?page={page}&size={pageSize}";
 $(document).ready(function(){
 	$(".ListTable tr:even").css("background-color","#fcfcfc");
