@@ -27,7 +27,7 @@
 	height: auto;
 }
 .li-info h6 {
-	margin-top: 0.4rem;
+	padding-top: 0.4rem;
 	font-size: 1.2rem;
 	color: #222;
 	white-space: nowrap;
