@@ -42,7 +42,7 @@
         {% else %}
         	<button id="qiandao" type="button" class="mui-btn qiandao">签到+5积分</button>
         {% endif %}
-        
+
       </div>
       <div class="person-bg">
         <img src="{% static 'images/person-bg.png' %}" alt="背景图片" />
@@ -131,13 +131,13 @@
             </a>
         </li>
         <li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3">
-          <a class="icon-url" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=34f2461e64f2fb28ac36d1eab0d303760c68cdff632c46f62bd8abda313e30dc">
-            <i class="icon iconfont" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=122142551&site=qq&menu=yes">&#xe62e;</i>
+          <a class="icon-url" href="{% url 'account_join_QQGroup' %}">
+            <i class="icon iconfont">&#xe62e;</i>
             <p>加入QQ群</p>
           </a>
         </li>
         <li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3">
-          <a class="icon-url" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=122142551&site=qq&menu=yes">
+          <a class="icon-url" href="{% url 'account_custom_service' %}">
             <i class="icon iconfont">&#xe643;</i>
             <p>QQ客服</p>
           </a>

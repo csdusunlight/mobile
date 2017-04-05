@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block js %}
+<script type="text/javascript">
+$.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+});
+var data = '<table width="100%"><tr><th>投资日期</th><th>平台</th><th>QQ</th><th>姓名</th>'+
+	'<th>支付宝</th><th>投资手机号</th><th>投资周期</th><th>投资金额</th><th>返现金额</th><th>挖福利账号</th>'+
+	'</tr>[data]<tr><td>{invest_date}</td><td>{invest_company}</td><td>{qq_number}</td>'+
+	'<td>{user_name}</td><td>{zhifubao}</td><td>{invest_mobile}</td>'+
+	'<td>{invest_period}</td><td>{invest_amount}</td><td>{return_amount}</td><td>{wafuli_account}</td></tr>[/data]</table>';
+
+var url = "{% url 'get_admin_investrecord_page' %}" + "?page={page}&size={pageSize}";
+var send_msg_para = {};
+
+$(document).ready(function(){
+	$("li.home13").toggleClass("on");
+	$(".Tin-table tr:even").css("background-color","#fcfcfc");
+	$("#pagedata").ajaxPage({
+	    url:url,
+	    pageId:$("#page"),
+	    pageSize:10,
+	    run:true,
+	    content:data,
+	});
+
+	$("#search").click(function(){
+		send_msg_para={};
+		var startTime = $("#startTime").val();
+		var endTime = $("#endTime").val();
+		var newurl = url;
+		if(startTime && endTime){
+			newurl += "&startTime="+startTime;
+			newurl += "&endTime="+endTime;
+			send_msg_para.startTime = startTime;
+			send_msg_para.endTime=endTime;
+		}
+		var amountfrom = $("#amountfrom").val();
+		var amountto = $("#amountto").val();
+		if(amountfrom && amountto){
+			newurl += "&amountfrom="+amountfrom;
+			newurl += "&amountto="+amountto;
+			send_msg_para.amountfrom=amountfrom;
+			send_msg_para.amountto=amountto;
+		}
+		var username = $("#username").val();
+		var mobile = $("#mobile").val();
+		if(username){
+			newurl += "&username="+username;
+			send_msg_para.username=username;
+		}
+		if(mobile){
+			newurl += "&mobile="+mobile;
+			send_msg_para.mobile=mobile;
+		}
+
+		var projectname = $("#projectname").val();
+		if(projectname){
+			newurl += "&projectname="+adminname;
+			send_msg_para.projectname=projectname;
+		}
+		$("#page").empty();
+		$("#pagedata").ajaxPage({
+		    url:newurl,
+		    pageId:$("#page"),
+		    pageSize:10,
+		    run:true,
+		    content:data,
+		});
+	});
+	$("#send_msg").click(function(){
+		var content = $("#msg_content").val();
+		if (!content){
+			alert("内容为空");
+			return;
+		}
+		send_msg_para.content = content;
+		$.ajax({
+			url:"{%url 'send_multiple_msg' %}",
+			dataType:"json",
+			type:"POST",
+			data:send_msg_para,
+			success:function(ret){
+				if(ret.code==0){
+					alert("发送成功，短信数量：" +ret.num);
+				}
+				else {
+					alert(ret.res_msg);
+				}
+			},
+			error:function(){
+				alert("请检查网络连接");
+			}
+		});
+	});
+});
+</script>
+{% endblock js %}
+{% block right %}
+<div class="Criteria">
+                        	<span>搜索条件</span>
+                            <div class="Crite-box">
+                            	<form>
+                                	<table width="100%">
+                                    	<tr>
+                                        	<td>
+                                            	<i>平台名称：</i>
+                                                <input id="projectname" type="text" />
+                                            </td>
+                                          <td>
+                                              <i>投资日期from：</i>
+                                                <input id="startTime" type="date" />
+                                            </td>
+                                          <td>
+                                              <i>投资日期to：</i>
+                                                <input id="endTime" type="date" />
+                                            </td>
+                                        	<td>
+                                            	<i>用户姓名：</i>
+                                                <input id="username" type="text" />
+                                            </td>
+                                        </tr>
+                                      <tr>
+                                        	<td>
+                                            	<i>用户手机号：</i>
+                                                <input id="mobile" type="text" />
+                                            </td>
+                                        	<td>
+                                            	<i>投资金额from：</i>
+                                                <input id="amountfrom" type="text" />
+                                            </td>
+                                            <td>
+                                            	<i>投资金额to：</i>
+                                                <input id="amountto" type="text" />
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                    <div class="Submit-in">
+                                      <i style="letter-spacing:4.8px;">信息内容：</i>
+                                      <textarea id="msg_content" name="send_msg" cols="80" rows="4"></textarea>
+                                      <input id="send_msg" type="button" value="发送" />
+                                      <input id="search" type="button" value="搜索" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="Tin-table">
+                        	<div id="pagedata">
+							</div>
+		                    <div class="Page-in-admin">
+		                    	<div class="page"  id="page">
+		                        </div>
+		                    </div>
+                        </div>
+{%endblock%}
+

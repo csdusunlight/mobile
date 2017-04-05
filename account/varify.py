@@ -8,6 +8,8 @@ import hmac
 import base64
 from hashlib import sha1, md5
 import logging
+from account.tools import random_str
+from wafuli_admin.models import Message_Record
 logger = logging.getLogger("wafuli")
 # typ: 0:get  1:post
 def httpconn(url, para, typ):
@@ -202,16 +204,44 @@ def sendmsg_bydhst(phone):
         if result == '0':
             return code
     return None
+#群发短信
+def send_multimsg_bydhst(phones, content):
+    raw_pass = '4i38lwX8'
+    m2 = md5()   
+    m2.update(raw_pass)
+    msgid = random_str(32)
+    logger.info('Now is sending code to: ' + str(phones))
+    
+    param = {
+         'account':'dh31921',
+         'password':m2.hexdigest(),
+         'msgid':msgid,
+         'phones':phones,
+         'content':content,
+         'sign':'【挖福利】',
+         'subcode':'',
+         'sendtime':'',
+    }
+    url_msg = 'http://wt.3tong.net/json/sms/Submit'
+    json_ret = httpconn(url_msg, param, 1)
+    logger.info('json returned from dhst:' + str(json_ret))
+    if json_ret:
+        retcode = int(json_ret.get('result',-1))
+        if retcode == 0:
+            Message_Record.objects.create(msgid=msgid, content=content)
+        return retcode
+    else:
+        return -1
 #     print('json returned from 189:' + str(json_ret))
 def get_report_form_dhst():
     raw_pass = '4i38lwX8'
     m2 = md5()   
     m2.update(raw_pass)   
     param = {
-                     'account':'dh31921',
-                     'password':m2.hexdigest(),
-                     'msgid':'',
-                     'phones':'',
+         'account':'dh31921',
+         'password':m2.hexdigest(),
+         'msgid':'',
+         'phones':'',
     }
     url_msg = 'http://wt.3tong.net/json/sms/Report'
     json_ret = httpconn(url_msg, param, 1)

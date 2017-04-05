@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+		<title>联系客服</title>
+		<link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<style>
+			body,.mui-content{background: #fff;}
+			.qq-detail {
+				margin-top: 20px;
+			}
+
+			.qq-detail p {
+				line-height: 50px;
+			}
+
+			.qq-detail a {
+				display: inline-block;
+				width: 80%;
+				border-bottom: 1px solid #e4e4e4;
+				line-height: 50px;
+				font-size: 16px;
+				color: #777;
+			}
+
+			.qq-detail .iconfont {
+				display: inline-block;
+				width: 10%;
+				margin-left: 4%;
+				text-align: center;
+				font-size: 32px;
+				line-height: 50px;
+				color: #8f8f8f;
+				vertical-align: middle;
+			}
+
+
+			.on .iconfont {
+				color: #f08519;
+			}
+		</style>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">联系客服</h1>
+		</header>
+		<div class="mui-content qq-detail">
+			<p><i class="icon iconfont">&#xe643;</i>
+				<a class="qq-free" href="http://wpa.qq.com/msgrd?v=3&uin=2339019773&site=qq&menu=yes">免费福利客服</a>
+			</p>
+			<p><i class="icon iconfont">&#xe643;</i>
+				<a class="qq-task" href="http://wpa.qq.com/msgrd?v=3&uin=3327058376&site=qq&menu=yes">体验福利客服</a>
+			</p>
+			<p><i class="icon iconfont">&#xe643;</i>
+				<a class="qq-finance" href="http://wpa.qq.com/msgrd?v=3&uin=2468016671&site=qq&menu=yes">理财福利客服</a>
+			</p>
+		</div>
+
+	</body>
+
+</html>

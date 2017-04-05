@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     url(r'^$', 'account.views.account', name='account_index'),
@@ -52,4 +53,8 @@ urlpatterns = [
     url(r'^phoneImageV/$', 'account.views.phoneImageV', name='phoneImageV'),
 #    url(r'verifytelcode/$', 'account.views.verifytelcode', name='verifytelcode'),
     url(r'^callback/$', 'account.views.callbackby189', name='callback'),
+    
+    url(r'^customService', TemplateView.as_view(template_name="account/m_custom_service.html"),name='account_custom_service'),
+    url(r'^joinQQGroup', TemplateView.as_view(template_name="account/m_join_QQGroup.html"),name='account_join_QQGroup'),
+
 ]
