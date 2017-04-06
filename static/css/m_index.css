@@ -191,7 +191,7 @@ header a img {
 .li-info h6 {
 	display: inline-block;
 	max-width: 13rem;
-	margin-top: 0.4rem;
+	padding-top: 0.4rem;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;

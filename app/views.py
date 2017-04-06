@@ -615,6 +615,7 @@ def withdraw(request):
             result['msg'] = u'提交失败！'
     return JsonResponse(result)
 
+@csrf_exempt
 @app_login_required
 def bind_zhifubao(request):
     result={}
