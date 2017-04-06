@@ -206,8 +206,9 @@ class Task(News):
         verbose_name_plural = u"体验福利"
         ordering = ["-news_priority", "-pub_date"]
 class Finance(News):
+    level = models.CharField(u"项目级别", max_length=10, choices=FINANCE_LEVEL, default="normal")
     f_type = models.CharField(u"项目类别", max_length=1, choices=FINANCE_TYPE)
-    filter = models.CharField(u"项目系列", max_length=2, choices=FILTER)
+#     filter = models.CharField(u"项目系列", max_length=2, choices=FILTER)
     introduction = models.TextField(u"平台简介",max_length=50)
     background = models.CharField(u"平台背景", max_length=20)
     regcap = models.CharField(u"注册资本", max_length=10)
