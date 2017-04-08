@@ -24,6 +24,12 @@ STATE = (
     ('3', u'已删除'),
 )
 
+FINANCE_LEVEL = (    
+    ('normal', u'渠道用户'),
+    ('channel', u'普通用户'),
+    ('all', u'全部用户'),
+)
+
 FINANCE_TYPE = (    
     ('1', u'新手投资'),
     ('2', u'稳健投资'),
@@ -145,10 +151,4 @@ INFORMATION_TYPE = (
     ('wagushi', u'挖故事'),
     ('washuju', u'挖数据'),
     ('wahuodong', u'挖活动'),
-)
-FILTER = (
-    ('1', u'上市系'),
-    ('2', u'国资系'),
-    ('3', u'民营系'),
-    ('4', u'其他'),
 )

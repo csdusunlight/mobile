@@ -222,7 +222,7 @@ def finance_json(request):
     count = int(count)
     type = str(type)
     start = 6*count
-    wel_list = Finance.objects.filter(state='1')
+    wel_list = Finance.objects.filter(state='1', level__in=['normal','all'])
     if type == '0':
         wel_list = wel_list.order_by('-pub_date')[start:start+6]
     else:
