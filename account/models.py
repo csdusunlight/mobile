@@ -106,7 +106,12 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         return self.admin_permissions.filter(code=code).exists()
     def __unicode__(self): 
         return self.mobile
+<<<<<<< HEAD
 
+=======
+    def is_channel(self):
+        return hasattr(self, 'channel')
+>>>>>>> a2282e542d4816a2f627d5c9d224affa57f1faf3
 class Channel(models.Model):
     user = models.OneToOneField(MyUser, primary_key=True)
     level = models.CharField(u"渠道等级",max_length=10)
