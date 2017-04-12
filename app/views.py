@@ -124,7 +124,7 @@ def get_content_hongbao(request):
         ret_dict['code'] = 2
         ret_dict['message'] = u"系统错误"
         return JsonResponse(ret_dict)
-     
+    update_view_count(wel) 
     if wel.type != "hongbao":
         ret_dict['code'] = 3
         ret_dict['message'] = u"类型错误"
@@ -155,7 +155,7 @@ def get_content_youhuiquan(request):
         ret_dict['code'] = 2
         ret_dict['message'] = u"系统错误"
         return JsonResponse(ret_dict)
-     
+    update_view_count(wel) 
     if wel.type != "youhuiquan":
         ret_dict['code'] = 3
         ret_dict['message'] = u"类型错误"
@@ -188,6 +188,7 @@ def get_content_task(request):
         ret_dict['code'] = 1
         ret_dict['msg'] = u"该任务不存在"
     else:
+        update_view_count(news)
         ret_dict['code'] = 0
         strategy = news.strategy.replace('"/media/', '"' + host + '/media/')
         rules = news.rules.replace('"/media/', '"' + host + '/media/')
@@ -330,6 +331,7 @@ def get_content_finance(request):
         ret_dict['code'] = 1
         ret_dict['msg'] = u"该福利不存在"
     else:
+        update_view_count(news)
         ret_dict['code'] = 0
         strategy = news.strategy.replace('"/media/', '"' + host + '/media/')
         rules = news.rules.replace('"/media/', '"' + host + '/media/')
@@ -372,6 +374,7 @@ def get_content_information(request):
         ret_dict['code'] = 1
         ret_dict['msg'] = u"该新闻不存在"
     else:
+        update_view_count(news)
         ret_dict['code'] = 0
         content = news.content.replace('"/media/', '"' + host + '/media/')
         info = {

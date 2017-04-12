@@ -72,6 +72,7 @@ def finance(request, id=None):
             news = Finance.objects.get(id=id)
         except Finance.DoesNotExist:
             raise Http404(u"该页面不存在")
+        update_view_count(news)
         scheme = news.scheme
         table = []
         str_rows = scheme.split('|')
@@ -103,6 +104,7 @@ def task(request, id=None):
             news = Task.objects.get(id=id)
         except Task.DoesNotExist:
             raise Http404(u"该页面不存在")
+        update_view_count(news)
         other_wel_list = Task.objects.filter(state='1').order_by('-view_count')[0:10]
         context = {'news':news,'type':'Task','other_wel_list':other_wel_list}
         ref_url = request.META.get('HTTP_REFERER',"")
