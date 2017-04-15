@@ -83,6 +83,10 @@
 						alert("投资标期不能为空且必须为纯数字格式！")
 						return;
 					}
+					if(!re_amount.test(time)) {
+						alert("请选择投资日期");
+						return;
+					}
 					var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 					mui.ajax({
 						url: "",
@@ -99,9 +103,13 @@
 						},
 						dataType: "json",
 						success: function(ret) {
-							mui.alert(ret.msg);
 							if(ret.code==0){
-								mui.back();
+								mui.alert(ret.msg,callback=function(){
+									mui.back();
+								});
+							}
+							else{
+								mui.alert(ret.msg);
 							}
 						},
 						error: function(xhr, type, errorThrown) {
