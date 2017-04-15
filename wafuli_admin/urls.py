@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
@@ -9,7 +10,9 @@ urlpatterns = [
     url(r'^finance_page/$', 'wafuli_admin.views.get_admin_finance_page', name='get_admin_finance_page'),
     url(r'^task_page/$', 'wafuli_admin.views.get_admin_task_page', name='get_admin_task_page'),
     url(r'^admin_user/$', 'wafuli_admin.views.admin_user', name='admin_user'),
+    url(r'^admin_channel/$', TemplateView.as_view(template_name="admin_channel.html"), name='admin_channel'),
     url(r'^userpage/$', 'wafuli_admin.views.get_admin_user_page', name='get_admin_user_page'),
+    url(r'^channelpage/$', 'wafuli_admin.channel.get_admin_channel_page', name='get_admin_channel_page'),
     url(r'^admin_withdraw/$', 'wafuli_admin.views.admin_withdraw', name='admin_withdraw'),
     url(r'^withpage/$', 'wafuli_admin.views.get_admin_with_page', name='get_admin_with_page'),
     url(r'^admin_score$', 'wafuli_admin.views.admin_score', name='admin_score'),
@@ -29,4 +32,8 @@ urlpatterns = [
     url(r'^admin_investrecord/$', 'wafuli_admin.views.admin_investrecord', name='admin_investrecord'),
     url(r'^investrecordpage/$', 'wafuli_admin.views.get_admin_investrecord_page', name='get_admin_investrecord_page'),
     url(r'^send_multiple_msg/$', 'wafuli_admin.views.send_multiple_msg', name='send_multiple_msg'),
+    
+#     url(r'^parse_excel/$', 'wafuli_admin.channel.parse_excel', name='parse_excel'),
+    url(r'^import/$', 'wafuli_admin.views.import_finance_excel', name='import_finance_excel'),
+    url(r'^export/$', 'wafuli_admin.views.export_finance_excel', name='export_finance_excel'),
 ]

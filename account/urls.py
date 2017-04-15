@@ -56,5 +56,7 @@ urlpatterns = [
     
     url(r'^customService', TemplateView.as_view(template_name="account/m_custom_service.html"),name='account_custom_service'),
     url(r'^joinQQGroup', TemplateView.as_view(template_name="account/m_join_QQGroup.html"),name='account_join_QQGroup'),
+    
+    url(r'^channel', 'account.channel.account_channel',name='account_channel'),
 
 ]

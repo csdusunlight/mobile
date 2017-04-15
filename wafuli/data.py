@@ -25,8 +25,8 @@ STATE = (
 )
 
 FINANCE_LEVEL = (    
-    ('normal', u'渠道用户'),
-    ('channel', u'普通用户'),
+    ('normal', u'普通用户'),
+    ('channel', u'渠道用户'),
     ('all', u'全部用户'),
 )
 

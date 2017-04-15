@@ -1,0 +1,126 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title></title>
+		<link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
+	    <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
+	    <link rel="stylesheet" type="text/css" href="{%static 'css/m_expsubmit_finance.css'%}"/>
+
+	</head>
+
+	<body>
+			<header id="header" class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">渠道数据提交</h1>
+			</header>
+			<div class="mui-content">
+				<form class="mui-input-group">
+					{% csrf_token %}
+					<div class="mui-input-row finance-select">
+						<label>选择项目</label>
+						<select id="project_select" class="choose">
+							<option value="0">--</option>
+							{% for x in flist %}
+							    <option value="{{x.id}}">{{x.title}}</option>
+							{%endfor%}
+						</select>
+						<span class="mui-icon mui-icon-arrowdown choose-icon"></span>
+					</div>
+					<div class="mui-input-row">
+						<label>投资日期（天）</label>
+						<input id="time" type="date" placeholder="请输入投资日期（仅限数字）">
+					</div>
+					<div class="mui-input-row">
+						<label>注册手机号</label>
+						<input id="telnum" type="text" maxlength=11 placeholder="请输入注册手机号">
+					</div>
+					<div class="mui-input-row">
+						<label>投资金额（元）</label>
+						<input id="amount" type="number" placeholder="请输入投资金额（仅限数字）">
+					</div>
+					<div class="mui-input-row">
+						<label>投资标期（天）</label>
+						<input id="term" type="number" placeholder="请输入投资标期（仅限数字）">
+					</div>
+
+				</form>
+				<div class="mui-input-row beizhu" style="margin: 10px 5px;">
+					<p>备注:</p>
+					<textarea id="remark" rows="3" placeholder="请输入备注信息（可不填）"></textarea>
+				</div>
+				<button id="submit_btn" type="button" class="mui-btn mui-btn-blue">确认提交</button>
+			</div>
+			<script src="{%static 'js/mui.min.js'%}"></script>
+			<!--弹窗部分-->
+			<script type="text/javascript" charset="utf-8">
+				var id = '{{id}}';
+				var type = '{{type}}';
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				document.getElementById("submit_btn").addEventListener('tap', function() {
+					var project = document.getElementById('project_select').value;
+					var time = document.getElementById('time').value;
+					alert(time);
+					var telnum = document.getElementById('telnum').value;
+					var remark = document.getElementById('remark').value;
+					var amount = document.getElementById('amount').value;
+					// amount = parseFloat(amount);
+					var term = document.getElementById('term').value;
+					var re = /^1[1,2,3,4,6,5,7,8,9]\d{9}$/;
+					var re_amount = /^\d+(\.\d+)?$/;
+					if(!re.test(telnum)) {
+						mui.alert("手机号格式不正确！");
+						return;
+					}
+					if(!re_amount.test(amount)) {
+						alert("投资金额不能为空且必须为纯数字格式！")
+						return;
+					}
+					if(!re_amount.test(term)) {
+						alert("投资标期不能为空且必须为纯数字格式！")
+						return;
+					}
+					var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+					mui.ajax({
+						url: "{%url 'expsubmit_finance' %}",
+						type: 'post',
+						data: {
+							'type': type,
+							'id': id,
+							'project': project,
+							'time': time,
+							'amount': amount,
+							'term': term,
+							'telnum': telnum,
+							'remark': remark,
+							csrfmiddlewaretoken: csrfmiddlewaretoken
+						},
+						dataType: "json",
+						success: function(ret) {
+							mui.alert(ret.msg);
+						},
+						error: function(xhr, type, errorThrown) {
+							alert(type);
+						}
+					});
+				});
+			</script>
+			{%if back %}
+			<script>
+				mui.back = function() {
+					var history = window.history;
+					if(history.length > 3) {
+						history.go(-3);
+					} else {
+						history.back();
+					}
+				};
+			</script>
+			{%endif%}
+		</body>
+
+</html>

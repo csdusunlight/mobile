@@ -5,17 +5,24 @@ from wafuli.models import UserEvent, AdminEvent, AuditLog, TransList, Company,\
 import datetime
 from django.db.models import Sum, Count
 from django.core.urlresolvers import reverse
-from django.http.response import JsonResponse, Http404
+from django.http.response import JsonResponse, Http404, HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from account.transaction import charge_money, charge_score
 import logging
-from account.models import MyUser
+from account.models import MyUser, Channel
 from django.db.models import Q,F
 from wafuli_admin.models import DayStatis, Invest_Record
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import logout as auth_logout
 from account.varify import send_multimsg_bydhst
+from xlwt import Workbook
+import StringIO
+from xlwt.Style import easyxf
+import traceback
+import xlrd
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 logger = logging.getLogger('wafuli')
 def index(request):
@@ -377,7 +384,18 @@ def get_admin_finance_page(request):
     mobile = request.GET.get("mobile", None)
     if mobile:
         item_list = item_list.filter(user__mobile=mobile)
-        
+    
+    usertype = request.GET.get("usertype",0)
+    usertype= int(usertype)
+    if usertype == 1:
+        item_list = item_list.filter(user__is_channel=False)
+    elif usertype == 2:
+        item_list = item_list.filter(user__is_channel=True)
+        chalevel = request.GET.get("chalevel","")
+        print chalevel
+        if chalevel:
+            item_list = item_list.filter(user__channel__level=chalevel)
+            
     companyname = request.GET.get("companyname", None)
     if companyname:
         item_list = item_list.filter(finance__company__name__contains=companyname)
@@ -389,6 +407,7 @@ def get_admin_finance_page(request):
     adminname = request.GET.get("adminname", None)
     if adminname:
         item_list = item_list.filter(audited_logs__user__username=adminname)
+        
     task_type = ContentType.objects.get_for_model(Finance)
     item_list = item_list.filter(content_type = task_type.id)
     item_list = item_list.filter(event_type='1', audit_state=state).select_related('user').order_by('time')
@@ -407,6 +426,7 @@ def get_admin_finance_page(request):
         project = con.content_object
         i = {"username":con.user.username,
              "mobile":con.user.mobile,
+             "usertype":u"普通用户" if not con.user.is_channel else u"渠道："+ con.user.channel.level,
              "type":con.content_object.get_type(),
              "company":project.company.name if project.company else u"无",
              "project":project.title,
@@ -430,7 +450,187 @@ def get_admin_finance_page(request):
     res["recordCount"] = item_list.count()
     res["data"] = data
     return JsonResponse(res)
+def export_finance_excel(request):
+    user = request.user
+    item_list = []
+    item_list = UserEvent.objects
+    startTime = request.GET.get("startTime", None)
+    endTime = request.GET.get("endTime", None)
+    startTime2 = request.GET.get("startTime2", None)
+    endTime2 = request.GET.get("endTime2", None)
+    if startTime and endTime:
+        s = datetime.datetime.strptime(startTime,'%Y-%m-%dT%H:%M')
+        e = datetime.datetime.strptime(endTime,'%Y-%m-%dT%H:%M')
+        item_list = item_list.filter(time__range=(s,e))
+    username = request.GET.get("username", None)
+    if username:
+        item_list = item_list.filter(user__username=username)
+    mobile = request.GET.get("mobile", None)
+    if mobile:
+        item_list = item_list.filter(user__mobile=mobile)
+    usertype = request.GET.get("usertype",0)
+    usertype= int(usertype)
+    if usertype == 1:
+        item_list = item_list.filter(user__is_channel=False)
+    elif usertype == 2:
+        item_list = item_list.filter(user__is_channel=True)
+        chalevel = request.GET.get("chalevel","")
+        print usertype,chalevel
+        if chalevel:
+            item_list = item_list.filter(user__channel__level=chalevel) 
+    companyname = request.GET.get("companyname", None)
+    if companyname:
+        item_list = item_list.filter(finance__company__name__contains=companyname)
+         
+    projectname = request.GET.get("projectname", None)
+    if projectname:
+        item_list = item_list.filter(finance__title__contains=projectname)
+         
+    task_type = ContentType.objects.get_for_model(Finance)
+    item_list = item_list.filter(content_type = task_type.id)
+    item_list = item_list.filter(event_type='1', audit_state='1').select_related('user').order_by('time')
+    data = []
+    for con in item_list:
+        project = con.content_object
+        project_name=project.title
+        mobile_sub=con.invest_account
+        time_sub=con.time
+        id=con.id
+        remark= con.remark
+        invest_amount= con.invest_amount
+        term=con.invest_term
+        user_mobile = con.user.mobile
+        user_type = u"普通用户" if not con.user.is_channel else u"渠道："+ con.user.channel.level
+        data.append([id, project_name, time_sub, user_mobile,user_type, mobile_sub, term, invest_amount, remark])
+    w = Workbook()     #创建一个工作簿
+    ws = w.add_sheet(u'待审核记录')     #创建一个工作表
+    title_row = [u'记录ID',u'项目名称',u'投资日期', u'挖福利账号', u'用户类型', u'注册手机号' ,u'投资期限' ,u'投资金额', u'备注', u'审核结果',u'返现金额',u'拒绝原因']
+    for i in range(len(title_row)):
+        ws.write(0,i,title_row[i])
+    row = len(data)
+    style1 = easyxf(num_format_str='YY/MM/DD')
+    for i in range(row):
+        lis = data[i]
+        col = len(lis)
+        for j in range(col):
+            if j==2:
+                ws.write(i+1,j,lis[j],style1)
+            else:
+                ws.write(i+1,j,lis[j])
+    sio = StringIO.StringIO()  
+    w.save(sio)
+    sio.seek(0)  
+    response = HttpResponse(sio.getvalue(), content_type='application/vnd.ms-excel')  
+    response['Content-Disposition'] = 'attachment; filename=待审核记录.xls'  
+    response.write(sio.getvalue())
+    
+    return response 
 
+@login_required
+@csrf_exempt
+def import_finance_excel(request):
+    ret = {'code':-1}
+    file = request.FILES.get('file')
+#     print file.name
+    with open('./out.xls', 'wb+') as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
+    data = xlrd.open_workbook('out.xls')
+    table = data.sheets()[0]
+    nrows = table.nrows
+    ncols = table.ncols
+    if ncols!=12:
+        ret['msg'] = u"文件格式与模板不符，请在导出的待审核记录表中更新后将文件导入！"
+        return JsonResponse(ret)
+    rtable = []
+    mobile_list = []
+    try:
+        for i in range(1,nrows):
+            temp = []
+            duplic = False
+            for j in range(ncols):
+                cell = table.cell(i,j)
+                if j==0:
+                    id = int(cell.value)
+                    temp.append(id)
+                elif j==9:
+                    result = cell.value.strip()
+                    if result == u"是":
+                        result = True
+                        temp.append(True)
+                    elif result == u"否":
+                        result = False
+                        temp.append(False)
+                    else:
+                        raise Exception(u"审核结果必须为是或否。")
+                elif j==10:
+                    return_amount = 0
+                    if cell.value:
+                        return_amount = float(cell.value)
+                    elif result:
+                        raise Exception(u"审核结果为是时，返现金额不能为空或零。")
+                    temp.append(return_amount)
+                elif j==11:
+                    reason = cell.value
+                    temp.append(reason)
+                else:
+                    continue;
+            rtable.append(temp)
+    except Exception, e:
+        traceback.print_exc()
+        ret['msg'] = unicode(e)
+        ret['num'] = 0
+        return JsonResponse(ret)
+    admin_user = request.user
+    suc_num = 0
+    try:
+        for row in rtable:
+            id = row[0]
+            result = row[1]
+            reason = row[3]
+            event = UserEvent.objects.get(id=id)
+            if event.audit_state != '1' or event.translist.exists():
+                continue
+            log = AuditLog(user=admin_user,item=event)
+            event_user = event.user
+            translist = None
+            if result:
+                amount = int(row[2]*100)
+                log.audit_result = True
+                translist = charge_money(event_user, '0', amount, u'福利返现')
+                if translist:
+                    event.audit_state = '0'
+                    translist.user_event = event
+                    translist.save(update_fields=['user_event'])
+                    Invest_Record.objects.create(invest_date=event.time,invest_company=event.content_object.company.name,
+                                                     user_name=event_user.zhifubao_name,zhifubao=event_user.zhifubao,
+                                                     invest_mobile=event.invest_account,invest_period=event.invest_term,
+                                                     invest_amount=event.invest_amount,return_amount=amount/100.0,wafuli_account=event_user.mobile,
+                                                     return_date=datetime.date.today(),remark=event.remark)    
+                else:
+                    logger.error(u"Charging cash is failed!!!")
+                    logger.error("UserEvent:" + str(id) + u" 现金记账失败，请检查原因！！！！")
+                    continue
+            else:
+                event.audit_state = '2'
+                log.audit_result = False
+                log.reason = reason
+            admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=event_user, event_type='1')
+            if translist:
+                translist.admin_event = admin_event
+                translist.save(update_fields=['admin_event'])
+            log.admin_item = admin_event
+            log.save()
+            event.audit_time = log.time
+            event.save(update_fields=['audit_state','audit_time'])
+            suc_num += 1
+        ret['code'] = 0
+    except Exception as e:
+        traceback.print_exc()
+        ret['code'] = 1
+        ret['msg'] = unicode(e)
+    ret['num'] = suc_num
+    return JsonResponse(ret)
 def get_admin_task_page(request):
     res={'code':0,}
     user = request.user
@@ -623,7 +823,7 @@ def admin_user(request):
                 res['code'] = 0
             else:
                 res['code'] = -4
-                res['res_msg'] = "积分记账失败，请检查输入合法性后再次提交！"
+                res['res_msg'] = u"积分记账失败，请检查输入合法性后再次提交！"
         elif type == 3:
             obj_user.is_active = False
             obj_user.save(update_fields=['is_active'])
@@ -635,6 +835,30 @@ def admin_user(request):
             obj_user.save(update_fields=['is_active'])
             admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=obj_user, event_type='6', remark=u"去黑")
             res['code'] = 0
+        elif type == 5:
+            qq_number = request.POST.get('qq_number', '')
+            level = request.POST.get('level',u'无')
+            Channel.objects.create(user=obj_user, qq_number=qq_number, level=level)
+            obj_user.is_channel = True
+            obj_user.save(update_fields=['is_channel'])
+            admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=obj_user, event_type='6', remark=u"新增渠道")
+            res['code'] = 0
+        elif type == 6:
+            obj_user.channel.delete()
+            obj_user.is_channel = False
+            obj_user.save(update_fields=['is_channel'])
+            admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=obj_user, event_type='6', remark=u"取消渠道")
+            res['code'] = 0
+        elif type == 7:
+            level = request.POST.get('level')
+            if level:
+                obj_user.channel.level=level
+                obj_user.channel.save(update_fields=['level'])
+                admin_event = AdminEvent.objects.create(admin_user=admin_user, custom_user=obj_user, event_type='6', remark=u"修改渠道等级")
+                res['code'] = 0
+            else:
+                res['code'] = -6
+                res['res_msg'] = u"没有channel"
         return JsonResponse(res)
             
 def get_admin_user_page(request):
@@ -724,6 +948,7 @@ def get_admin_user_page(request):
              "is_black":u'否' if con.is_active else u'是',
              "id":con.id,
              "opertype":u'加黑' if con.is_active else u'去黑',
+             "opertype_channel":u'撤销渠道' if con.is_channel else u'赋予渠道权限',
              }
         data.append(i)
     if data:
@@ -944,7 +1169,7 @@ def admin_score(request):
             event.audit_state = '0'
             log.audit_result = True
             res['code'] = 0
-            msg_content = u'您已成功兑换' + event.content_object.commodity.name + u'，消耗积分' + event.invest_amount
+            msg_content = u'您已成功兑换' + event.content_object.commodity.name + u'，消耗积分' + str(event.invest_amount)
             Message.objects.create(user=event.user, content=msg_content, title=u"积分兑换");
         elif type == 2:
             reason = request.POST.get('reason', '')

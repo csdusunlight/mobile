@@ -327,6 +327,8 @@ def get_admin_coupon_page(request):
              "admin":u'无' if con.audit_state=='1' or not con.audited_logs.exists() else con.audited_logs.first().user.username,
              "time_admin":u'无' if con.audit_state=='1' or not con.audit_time else con.audit_time.strftime("%Y-%m-%d %H:%M"),
              "amount":coupon.project.amount,
+             "invest_amount":con.invest_amount,
+             "invest_term":con.invest_term,
              "return_amount":u"无" if con.audit_state!='0' or not con.translist.exists() else con.translist.first().transAmount,
              "score":u'无' if con.audit_state!='0' or not con.score_translist.exists() else con.score_translist.first().transAmount,
              "id":con.id,

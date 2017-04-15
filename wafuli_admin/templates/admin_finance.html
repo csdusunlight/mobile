@@ -1,20 +1,22 @@
 {% extends "base.html" %}
+{%load staticfiles%}
 {% block js %}
+<script type="text/javascript" src="{%static 'js/ajaxfileupload.js'%}"></script>
 <script type="text/javascript">
 $.ajaxSetup({
     data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
 });
-var data = '<table width="100%"><tr><th>用户名</th><th>手机号</th>'+
+var data = '<table width="100%"><tr><th>用户名</th><th>用户类型</th><th>手机号</th>'+
 	'<th>项目名称</th><th>提交手机号</th><th>投资金额</th><th>投资标期</th><th>提交时间</th><th>处理状态</th>'+
-	'<th>操作</th><th>备注</th></tr>[data]<tr><td>{username}</td><td>{mobile}</td>'+
+	'<th>操作</th><th>备注</th></tr>[data]<tr><td>{username}</td><td>{usertype}</td><td>{mobile}</td>'+
 	'<td>{project}</td><td>{mobile_sub}</td><td>{invest_amount}</td><td>{term}</td>'+
 	'<td>{time_sub}</td><td>{state}</td>'+
 	'<td id="item_{id}"><a class="fyin" onclick="pass({id})">返现'+
 	'</a> │ <a class="jion-s" onclick="refuse({id})">拒绝</a></td><td>{remark}</td></tr>[/data]</table>';
-var data2 = '<table width="100%"><tr><th>用户名</th><th>手机号</th>'+
+var data2 = '<table width="100%"><tr><th>用户名</th><th>用户类型</th><th>手机号</th>'+
 	'<th>项目名称</th><th>提交手机号</th><th>投资金额</th><th>投资标期</th><th>提交时间</th><th>处理状态</th>'+
 	'<th>审核人</th><th>审核时间</th><th width="6%">返现金额</th><th width="6%">返现积分</th>'+
-	'<th>备注</th></tr>[data]<tr><td>{username}</td><td>{mobile}</td>'+
+	'<th>备注</th></tr>[data]<tr><td>{username}</td><td>{usertype}</td><td>{mobile}</td>'+
 	'<td>{project}</td><td>{mobile_sub}</td><td>{invest_amount}</td><td>{term}</td>'+
 	'<td>{time_sub}</td><td>{state}</td><td>{admin}</td><td>{time_admin}</td>'+
 	'<td>{ret_amount}</td><td>{score}</td><td>{remark}</td></tr>[/data]</table>';
@@ -111,7 +113,7 @@ $(document).ready(function(){
 	$("#search").click(function(){
 		startTime = $("#startTime").val();
 		endTime = $("#endTime").val();
-		newurl = url;
+		var newurl = url;
 		if(startTime && endTime){
 			newurl += "&startTime="+startTime;
 			newurl += "&endTime="+endTime;
@@ -146,6 +148,16 @@ $(document).ready(function(){
 		if(state){
 			newurl += "&state="+state;
 		}
+		var usertype = $("#usertype").val();
+		if(usertype){
+			newurl += "&usertype="+usertype;
+		}
+		if(usertype=='2'){
+			var chalevel = $("#chalevel").val();
+			if(chalevel){
+				newurl += "&chalevel="+chalevel;
+			}
+		}
 		var newdata = data;
 		if(state!='1'){
 			newdata = data2;
@@ -159,6 +171,81 @@ $(document).ready(function(){
 		    content:newdata,
 		});
 	});
+	$("#export").click(function(){
+		var html = '<form action="'+"{% url 'export_finance_excel' %}"+'" method="get" target="_self" id="postData_form">';
+		startTime = $("#startTime").val();
+		endTime = $("#endTime").val();
+		if(startTime && endTime){
+			html += '<input name="startTime" type="hidden" value="'+ startTime + '"/>';
+			html += '<input name="endTime" type="hidden" value="'+ endTime + '"/>';
+		}
+		username = $("#username").val();
+		mobile = $("#mobile").val();
+		if(username){
+			html += '<input name="username" type="hidden" value="'+ username + '"/>';
+		}
+		if(mobile){
+			html += '<input name="mobile" type="hidden" value="'+ mobile + '"/>';
+		}
+		companyname = $("#companyname").val();
+		projectname = $("#projectname").val();
+		if(companyname){
+			html += '<input name="companyname" type="hidden" value="'+ companyname + '"/>';
+		}
+		if(projectname){
+			html += '<input name="projectname" type="hidden" value="'+ projectname + '"/>';
+		}
+		var usertype = $("#usertype").val();
+		if(usertype){
+			html += '<input name="usertype" type="hidden" value="'+ usertype + '"/>';
+		}
+		if(usertype=='2'){
+			var chalevel = $("#chalevel").val();
+			if(chalevel){
+				html += '<input name="chalevel" type="hidden" value="'+ chalevel + '"/>';
+			}
+		}
+		html += '</form>';
+        var iframe = document.getElementById('myIFrame');
+		    iframe.contentWindow.document.open();
+		    iframe.contentWindow.document.write(html);
+		    iframe.contentWindow.document.close();
+		document.getElementById('myIFrame').contentWindow.document.getElementById('postData_form').submit();
+	});
+	$('#import').click(function() {
+		var fileElementId  = 'fileupload1';
+		if(!document.getElementById(fileElementId).value){
+			alert("请先选择文件");
+			return;
+		}
+    	$.ajaxFileUpload({
+            url:"{% url 'import_finance_excel'%}",
+            secureuri:false,
+            fileElementId:fileElementId,//file标签的id
+            dataType: 'json',//返回数据的类型
+            data:{},//一同上传的数据
+            success: function (data, status) {
+            	if (data.code==0){
+            		alert("导入成功！ 数量：" + data.num);
+            	}
+            	else {
+            		alert(data.msg + " 成功数量："+data.num);
+            	}
+            },
+            error: function (data, status, e) {
+                alert(e);
+            }
+        });
+    //	hint.innerHTML = '无';
+	});
+
+  var filechooser = document.getElementById("fileupload1");
+  var choose_file = document.getElementById("input_clone");
+  var hint = document.getElementById("hint");
+  choose_file.onclick = function() {
+	  document.getElementById("fileupload1").click();
+  }
+
 });
 </script>
 {% endblock js %}
@@ -199,6 +286,18 @@ $(document).ready(function(){
                                             	<i style="letter-spacing:4.8px;">公司名称：</i>
                                                 <input id="companyname" type="text" />
                                             </td>
+                                          <td>
+                                              <i style="letter-spacing:4.8px;">用户类型</i>
+                                                <select name="selectAge" id="usertype">
+											        <option value="0">全部</option>
+											        <option value="1">普通用户</option>
+											        <option value="2">渠道用户</option>
+											    </select>
+                                            </td>
+                                            <td>
+                                            	<i style="letter-spacing:4.8px;">渠道级别：</i>
+                                                <input id="chalevel" type="text" />
+                                            </td>
                                         </tr>
                                         <tr>
                                         	<td>
@@ -222,6 +321,12 @@ $(document).ready(function(){
                                     <div class="Submit-in">
                                     	<input id="search" type="button" value="搜索" />
                                         <input id="export" type="button" value="导出" />
+                                    </div>
+                                    <div class="leading-in">
+                                      <input id="fileupload1" name="file"  type="file" onchange='hint.innerHTML = this.files[0].name;'/>
+                                      <a id="input_clone" class="input-clone">选择文件</a>
+                                      <p class="hint-box">已选择表格：<b id="hint" class="hint">无</b></p>
+  									  <input id="import" type="button" value="导入" />
                                     </div>
                                 </form>
                             </div>
@@ -271,5 +376,6 @@ $(document).ready(function(){
             </form>
         </div>
     </div>
+    <iframe id="myIFrame" scrolling="yes" src="abount:blank" style="display:none" frameborder=1></iframe>
     <!--end-->
 	{% endblock modal %}

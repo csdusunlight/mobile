@@ -13,20 +13,11 @@ a { cursor:pointer;}
 .Signout { color:#f0ff00 !important;}
 .Content { margin-top:20px; box-sizing:border-box; padding-right:30px; padding-bottom:40px;}
 .LeftNav-in { float:left; width:100%; height:auto; background:#fafafa;}
-.LeftNav-in li {background-color: #e9f8ff;border-bottom: 2px solid #fff; float:left; width:100%; height:auto; background-image:url(../images/icobox.png); background-repeat:no-repeat;}
+.LeftNav-in li {background-color: #e9f8ff;border-bottom: 2px solid #fff; float:left; width:100%; height:auto;}
 .LeftNav-in li a { float:left; width:100%; height:56px; box-sizing:border-box; padding:0 30px 0 54px; font-size:15px; color:#008fd7; line-height:56px;/*font-weight: bold;*/}
-.home1 { background-position:30px 21px;}
-.home2 { background-position:30px -35px;}
-.home3 { background-position:30px -92px;}
-.home4 { background-position:30px -150px;}
-.home5 { background-position:30px -207px;}
-.home6 { background-position:30px -265px;}
-.home7 { background-position:30px -322px;}
-.home8 { background-position:30px -378px;}
-.home9 { background-position:30px -432px;}
-.LeftNav-in li:hover { background-image:url(../images/icobox-on.png); background-color:#008fd7}
+.LeftNav-in li:hover { background-color:#008fd7}
 .LeftNav-in li:hover a { color:#fff; background:url(../images/back.png) right no-repeat ;}
-.LeftNav-in .on { background-image:url(../images/icobox-on.png); background-color:#008fd7}
+.LeftNav-in .on { background-color:#008fd7}
 .LeftNav-in .on a { color:#fff; background:url(../images/back.png) right no-repeat ;}
 .Right-box { float:left; width:100%; height:auto; }
 .Need-T {overflow: hidden; float:left; width:100%; height:auto; border:1px solid #fafafa;}
@@ -102,17 +93,57 @@ a { cursor:pointer;}
 .Crite-box td input[type="datetime-local"] { height:30px; padding:3.5px 5px; box-sizing:border-box; width:60%; margin-left:1%; border:1px solid #4daa84; background:url(../images/motime.png) no-repeat 95%; vertical-align:middle;}
 .Crite-box td input[type="datetime-local"]:hover { background:none;}
 .Crite-box td input[type="datetime-local"]:focus { background:none;}
-.Crite-box td input[type="text"]{ width:60%; margin-left:1%; height:28px; border:1px solid #4daa84; outline:none; padding:0 5px; box-sizing:border-box; vertical-align:middle;}
+.Crite-box td input[type="text"],
+.Crite-box td input[type="date"]{ width:58%; margin-left:1%; height:28px; border:1px solid #4daa84; outline:none; padding:0 5px; box-sizing:border-box; vertical-align:middle;}
 .Crite-box td select{ width:60%; margin-left:1%; height:28px; border:1px solid #4daa84; outline:none; padding:0 5px; box-sizing:border-box; vertical-align:middle;}
-.Submit-in { float:left; width:100%; height:auto; text-align:right; padding:10px 0;}
+.Submit-in { width:100%; height:auto; text-align:right; padding:10px 0;}
 .Submit-in input{ width:10%; height:30px; border:1px solid #1377aa; color:#fff; font-size:16px; color:#fff; padding:0 40px 0 0; box-sizing:border-box; min-width:80px; margin:0 7px;}
 .Submit-in input[type="submit"]{ background:url(../images/ico1.png) no-repeat 80% #4daa84;border: none;}
 .Submit-in input[type="button"]{ background:url(../images/ico2.png) no-repeat 80% #4daa84;border: none;}
+.Submit-in i,
+.Submit-in textarea {float: left;}
+.leading-in #import,
+.leading-in #fileupload1,
+.input-clone {
+    display: inline-block;
+    width:10%;
+    height:30px;
+    background-color: #4daa84;
+    border:none;
+    color:#fff;
+    font-size:16px;
+    box-sizing:border-box;
+    min-width:80px;
+    vertical-align:bottom;
+}
+.leading-in {
+    position: relative;
+}
+.input-clone {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    line-height: 30px;
+}
+#import {
+    margin-left: 20px;
+}
+.hint-box {
+    display: inline-block;
+}
 .Tin-table { float:left; width:100%; height:auto; margin-top:18px; border:1px solid #fafafa;}
 .Tin-table th { font-weight:400; font-size:12px; color:#4daa84; background:#e9f8ff; height:44px;}
 .Tin-table td {border-bottom: 1px dashed #4daa84;font-size: 12px; text-align:center; height:44px; font-family:"宋体"; color:#666666;}
 .Tin-table td a { color:#666666; font-family:"宋体"}
-
+/*任务管理修改部分*/
+.img-up {
+    display: block;
+    height: 34px;
+}
+.img-up img {
+    height: 100%;
+}
 .Submit-box { float:left; width:100%; height:auto; text-align:center; padding:10px 0; min-width:190px;}
 .Submit-box input{ width:40%; height:30px; border:1px solid #1377aa; color:#fff; font-size:16px; color:#fff; padding:0 40px 0 0; box-sizing:border-box; min-width:80px; margin:0 7px; float:left;}
 .Submit-box input[type="submit"]{ background:url(../images/ico1.png) no-repeat 80% #4daa84;border:none;}
@@ -125,15 +156,15 @@ a { cursor:pointer;}
 .Tin-table-box td a { color:#666666; font-family:"宋体"}
 .fyin { cursor:pointer;}
 .BackNow { position:fixed; width:100%; height:100%; background:url(../images/back-in.png); display:none;}
-.w570-box { width:570px; height:auto; overflow:hidden; margin:10% auto; background:#fff; position:relative;}
-.w570-box h3 { font-weight:400; font-size:20px; color:#fff; line-height:44px; background:#979797; text-align:center;}
+.w570-box { width:570px; height:auto; overflow:hidden; margin:10% auto; background:#fff; position:relative;border-radius: 8px;}
+.w570-box h3 {padding: 20px 0; font-weight:400; font-size:25px; color:#04b3ff; line-height:44px; /*background:#979797;*/ text-align:center;}
 .none-x { position:absolute; right:17px; top:13px; width:19px; height:19px; border:none; background:url(../images/none.png) no-repeat center; outline:none;}
 .Finnow { float:left; width:100%; height:auto; padding:20px 6px; box-sizing:border-box; text-align:center;}
 .Finnow span { font-size:12px; color:#666666; line-height:28px; margin-left:30px;}
 .Finnow input[type="text"]{ width:153px; height:28px; border:1px solid #cdcdcd; line-height:28px; outline:none; text-indent:10px;}
 .Finnow-Sub { float:left; width:100%; height:auto; margin-top:30px;}
-.Finnow-Sub input[type="submit"]{ width:98px; height:25px; background:url(../images/pic2.png) no-repeat right #008fd7; border:1px solid #1779ab; color:#fff; padding-right:10px; margin:0 5px;}
-.Finnow-Sub input[type="button"]{ width:98px; height:25px; background:url(../images/pic1.png) no-repeat right #c8c8c8; border:1px solid #a0a0a0; color:#fff; padding-right:10px; margin:0 5px;}
+.Finnow-Sub input[type="submit"]{ width:98px; height:26px; background:url(../images/pic2.png) no-repeat right #008fd7; border:none; border-radius: 13px; color:#fff; padding-right:10px; margin:0 5px;}
+.Finnow-Sub input[type="button"]{ width:98px; height:26px; background:url(../images/pic1.png) no-repeat right #c8c8c8; border:none; border-radius: 13px; color:#fff; padding-right:10px; margin:0 5px;}
 .Audit { position:fixed; width:100%; height:100%; background:url(../images/back-in.png); display:none;}
 .Audit-in { float:left; width:100%; height:auto; padding:20px 40px; box-sizing:border-box; text-align:center;}
 .Audit-in span { float:left; width:92px; height:auto;}
@@ -149,9 +180,12 @@ a { cursor:pointer;}
 .Balance-in textarea { width:406px; height:80px; line-height:20px; resize:none; box-sizing:border-box; outline:none; border:1px solid #cdcdcd}
 
 
-.Points { position:fixed; width:100%; height:100%; background:url(../images/back-in.png); display:none;}
-.Blacklist { position:fixed; width:100%; height:100%; background:url(../images/back-in.png); display:none;}
-.Blacklist-none { position:fixed; width:100%; height:100%; background:url(../images/back-in.png); display:none;}
+.Points,
+.Blacklist,
+.Blacklist-none,
+.Channel,
+.Channel-none,
+.changeChannel { position:fixed; width:100%; height:100%; background:rgba(0,0,0,0.3); display:none;}
 /*#item_1555{width: 100px;}*/
 
 /*优惠券发放页面样式*/
@@ -196,10 +230,6 @@ a { cursor:pointer;}
 #users+label {
         display: block;
         margin-top: 10px;
-}
-#fileupload1 {
-        margin-top: 20px;
-        border: 1px solid #4daa84;
 }
 #uploadbtn1 {
         background-color: #4daa84;
