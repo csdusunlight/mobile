@@ -89,3 +89,7 @@ form.mui-input-group .mui-input-row:after {
 .mui-input-row label~input {
 	width: 55%;
 }
+.mui-input-row .choose {
+	width: 55%;
+	background: url(../images/select-icon.png) 90% center/20px auto no-repeat;
+}
