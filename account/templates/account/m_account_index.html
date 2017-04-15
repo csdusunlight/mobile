@@ -125,12 +125,14 @@
             <p>QQ客服</p>
           </a>
         </li>
+        {%if user.is_channel%}
         <li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3">
           <a class="icon-url" href="{% url 'account_channel' %}">
             <i class="icon iconfont">&#xe613;</i>
             <p>渠道数据提交</p>
           </a>
         </li>
+        {%endif%}
       </ul>
 
 		</div>
