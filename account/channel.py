@@ -23,7 +23,7 @@ def account_channel(request):
         if not request.is_ajax():
             logger.warning("Expsubmit refused no-ajax request!!!")
             raise Http404
-        code = '0'
+        code = -1
         url = ''
         
         news_id = request.POST.get('id', None)
@@ -33,12 +33,12 @@ def account_channel(request):
         amount = request.POST.get('amount',0)
         amount = int(float(amount))
         date_str = request.POST.get('time',0)
-        time = datetime.datetime.strptime(date_str, "%Y-m%-d%")
+        time = datetime.datetime.strptime(date_str, "%Y-%m-%d")
         if not (news_id and telnum):
             logger.error("news_id or news_type is missing!!!")
             raise Http404
         if len(telnum)>100 or len(remark)>200:
-            code = 3
+            code = 2
             msg = u'账号或备注过长！'
             result = {'code':code, 'msg':msg}
             return JsonResponse(result)
@@ -57,11 +57,11 @@ def account_channel(request):
                 else:
                     UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term, time=time,
                                      invest_amount=amount, content_object=news, audit_state='1',remark=remark,)
-                    code = '1'
+                    code = 0
                     msg = u'提交成功，请通过用户中心查询！'
         except Exception, e:
             logger.info(e)
-            code = '2'
+            code = 1
             msg = u'该注册手机号已被提交过，请不要重复提交！'
         result = {'code':code, 'msg':msg}
         return JsonResponse(result)
