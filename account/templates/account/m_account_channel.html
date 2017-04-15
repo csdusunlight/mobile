@@ -56,11 +56,7 @@
 			<script src="{%static 'js/mui.min.js'%}"></script>
 			<!--弹窗部分-->
 			<script type="text/javascript" charset="utf-8">
-				var id = '{{id}}';
-				var type = '{{type}}';
-				mui.init({
-					swipeBack: true //启用右滑关闭功能
-				});
+				mui.init();
 				document.getElementById("submit_btn").addEventListener('tap', function() {
 					var project = document.getElementById('project_select').value;
 					var time = document.getElementById('time').value;
@@ -108,6 +104,7 @@
 						dataType: "json",
 						success: function(ret) {
 							if(ret.code==0){
+								alert(ret.code);
 								mui.alert(ret.msg,callback=function(){
 									mui.back();
 								});
@@ -122,18 +119,6 @@
 					});
 				});
 			</script>
-			{%if back %}
-			<script>
-				mui.back = function() {
-					var history = window.history;
-					if(history.length > 3) {
-						history.go(-3);
-					} else {
-						history.back();
-					}
-				};
-			</script>
-			{%endif%}
 		</body>
 
 </html>
