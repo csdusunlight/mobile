@@ -87,8 +87,8 @@
 					mui.alert('提现数量必须为整数！');
 					return;
 				}
-				if (amount<1000){
-					mui.alert('最低提现福币数量为1000！');
+				if (amount%1000 != 0) {
+					mui.alert('提现福币数量必须为1000的整数倍！');
 					return;
 				}
 				var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
