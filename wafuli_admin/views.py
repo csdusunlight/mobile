@@ -1026,7 +1026,7 @@ def admin_withdraw(request):
             event.audit_state = '2'
             log.reason = reason
             log.audit_result = False
-            translist = charge_money(event.user, '0', event.invest_amount, u'冲账')
+            translist = charge_money(event.user, '0', event.invest_amount, u'冲账', reverse=True)
             if translist:
                 translist.user_event = event
                 translist.admin_event = admin_event

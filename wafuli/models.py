@@ -46,6 +46,7 @@ class Base(models.Model):
 class News(Base):
     state = models.CharField(u"项目状态", max_length=1, choices=STATE)
     is_futou = models.BooleanField(u'是否允许复投（重复提交同一手机号）', default= False)
+    is_vip_bonus = models.BooleanField(u'适用VIP奖励', default=True)
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', verbose_name=u"标志图片上传（最大不超过30k，越小越好）")
     isonMobile = models.BooleanField(u'是否只限移动端（pc端显示二维码）？', default= False)
     exp_url_pc = models.CharField(u"活动地址pc", blank=True, max_length=200)
