@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>APP下载</title>
+    <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{%static 'css/m_app_download.css'%}"/>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">APP下载</h1>
+	</header>
+<div class="mui-content">
+         <img class="wafuli-logo" src="{%static 'images/app-download-wafulilogo.png'%}"/>
+         <div class="title"></div>
+         <p class="small-title">优惠券/话费/流量/影视会员/金融理财</p>
+         <img class="app-logo" src="{%static 'images/app-download-logo.png'%}"/>
+         <a class="download-btn" href="http://m.wafuli.cn/static/download/wafuli.apk ">
+         	<img src="{%static 'images/app-download-btn.png'%}"/>
+         </a>
+</div>       
+
+    <script src="{%static 'js/mui.min.js'%}"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+   </script>
+</body>
+</html>

@@ -3,9 +3,6 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <!-- 优先使用 IE 最新版本和 Chrome -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <!-- 为移动设备添加 viewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <!-- 添加到主屏后的标题（iOS 6 新增） -->
     <meta name="apple-mobile-web-app-title" content="">
@@ -17,10 +14,6 @@
     <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
     <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
     <meta name="format-detection" content="telphone=no, email=no"/>
-    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>挖福利-首页</title>
     <link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
@@ -112,7 +105,7 @@
                     </a>
                 </li>
             	<li id="weixin_btn">
-                	<a href="http://m.wafuli.cn/static/download/wafuli.apk">
+                	<a href="{% url 'APP_download' %}">
                     	<i class="icon iconfont ic-08">&#xe642;</i>
                         <span><number>APP</number>下载</span>
                     </a>
