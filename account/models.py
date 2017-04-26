@@ -44,6 +44,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     mobile = models.CharField('mobile number', max_length=11, unique=True,)
     username = models.CharField(u'用户昵称', max_length=30, unique=True)
     level = models.SmallIntegerField(u'用户等级', default=0)
+    with_total = models.IntegerField(u'提现总额度（VIP晋级用）', default = 0)
     open_id = models.CharField(u'公众号关注者编号', max_length=30)
     inviter = models.ForeignKey('self', related_name = 'invitees', 
                                 blank=True, null=True, on_delete=models.SET_NULL)

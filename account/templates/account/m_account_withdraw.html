@@ -67,7 +67,7 @@
 			</form>
 		    <p>
 		    	<span>可提现福币（个）：<number>{{user.balance}}</number></span>
-				<span>最低提现福币<number>1000</number>个</span>
+				<span>提现福币限<number>1000</number>的整数倍</span>
 			</p>
 			<button id="Btn" type="button" class="mui-btn mui-btn-blue mui-btn-block">确认提现</button>
 		</div>
@@ -87,8 +87,8 @@
 					mui.alert('提现数量必须为整数！');
 					return;
 				}
-				if (amount<1000){
-					mui.alert('最低提现福币数量为1000！');
+				if (amount%1000 != 0) {
+					mui.alert('提现福币数量必须为1000的整数倍！');
 					return;
 				}
 				var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
