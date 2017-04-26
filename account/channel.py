@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.db import transaction
 from account.models import DBlock
+from django.views.decorators.csrf import csrf_exempt
 logger = logging.getLogger('wafuli')
 
 @login_required

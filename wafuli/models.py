@@ -46,6 +46,7 @@ class Base(models.Model):
 class News(Base):
     state = models.CharField(u"项目状态", max_length=1, choices=STATE)
     is_futou = models.BooleanField(u'是否允许复投（重复提交同一手机号）', default= False)
+    is_vip_bonus = models.BooleanField(u'适用VIP奖励', default=True)
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', verbose_name=u"标志图片上传（最大不超过30k，越小越好）")
     isonMobile = models.BooleanField(u'是否只限移动端（pc端显示二维码）？', default= False)
     exp_url_pc = models.CharField(u"活动地址pc", blank=True, max_length=200)
@@ -326,8 +327,8 @@ class TransList(models.Model):
     reason = models.CharField(max_length=20, verbose_name=u"变动原因")
     remark = models.CharField(u"备注", max_length=100, blank=True)
     transType = models.CharField(max_length=2, choices=TRANS_TYPE, verbose_name=u"变动类型")
-    user_event = models.ForeignKey(UserEvent, related_name="translist", null=True)
-    admin_event = models.ForeignKey(AdminEvent, related_name="translist", null=True)
+    user_event = models.ForeignKey(UserEvent, related_name="translist", null=True,on_delete=models.SET_NULL)
+    admin_event = models.ForeignKey(AdminEvent, related_name="translist", null=True,on_delete=models.SET_NULL)
     def __unicode__(self):
         return u"%s:%s了%s现金 提交时间%s" % (self.user, self.get_transType_display(),self.transAmount,
                                        self.user_event.time if self.user_event else "")
@@ -342,8 +343,8 @@ class ScoreTranlist(models.Model):
     reason = models.CharField(max_length=20, verbose_name=u"变动原因")
     remark = models.CharField(u"备注", max_length=100,blank=True)
     transType = models.CharField(max_length=1, choices=TRANS_TYPE, verbose_name=u"变动类型")
-    user_event = models.ForeignKey(UserEvent, related_name="score_translist", null=True)
-    admin_event = models.ForeignKey(AdminEvent, related_name="score_translist", null=True)
+    user_event = models.ForeignKey(UserEvent, related_name="score_translist", null=True,on_delete=models.SET_NULL)
+    admin_event = models.ForeignKey(AdminEvent, related_name="score_translist", null=True,on_delete=models.SET_NULL)
     def __unicode__(self):
         return u"%s:%s了%s积分 提交时间%s" % (self.user, self.get_transType_display(),self.transAmount, self.time)
     class Meta:

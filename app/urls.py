@@ -48,4 +48,7 @@ urlpatterns = [
     url(r'^activity/recom_rank/$', 'app.views.recom_rank'),
     
     url(r'^checkupdate/$', 'app.views.checkupdate'),
+    
+    url(r'^get_channel_project', 'app.views.get_channel_project',),
+    url(r'^channel/$', 'app.views.account_channel'),
 ]
