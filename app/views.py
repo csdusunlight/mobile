@@ -33,9 +33,10 @@ def get_news(request):
         return JsonResponse('',safe=False)
     lastDate = None
     try:
-        lastDate = datetime.fromtimestamp(float(timestamp)/1000)
+        lastDate = datetime.utcfromtimestamp(float(timestamp)/1000)
     except:
         lastDate = datetime.now()
+    logger.debug("lastdate"+str(lastDate))
     last_wel_list = Welfare.objects.filter(is_display=True,state='1',startTime__lt=lastDate).\
         exclude(type='baoyou').order_by("-startTime")[0:10]
     ret_list = []
@@ -48,7 +49,7 @@ def get_news(request):
             'mark1': marks[0].name if markc > 0 else '',
             'mark2': marks[1].name if markc > 1 else '',
             'mark3': marks[2].name if markc > 2 else '',
-            'pubDate': wel.startTime.strftime('%m-%d-%Y %H:%M:%S'),
+            'pubDate': wel.startTime.strftime('%Y-%m-%dT%H:%M:%S'),
             'image': host + wel.pic.url,
             'time': wel.time_limit,
             'source': wel.provider,
