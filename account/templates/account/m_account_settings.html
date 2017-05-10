@@ -30,6 +30,37 @@
     <script type="text/javascript" charset="utf-8">
       	mui.init();
       	mui.ready(function(){
+            var Vip_logo = mui(".vip-logo")[0],
+                Vip_num = mui(".vip-num")[0];
+            var fubi_num = 9000; //提现金额
+            var percent = 0;
+            var num;
+            if (fubi_num >= 100000 ) {
+                num = 5;
+                Vip_logo.setAttribute("src","images/vip5.png");
+                Vip_num.innerText = "VIP5";
+            } else if(fubi_num >= 50000  && fubi_num< 100000) {
+                num = 4;
+                Vip_logo.setAttribute("src","images/vip4.png");
+                Vip_num.innerText = "VIP4";
+            } else if(fubi_num >= 10000  && fubi_num< 50000) {
+                num = 3;
+                Vip_logo.setAttribute("src","images/vip3.png");
+                Vip_num.innerText = "VIP3";
+            } else if(fubi_num >= 1000  && fubi_num< 10000) {
+                num = 2;
+                Vip_logo.setAttribute("src","images/vip2.png");
+                Vip_num.innerText = "VIP2";
+            } else if(fubi_num >= 100  && fubi_num< 1000) {
+                num = 1;
+                Vip_logo.setAttribute("src","images/vip1.png");
+                Vip_num.innerText = "VIP1";
+            } else {
+                num = 0;
+                Vip_logo.style.display = "none";
+                Vip_num.innerText = "VIP0";
+            }
+
       		document.getElementById('logout').addEventListener('tap',function(){
           		var btnArray = ['确定退出', '取消'];
     			mui.confirm('此操作将清除当前用户登录信息。', '退出当前账号', btnArray, function(e) {
@@ -53,9 +84,20 @@
 		</header>
 		<div class="mui-content">
 			<div class="top">
-				<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
+				<!-- <img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" /> -->
+                <div  id="user_logo" class="user-logo">
+                  <img id="userimg" src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
+                  <img id="Vip_logo" class="vip-logo" src="/static/images/vip1.png" />
+                </div>
 				<a><number>{{user.mobile}}</number></a>
 			</div>
+
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right" href="#">会员等级<span class="vip-num">VIP1</span>
+                    </a>
+                </li>
+            </ul>
 			<ul class="mui-table-view">
 		        <li class="mui-table-view-cell">
 		            <a>手机绑定 <number>（{{user.mobile}}）</number></a>
