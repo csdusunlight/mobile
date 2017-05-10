@@ -1,0 +1,140 @@
+.vip-head-container {
+	position: relative;
+	width: 100%;
+	/*height: 8rem;*/
+	/*padding: 50px 0;*/
+	padding: 3rem 0 1rem;
+	background: url(../images/bg-user.png) center center/100% auto no-repeat;
+	box-shadow: 0 1px 3px #e4e4e4;
+}
+.vip-head-container>p {
+	text-align: center;
+	color: #fff;
+}
+.vip-head {
+	position: relative;
+	width: 30rem;
+	width: 28rem;
+	height: 5rem;
+	margin: 0 auto;
+}
+.vip-head-container:before {
+	position: absolute;
+	top: 5rem;
+	content: "";
+	width: 100%;
+	height: 1px;
+	background-color: #fff;
+}
+
+.vip-head li {
+	position: absolute;
+	width: 3rem;
+	height: 3rem;
+	line-height: 3rem;
+	float: left;
+	font-size: 1rem;
+	font-size: 0.8rem;
+	color: #fff;
+	line-height: 4.6rem;
+	text-align: center;
+	background: url(../images/vip-next-icon.png) center center/100% auto no-repeat;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.vip-head li.achieve {
+	background: url(../images/vip-pre-icon.png) center center/100% auto no-repeat;
+}
+.vip-head li:nth-child(1) {
+	left: 0;
+}
+
+.vip-head li:nth-child(2) {
+	left: 6.25rem;
+}
+
+.vip-head li:nth-child(3) {
+	left: 12.5rem;
+}
+
+.vip-head li:nth-child(4) {
+	left: 18.75rem;
+}
+
+.vip-head li:nth-child(5) {
+	left: 25rem;
+}
+
+.user-logo {
+	position: absolute;
+	top: -1rem;
+	/*left: -1rem;*/
+	width: 5rem;
+	/*border: 1px solid #fff;*/
+	border-radius: 50%;
+	-webkit-transition: left 0.4s ease;
+	transition: left 0.4s ease;
+}
+.user-logo img {
+	width: 100%;
+}
+.user-logo .vip-logo {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 14px;
+}
+/*头部结束*/
+
+.vip-content-box {
+	margin-top: 10px;
+	padding: 10px 0;
+	background: #fff;
+}
+.vip-title {
+	padding: 0 8px;
+}
+.vip-title h2 {
+	padding-left: 5px;
+	font-size: 16px;
+	line-height: 24px;
+	border-left: 4px solid #f08519;
+	color: #777;
+}
+.vip-content {
+	font-size: 0;
+}
+.reward-box {
+	display: inline-block;
+	width: 33.33%;
+}
+.reward-box>span {
+	box-sizing: border-box;
+	display: block;
+	margin: 2rem auto 1rem;
+	width: 8rem;
+	height: 8rem;
+	text-align: center;
+	font-size: 3rem;
+	color: #F08519;
+	font-weight: bold;	
+	font-family: helvetica;
+	border: 5px solid #F08519;
+	border-radius: 50%;
+	line-height: 7.8rem;
+}
+.reward-box:first-child>span {
+	font-size: 7rem;
+	font-weight: normal;
+}
+.reward-box p {
+	text-align: center;
+	line-height: 2rem;
+}
+.vip-intro-content {
+	padding-top: 10px;
+}
+.vip-intro-content p {
+	padding-left: 8px;
+	font-size: 12px;
+}

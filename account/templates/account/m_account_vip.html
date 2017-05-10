@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>会员中心</title>
+    <script src="{% static 'js/mui.min.js' %}"></script>
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_account_vip.css' %}"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">会员中心</h1>
+		</header>
+		<div class="mui-content">
+			<div class="top">
+				<div  id="user_logo" class="user-logo">
+					<img src="{% static 'images/user-03.png' %}" />
+					<img id="Vip_logo" class="vip-logo" src="{% static 'images/vip1.png' %}" />
+				</div>
+				<a><number>123456789</number></a>
+				<p class="top-tips">
+					<a>累计提现：<span id="vip_get">1000</span>福币</a>
+					<a>升级奖励：<span id="vip_reward">1000</span>福币</a>
+				</p>
+			</div>
+			<div class="vip-content-box">
+				<div class="nr-title vip-title clearfix">
+					<h2>我的等级</h2>
+					<a class="vip-rank-news">再提现<span id="fubi_need" class="fubi-need">90000</span>福币达到<span class="vip-rank-next">vip2</span></a>
+				</div>
+				<div class="process-content vip-content clearfix">
+					<p class="clearfix"><span class="vip-rank-now fl"></span><span class="vip-rank-next fr"></span></p>
+					<div id="vip_rank" class="vip-process-rank">
+						<span id="progress" class="progress"></span>
+						<span class="fubi-num">500</span>
+					</div>
+					<p class="clearfix"><span id="vip_left2" class="fl"></span><span id="vip_right2" class="fr"></span></p>
+				</div>
+			</div>
+			<div class="my-right vip-content-box">
+				<div class="mr-title vip-title clearfix">
+					<h2>我的特权</h2>
+					<a href="#">如何提升会员等级></a>
+				</div>
+				<div class="mr-content vip-content clearfix">
+					<div class="vip-right vip-task">
+						<h4>体验福利</h4>
+						<p class="reward">任务奖励+<span class="task-reward">10%</span></p>
+						<p class="explain">部分项目不参与会员奖励</p>
+						<span class="vip-rank-now vip-rank">VIP1</span>
+					</div>
+					<div class="vip-right vip-finance">
+						<h4>理财福利</h4>
+						<p class="reward">任务奖励+<span class="finance-reward">10%</span></p>
+						<p class="explain">部分项目不参与会员奖励</p>
+						<span class="vip-rank-now vip-rank">VIP1</span>
+					</div>
+				</div>
+			</div>
+			<div class="next-right vip-content-box">
+				<div class="nr-title vip-title clearfix">
+					<h2>下一级特权</h2>
+					<a href="#">查看更多会员特权></a>
+				</div>
+				<div class="mr-content vip-content clearfix">
+					<div class="vip-right vip-next-task">
+						<h4>体验福利</h4>
+						<p class="reward">任务奖励+<span  class="task-reward">10%</span></p>
+						<p class="explain">部分项目不参与会员奖励</p>
+						<span class="vip-rank-next vip-rank">VIP1</span>
+					</div>
+					<div class="vip-right vip-next-finance">
+						<h4>理财福利</h4>
+						<p class="reward">任务奖励+<span  class="finance-reward">10%</span></p>
+						<p class="explain">部分项目不参与会员奖励</p>
+						<span class="vip-rank-next vip-rank">VIP1</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+			window.onload=function() {
+				var progress = document.getElementById("progress"),
+					Vip_logo = mui(".vip-logo")[0],
+					fubi_need = document.getElementById("fubi_need"),
+
+					vip_rank_now = mui(".vip-rank-now"),
+					vip_rank_next = mui(".vip-rank-next"),
+
+					task_reward_now = mui(".my-right .task-reward")[0],
+					finance_reward_now = mui(".my-right .finance-reward")[0],
+					task_reward_next = mui(".next-right .task-reward")[0],
+					finance_reward_next = mui(".next-right .finance-reward")[0],
+					vip_reward = mui("#vip_reward")[0];
+				var fubi_num = 9000;	//提现金额
+				var percent = 0;
+				var num;
+				if (fubi_num >= 100000 ) {
+					num = 5;
+					Vip_logo.setAttribute("src","{% static 'images/vip5.png' %}");
+				} else if(fubi_num >= 50000  && fubi_num< 100000) {
+					num = 4;
+					Vip_logo.setAttribute("src","{% static 'images/vip4.png' %}");
+				} else if(fubi_num >= 10000  && fubi_num< 50000) {
+					num = 3;
+					Vip_logo.setAttribute("src","{% static 'images/vip3.png' %}");
+				} else if(fubi_num >= 1000  && fubi_num< 10000) {
+					num = 2;
+					Vip_logo.setAttribute("src","{% static 'images/vip2.png' %}");
+				} else if(fubi_num >= 100  && fubi_num< 1000) {
+					num = 1;
+					Vip_logo.setAttribute("src","{% static 'images/vip1.png' %}");
+				} else {
+					num = 0;
+					Vip_logo.style.display = "none";
+				}
+
+				vip_left2.innerText = fubi_num*100;
+				mui("#vip_get")[0].innerText = fubi_num*100;
+
+				switch(num)
+				{
+				case 0:
+					percent = parseInt(fubi_num/1);
+					progress.style.width = percent + "%";
+					vip_right2.innerText = "10000";
+					vip_reward.innerText = 500;
+					fubi_need.innerText = 10000-fubi_num*100;
+
+					mui(".my-right")[0].style.display = "none";
+
+					vip_rank_now.each(function(){
+						this.innerText = "VIP0";
+					})
+					vip_rank_next.each(function(){
+						this.innerText = "VIP1";
+					})
+
+					task_reward_next.innerText = "10%";
+					finance_reward_next.innerText = "1%";
+					break;
+				case 1:
+					percent = parseInt((fubi_num - 100)/9);
+					progress.style.width = percent + "%";
+					vip_right2.innerText = "100000";
+					vip_reward.innerText = 3000;
+					fubi_need.innerText = 100000-fubi_num*100;
+
+					vip_rank_now.each(function(){
+						this.innerText = "VIP1";
+					})
+					vip_rank_next.each(function(){
+						this.innerText = "VIP2";
+					})
+
+					task_reward_now.innerText = "10%";
+					finance_reward_now.innerText = "1%";
+					task_reward_next.innerText = "15%";
+					finance_reward_next.innerText = "2%";
+					break;
+				case 2:
+					percent = parseInt((fubi_num - 1000)/90);
+					progress.style.width = percent + "%";
+					vip_right2.innerText = "1000000";
+					vip_reward.innerText = 20000;
+					fubi_need.innerText = 1000000-fubi_num*100;
+
+					vip_rank_now.each(function(){
+						this.innerText = "VIP2";
+					})
+					vip_rank_next.each(function(){
+						this.innerText = "VIP3";
+					})
+
+					task_reward_now.innerText = "15%";
+					finance_reward_now.innerText = "2%";
+					task_reward_next.innerText = "16%";
+					finance_reward_next.innerText = "3%";
+					break;
+				case 3:
+					percent = parseInt((fubi_num - 10000)/400);
+					progress.style.width = percent + "%";
+					vip_right2.innerText = "5000000";
+					vip_reward.innerText = 80000;
+					fubi_need.innerText = 5000000-fubi_num*100;
+
+					vip_rank_now.each(function(){
+						this.innerText = "VIP3";
+					})
+					vip_rank_next.each(function(){
+						this.innerText = "VIP4";
+					})
+
+					task_reward_now.innerText = "16%";
+					finance_reward_now.innerText = "3%";
+					task_reward_next.innerText = "18%";
+					finance_reward_next.innerText = "4%";
+					break;
+				case 4:
+					percent = parseInt((fubi_num - 50000)/500);
+					progress.style.width = percent + "%";
+					vip_right2.innerText = "10000000";
+					vip_reward.innerText = 120000;
+					fubi_need.innerText = 10000000-fubi_num*100;
+
+					vip_rank_now.each(function(){
+						this.innerText = "VIP4";
+					})
+					vip_rank_next.each(function(){
+						this.innerText = "VIP5";
+					})
+
+					task_reward_now.innerText = "18%";
+					finance_reward_now.innerText = "4%";
+					task_reward_next.innerText = "20%";
+					finance_reward_next.innerText = "5%";
+					break;
+				case 5:
+					percent = parseInt(fubi_num/5000);
+					progress.style.width = "100%";
+					vip_right2.innerText = "10000000";
+					vip_reward.innerText = 0;
+
+					vip_rank_now.each(function(){
+						this.innerText = "VIP5";
+					})
+					vip_rank_next.each(function(){
+						this.innerText = "VIP5";
+					})
+					mui(".vip-rank-news")[0].innerHTML = "已达到最高VIP等级";
+					mui(".next-right")[0].style.display = "none";
+
+					task_reward_now.innerText.innerText = "20%";
+					finance_reward_now.innerText = "5%";
+					break;
+				}
+			}
+		</script>
+	</body>
+
+</html>

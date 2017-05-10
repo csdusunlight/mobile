@@ -1,0 +1,166 @@
+{% load staticfiles %}
+{% load myfilter %}
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>会员制度说明</title>
+		<script src="{% static 'js/mui.min.js' %}"></script>
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/m_vip_intro.css' %}"/>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">会员制度说明</h1>
+		</header>
+
+		<div class="mui-content">
+			<div class="vip-head-container">
+				<ul id="vip_head" class="vip-head clearfix">
+					<li class="vip1 vip">VIP1</li>
+					<li class="vip2 vip">VIP2</li>
+					<li class="vip3 vip">VIP3</li>
+					<li class="vip4 vip">VIP4</li>
+					<li class="vip5 vip">VIP5</li>
+					<div  id="user_logo" class="user-logo">
+						<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" />
+						<img id="Vip_logo" class="vip-logo" src="{% static 'images/vip1.png' %}" />
+					</div>
+				</ul>
+				<p>累计提现：<span class="fubi-get">{{user.with_total}}</span>福币</p>
+			</div>
+			<div class="vip-reward vip-content-box">
+				<div class="nr-title vip-title clearfix">
+					<h2>会员奖励</h2>
+				</div>
+				<div class="vip-content clearfix">
+					<div class="reward-box">
+						<span>f</span>
+						<p>升级奖励<br /><span class="up-reward">500</span>福币</p>
+					</div>
+					<div class="reward-box">
+						<span class="task-reward">10%</span>
+						<p>体验福利任务<br />增加<span class="task-reward"></span>奖励</p>
+					</div>
+					<div class="reward-box">
+						<span class="finance-reward">1%</span>
+						<p>理财福利任务<br />增加<span class="finance-reward"></span>奖励</p>
+					</div>
+				</div>
+			</div>
+			<div class="vip-intro vip-content-box">
+				<div class="nr-title vip-title clearfix">
+					<h2>会员奖励制度说明</h2>
+				</div>
+				<div class="vip-content vip-intro-content clearfix">
+					<p>1、挖福利会员包括五个等级，分别为：VIP1、VIP2、VIP3、VIP4、VIP5；</p>
+					<p>2、升级奖励为一次性奖励，在升级的瞬间发放。</p>
+					<p>3、提现奖励中的提现金额从会员制度上线之日起开始计算，在会员制度之前的提现数额不计入该体系中。</p>
+					<p>4、部分理财项目不参与到该会员制度中，会在理财板块标记出，同时也会在投资流程中详细说明。</p>
+					<p>5、体验福利奖励为体验福利任务奖励多增加相应的百分比。<br />
+					例：项目a任务奖励500福币，则VIP5得到任务返现为：500+500*20%=600理财福利返现为理财项目挖福利返现额多增加相应的百分比。<br />
+					例：项目b挖福利返现60000福币，则VIP5得到总返现为：60000+60000*5%=63000。</p>
+				</div>
+			</div>
+		</div>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+
+			var vip_tabs = document.getElementById("vip_head").getElementsByTagName("li"),
+				user_logo = document.getElementById("user_logo");
+			var up_reward = mui(".up-reward")[0],
+				task_reward = mui(".task-reward")[0],
+				task_reward2 = mui(".task-reward")[1],
+				finance_reward = mui(".finance-reward")[0],
+				finance_reward2 = mui(".finance-reward")[1],
+				Vip_logo = mui(".vip-logo")[0];
+			for(var i = 0; i < vip_tabs.length; i++) {
+				vip_tabs[i].onclick = function() {
+					change(this);
+				}
+			}
+
+			function change(obj) {
+				for(var i = 0; i < vip_tabs.length; i++) {
+					if(vip_tabs[i] == obj) {
+						user_logo.style.left = 6.25*i-1 + "rem";
+
+						switch(i) {
+							case 0:
+								up_reward.innerText = "500";
+								task_reward.innerText = task_reward2.innerText = "10%";
+								finance_reward.innerText = finance_reward2.innerText = "1%";
+								break;
+							case 1:
+								up_reward.innerText = "3000";
+								task_reward.innerText = task_reward2.innerText = "15%";
+								finance_reward.innerText = finance_reward2.innerText = "2%";
+								break;
+							case 2:
+								up_reward.innerText = "20000";
+								task_reward.innerText = task_reward2.innerText = "16%";
+								finance_reward.innerText = finance_reward2.innerText = "3%";
+								break;
+							case 3:
+								up_reward.innerText = "80000";
+								task_reward.innerText = task_reward2.innerText = "18%";
+								finance_reward.innerText = finance_reward2.innerText = "4%";
+								break;
+							case 4:
+								up_reward.innerText = "120000";
+								task_reward.innerText = task_reward2.innerText = "20%";
+								finance_reward.innerText = finance_reward2.innerText = "5%";
+								break;
+						}
+					}
+
+				}
+			}
+
+			window.onload=function() {
+				var fubi_num = 9000;	//提现金额
+				var percent = 0;
+				var num;
+				if (fubi_num >= 100000 ) {
+					num = 5;
+					Vip_logo.setAttribute("src","{% static 'images/vip5.png' %}");
+				} else if(fubi_num >= 50000  && fubi_num< 100000) {
+					num = 4;
+					Vip_logo.setAttribute("src","{% static 'images/vip4.png' %}");
+				} else if(fubi_num >= 10000  && fubi_num< 50000) {
+					num = 3;
+					Vip_logo.setAttribute("src","{% static 'images/vip3.png' %}");
+				} else if(fubi_num >= 1000  && fubi_num< 10000) {
+					num = 2;
+					Vip_logo.setAttribute("src","{% static 'images/vip2.png' %}");
+				} else if(fubi_num >= 100  && fubi_num< 1000) {
+					num = 1;
+					Vip_logo.setAttribute("src","{% static 'images/vip1.png' %}");
+				} else {
+					num = 0;
+					Vip_logo.style.display = "none";
+				}
+				num = num-1;
+				if (vip_tabs[num]) {
+				vip_tabs[num].onclick();
+				}
+				mui(".fubi-get")[0].innerText = fubi_num*100;
+//				user_logo.style.left = 6.25*(num-1)-1 + "rem";
+				for (var i=0; i<=num; i++) {
+					vip_tabs[i].setAttribute("class", "achieve");
+				}
+
+			}
+		</script>
+
+	</body>
+
+</html>
