@@ -839,7 +839,7 @@ def useCoupon(request):
         code = '2'
         msg = u'该优惠券已兑换，请查看兑换记录！'
     else:
-        events = UserEvent.objects.filter(invest_account=telnum, event_type='4',)
+        events = UserEvent.objects.filter(invest_account=telnum, event_type='4',).exclude(audit_state='2')
         if events.exists():
             pro_list = []
             project = coupon.project
