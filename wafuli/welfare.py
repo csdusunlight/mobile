@@ -135,7 +135,16 @@ def exp_welfare_openwindow(request):
         
         '''
     else:
-        js = "<script>window.location.href='"+url+"';</script>"
+        js =''' 
+        <script src="/static/js/mui.min.js"></script>
+        <script>
+        mui.init();
+        mui.ready(function(){
+                window.location.href="weixin://";
+            });
+        </script>
+        
+        '''
     return HttpResponse(js)
 
 def exp_welfare_youhuiquan(request):

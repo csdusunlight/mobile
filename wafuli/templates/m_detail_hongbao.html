@@ -110,7 +110,7 @@
 			var url_openwindow = "{% url 'exp_welfare_openwindow' %}";
 			mui.ready(function(){
 				document.getElementById("exp_btn").addEventListener('tap', function() {
-					window.location.href="weixin://";
+					window.open(url_openwindow + "?id=" + id + "&type=" + type);
 				});
 			});
 		</script>
