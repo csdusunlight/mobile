@@ -140,9 +140,8 @@ def exp_welfare_openwindow(request):
         <script>
         mui.init();
         mui.ready(function(){
-                window.location.href="
         ''';
-        js += url + '";});</script>'
+        js += 'window.location.href="' + url + '";});</script>'
     return HttpResponse(js)
 
 def exp_welfare_youhuiquan(request):
