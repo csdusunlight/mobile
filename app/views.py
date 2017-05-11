@@ -209,6 +209,12 @@ def get_content_task(request):
                 ret_dict.update(accepted=0)
             else:
                 ret_dict.update(accepted=1)
+            if news.is_expired():
+                ret_dict.update(state=1)
+            elif news.is_forbidden:
+                ret_dict.update(state=2)
+            else:
+                ret_dict.update(state=0)
     return JsonResponse(ret_dict)
 
 @app_login_required
@@ -490,7 +496,7 @@ def login(request):
             salt = "wafuli20161116"
             expire = int(time.time()*1000) + 2*7*24*60*60*1000
             token = hashlib.md5(str(username) + str(password) + salt + str(expire)).hexdigest()
-            UserToken.objects.filter(user=user).delete()
+#             UserToken.objects.filter(user=user).delete()
             UserToken.objects.create(user=user,token=token,expire=expire)
             result.update(code=0, token=token, expire=expire)
             user.last_login_time = user.this_login_time

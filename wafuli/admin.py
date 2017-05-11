@@ -1,6 +1,7 @@
 #coding:utf-8
 from django.contrib import admin
-
+import locale
+locale.setlocale('LC_COLLATE', 'zh_CN.UTF8')
 # Register your models here.
 from .models import *
 from .tools import writeHtml,createUrl
@@ -79,6 +80,7 @@ class TransListAdmin(admin.ModelAdmin):
     search_fields = ['user__mobile',]
 class CouponAdmin(admin.ModelAdmin):
     list_display = ('project','user', 'exchange_code','is_used',)
+    search_fields = ['user__mobile',]
 class AdvertisementAdmin(admin.ModelAdmin):
     list_filter = ('location',)
 admin.site.register(Finance,FinanceAdmin)
