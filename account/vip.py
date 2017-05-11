@@ -6,6 +6,7 @@ Created on 2017年4月23日
 '''
 from account.transaction import charge_money
 from wafuli.models import Message
+from django.shortcuts import render
 VIP_BONUS = {
     0:{'finance':1, 'task':1, 'money':0,},
     1:{'finance':1.01, 'task':1.010, 'money':500,},
@@ -33,4 +34,9 @@ def vip_judge(user, with_amount):
                 msg_content = u'恭喜您的会员等级提升为VIP' + str(key) + u'！'
                 Message.objects.create(user=user, content=msg_content, title=u"会员升级")
     user.save()
-    
+  
+def vip(request):
+    return render(request, 'account/m_account_vip.html')
+
+def vip_intro(request):
+    return render(request, 'account/m_vip_intro.html') 
