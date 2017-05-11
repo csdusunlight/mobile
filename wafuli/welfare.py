@@ -140,11 +140,9 @@ def exp_welfare_openwindow(request):
         <script>
         mui.init();
         mui.ready(function(){
-                window.location.href="weixin://";
-            });
-        </script>
-        
-        '''
+                window.location.href="
+        ''';
+        js += url + '";});</script>'
     return HttpResponse(js)
 
 def exp_welfare_youhuiquan(request):
