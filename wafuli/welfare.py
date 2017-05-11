@@ -62,6 +62,7 @@ def welfare(request, id=None, type=None):
             wel = wel.baoyou
         ref_url = request.META.get('HTTP_REFERER',"")
         context = {'news':wel,'type':'Welfare',}
+        print ref_url
         if 'next=' in ref_url:
             context.update({'back':True})
         return render(request, template, context)
@@ -124,7 +125,7 @@ def exp_welfare_openwindow(request):
                 wel.state = '2'
             wel.left_num = F("left_num")-1
             wel.save(update_fields=["left_num","state"])
-    update_view_count(wel)
+#     update_view_count(wel)
     url = wel.exp_url_mobile
     if url=='':
         js = ''' 
@@ -135,13 +136,7 @@ def exp_welfare_openwindow(request):
         
         '''
     else:
-        js =''' 
-        <script src="/static/js/mui.min.js"></script>
-        <script>
-        mui.init();
-        mui.ready(function(){
-        ''';
-        js += 'window.location.href="' + url + '";});</script>'
+        js = "<script>window.location.href='"+url+"';</script>"
     return HttpResponse(js)
 
 def exp_welfare_youhuiquan(request):
