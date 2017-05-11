@@ -1,7 +1,5 @@
 #coding:utf-8
 from django.contrib import admin
-import locale
-locale.setlocale('LC_COLLATE', 'zh_CN.UTF8')
 # Register your models here.
 from .models import *
 from .tools import writeHtml,createUrl
