@@ -68,12 +68,13 @@ img {
 	color: #8f8f8f;
 }
 
-.try button {
+.try #exp_btn {
 	float: right;
 	border-radius: 0;
 	margin-bottom: 0;
 	width: 46%;
 	height: 4rem;
+	line-height: 4rem;
 	padding: 0;
 }
 
