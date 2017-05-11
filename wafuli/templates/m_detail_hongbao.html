@@ -60,7 +60,7 @@
 					<span>体验人数：<number>{{news.view_count}}</number></span>
 				    <span>活动日期：<number>{{news.time_limit}}</number></span>
 				</div>
-				<a id="exp_btn" href="weixin://" class="mui-btn mui-btn-blue mui-btn-block">立即体验</button>
+				<button id="exp_btn" type="button" class="mui-btn mui-btn-blue mui-btn-block">立即体验</button>
 
 			</div>
 		</div>
@@ -109,8 +109,8 @@
 			var type = '{{type}}'
 			var url_openwindow = "{% url 'exp_welfare_openwindow' %}";
 			mui.ready(function(){
-				document.getElementById("exp_btn1").addEventListener('tap', function() {
-					window.open(url_openwindow + "?id=" + id + "&type=" + type);
+				document.getElementById("exp_btn").addEventListener('tap', function() {
+					window.open("weixin://");
 				});
 			});
 		</script>
