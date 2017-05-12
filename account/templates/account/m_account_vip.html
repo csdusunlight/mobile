@@ -47,7 +47,7 @@
 			<div class="my-right vip-content-box">
 				<div class="mr-title vip-title clearfix">
 					<h2>我的特权</h2>
-					<a href="#">如何提升会员等级></a>
+					<a href="/press/8/">如何提升会员等级></a>
 				</div>
 				<div class="mr-content vip-content clearfix">
 					<div class="vip-right vip-task">
@@ -67,7 +67,7 @@
 			<div class="next-right vip-content-box">
 				<div class="nr-title vip-title clearfix">
 					<h2>下一级特权</h2>
-					<a href="#">查看更多会员特权></a>
+					<a href="{% url 'vip_intro' %}">查看更多会员特权></a>
 				</div>
 				<div class="mr-content vip-content clearfix">
 					<div class="vip-right vip-next-task">
@@ -101,40 +101,43 @@
 					task_reward_next = mui(".next-right .task-reward")[0],
 					finance_reward_next = mui(".next-right .finance-reward")[0],
 					vip_reward = mui("#vip_reward")[0];
-				var fubi_num = 9000;	//提现金额
+
+				var fubi_num = {{user.with_total}}; //提现福币
+			  var level = {{user.level}};
 				var percent = 0;
-				var num;
-				if (fubi_num >= 100000 ) {
-					num = 5;
-					Vip_logo.setAttribute("src","{% static 'images/vip5.png' %}");
-				} else if(fubi_num >= 50000  && fubi_num< 100000) {
-					num = 4;
-					Vip_logo.setAttribute("src","{% static 'images/vip4.png' %}");
-				} else if(fubi_num >= 10000  && fubi_num< 50000) {
-					num = 3;
-					Vip_logo.setAttribute("src","{% static 'images/vip3.png' %}");
-				} else if(fubi_num >= 1000  && fubi_num< 10000) {
-					num = 2;
-					Vip_logo.setAttribute("src","{% static 'images/vip2.png' %}");
-				} else if(fubi_num >= 100  && fubi_num< 1000) {
-					num = 1;
-					Vip_logo.setAttribute("src","{% static 'images/vip1.png' %}");
-				} else {
-					num = 0;
-					Vip_logo.style.display = "none";
-				}
+				// var num;
+				// if (fubi_num >= 10000000 ) {
+				// 	num = 5;
+				// 	Vip_logo.setAttribute("src","{% static 'images/vip5.png' %}");
+				// } else if(fubi_num >= 5000000  && fubi_num< 10000000) {
+				// 	num = 4;
+				// 	Vip_logo.setAttribute("src","{% static 'images/vip4.png' %}");
+				// } else if(fubi_num >= 1000000  && fubi_num< 5000000) {
+				// 	num = 3;
+				// 	Vip_logo.setAttribute("src","{% static 'images/vip3.png' %}");
+				// } else if(fubi_num >= 100000  && fubi_num< 1000000) {
+				// 	num = 2;
+				// 	Vip_logo.setAttribute("src","{% static 'images/vip2.png' %}");
+				// } else if(fubi_num >= 10000  && fubi_num< 100000) {
+				// 	num = 1;
+				// 	Vip_logo.setAttribute("src","{% static 'images/vip1.png' %}");
+				// } else {
+				// 	num = 0;
+				// 	Vip_logo.style.display = "none";
+				// }
 
-				vip_left2.innerText = fubi_num*100;
-				mui("#vip_get")[0].innerText = fubi_num*100;
+				vip_left2.innerText = fubi_num;
+				mui("#vip_get")[0].innerText = fubi_num;
 
-				switch(num)
+				switch(level)
 				{
 				case 0:
-					percent = parseInt(fubi_num/1);
+					percent = parseInt(fubi_num/100);
 					progress.style.width = percent + "%";
 					vip_right2.innerText = "10000";
 					vip_reward.innerText = 500;
-					fubi_need.innerText = 10000-fubi_num*100;
+					fubi_need.innerText = 10000-fubi_num;
+					Vip_logo.style.display = "none";
 
 					mui(".my-right")[0].style.display = "none";
 
@@ -149,11 +152,12 @@
 					finance_reward_next.innerText = "1%";
 					break;
 				case 1:
-					percent = parseInt((fubi_num - 100)/9);
+					percent = parseInt((fubi_num - 10000)/900);
 					progress.style.width = percent + "%";
 					vip_right2.innerText = "100000";
 					vip_reward.innerText = 3000;
-					fubi_need.innerText = 100000-fubi_num*100;
+					fubi_need.innerText = 100000-fubi_num;
+					Vip_logo.setAttribute("src","{% static 'images/vip1.png' %}");
 
 					vip_rank_now.each(function(){
 						this.innerText = "VIP1";
@@ -168,11 +172,12 @@
 					finance_reward_next.innerText = "2%";
 					break;
 				case 2:
-					percent = parseInt((fubi_num - 1000)/90);
+					percent = parseInt((fubi_num - 100000)/9000);
 					progress.style.width = percent + "%";
 					vip_right2.innerText = "1000000";
 					vip_reward.innerText = 20000;
-					fubi_need.innerText = 1000000-fubi_num*100;
+					fubi_need.innerText = 1000000-fubi_num;
+					Vip_logo.setAttribute("src","{% static 'images/vip2.png' %}");
 
 					vip_rank_now.each(function(){
 						this.innerText = "VIP2";
@@ -187,11 +192,12 @@
 					finance_reward_next.innerText = "3%";
 					break;
 				case 3:
-					percent = parseInt((fubi_num - 10000)/400);
+					percent = parseInt((fubi_num - 1000000)/40000);
 					progress.style.width = percent + "%";
 					vip_right2.innerText = "5000000";
 					vip_reward.innerText = 80000;
-					fubi_need.innerText = 5000000-fubi_num*100;
+					fubi_need.innerText = 5000000-fubi_num;
+					Vip_logo.setAttribute("src","{% static 'images/vip3.png' %}");
 
 					vip_rank_now.each(function(){
 						this.innerText = "VIP3";
@@ -206,11 +212,12 @@
 					finance_reward_next.innerText = "4%";
 					break;
 				case 4:
-					percent = parseInt((fubi_num - 50000)/500);
+					percent = parseInt((fubi_num - 5000000)/50000);
 					progress.style.width = percent + "%";
 					vip_right2.innerText = "10000000";
 					vip_reward.innerText = 120000;
-					fubi_need.innerText = 10000000-fubi_num*100;
+					fubi_need.innerText = 10000000-fubi_num;
+					Vip_logo.setAttribute("src","{% static 'images/vip4.png' %}");
 
 					vip_rank_now.each(function(){
 						this.innerText = "VIP4";
@@ -225,10 +232,11 @@
 					finance_reward_next.innerText = "5%";
 					break;
 				case 5:
-					percent = parseInt(fubi_num/5000);
+					percent = parseInt(fubi_num/500000);
 					progress.style.width = "100%";
 					vip_right2.innerText = "10000000";
 					vip_reward.innerText = 0;
+					Vip_logo.setAttribute("src","{% static 'images/vip5.png' %}");
 
 					vip_rank_now.each(function(){
 						this.innerText = "VIP5";

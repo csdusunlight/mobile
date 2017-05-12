@@ -137,7 +137,7 @@
         </li>
         {%endif%}
         <li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3">
-          <a class="icon-url" href="#">
+          <a class="icon-url" href="{% url 'account_vip' %}">
             <span class="vip-icon"></span>
             <p>会员中心</p>
           </a>
@@ -206,27 +206,45 @@
 
         window.onload=function() {
           var Vip_logo = mui(".vip-logo")[0];
-          var fubi_num = 9000;  //提现金额
-          var percent = 0;
-          var num;
-          if (fubi_num >= 100000 ) {
-            num = 5;
-            Vip_logo.setAttribute("src","/static/images/vip5.png");
-          } else if(fubi_num >= 50000  && fubi_num< 100000) {
-            num = 4;
-            Vip_logo.setAttribute("src","/static/images/vip4.png");
-          } else if(fubi_num >= 10000  && fubi_num< 50000) {
-            num = 3;
-            Vip_logo.setAttribute("src","/static/images/vip3.png");
-          } else if(fubi_num >= 1000  && fubi_num< 10000) {
-            num = 2;
-            Vip_logo.setAttribute("src","/static/images/vip2.png");
-          } else if(fubi_num >= 100  && fubi_num< 1000) {
-            num = 1;
-            Vip_logo.setAttribute("src","/static/images/vip1.png");
-          } else {
-            num = 0;
+          // if (fubi_num >= 100000 ) {
+          //   num = 5;
+          //   Vip_logo.setAttribute("src","/static/images/vip5.png");
+          // } else if(fubi_num >= 50000  && fubi_num< 100000) {
+          //   num = 4;
+          //   Vip_logo.setAttribute("src","/static/images/vip4.png");
+          // } else if(fubi_num >= 10000  && fubi_num< 50000) {
+          //   num = 3;
+          //   Vip_logo.setAttribute("src","/static/images/vip3.png");
+          // } else if(fubi_num >= 1000  && fubi_num< 10000) {
+          //   num = 2;
+          //   Vip_logo.setAttribute("src","/static/images/vip2.png");
+          // } else if(fubi_num >= 100  && fubi_num< 1000) {
+          //   num = 1;
+          //   Vip_logo.setAttribute("src","/static/images/vip1.png");
+          // } else {
+          //   num = 0;
+          //   Vip_logo.style.display = "none";
+          // }
+          switch(level)
+          {
+          case 0:
             Vip_logo.style.display = "none";
+            break;
+          case 1:
+            Vip_logo.setAttribute("src","{% static 'images/vip1.png' %}");
+            break;
+          case 2:
+            Vip_logo.setAttribute("src","{% static 'images/vip2.png' %}");
+            break;
+          case 3:
+            Vip_logo.setAttribute("src","{% static 'images/vip3.png' %}");
+            break;
+          case 4:
+            Vip_logo.setAttribute("src","{% static 'images/vip4.png' %}");
+            break;
+          case 5:
+            Vip_logo.setAttribute("src","{% static 'images/vip5.png' %}");
+            break;
           }
         }
     </script>
