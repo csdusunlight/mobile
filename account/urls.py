@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^user-guide/$', 'account.views.user_guide', name='user_guide'),
     url(r'^register/$', 'account.views.register', name='register'),
     url(r'^login/$', 'account.views.login', {'template_name': 'registration/m_login.html'}, name='login'),
-    url(r'^logout/$', auth_views.logout, {'template_name': 'registration/logged_out.html', 'next_page':'login'}, name='logout'),
+    url(r'^logout/$', auth_views.logout, {'template_name': 'registration/logged_out.html', 'next_page':'account_index'}, name='logout'),
     url(r'^signin/$', 'account.views.signin', name='signin'),
     url(r'^signin_record/$', 'account.views.signin_record', name='signin_record'),
     url(r'^password_change/$', 'account.views.password_change', name='password_change'),
@@ -57,6 +57,7 @@ urlpatterns = [
     url(r'^customService', TemplateView.as_view(template_name="account/m_custom_service.html"),name='account_custom_service'),
     url(r'^joinQQGroup', TemplateView.as_view(template_name="account/m_join_QQGroup.html"),name='account_join_QQGroup'),
     
+    url(r'^channel', 'account.channel.account_channel',name='account_channel'),
     url(r'^vip', 'account.vip.vip',name='account_vip'),
     url(r'^vip_intro', 'account.vip.vip_intro',name='vip_intro'),
 ]

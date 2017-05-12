@@ -61,7 +61,7 @@
 				    <span>活动日期：<number>{{news.time_limit}}</number></span>
 				</div>
 				<button id="exp_btn" type="button" class="mui-btn mui-btn-blue mui-btn-block">立即体验</button>
-
+				<a id="exp_href" href="{{news.exp_url_mobile}}" style="display:none"></a>
 			</div>
 		</div>
 
@@ -110,9 +110,21 @@
 			var url_openwindow = "{% url 'exp_welfare_openwindow' %}";
 			mui.ready(function(){
 				document.getElementById("exp_btn").addEventListener('tap', function() {
-					window.open(url_openwindow + "?id=" + id + "&type=" + type);
+//					window.open(url_openwindow + "?id=" + id + "&type=" + type);
+					if(is_login){
+						document.getElementById("exp_href").click();
+					}
+					else{
+						var this_url = window.location.pathname;
+						window.location.href = "/account/login/?next=" + this_url;
+					}
 				});
 			});
+			{% if user.is_authenticated %}
+				var is_login = true;
+			{% else %}
+				var is_login = false;
+			{% endif %}
 		</script>
 	{%if back %}
 		<script>

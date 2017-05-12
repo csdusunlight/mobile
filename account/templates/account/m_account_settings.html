@@ -32,34 +32,35 @@
       	mui.ready(function(){
             var Vip_logo = mui(".vip-logo")[0],
                 Vip_num = mui(".vip-num")[0];
-            var fubi_num = 9000; //提现金额
-            var percent = 0;
-            var num;
-            if (fubi_num >= 100000 ) {
-                num = 5;
-                Vip_logo.setAttribute("src","images/vip5.png");
-                Vip_num.innerText = "VIP5";
-            } else if(fubi_num >= 50000  && fubi_num< 100000) {
-                num = 4;
-                Vip_logo.setAttribute("src","images/vip4.png");
-                Vip_num.innerText = "VIP4";
-            } else if(fubi_num >= 10000  && fubi_num< 50000) {
-                num = 3;
-                Vip_logo.setAttribute("src","images/vip3.png");
-                Vip_num.innerText = "VIP3";
-            } else if(fubi_num >= 1000  && fubi_num< 10000) {
-                num = 2;
-                Vip_logo.setAttribute("src","images/vip2.png");
-                Vip_num.innerText = "VIP2";
-            } else if(fubi_num >= 100  && fubi_num< 1000) {
-                num = 1;
-                Vip_logo.setAttribute("src","images/vip1.png");
-                Vip_num.innerText = "VIP1";
-            } else {
-                num = 0;
+            var level = {{user.level}};
+
+              switch(level)
+              {
+              case 0:
                 Vip_logo.style.display = "none";
                 Vip_num.innerText = "VIP0";
-            }
+                break;
+              case 1:
+                Vip_logo.setAttribute("src","{% static 'images/vip1.png' %}");
+                Vip_num.innerText = "VIP1";
+                break;
+              case 2:
+                Vip_logo.setAttribute("src","{% static 'images/vip2.png' %}");
+                Vip_num.innerText = "VIP2";
+                break;
+              case 3:
+                Vip_logo.setAttribute("src","{% static 'images/vip3.png' %}");
+                Vip_num.innerText = "VIP3";
+                break;
+              case 4:
+                Vip_logo.setAttribute("src","{% static 'images/vip4.png' %}");
+                Vip_num.innerText = "VIP4";
+                break;
+              case 5:
+                Vip_logo.setAttribute("src","{% static 'images/vip5.png' %}");
+                Vip_num.innerText = "VIP5";
+                break;
+              }
 
       		document.getElementById('logout').addEventListener('tap',function(){
           		var btnArray = ['确定退出', '取消'];
