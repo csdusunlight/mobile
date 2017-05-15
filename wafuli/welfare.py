@@ -364,6 +364,7 @@ def baoyou_json(request):
             'desc':wel.desc,
             'id':wel.id,
             'exp_url':wel.exp_url_mobile,
+            'view_count':wel.view_count
         })
     return JsonResponse(data,safe=False)
 
