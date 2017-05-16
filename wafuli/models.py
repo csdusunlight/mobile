@@ -13,6 +13,7 @@ import datetime
 from django.core.urlresolvers import reverse
 class Company(models.Model):
     name = models.CharField(u"平台名称(必填)",max_length=100,unique=True)
+    pinyin = models.CharField(u"平台名称拼音（排序用）",max_length=100,default='')
     level = models.CharField(u"安全评级",max_length=100,blank=True)
     site = models.CharField(u"网站地址",max_length=100,blank=True)
     capital = models.CharField(u"注册资金",max_length=100,blank=True)
@@ -24,6 +25,7 @@ class Company(models.Model):
     logo = models.FileField(u"网站logo（210*100）", upload_to='logo/%Y/%m/%d',default='')
     view_count = models.IntegerField(u"热门度（点击总量，系统自动更新）", default=0)
     class Meta:
+        ordering = ['pinyin']
         verbose_name_plural = u"商家"
         verbose_name = u"商家"
     def __unicode__(self):
@@ -45,7 +47,7 @@ class Base(models.Model):
         return self.title
 class News(Base):
     state = models.CharField(u"项目状态", max_length=1, choices=STATE)
-    is_futou = models.BooleanField(u'是否允许复投（重复提交同一手机号）', default= False)
+#     is_futou = models.BooleanField(u'是否允许复投（重复提交同一手机号）', default= False)
     is_vip_bonus = models.BooleanField(u'适用VIP奖励', default=True)
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', verbose_name=u"标志图片上传（最大不超过30k，越小越好）")
     isonMobile = models.BooleanField(u'是否只限移动端（pc端显示二维码）？', default= False)

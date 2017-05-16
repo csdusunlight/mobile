@@ -283,17 +283,12 @@ def submit_task(request):
     except UserTask.DoesNotExist:
         result = {'code':3, 'msg':u"请先领取任务再提交！"}
         return JsonResponse(result)
-    is_futou = news.is_futou
-    info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + str(is_futou)
-    logger.info(info_str)
     code = None
     msg = ''
     userlog = None
-    if is_futou:
-        remark = u"复投：" + remark
     try:
         with transaction.atomic():
-            if not is_futou and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+            if news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
                 raise ValueError('This invest_account is repective in project:' + str(news.id))
             else:
                 userlog = UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum,
@@ -418,14 +413,9 @@ def submit_finance(request):
 #         result = {'code':code, 'msg':msg}
 #         return JsonResponse(result)
     news = Finance.objects.get(pk=news_id)
-    is_futou = news.is_futou
-    info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + str(is_futou)
-    logger.info(info_str)
-    if is_futou:
-        remark = u"复投：" + remark
     try:
         with transaction.atomic():
-            if not is_futou and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+            if news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
                 raise ValueError('This invest_account is repective in project:' + str(news.id))
             else:
                 UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term,
@@ -913,15 +903,10 @@ def account_channel(request):
             return JsonResponse(result)
         news = None
         news = Finance.objects.get(pk=news_id)
-        is_futou = news.is_futou
-        info_str = "news_id:" + news_id + "| invest_account:" + telnum + "| is_futou:" + str(is_futou)
-        logger.info(info_str)
-        if is_futou:
-            remark = u"复投：" + remark
         try:
             with transaction.atomic():
                 db_key = DBlock.objects.select_for_update().get(index='event_key')
-                if not is_futou and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+                if news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
                     raise ValueError('This invest_account is repective in project:' + str(news.id))
                 else:
                     UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term, time=time,
