@@ -18,7 +18,17 @@
         <a id="settings" class="diannao" href="{% url 'account_settings' %}"><i class="icon iconfont">&#xe631;</i></a>
         <div  id="user_logo" class="user-logo">
           <img id="userimg" src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
-          <img id="Vip_logo" class="vip-logo" src="/static/images/vip1.png" />
+          {% if user.level = 1 %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/vip1.png' %}" />
+          {% elif user.level = 2 %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/vip2.png' %}" />
+          {% elif user.level = 3 %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/vip3.png' %}" />
+          {% elif user.level = 4 %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/vip4.png' %}" />
+          {% elif user.level = 5 %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/vip5.png' %}" />
+          {% endif %}
         </div>
         <a>
           <number id="mobile">{{user.mobile}}</number>
@@ -204,30 +214,30 @@
       		});
         });
 
-        window.onload=function() {
-          var Vip_logo = mui(".vip-logo")[0];
-          switch(level)
-          {
-          case 0:
-            Vip_logo.style.display = "none";
-            break;
-          case 1:
-            Vip_logo.setAttribute("src","{% static 'images/vip1.png' %}");
-            break;
-          case 2:
-            Vip_logo.setAttribute("src","{% static 'images/vip2.png' %}");
-            break;
-          case 3:
-            Vip_logo.setAttribute("src","{% static 'images/vip3.png' %}");
-            break;
-          case 4:
-            Vip_logo.setAttribute("src","{% static 'images/vip4.png' %}");
-            break;
-          case 5:
-            Vip_logo.setAttribute("src","{% static 'images/vip5.png' %}");
-            break;
-          }
-        }
+        // window.onload=function() {
+        //   var Vip_logo = mui(".vip-logo")[0];
+        //   switch(level)
+        //   {
+        //   case 0:
+        //     Vip_logo.style.display = "none";
+        //     break;
+        //   case 1:
+        //     Vip_logo.setAttribute("src","{% static 'images/vip1.png' %}");
+        //     break;
+        //   case 2:
+        //     Vip_logo.setAttribute("src","{% static 'images/vip2.png' %}");
+        //     break;
+        //   case 3:
+        //     Vip_logo.setAttribute("src","{% static 'images/vip3.png' %}");
+        //     break;
+        //   case 4:
+        //     Vip_logo.setAttribute("src","{% static 'images/vip4.png' %}");
+        //     break;
+        //   case 5:
+        //     Vip_logo.setAttribute("src","{% static 'images/vip5.png' %}");
+        //     break;
+        //   }
+        // }
     </script>
     {%if back %}
 	<script>
