@@ -1,10 +1,3 @@
-body {
-	/*background: #fff;*/
-}
-.mui-content {
-	/*background: #fff;*/
-	/*padding-bottom: 2rem;*/
-}
 .mui-content .top {
 	padding: 2rem 0 0;
 	width: 100%;
@@ -74,7 +67,7 @@ body {
 	0%{
 		-webkit-transform: translateX(-100%);
 	}
-	
+
 	100%{
 		-webkit-transform: translateX(0);
 	}
@@ -86,7 +79,10 @@ body {
 	background: #fff;
 }
 .vip-title {
-	padding: 0 8px;
+	width: 96%;
+  padding-bottom: 8px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f7f7f7;
 }
 .vip-title h2 {
 	float: left;
@@ -111,9 +107,9 @@ body {
 	position: relative;
 	display: inline-block;
 	width: 46%;
-	width: 13rem;
+	/*width: 13rem;*/
 	padding-left: 10px;
-	margin: 0 0.4rem;
+	margin: 0 2%;
 	height: 11rem;
 }
 .vip-task {
@@ -148,4 +144,10 @@ body {
 	font-size: 1rem;
 	color: #777;
 	-webkit-transform: rotate(45deg);
+}
+.vip-task .vip-rank-now {
+	color: #64b8f8;
+}
+.vip-finance .vip-rank-now {
+	color: #ffc601;
 }
