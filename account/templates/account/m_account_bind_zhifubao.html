@@ -39,17 +39,17 @@
 					{% csrf_token %}
 					<div class="mui-input-row">
 						<label>支付宝姓名</label>
-						<input id="zhifubao_name" type="text" placeholder="请输入支付宝姓名">
+						<input id="zhifubao_name" type="text" placeholder="请输入支付宝绑定的真实姓名">
 					</div>
 					<div class="mui-input-row">
 						<label>支付宝帐号</label>
-						<input id="zhifubao" type="text" placeholder="请输入支付宝帐号">
+						<input id="zhifubao" type="text" placeholder="请输入真实的支付宝账户">
 					</div>
 
 
 
 				</form>
-
+        <p class="tishi">温馨提示：支付宝姓名和账号不正确者，将不予提现</p>
 				<button id="Btn" type="button" class="bottom mui-btn mui-btn-blue mui-btn-block">立即绑定</button>
 
 		</div>
@@ -63,6 +63,11 @@
 				document.getElementById("Btn").addEventListener('tap', function() {
 					var zhifubao = document.getElementById('zhifubao').value;
 					var zhifubao_name = document.getElementById('zhifubao_name').value;
+          var re_account=/^[\u2E80-\u9FFF]+$/;
+          if(!re_account.test(zhifubao_name)){
+            alert("请输入正确的支付宝绑定的真实姓名")
+            return;
+          }
 					if (!zhifubao || !zhifubao_name){
 						mui.alert("支付宝账号或姓名不能为空！");
 						return;
