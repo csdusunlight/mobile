@@ -32,11 +32,7 @@ body {
 	height: 26rem;
 	margin: 0 auto;
 	background-size: 100% auto;
-	/*-webkit-transform: rotate(180deg) !important;
-	-moz-transform: rotate(180deg) !important;
-	-ms-transform: rotate(180deg) !important;
-	-0-transform: rotate(180deg) !important;
-	transform: rotate(180deg) !important;*/
+	overflow: hidden;
 }
 .dial .rotate img {
 	width: 26rem;
