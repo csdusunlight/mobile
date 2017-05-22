@@ -89,7 +89,7 @@
 				var zhifubao_name = document.getElementById('zhifubao_name').value;
 				var re_account=/^[\u2E80-\u9FFF]+$/;
           if(!re_account.test(zhifubao_name)){
-            alert("请输入正确的支付宝绑定的真实姓名")
+            mui.alert("请输入正确的支付宝绑定的真实姓名")
             return;
           }
 				if (!zhifubao || !zhifubao_name){
