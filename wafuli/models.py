@@ -31,7 +31,7 @@ class Company(models.Model):
     def __unicode__(self):
         return self.name
 class Base(models.Model):
-    title = models.CharField(max_length=200, verbose_name=u"标题") 
+    title = models.CharField(max_length=200, verbose_name=u"标题")
     news_priority = models.IntegerField(u"优先级",default=3)
     pub_date = models.DateTimeField(u"创建时间", default=timezone.now)
     view_count = models.IntegerField(u"浏览量", default=0)
@@ -75,9 +75,9 @@ class ZeroPrice(News):
     provider = models.CharField(u"商家", max_length=10)
     time_limit = models.CharField(u"活动时间", max_length=24)
     zero_type = models.CharField(max_length=1, choices=ZERO_TYPE, verbose_name=u"福利类型")
-    strategy=UEditorField(u"活动内容", width=900, height=600, toolbars="full", 
+    strategy=UEditorField(u"活动内容", width=900, height=600, toolbars="full",
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
-                         filePath="photos/%(year)s/%(month)s/%(day)s/", 
+                         filePath="photos/%(year)s/%(month)s/%(day)s/",
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
     class Meta:
         verbose_name = u"免费福利"
@@ -102,9 +102,9 @@ class Welfare(Base):
     seo_keywords = models.CharField(max_length=200, verbose_name=u"SEO关键词", blank=True)
     seo_description = models.CharField(max_length=200, verbose_name=u"SEO描述", blank=True)
     time_limit = models.CharField(u"活动时间", max_length=24)
-    strategy=UEditorField(u"活动内容", width=900, height=600, toolbars="full", 
+    strategy=UEditorField(u"活动内容", width=900, height=600, toolbars="full",
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
-                         filePath="photos/%(year)s/%(month)s/%(day)s/", 
+                         filePath="photos/%(year)s/%(month)s/%(day)s/",
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
 #     advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
     isonMobile = models.BooleanField(u'是否只限移动端（pc端显示二维码）？', default= False)
@@ -128,7 +128,7 @@ class Welfare(Base):
     def is_new(self):
         now = datetime.datetime.now()
         days = (now-self.startTime).days
-        return days == 0 
+        return days == 0
     def is_hot(self):
         return self.view_count > 1000
     def get_type(self):
@@ -149,6 +149,7 @@ class Baoyou(Welfare):
 class CouponProject(Welfare):
     ctype = models.CharField(max_length=1, choices=COUPON_TYPE, verbose_name=u"优惠券类型")
     amount =models.CharField(u'金额(xx元或x%)', max_length=10)
+    is_vip_bonus = models.BooleanField(u'适用VIP奖励', default=True)
     endtime = models.DateField(u"截止日期")
     introduction = models.TextField(u"使用说明",max_length=200)
     claim_limit = models.SmallIntegerField(u"限领次数", default=1)
@@ -191,13 +192,13 @@ class Task(News):
     scoreToAdd = models.IntegerField(u"奖励积分",default=0)
     provider = models.CharField(u"商家", max_length=10)
     time_limit = models.CharField(u"活动时间", max_length=24)
-    rules =UEditorField(u"奖励规则", width=900, height=300, toolbars="full", 
+    rules =UEditorField(u"奖励规则", width=900, height=300, toolbars="full",
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
-                         filePath="photos/%(year)s/%(month)s/%(day)s/", 
+                         filePath="photos/%(year)s/%(month)s/%(day)s/",
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
-    strategy =UEditorField(u"体验步骤", width=900, height=300, toolbars="full", 
+    strategy =UEditorField(u"体验步骤", width=900, height=300, toolbars="full",
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
-                         filePath="photos/%(year)s/%(month)s/%(day)s/", 
+                         filePath="photos/%(year)s/%(month)s/%(day)s/",
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
     user_event = GenericRelation("UserEvent",related_query_name='task')
     def get_type(self):
@@ -212,7 +213,7 @@ class Finance(News):
     level = models.CharField(u"项目级别", max_length=10, choices=FINANCE_LEVEL, default="normal")
     f_type = models.CharField(u"项目类别", max_length=1, choices=FINANCE_TYPE)
 #     filter = models.CharField(u"项目系列", max_length=2, choices=FILTER)
-    introduction = models.TextField(u"平台简介",max_length=50)
+    introduction = models.TextField(u"平台简介",max_length=200)     #jzy
     background = models.CharField(u"平台背景", max_length=20)
     regcap = models.CharField(u"注册资本", max_length=10)
     onlinedate = models.CharField(u"上线时间", max_length=12)
@@ -226,13 +227,13 @@ class Finance(News):
     amount_to_invest = models.IntegerField(u"起投额度")
     investTime = models.CharField(u"标期长度", max_length=100)
     interest = models.CharField(u"官网利息",max_length=8)
-    strategy =UEditorField(u"体验步骤", width=900, height=300, toolbars="full", 
+    strategy =UEditorField(u"体验步骤", width=900, height=300, toolbars="full",
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
-                         filePath="photos/%(year)s/%(month)s/%(day)s/", 
+                         filePath="photos/%(year)s/%(month)s/%(day)s/",
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
-    rules =UEditorField(u"注意事项", width=900, height=300, toolbars="full", 
+    rules =UEditorField(u"注意事项", width=900, height=300, toolbars="full",
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
-                         filePath="photos/%(year)s/%(month)s/%(day)s/", 
+                         filePath="photos/%(year)s/%(month)s/%(day)s/",
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
     user_event = GenericRelation("UserEvent",related_query_name='finance')
     def get_type(self):
@@ -251,13 +252,13 @@ class Commodity(models.Model):
     item = models.CharField(u"商品子类", max_length=8, choices=ITEM)
     url = models.CharField(u"本页面地址",max_length=200)
 #     advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
-    rules =UEditorField(u"奖品介绍", width=900, height=300, toolbars="full", 
+    rules =UEditorField(u"奖品介绍", width=900, height=300, toolbars="full",
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
-                         filePath="photos/%(year)s/%(month)s/%(day)s/", 
+                         filePath="photos/%(year)s/%(month)s/%(day)s/",
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
-    strategy =UEditorField(u"兑换流程", width=900, height=300, toolbars="full", 
+    strategy =UEditorField(u"兑换流程", width=900, height=300, toolbars="full",
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
-                         filePath="photos/%(year)s/%(month)s/%(day)s/", 
+                         filePath="photos/%(year)s/%(month)s/%(day)s/",
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
     def __unicode__(self):
         return self.name
@@ -309,7 +310,7 @@ class AdminEvent(models.Model):
                                        self.time)
     class Meta:
         ordering = ["-time",]
-        
+
 class AuditLog(models.Model):
     user = models.ForeignKey(MyUser, related_name="audited_logs")
     item = models.ForeignKey(UserEvent, related_name="audited_logs")
@@ -366,15 +367,15 @@ class ExchangeRecord(models.Model):
         return u"%s:收件人为 %s" % (self.tranlist.user, self.name)
     class Meta:
         ordering = ["-tranlist__time",]
-    
+
 class Press(Base):
     summary = models.TextField(verbose_name=u"摘要")
     type = models.CharField(u"新闻类型", max_length=1, choices=NEWS_TYPE)
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, null=True,
                              verbose_name=u"新闻图片上传(110*72)")
-    content=UEditorField(u"内容", width=900, height=300, toolbars="full", 
+    content=UEditorField(u"内容", width=900, height=300, toolbars="full",
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
-                         filePath="photos/%(year)s/%(month)s/%(day)s/", 
+                         filePath="photos/%(year)s/%(month)s/%(day)s/",
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
     #增加title、keywords、description等seo字段
     seo_title = models.CharField(max_length=200, verbose_name=u"SEO标题", blank=True)
@@ -460,7 +461,7 @@ class Activity(Base):
         ordering = ["-news_priority","-pub_date"]
         verbose_name = u"热门活动"
         verbose_name_plural = u"热门活动"
-        
+
 class LotteryRecord(models.Model):
     user = models.ForeignKey(MyUser, related_name="lottery_record")
     award = models.CharField(u"奖品", max_length=20)
@@ -469,16 +470,16 @@ class LotteryRecord(models.Model):
         ordering = ["-date"]
     def __unicode__(self):
         return u"%s中了%s" % (self.user, self.award)
-    
+
 class Information(Base):
     summary = models.TextField(verbose_name=u"摘要")
     type = models.CharField(u"资讯类型", max_length=10, choices=INFORMATION_TYPE)
     source = models.CharField(u"来源", max_length=10, default=u"挖福利")
     is_display = models.BooleanField(default=True, verbose_name=u"是否在列别页中显示")
     pic = models.ImageField(upload_to='photos/%Y/%m/%d', verbose_name=u"图片上传(260*160)")
-    content=UEditorField(u"内容", width=900, height=300, toolbars="full", 
+    content=UEditorField(u"内容", width=900, height=300, toolbars="full",
                          imagePath="photos/%(year)s/%(month)s/%(day)s/",
-                         filePath="photos/%(year)s/%(month)s/%(day)s/", 
+                         filePath="photos/%(year)s/%(month)s/%(day)s/",
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
     #增加title、keywords、description等seo字段
     seo_title = models.CharField(max_length=200, verbose_name=u"SEO标题", blank=True)
