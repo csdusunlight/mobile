@@ -59,7 +59,7 @@ def index(request):
 
 def finance(request, id=None):
     if id is None:
-        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','4'],is_hidden=False)[0:1])
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','4'],is_hidden=False)[1:2])
         first_adv = adv_list[0] if adv_list else None
         last_adv = adv_list[-1] if adv_list else None
 #         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
@@ -91,7 +91,7 @@ def finance(request, id=None):
 
 def add_finance(request, id=None):
     if id is None:
-        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','4'],is_hidden=False)[1:2])
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','4'],is_hidden=False)[0:1])
         first_adv = adv_list[0] if adv_list else None
         last_adv = adv_list[-1] if adv_list else None
 #         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
