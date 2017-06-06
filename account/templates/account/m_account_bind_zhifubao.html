@@ -31,7 +31,7 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">支付宝绑定</h1>
+			<h1 class="mui-title">银行卡绑定</h1>
 		</header>
 		<div class="mui-content">
 			<img src="{% static 'images/zhifubao.png' %}" alt="支付宝图片" />
@@ -39,13 +39,36 @@
 					{% csrf_token %}
 					<div class="mui-input-row">
 						<label>支付宝姓名</label>
-						<input id="zhifubao_name" type="text" placeholder="请输入支付宝绑定的真实姓名">
+						<select id='bank_choose'>
+              <option value ="0">请选择相应的开户行</option>
+              <option value ="中国工商银行">中国工商银行</option>
+              <option value ="中国农业银行">中国农业银行</option>
+              <option value="中国银行">中国银行</option>
+              <option value="中国建设银行">中国建设银行</option>
+              <option value="交通银行">交通银行</option>
+              <option value="中国邮政储蓄银行">中国邮政储蓄银行</option>
+              <option value="中信银行">中信银行</option>
+              <option value="中国光大银行">中国光大银行</option>
+              <option value="华夏银行">华夏银行</option>
+              <option value="中国民生银行">中国民生银行</option>
+              <option value="广发银行">广发银行</option>
+              <option value="平安银行">平安银行</option>
+              <option value="招商银行">招商银行</option>
+              <option value="兴业银行">兴业银行</option>
+            </select>
 					</div>
+          <div class="mui-input-row">
+            <label>请填写支行</label>
+            <input id="bank_sub" type="text" placeholder="请输入银行卡支行">
+          </div>
 					<div class="mui-input-row">
-						<label>支付宝帐号</label>
-						<input id="zhifubao" type="text" placeholder="请输入真实的支付宝账户">
+						<label>持卡人姓名</label>
+						<input id="card_username" type="text" placeholder="请输入银行卡绑定的真实姓名">
 					</div>
-
+          <div class="mui-input-row">
+            <label>请输入卡号：</label>
+            <input id="bank_card" type="text" placeholder="请输入真实的银行卡帐号">
+          </div>
 
 
 				</form>

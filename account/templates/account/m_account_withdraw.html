@@ -43,17 +43,17 @@
 					<div class="text">
 						<p><number>{{user.mobile}}</number><br />
 						{%if user.zhifubao %}
-							<span>支付宝帐号：<number>{{user.zhifubao}}</number>（{{user.zhifubao_name}}）
+							<span>银行卡号：<number>{{user.zhifubao}}</number>（{{user.zhifubao_name}}）
 						{%else%}
-							<span>支付宝帐号：未绑定
+							<span>银行卡号：未绑定
 						{%endif%}
 						</p>
 					</div>
 				</div>
 				{%if user.zhifubao %}
-					<a class="right" href="{% url 'change_zhifubao' %}">更换支付宝帐号></a>
+					<a class="right" href="{% url 'change_zhifubao' %}">更换银行卡></a>
 				{%else%}
-					<a class="right" href="{% url 'bind_zhifubao' %}">绑定支付宝帐号></a>
+					<a class="right" href="{% url 'bind_zhifubao' %}">绑定银行卡></a>
 				{%endif%}
 
 			</div>

@@ -22,13 +22,14 @@ urlpatterns = [
     url(r'^baoyou_json/$', 'wafuli.welfare.baoyou_json', name='baoyou_json'),
     url(r'^youhuiquan_json/$', 'wafuli.welfare.youhuiquan_json', name='youhuiquan_json'),
 #    url(r'^(?P<board>\S+)/$', 'wafuli.views.board', name='board'),
-    url(r'^finance/$', 'wafuli.views.finance', name='finance'),
+    url(r'^finance/$', 'wafuli.finance.finance', name='finance'),
+    url(r'^add_finance/$', 'wafuli.finance.add_finance', name='add_finance'),     #jzy
     url(r'^finance/(?P<id>[0-9]*)/$', 'wafuli.views.finance', name='finance_detail'),
     url(r'^task/$', 'wafuli.views.task', name='task'),
     url(r'^task/(?P<id>[0-9]*)/$', 'wafuli.views.task', name='task_detail'),
     url(r'^welfare/(?:(?P<id>[0-9]*)/)?$', 'wafuli.welfare.welfare', name='welfare'),
     url(r'^welfare/(?:(?P<type>hb|yhq|by)/)?$', 'wafuli.welfare.welfare', name='welfare_list'),
-     
+
 #     url(r'^mall/$', 'wafuli.views.mall', name='mall'),
     url(r'^commodity/(?P<id>[0-9]*)/$', 'wafuli.views.commodity', name='commodity_detail'),
     url(r'^press/(?P<id>[0-9]*)/$', 'wafuli.views.press', name='press_detail'),
@@ -50,32 +51,32 @@ urlpatterns = [
     url(r'^expsubmit/finance/$', 'wafuli.views.expsubmit_finance', name='expsubmit_finance'),
     url(r'^lookup_order/$', 'wafuli.views.lookup_order', name='lookup_order'),
     url(r'^submit_order/$', 'wafuli.views.submit_order', name='submit_order'),
-     
+
     url(r'^freshman/introduction/$', 'wafuli.views.freshman_introduction', name='freshman_introduction'),
     url(r'^freshman/award/$', 'wafuli.views.freshman_award', name='freshman_award'),
-     
+
     url(r'^activity/recommend/$', 'wafuli.activity.recommend', name='activity_recommend'),
     url(r'^activity/recom_submit/$', 'wafuli.activity.recom_submit', name='activity_recom_submit'),
     url(r'^activity/recom_info/$', 'wafuli.activity.recom_info', name='activity_recom_info'),
     url(r'^activity/recom_rank/$', 'wafuli.activity.recom_rank', name='activity_recom_rank'),
-     
+
     url(r'^activity/lottery/$', 'wafuli.activity.lottery', name='activity_lottery'),
     url(r'^activity/lottery/get_lottery/$', 'wafuli.activity.get_lottery', name='get_lottery'),
-    
+
     url(r'^business/(?:list-page(?P<page>[0-9]*)/)?$', 'wafuli.views.business', name='business_list'),
     url(r'^information/(?:(?P<id>[0-9]*)/)?$', 'wafuli.views.information', name='information'),
     url(r'^information_json/$', 'wafuli.welfare.information_json', name='information_json'),
-    
+
     url(r'^activity/$', 'wafuli.activity.activity', name='activity'),
-    
+
     url(r'^invite_accept/$', 'account.views.invite_accept', name='invite_accept'),
     url(r'^screenshot/$', 'wafuli.views.display_screenshot', name='screenshot'),
     url(r'^task/introduction/$', TemplateView.as_view(template_name="m_task_introduction.html"),name='task_introduction'),
-    
+
     url(r'^activity/Christmas/$', 'wafuli.activity.Christmas', name='activity_Christmas'),
     url(r'^activity/Christmas/open_envelope/$', 'wafuli.activity.open_envelope', name='Christmas_open_envelope'),
     url(r'^activity/Christmas/kenglaoban/$', TemplateView.as_view(template_name="m_kenglaoban.html"), name='Christmas_kenglaoban'),
     url(r'^activity/Christmas/invite_rank/$', 'wafuli.activity.invite_rank', name='Christmas_invite_rank'),
-    
+
     url(r'^APP_download/$', TemplateView.as_view(template_name="m_app_download.html"), name='APP_download'),
 ]
