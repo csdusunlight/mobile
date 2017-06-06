@@ -143,6 +143,8 @@
 		}
 		mui('.mui-content div').on('tap', 'a', function() {
             var id = this.getAttribute('href');
+            console.log(id);
+            console.log(this.href);
             mui.openWindow({
                 url: this.href,
                 styles: {
