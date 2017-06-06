@@ -141,23 +141,23 @@
 			}
 			get_finance_list(count++);
 		}
-		// mui('.mui-content div').on('tap', 'a', function() {
-  //           var id = this.getAttribute('href');
-  //           mui.openWindow({
-  //               url: this.href,
-  //               styles: {
-  //                   top: 0,
-  //                   bottom: 0
-  //               },
-  //               show: {
-  //                   aniShow: 'slide-in-right',
-  //               },
-  //               waiting: {
-  //                   autoShow: false, //自动显示等待框
-  //                   title: '正在加载...', //等待对话框上显示的提示内容
-  //               }
-  //           });
-  //       });
+		mui('.mui-content div').on('tap', 'a', function() {
+            var id = this.getAttribute('href');
+            mui.openWindow({
+                url: this.href,
+                styles: {
+                    top: 0,
+                    bottom: 0
+                },
+                show: {
+                    aniShow: 'slide-in-right',
+                },
+                waiting: {
+                    autoShow: false, //自动显示等待框
+                    title: '正在加载...', //等待对话框上显示的提示内容
+                }
+            });
+        });
 
 
 			var gallery = mui('#slider');
