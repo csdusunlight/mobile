@@ -226,8 +226,10 @@ def finance_json(request):
 
     if request.user:
         user = request.user
-    if user.is_channel:
-        wel_list = Finance.objects.filter(state='1')
+        if user.is_channel:
+            wel_list = Finance.objects.filter(state='1')
+        else:
+            wel_list = Finance.objects.filter(state='1', level__in=['normal','all'])
     else:
         wel_list = Finance.objects.filter(state='1', level__in=['normal','all'])
     if type == '0':
