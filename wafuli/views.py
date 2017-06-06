@@ -50,7 +50,7 @@ def index(request):
     if glo_statis:
         all_wel_num = glo_statis.all_wel_num
         withdraw_total = glo_statis.award_total
-        
+
     else:
         withdraw_total = 0
         all_wel_num = 0
@@ -59,7 +59,7 @@ def index(request):
 
 def finance(request, id=None):
     if id is None:
-        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','4'],is_hidden=False)[0:8])
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','4'],is_hidden=False)[0:1])
         first_adv = adv_list[0] if adv_list else None
         last_adv = adv_list[-1] if adv_list else None
 #         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
@@ -88,7 +88,39 @@ def finance(request, id=None):
         if 'next=' in ref_url:
             context.update({'back':True})
         return render(request, 'm_detail_finance.html',context)
-        
+
+def add_finance(request, id=None):
+    if id is None:
+        adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','4'],is_hidden=False)[1:2])
+        first_adv = adv_list[0] if adv_list else None
+        last_adv = adv_list[-1] if adv_list else None
+#         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
+        context = {'adv_list':adv_list, 'first_adv':first_adv, 'last_adv':last_adv,}
+        return render(request, 'm_add_finance.html', context)
+    else:
+        id = int(id)
+        news = None
+        try:
+            news = Finance.objects.get(id=id)
+        except Finance.DoesNotExist:
+            raise Http404(u"该页面不存在")
+        update_view_count(news)
+        scheme = news.scheme
+        table = []
+        str_rows = scheme.split('|')
+        for str_row in str_rows:
+            row = str_row.split('#')
+            table.append(row);
+        context = {
+                   'news':news,
+                   'type':'Finance',
+                   'table':table,
+        }
+        ref_url = request.META.get('HTTP_REFERER',"")
+        if 'next=' in ref_url:
+            context.update({'back':True})
+        return render(request, 'm_detail_finance.html',context)
+
 def task(request, id=None):
     if id is None:
         adv_list = list(Advertisement_Mobile.objects.filter(location__in=['0','3'],is_hidden=False)[0:8])
@@ -120,7 +152,7 @@ def task(request, id=None):
         else:
             context.update(accepted=0)
         return render(request, 'm_detail_task.html', context)
-    
+
 def commodity(request, id):
     id = int(id)
     try:
@@ -293,7 +325,7 @@ def expsubmit_task(request):
         if 'next=' in ref_url:
             context.update({'back':True})
         return render(request, 'm_expsubmit_task.html', context)
-    
+
 def mall(request):
     ad_list = Advertisement_Mobile.objects.filter(location__in=['0','5'],is_hidden=False)[0:8]
     help_list = Press.objects.filter(type='5')[0:10]
@@ -326,7 +358,7 @@ def get_commodity_page(request):
     # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
     data = []
-    for con in contacts:        
+    for con in contacts:
         i = {"name":con.name,
              "price":con.price,
              "url":con.url,
@@ -348,7 +380,7 @@ def lookup_order(request):
     if not request.user.is_authenticated():
         result['code'] = -1
         result['url'] = reverse('login') + "?next=" + reverse('account_score')
-        return JsonResponse(result)   
+        return JsonResponse(result)
     id = request.GET.get("id", None)
     if not id:
         return Http404
@@ -358,7 +390,7 @@ def lookup_order(request):
         return Http404
     try:
         record = ExchangeRecord.objects.get(tranlist_id=id)
-    except ExchangeRecord.DoesNotExist: 
+    except ExchangeRecord.DoesNotExist:
         result['code'] = 1
     except Exception as e:
         logger.error(e.reason)
@@ -376,7 +408,7 @@ def submit_order(request):
     result={'code':-1, 'url':''}
     if not request.user.is_authenticated():
         result['code'] = -1
-        return JsonResponse(result)   
+        return JsonResponse(result)
     name = request.GET.get("name", '')
     tel = request.GET.get("tel", '')
     addr = request.GET.get("addr", '')
@@ -482,7 +514,7 @@ def get_task_page(request):
     # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
     data = []
-    for con in contacts:        
+    for con in contacts:
         i = {"title":con.title,
              "url":con.url,
              "time":con.time_limit,
@@ -526,7 +558,7 @@ def get_wel_page(request):
     # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
     data = []
-    for con in contacts:        
+    for con in contacts:
         i = {"title":con.title,
              "url":con.url,
              "time":con.time_limit,
@@ -567,7 +599,7 @@ def get_press_page(request):
     # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
     data = []
-    for con in contacts:        
+    for con in contacts:
         i = {"title":con.title,
              "url":con.url,
              "time":con.pub_date.strftime("%Y-%m-%d"),
@@ -644,7 +676,7 @@ def information(request, id=None):
         hot_info_list = Information.objects.filter(is_display=True).order_by('-view_count')[0:3]
         return render(request, 'm_detail_information.html',{'info':info, 'hot_info_list':hot_info_list, 'type':'Information'})
 
-@login_required    
+@login_required
 def display_screenshot(request):
     id = request.GET.get('id', None)
     if not id:
