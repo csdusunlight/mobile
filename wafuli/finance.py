@@ -55,7 +55,7 @@ def add_finance(request, id=None):
         last_adv = adv_list[-1] if adv_list else None
 #         hot_wel_list = Welfare.objects.filter(is_display=True,state='1').order_by('-view_count')[0:3]
         context = {'adv_list':adv_list, 'first_adv':first_adv, 'last_adv':last_adv,}
-        return render(request, 'm_finance.html', context)
+        return render(request, 'm_add_finance.html', context)
     else:
         id = int(id)
         news = None
