@@ -66,7 +66,7 @@ def welfare(request, id=None, type=None):
         if 'next=' in ref_url:
             context.update({'back':True})
         return render(request, template, context)
-    
+
 def exp_welfare_erweima(request):
     if not request.is_ajax():
         logger.warning("Experience refused no-ajax request!!!")
@@ -128,12 +128,12 @@ def exp_welfare_openwindow(request):
 #     update_view_count(wel)
     url = wel.exp_url_mobile
     if url=='':
-        js = ''' 
+        js = '''
         <script>
         alert("本项目仅限电脑端体验，请前往电脑端。");
         window.history.back();
         </script>
-        
+
         '''
     else:
         js = "<script>window.location.href='"+url+"';</script>"
@@ -223,7 +223,12 @@ def finance_json(request):
     count = int(count)
     type = str(type)
     start = 6*count
-    wel_list = Finance.objects.filter(state='1', level__in=['normal','all'])
+
+    user = request.user
+    if user.is_channel:
+        wel_list = Finance.objects.filter(state='1')
+    else:
+        wel_list = Finance.objects.filter(state='1', level__in=['normal','all'])
     if type == '0':
         wel_list = wel_list.order_by('-pub_date')[start:start+6]
     else:
@@ -281,7 +286,7 @@ def task_json(request):
             'id':wel.id,
             })
     return JsonResponse(data,safe=False)
-            
+
 def hongbao_json(request):
     count = int(request.GET.get('count', 0))
     type = request.GET.get('type', u"全部")
