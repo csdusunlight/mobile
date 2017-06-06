@@ -224,7 +224,7 @@ def finance_json(request):
     type = str(type)
     start = 6*count
 
-    if request.user:
+    if request.user.is_authenticated():
         user = request.user
         if user.is_channel:
             wel_list = Finance.objects.filter(state='1')
