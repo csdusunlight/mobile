@@ -125,10 +125,13 @@
 						dataType:"json",
 						type:'POST',
 						data : {
-							account: zhifubao,
-							name: zhifubao_name,
-							csrfmiddlewaretoken:csrfmiddlewaretoken
-						},
+              bank_name: bank_name,
+              subbranch: subbranch,
+              real_name: real_name,
+              card_number: card_number,
+              telcode: telcode,
+              csrfmiddlewaretoken:csrfmiddlewaretoken
+            },
 						success:function(ret){
 							mui.alert(ret.msg,callback=function(){
 								window.history.back();
