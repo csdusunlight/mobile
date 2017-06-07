@@ -29,7 +29,7 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">支付宝更改</h1>
+			<h1 class="mui-title">银行卡更改</h1>
 			<!--<a class="mui-icon mui-icon-paperplane mui-pull-right"></a>-->
 		</header>
 		<div class="mui-content">
@@ -37,12 +37,36 @@
 			<form class="mui-input-group">
 					{% csrf_token %}
 					<div class="mui-input-row">
-						<label>支付宝姓名</label>
-						<input id="zhifubao_name" type="text" placeholder="请输入支付宝绑定的真实姓名">
+						<label>请选择银行</label>
+						<select id='bank'>
+              <option value ="0">请选择相应的开户行</option>
+              <option value ="中国工商银行">中国工商银行</option>
+              <option value ="中国农业银行">中国农业银行</option>
+              <option value="中国银行">中国银行</option>
+              <option value="中国建设银行">中国建设银行</option>
+              <option value="交通银行">交通银行</option>
+              <option value="中国邮政储蓄银行">中国邮政储蓄银行</option>
+              <option value="中信银行">中信银行</option>
+              <option value="中国光大银行">中国光大银行</option>
+              <option value="华夏银行">华夏银行</option>
+              <option value="中国民生银行">中国民生银行</option>
+              <option value="广发银行">广发银行</option>
+              <option value="平安银行">平安银行</option>
+              <option value="招商银行">招商银行</option>
+              <option value="兴业银行">兴业银行</option>
+            </select>
 					</div>
 					<div class="mui-input-row">
-						<label>支付宝帐号</label>
-						<input id="zhifubao" type="text" placeholder="请输入真实的支付宝账户">
+						<label>请填写支行</label>
+						<input id="subbranch" type="text" placeholder="请输入银行卡支行">
+					</div>
+					<div class="mui-input-row">
+						<label>持卡人姓名</label>
+						<input id="real_name" type="text" placeholder="请输入银行卡绑定的真实姓名">
+					</div>
+					<div class="mui-input-row">
+						<label>请输入卡号</label>
+						<input id="card_number" type="text" placeholder="请输入真实的银行卡帐号">
 					</div>
 					<div class="mui-input-row">
 						<label>手机验证码</label>
@@ -85,22 +109,46 @@
 				settime(this);
 			});
 			document.getElementById("Btn").addEventListener('tap', function() {
-				var zhifubao = document.getElementById('zhifubao').value;
-				var zhifubao_name = document.getElementById('zhifubao_name').value;
-				var re_account=/^[\u2E80-\u9FFF]+$/;
-          if(!re_account.test(zhifubao_name)){
-            mui.alert("请输入正确的支付宝绑定的真实姓名")
-            return;
-          }
-				if (!zhifubao || !zhifubao_name){
-					mui.alert("支付宝账号或姓名不能为空！", '提示');
-					return;
-				}
+				var subbranch = document.getElementById('zhifubao').subbranch;
+				var real_name = document.getElementById('real_name').value;
+				var card_number = document.getElementById('card_number').value;
 				var telcode = document.getElementById("telcode").value;
-				if(!telcode) {
-					mui.alert('请输入手机验证码！', '提示');
+
+				var select = document.getElementById("bank");
+				var options = select.options;
+				var bank_index = select.selectedIndex;
+				var bank_name = select.options[index].text;
+
+				console.log(bank_index + bank_name);
+
+				var re_account=/^[\u2E80-\u9FFF]+$/;	//验证中文
+				var re_number=/^[0-9]*$/;  //验证数字
+    		var re_card = /^\d{16}|\d{19}$/;  //验证银行卡号
+
+				if(bank_index == 0){
+          mui.alert("请选择相应的开户行");
+          return;
+        }
+				if (!subbranch || !real_name || !card_number|| !telcode){
+					mui.alert("填写项不能为空！", '提示');
 					return;
 				}
+        if(!re_account.test(subbranch)){
+          mui.alert("请输入正确的支行名称");
+          return;
+        }
+        if(!re_account.test(real_name)){
+          mui.alert("请输入正确的银行卡绑定的真实姓名");
+          return;
+        }
+        if(!re_card.test(card_number)){
+          mui.alert("请输入正确格式的银行卡号");
+          return;
+        }
+				// if(!telcode) {
+				// 	mui.alert('请输入手机验证码！', '提示');
+				// 	return;
+				// }
 				if(telcode.length!=6) {
 					mui.alert('您输入的手机验证码格式有误，请重新输入！', '提示');
 					return;
@@ -111,8 +159,10 @@
 					dataType:"json",
 					type:'POST',
 					data : {
-						account: zhifubao,
-						name: zhifubao_name,
+						bank_name: bank_name,
+						subbranch: subbranch,
+						subbranch: subbranch,
+						subbranch: subbranch,
 						telcode: telcode,
 						csrfmiddlewaretoken:csrfmiddlewaretoken
 					},

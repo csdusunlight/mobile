@@ -37,7 +37,7 @@
 		</header>
 		<div class="mui-content">
 			<!--帐号部分-->
-			<div class="zhanghu">
+			<div id="bank_card" class="zhanghu">
 				<div class="msg clearfix">
 					<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
 					<div class="text">
@@ -50,11 +50,11 @@
 						</p>
 					</div>
 				</div>
-				{%if user.zhifubao %}
+<!-- 				{%if user.zhifubao %}
 					<a class="right" href="{% url 'change_zhifubao' %}">更换银行卡></a>
 				{%else%}
 					<a class="right" href="{% url 'bind_zhifubao' %}">绑定银行卡></a>
-				{%endif%}
+				{%endif%} -->
 
 			</div>
 			<!--提现部分-->
@@ -70,6 +70,28 @@
 				<span>提现福币限<number>1000</number>的整数倍</span>
 			</p>
 			<button id="Btn" type="button" class="mui-btn mui-btn-blue mui-btn-block">确认提现</button>
+
+			<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">
+			    <!-- 可选择菜单 -->
+			    <ul class="mui-table-view">
+			      <li class="mui-table-view-cell">
+			        {%if user.zhifubao %}
+								<a class="right" href="{% url 'change_zhifubao' %}">更换银行卡></a>
+							{%else%}
+								<a class="right" href="{% url 'bind_zhifubao' %}">绑定银行卡></a>
+							{%endif%}
+			      </li>
+			      <li class="mui-table-view-cell">
+			        <a id="bank_delete" href="#">解除绑定</a>
+			      </li>
+			    </ul>
+			    <!-- 取消菜单 -->
+			    <ul class="mui-table-view">
+			      <li class="mui-table-view-cell">
+			        <a href="#sheet1"><b>取消</b></a>
+			      </li>
+			    </ul>
+			</div>
 		</div>
 
 
@@ -113,6 +135,13 @@
         				});
                     }
                 })
+			});
+			document.getElementById("bank_card").addEventListener('tap', function() {
+				mui('#sheet1').popover('toggle');
+			});
+
+			document.getElementById("bank_delete").addEventListener('tap', function() {
+				console.log("点击解除绑定银行卡");
 			});
 		</script>
 	</body>

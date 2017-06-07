@@ -38,8 +38,8 @@
 			<form class="mui-input-group">
 					{% csrf_token %}
 					<div class="mui-input-row">
-						<label>支付宝姓名</label>
-						<select id='bank_choose'>
+            <label>请选择银行</label>
+            <select id='bank'>
               <option value ="0">请选择相应的开户行</option>
               <option value ="中国工商银行">中国工商银行</option>
               <option value ="中国农业银行">中国农业银行</option>
@@ -56,18 +56,18 @@
               <option value="招商银行">招商银行</option>
               <option value="兴业银行">兴业银行</option>
             </select>
-					</div>
+          </div>
           <div class="mui-input-row">
             <label>请填写支行</label>
-            <input id="bank_sub" type="text" placeholder="请输入银行卡支行">
+            <input id="subbranch" type="text" placeholder="请输入银行卡支行">
           </div>
-					<div class="mui-input-row">
-						<label>持卡人姓名</label>
-						<input id="card_username" type="text" placeholder="请输入银行卡绑定的真实姓名">
-					</div>
           <div class="mui-input-row">
-            <label>请输入卡号：</label>
-            <input id="bank_card" type="text" placeholder="请输入真实的银行卡帐号">
+            <label>持卡人姓名</label>
+            <input id="real_name" type="text" placeholder="请输入银行卡绑定的真实姓名">
+          </div>
+          <div class="mui-input-row">
+            <label>请输入卡号</label>
+            <input id="card_number" type="text" placeholder="请输入真实的银行卡帐号">
           </div>
 
 
@@ -84,17 +84,41 @@
 					swipeBack:true //启用右滑关闭功能
 				});
 				document.getElementById("Btn").addEventListener('tap', function() {
-					var zhifubao = document.getElementById('zhifubao').value;
-					var zhifubao_name = document.getElementById('zhifubao_name').value;
-          var re_account=/^[\u2E80-\u9FFF]+$/;
-          if(!re_account.test(zhifubao_name)){
-            mui.alert("请输入正确的支付宝绑定的真实姓名");
+  				var subbranch = document.getElementById('zhifubao').subbranch;
+          var real_name = document.getElementById('real_name').value;
+          var card_number = document.getElementById('card_number').value;
+
+          var select = document.getElementById("bank");
+          var options = select.options;
+          var bank_index = select.selectedIndex;
+          var bank_name = select.options[index].text;
+
+          console.log(bank_index + bank_name);
+
+          var re_account=/^[\u2E80-\u9FFF]+$/;  //验证中文
+          var re_number=/^[0-9]*$/;  //验证数字
+          var re_card = /^\d{16}|\d{19}$/;  //验证银行卡号
+
+          if(bank_index == 0){
+            mui.alert("请选择相应的开户行");
             return;
           }
-					if (!zhifubao || !zhifubao_name){
-						mui.alert("支付宝账号或姓名不能为空！");
-						return;
-					}
+          if (!subbranch || !real_name || !card_number){
+            mui.alert("填写项不能为空！", '提示');
+            return;
+          }
+          if(!re_account.test(subbranch)){
+            mui.alert("请输入正确的支行名称");
+            return;
+          }
+          if(!re_account.test(real_name)){
+            mui.alert("请输入正确的银行卡绑定的真实姓名");
+            return;
+          }
+          if(!re_card.test(card_number)){
+            mui.alert("请输入正确格式的银行卡号");
+            return;
+          }
 					var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 					mui.ajax({
 						url: '',
