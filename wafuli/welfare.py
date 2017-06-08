@@ -224,14 +224,7 @@ def finance_json(request):
     type = str(type)
     start = 6*count
 
-    if request.user.is_authenticated():
-        user = request.user
-        if user.is_channel:
-            wel_list = Finance.objects.filter(state='1')
-        else:
-            wel_list = Finance.objects.filter(state='1', level__in=['normal','all'])
-    else:
-        wel_list = Finance.objects.filter(state='1', level__in=['normal','all'])
+    wel_list = Finance.objects.filter(state='1', level__in=['normal','all'])
     if type == '0':
         wel_list = wel_list.order_by('-pub_date')[start:start+6]
     else:
