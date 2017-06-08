@@ -328,7 +328,7 @@ def phoneImageV(request):
             result['message'] = u'该手机号码尚未注册！'
             result.update(generateCap())
             return JsonResponse(result)
-    elif action=="change_zhifubao":
+    elif action=="change_bankcard":
         if not request.user.is_authenticated() and not is_authenticated_app(request):
             result['code'] = 1
             result['message'] = u"尚未登录"
@@ -582,18 +582,24 @@ def active_email(request):
             raise Http404
 
 @login_required
-def bind_zhifubao(request):
+def bind_bankcard(request):
     if request.method == 'POST':
         if not request.is_ajax():
             raise Http404
         result={}
         user = request.user
-        zhifubao = request.POST.get("account", '')
-        zhifubao_name = request.POST.get("name", '')
-        if not user.zhifubao:
-            user.zhifubao = zhifubao
-            user.zhifubao_name = zhifubao_name
-            user.save(update_fields=["zhifubao","zhifubao_name",])
+        card_number = request.GET.get("card_number", '')
+        real_name = request.GET.get("real_name", '')
+        bank = request.GET.get("bank", '')
+        subbranch = request.GET.get("subbranch",'')
+        if not user.user_bankcard.exists():
+            card_number = request.GET.get("card_number", '')
+            real_name = request.GET.get("real_name", '')
+            bank = request.GET.get("bank", '')
+            subbranch = request.GET.get("subbranch",'')
+            if card_number and real_name and bank:
+                user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
+                                           bank=bank, subbranch=subbranch)
             result['code'] = 0
             result['msg'] = u'绑定成功！'
         else:
@@ -601,10 +607,10 @@ def bind_zhifubao(request):
            result['msg'] = u'您已绑定过支付宝！'
         return JsonResponse(result)
     else:
-        return render(request, 'account/m_account_bind_zhifubao.html')
+        return render(request, 'account/m_account_bind_bankcard.html')
 
 @login_required
-def change_zhifubao(request):
+def change_bankcard(request):
     if request.method == 'POST':
         if not request.is_ajax():
             raise Http404
@@ -624,14 +630,17 @@ def change_zhifubao(request):
                 result['msg'] = u'手机验证码已过期，请重新获取'
             return JsonResponse(result)
         else:
-            user.zhifubao = zhifubao
-            user.zhifubao_name = zhifubao_name
-            user.save(update_fields=["zhifubao","zhifubao_name",])
+            card = user.user_bankcard.first()
+            card.card_number = card_number
+            card.real_name = real_name
+            card.bank = bank
+            card.subbranch = subbranch
+            card.save()
             result['code'] = 0
             result['msg'] = u"支付宝账号更改成功！"
         return JsonResponse(result)
     else:
-        return render(request, 'account/m_account_change_zhifubao.html')
+        return render(request, 'account/m_account_change_bankcard.html')
 
 @login_required
 def charge(request):

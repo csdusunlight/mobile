@@ -617,7 +617,7 @@ def withdraw(request):
 
 @csrf_exempt
 @app_login_required
-def bind_zhifubao(request):
+def bind_bankcard(request):
     result={}
     user = request.user
     zhifubao = request.POST.get("account", '')
@@ -635,7 +635,7 @@ def bind_zhifubao(request):
 
 @csrf_exempt
 @app_login_required
-def change_zhifubao(request):
+def change_bankcard(request):
     result={}
     user = request.user
     zhifubao = request.POST.get("account", '')

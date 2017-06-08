@@ -105,9 +105,9 @@
 		        </li>
 		        <li class="mui-table-view-cell">
 		             {%if user.zhifubao %}
-		             <a class="mui-navigate-right" href="{%url 'change_zhifubao'%}">支付宝绑定<number>（{{user.zhifubao}}）</number><span>更换</span></a>
+		             <a class="mui-navigate-right" href="{%url 'change_bankcard'%}">支付宝绑定<number>（{{user.zhifubao}}）</number><span>更换</span></a>
 		             {%else%}
-		             <a class="mui-navigate-right" href="{%url 'bind_zhifubao'%}">支付宝绑定<number>（未绑定）</number><span>绑定</span></a>
+		             <a class="mui-navigate-right" href="{%url 'bind_bankcard'%}">支付宝绑定<number>（未绑定）</number><span>绑定</span></a>
 		             {%endif%}
 		        </li>
 		    </ul>

@@ -29,7 +29,7 @@ $(function() {
 					        key.attr("value", new_cptch_key);
 					        img.attr("src", new_cptch_image);
 						}
-						else if (action=='change_zhifubao'){
+						else if (action=='change_bankcard'){
 							
 						}
 					}
@@ -118,7 +118,7 @@ $(function() {
 		
 	});
 	$('#yanzhengma_button').bind('click',function() {
-		actionType = "change_zhifubao";
+		actionType = "change_bankcard";
 		actionurl = get_code_url;
 		phoneNum = phoneNum;
 		sendTelVerifyCodeImageV(phoneNum, actionType, actionurl);

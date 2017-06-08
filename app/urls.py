@@ -27,8 +27,8 @@ urlpatterns = [
     url(r'^submit_order/$', 'app.views.submit_order'),
     url(r'^withdraw/$', 'app.views.withdraw'),
     
-    url(r'^bind_zhifubao/$', 'app.views.bind_zhifubao'),
-    url(r'^change_zhifubao/$', 'app.views.change_zhifubao'),
+    url(r'^bind_bankcard/$', 'app.views.bind_bankcard'),
+    url(r'^change_bankcard/$', 'app.views.change_bankcard'),
     url(r'^password_change/$', 'app.views.password_change'),
     
     url(r'^invite_to_balance/$', 'app.views.invite_to_balance'),
