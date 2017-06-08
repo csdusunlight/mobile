@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.contrib.auth.hashers import (
     check_password, make_password,
 )
+from wafuli.data import BANK
 class MyUserManager(BaseUserManager):
 
     def _create_user(self, email, mobile, username, password,
@@ -115,6 +116,14 @@ class Channel(models.Model):
     join_time = models.DateTimeField(u"加入渠道时间", default=timezone.now)
     def __unicode__(self): 
         return self.user.mobile
+class BankCard(models.Model):
+    user = models.ForeignKey(MyUser, related_name="user_bankcard")
+    card_number = models.CharField(u"银行卡号",max_length=20)
+    real_name = models.CharField(u'实名', max_length=10)
+    bank = models.CharField(u'开户银行', max_length=10, choices=BANK)
+    subbranch = models.CharField(u'开户支行', max_length=50)
+    def __unicode__(self):
+        return self.user.mobile + self.get_bank_display() + self.real_name
 class Userlogin(models.Model):
     user = models.ForeignKey(MyUser, related_name="user_login_history")
     time = models.DateTimeField(u'登录时间', default = timezone.now)

@@ -152,3 +152,8 @@ INFORMATION_TYPE = (
     ('washuju', u'挖数据'),
     ('wahuodong', u'挖活动'),
 )
+
+BANK = (
+    ('hxb', u'华夏银行'),
+    ('acbc', u'工商银行'),
+)
