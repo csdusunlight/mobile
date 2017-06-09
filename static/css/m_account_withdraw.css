@@ -5,7 +5,7 @@
 /*帐号部分*/
 .zhanghu {
 	padding: 2rem 0 1rem;
-	background: #fff;
+	background: #008fd7;
 	box-shadow: 0 1px 3px #e4e4e4;
 }
 .msg img {
@@ -17,7 +17,8 @@
 }
 .msg .text {
 	float: left;
-	margin-top: 1rem;
+	margin-top: 0.5rem;
+	margin-left: 2rem;
 }
 .text p {
 		font-size: 1.2rem;
@@ -25,7 +26,7 @@
 		line-height: 2rem;
 }
 .text p span {
-	color: #8f8f8f;
+	color: #fff;
 	font-size: 1.2rem;
 }
 
