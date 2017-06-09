@@ -46,22 +46,38 @@
               <img id="Vip_logo" class="vip-logo" src="{% static 'images/nongye.png' %}" />
           {% elif card.bank = "中国银行" %}
               <img id="Vip_logo" class="vip-logo" src="{% static 'images/zhongguo.png' %}" />
+          {% elif card.bank = "中国建设银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/jianshe.png' %}" />
+          {% elif card.bank = "交通银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/jiaotong.png' %}" />
+          {% elif card.bank = "中国邮政储蓄银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/youzheng.png' %}" />
+          {% elif card.bank = "中信银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/zhongxin.png' %}" />
+          {% elif card.bank = "中国光大银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/guangda.png' %}" />
+          {% elif card.bank = "华夏银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/huaxia.png' %}" />
+          {% elif card.bank = "中国民生银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/minsheng.png' %}" />
+          {% elif card.bank = "广发银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/guangfa.png' %}" />
+          {% elif card.bank = "平安银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/pingan.png' %}" />
+          {% elif card.bank = "招商银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/zhaoshang.png' %}" />
+          {% elif card.bank = "兴业银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/xingye.png' %}" />
           {% endif %}
 					<div class="text">
-						<p><number>{{user.mobile}}</number><br />
 						{%if card %}
-							<span>银行卡号：<number>{{card.card_number}}</number>（{{card.real_name}}）
+							<p><span>{{card.bank}}</span><br />
+							<span>银行卡号：<number>{{card.card_number}}</number></span></p>
 						{%else%}
-							<span>银行卡号：未绑定
+							<p><span>银行卡号：未绑定</span></p>
 						{%endif%}
-						</p>
 					</div>
 				</div>
-<!-- 				{%if user.zhifubao %}
-					<a class="right" href="{% url 'change_bankcard' %}">更换银行卡></a>
-				{%else%}
-					<a class="right" href="{% url 'bind_bankcard' %}">绑定银行卡></a>
-				{%endif%} -->
 
 			</div>
 			<!--提现部分-->
