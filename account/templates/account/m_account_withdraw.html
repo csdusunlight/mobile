@@ -39,7 +39,14 @@
 			<!--帐号部分-->
 			<div id="bank_card" class="zhanghu">
 				<div class="msg clearfix">
-					<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
+					<!-- <img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" /> -->
+					{% if card.bank = "中国工商银行" %}
+              <img src="{% static 'images/gongshang.png' %}" />
+          {% elif card.bank = "中国农业银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/nongye.png' %}" />
+          {% elif card.bank = "中国银行" %}
+              <img id="Vip_logo" class="vip-logo" src="{% static 'images/zhongguo.png' %}" />
+          {% endif %}
 					<div class="text">
 						<p><number>{{user.mobile}}</number><br />
 						{%if card %}
