@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.http.response import Http404
 from .models import MyUser, Userlogin,MobileCode
-from captcha.models import CaptchaStore  
+from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from captcha.views import imageV, generateCap
 from account.varify import verifymobilecode, sendmsg_bydhst
@@ -116,9 +116,9 @@ def login(request, template_name='registration/m_login.html',
             # Ensure the user-originating redirection url is safe.
             if not is_safe_url(url=redirect_to, host=request.get_host()):
                 redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
-            
+
             # Okay, security check complete. Log the user in.
-            user = form.get_user()           
+            user = form.get_user()
             auth_login(request, user)
             # anything you can add here
             user.last_login_time = user.this_login_time
@@ -216,8 +216,8 @@ def register(request):
         codimg_url = captcha_image_url(hashkey)
         icode = request.GET.get('icode','')
         context = {
-            'hashkey':hashkey, 
-            'codimg_url':codimg_url, 
+            'hashkey':hashkey,
+            'codimg_url':codimg_url,
             'icode':icode,
             'mobile':mobile,
         }
@@ -236,7 +236,7 @@ def verifyemail(request):
         users = MyUser.objects.filter(email=emailv)
         if not users.exists():
             code = '1'
-    
+
     result = {'code':code,}
     return JsonResponse(result)
 def verifymobile(request):
@@ -246,7 +246,7 @@ def verifymobile(request):
     if mobilev:
         users = MyUser.objects.filter(mobile=mobilev)
         if not users.exists():
-            code = '1'    
+            code = '1'
     result = {'code':code,}
     return JsonResponse(result)
 def verifyusername(request):
@@ -282,7 +282,7 @@ def callbackby189(request):
         except:
             code = '1'
         else:
-            code = '0'        
+            code = '0'
     result = {'res_code':code,}
     return JsonResponse(result)
 
@@ -472,7 +472,7 @@ def get_user_welfare_json(request):
         etype = ContentType.objects.get_for_model(Task)
     else:
         etype = ContentType.objects.get_for_model(Finance)
-        
+
     start = 12*count
     item_list = UserEvent.objects.filter(user=request.user, content_type = etype)[start:start+12]
     data = []
@@ -508,7 +508,7 @@ def score_json(request):
     start = 6*count
     item_list = ScoreTranlist.objects.filter(user=request.user, transType=type)[start:start+6]
     data = []
-    for con in item_list:      
+    for con in item_list:
         i = {"reason":con.reason,
              "amount":con.transAmount,
              "date":con.time.strftime("%Y-%m-%d"),
@@ -603,8 +603,8 @@ def bind_bankcard(request):
             result['code'] = 0
             result['msg'] = u'绑定成功！'
         else:
-           result['code'] = 3 
-           result['msg'] = u'您已绑定过支付宝！'
+           result['code'] = 3
+           result['msg'] = u'您已绑定过银行卡！'
         return JsonResponse(result)
     else:
         return render(request, 'account/m_account_bind_bankcard.html')
@@ -637,7 +637,7 @@ def change_bankcard(request):
             card.subbranch = subbranch
             card.save()
             result['code'] = 0
-            result['msg'] = u"支付宝账号更改成功！"
+            result['msg'] = u"银行卡号更改成功！"
         return JsonResponse(result)
     else:
         return render(request, 'account/m_account_change_bankcard.html')
@@ -658,7 +658,7 @@ def charge_json(request):
     start = 6*count
     item_list = TransList.objects.filter(user=request.user, transType=type)[start:start+6]
     data = []
-    for con in item_list:      
+    for con in item_list:
         i = {"item":con.reason,
              "amount":con.transAmount,
              "date":con.time.strftime("%Y-%m-%d"),
@@ -685,7 +685,9 @@ def withdraw(request):
     if request.method == 'GET':
         hashkey = CaptchaStore.generate_key()
         codimg_url = captcha_image_url(hashkey)
-        return render(request,'account/m_account_withdraw.html')
+        user = request.user
+        card = user.user_bankcard.first()
+        return render(request, 'account/m_account_withdraw.html', {"card":card})
     elif request.method == 'POST':
         user = request.user
         result = {'code':-1, 'msg':''}
@@ -894,7 +896,7 @@ def get_user_message_page(request):
     # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
     data = []
-    for con in contacts:        
+    for con in contacts:
         i = {"title":con.title,
              'content':con.content,
              'id':con.id,
@@ -923,11 +925,11 @@ def invite(request):
         this_month_award = int(this_month_award)
         statis = {
             'left_award':inviter.invite_account,
-            'accu_invite_award':inviter.invite_income,   
+            'accu_invite_award':inviter.invite_income,
             'accu_invite_scores':inviter.invite_scores,
             'acc_count':acc_count,
             'acc_with_count':acc_with_count,
-            'this_month_award':this_month_award, 
+            'this_month_award':this_month_award,
         }
 #         if wel.type != "baoyou":
         url = request.get_full_path()#reverse('user_guide')
@@ -952,7 +954,7 @@ def invite(request):
                 result['code'] = -2
                 result['msg'] = u'操作失败，请联系客服！'
         return JsonResponse(result)
-    
+
 def get_user_invite_page(request):
     if not request.is_ajax():
         raise Http404
@@ -1035,7 +1037,7 @@ def get_user_invite_page(request):
                 audit_state='0',).extra(select=select)\
                 .values('month').annotate(cou=Count('user',distinct=True),sumofwith=Sum('invest_amount')).order_by('-month',)
         paginator = Paginator(withdraw_list, size)
-        
+
         try:
             contacts = paginator.page(page)
         except PageNotAnInteger:
@@ -1101,8 +1103,8 @@ def password_reset(request):
         hashkey = CaptchaStore.generate_key()
         codimg_url = captcha_image_url(hashkey)
         context = {
-            'hashkey':hashkey, 
-            'codimg_url':codimg_url, 
+            'hashkey':hashkey,
+            'codimg_url':codimg_url,
         }
         return render(request,'m_password_reset.html',context)
 
@@ -1132,7 +1134,7 @@ def password_change(request):
         return JsonResponse(result)
     else:
         return render(request,'account/m_account_change_password.html')
-    
+
 @login_required
 def message_json(request):
     count = int(request.GET.get('count', 0))

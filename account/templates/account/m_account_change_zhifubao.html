@@ -21,7 +21,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>支付宝更改</title>
+    <title>银行卡更改</title>
     <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/m_account_zhifubao.css' %}"/>
@@ -68,11 +68,11 @@
 						<label>请输入卡号</label>
 						<input id="card_number" type="text" placeholder="请输入真实的银行卡帐号">
 					</div>
-<!-- 					<div class="mui-input-row">
+					<div class="mui-input-row">
 						<label>手机验证码</label>
 						<input id="telcode" type="text" placeholder="请输入验证码">
 						<button id="gettelcode" type="button" class=" huoqu mui-btn-blue mui-btn-outlined">获取验证码</button>
-					</div> -->
+					</div>
 
 
 				</form>
@@ -112,6 +112,7 @@
 				var subbranch = document.getElementById('subbranch').value;
 				var real_name = document.getElementById('real_name').value;
 				var card_number = document.getElementById('card_number').value;
+        var telcode = document.getElementById('telcode').value;
 
 				var select = document.getElementById("bank");
 				var options = select.options;
@@ -128,7 +129,7 @@
           mui.alert("请选择相应的开户行");
           return;
         }
-				if (!subbranch || !real_name || !card_number){
+				if (!subbranch || !real_name || !card_number || !telcode){
 					mui.alert("填写项不能为空！", '提示');
 					return;
 				}
@@ -144,10 +145,10 @@
           mui.alert("请输入正确格式的银行卡号");
           return;
         }
-				// if(telcode.length!=6) {
-				// 	mui.alert('您输入的手机验证码格式有误，请重新输入！', '提示');
-				// 	return;
-				// }
+				if(telcode.length!=6) {
+					mui.alert('您输入的手机验证码格式有误，请重新输入！', '提示');
+					return;
+				}
 				var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 				mui.ajax({
 					url: '',
@@ -158,6 +159,7 @@
 						subbranch: subbranch,
 						real_name: real_name,
 						card_number: card_number,
+            telcode: telcode,
 						csrfmiddlewaretoken:csrfmiddlewaretoken
 					},
 					success:function(ret){

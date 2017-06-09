@@ -42,8 +42,8 @@
 					<img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
 					<div class="text">
 						<p><number>{{user.mobile}}</number><br />
-						{%if user.zhifubao %}
-							<span>银行卡号：<number>{{user.zhifubao}}</number>（{{user.zhifubao_name}}）
+						{%if card %}
+							<span>银行卡号：<number>{{card.card_number}}</number>（{{card.real_name}}）
 						{%else%}
 							<span>银行卡号：未绑定
 						{%endif%}
@@ -75,14 +75,11 @@
 			    <!-- 可选择菜单 -->
 			    <ul class="mui-table-view">
 			      <li class="mui-table-view-cell">
-			        {%if user.zhifubao %}
+			        {%if card %}
 								<a href="{% url 'change_bankcard' %}">更换银行卡</a>
 							{%else%}
 								<a href="{% url 'bind_bankcard' %}">绑定银行卡</a>
 							{%endif%}
-			      </li>
-			      <li class="mui-table-view-cell">
-			        <a id="bank_delete" href="#">解除绑定</a>
 			      </li>
 			    </ul>
 			    <!-- 取消菜单 -->
