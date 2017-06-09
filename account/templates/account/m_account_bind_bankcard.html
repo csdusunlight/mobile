@@ -34,7 +34,6 @@
 			<h1 class="mui-title">银行卡绑定</h1>
 		</header>
 		<div class="mui-content">
-			<img src="{% static 'images/zhifubao.png' %}" alt="支付宝图片" />
 			<form class="mui-input-group">
 					{% csrf_token %}
 					<div class="mui-input-row">
@@ -67,7 +66,7 @@
           </div>
           <div class="mui-input-row">
             <label>请输入卡号</label>
-            <input id="card_number" type="text" placeholder="请输入真实的银行卡帐号" onkeyup="this.value =this.value.replace(/\s/g,'').replace(/[^\d]/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');>
+            <input id="card_number" type="text" placeholder="请输入真实的银行卡帐号" onkeyup="this.value =this.value.replace(/\s/g,'').replace(/[^\d]/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');">
           </div>
 
 

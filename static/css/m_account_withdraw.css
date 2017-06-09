@@ -13,6 +13,7 @@
 	margin-left: 2rem;
 	margin-right: 1rem;
 	width: 20%;
+	border-radius: 50%;
 	/*height: 4rem;*/
 }
 .msg .text {
