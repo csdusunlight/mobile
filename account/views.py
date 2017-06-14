@@ -591,16 +591,13 @@ def bind_bankcard(request):
             raise Http404
         result={}
         user = request.user
-        # card_number = request.GET.get("card_number", '')
-        # real_name = request.GET.get("real_name", '')
-        # bank = request.GET.get("bank", '')
-        # subbranch = request.GET.get("subbranch",'')
+        card_number = request.POST.get("card_number", '')
+        real_name = request.POST.get("real_name", '')
+        bank = request.POST.get("bank", '')
+        subbranch = request.POST.get("subbranch",'')
         if user.user_bankcard.exists():
             raise Http404
-        card_number = request.GET.get("card_number", '')
-        real_name = request.GET.get("real_name", '')
-        bank = request.GET.get("bank", '')
-        subbranch = request.GET.get("subbranch",'')
+        print 'ddd' ,card_number,real_name
         if card_number and real_name and bank:
             user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
                                        bank=bank, subbranch=subbranch)

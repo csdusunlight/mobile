@@ -107,29 +107,30 @@
             mui.alert("请输入正确格式的银行卡号");
             return;
           }
-					var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-					mui.ajax({
-						url: '',
-						dataType:"json",
-						type:'POST',
-						data : {
-              bank_name: bank_name,
-              subbranch: subbranch,
-              real_name: real_name,
-              card_number: card_number,
-              csrfmiddlewaretoken:csrfmiddlewaretoken
-            },
-						success:function(ret){
-							mui.alert(ret.msg,callback=function(){
-								window.history.back();
-								return;
-							});
-						},
-						error:function(){
-							alert("请检查网络连接");
-						}
+		  var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+			alert(bank_name);
+		  mui.ajax({
+				url: '',
+				dataType:"json",
+				type:'POST',
+				data : {
+		              bank: bank_name,
+		              subbranch: subbranch,
+		              real_name: real_name,
+		              card_number: card_number,
+		              csrfmiddlewaretoken:csrfmiddlewaretoken
+		            },
+				success:function(ret){
+					mui.alert(ret.msg,callback=function(){
+						window.history.back();
+						return;
 					});
-				});
+				},
+				error:function(){
+					alert("请检查网络连接");
+				}
+			});
+		});
 		</script>
 	</body>
 
