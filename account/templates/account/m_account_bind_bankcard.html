@@ -39,21 +39,10 @@
 					<div class="mui-input-row">
             <label>请选择银行</label>
             <select id='bank'>
-              <option value ="0">请选择相应的开户行</option>
-              <option value ="中国工商银行">中国工商银行</option>
-              <option value ="中国农业银行">中国农业银行</option>
-              <option value="中国银行">中国银行</option>
-              <option value="中国建设银行">中国建设银行</option>
-              <option value="交通银行">交通银行</option>
-              <option value="中国邮政储蓄银行">中国邮政储蓄银行</option>
-              <option value="中信银行">中信银行</option>
-              <option value="中国光大银行">中国光大银行</option>
-              <option value="华夏银行">华夏银行</option>
-              <option value="中国民生银行">中国民生银行</option>
-              <option value="广发银行">广发银行</option>
-              <option value="平安银行">平安银行</option>
-              <option value="招商银行">招商银行</option>
-              <option value="兴业银行">兴业银行</option>
+                <option value ="0">请选择相应的开户行</option>
+                {% for x in banks %}
+                <option value="{{x.0}}">{{x.1}}</option>
+                {%endfor%}
             </select>
           </div>
           <div class="mui-input-row">
@@ -66,7 +55,7 @@
           </div>
           <div class="mui-input-row">
             <label>请输入卡号</label>
-            <input id="card_number" type="text" placeholder="请输入真实的银行卡帐号" onkeyup="this.value =this.value.replace(/\s/g,'').replace(/[^\d]/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');">
+            <input id="card_number" maxlength="23" type="text" placeholder="请输入真实的银行卡帐号" onkeyup="this.value =this.value.replace(/\s/g,'').replace(/[^\d]/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');">
           </div>
 
 

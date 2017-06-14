@@ -608,7 +608,8 @@ def bind_bankcard(request):
            result['msg'] = u'您已绑定过银行卡！'
         return JsonResponse(result)
     else:
-        return render(request, 'account/m_account_bind_bankcard.html')
+        banks = BANK
+        return render(request, 'account/m_account_bind_bankcard.html', {'banks':banks})
 
 @login_required
 def change_bankcard(request):
@@ -641,7 +642,8 @@ def change_bankcard(request):
             result['msg'] = u"银行卡号更改成功！"
         return JsonResponse(result)
     else:
-        return render(request, 'account/m_account_change_bankcard.html')
+        banks = BANK
+        return render(request, 'account/m_account_change_bankcard.html', {'banks':banks})
 
 @login_required
 def charge(request):
