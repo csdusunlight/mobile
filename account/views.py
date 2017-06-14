@@ -40,6 +40,7 @@ from django.db import connection
 import logging
 from urllib import urlencode
 from wafuli.tools import get_weixin_params
+from wafuli.data import BANK
 from wafuli_admin.models import Invite_Rank
 from app.tools import is_authenticated_app
 logger = logging.getLogger('wafuli')
