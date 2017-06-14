@@ -104,10 +104,10 @@
 		            <a>手机绑定 <number>（{{user.mobile}}）</number></a>
 		        </li>
 		        <li class="mui-table-view-cell">
-		             {%if user.zhifubao %}
-		             <a class="mui-navigate-right" href="{%url 'change_bankcard'%}">支付宝绑定<number>（{{user.zhifubao}}）</number><span>更换</span></a>
+		             {%if card %}
+		             <a class="mui-navigate-right" href="{%url 'change_bankcard'%}">银行卡绑定<number>（{{card.card_number}}）</number><span>更换</span></a>
 		             {%else%}
-		             <a class="mui-navigate-right" href="{%url 'bind_bankcard'%}">支付宝绑定<number>（未绑定）</number><span>绑定</span></a>
+		             <a class="mui-navigate-right" href="{%url 'bind_bankcard'%}">银行卡绑定<number>（未绑定）</number><span>绑定</span></a>
 		             {%endif%}
 		        </li>
 		    </ul>

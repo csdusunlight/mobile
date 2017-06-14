@@ -396,7 +396,9 @@ def account(request):
     return render(request, 'account/m_account_index.html', context)
 @login_required
 def account_settings(request):
-    return render(request, 'account/m_account_settings.html', )
+    user = request.user
+    card = user.user_bankcard.first()
+    return render(request, 'account/m_account_settings.html', {"card":card})
 @login_required
 def signin(request):
     user = request.user
