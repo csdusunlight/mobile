@@ -68,11 +68,11 @@
 		<script src="{% static 'js/mui.min.js' %}"></script>
 		<!--弹窗部分-->
 		<script type="text/javascript" charset="utf-8">
-		      	mui.init({
-					swipeBack:true //启用右滑关闭功能
-				});
-				document.getElementById("Btn").addEventListener('tap', function() {
-  				var subbranch = document.getElementById('subbranch').value;
+      	mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		document.getElementById("Btn").addEventListener('tap', function() {
+		var subbranch = document.getElementById('subbranch').value;
           var real_name = document.getElementById('real_name').value;
           var card_number = document.getElementById('card_number').value;
 
@@ -107,33 +107,28 @@
             return;
           }
           console.log()
-					var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-					mui.ajax({
-						url: '',
-						dataType:"json",
-						type:'POST',
-						data : {
+		var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+		mui.ajax({
+			url: '',
+			dataType:"json",
+			type:'POST',
+			data : {
               bank: bank,
               subbranch: subbranch,
               real_name: real_name,
               card_number: card_number,
               csrfmiddlewaretoken:csrfmiddlewaretoken
             },
-						success:function(ret){
-							mui.alert(ret.msg,callback=function(){
-								window.history.back();
-								return;
-							});
-						},
-						error:function(){
-							alert("请检查网络连接");
-						}
-					});
-				},
-				error:function(){
-					alert("请检查网络连接");
-				}
-			});
+			success:function(ret){
+				mui.alert(ret.msg,callback=function(){
+					window.history.back();
+					return;
+				});
+			},
+			error:function(){
+				alert("请检查网络连接");
+			}
+		});
 		});
 		</script>
 	</body>
