@@ -63,7 +63,7 @@
       <p id="add_jifen" class="add-jifen">
         <number>+5</number>积分</p>
 
-			<ul class="mui-row row-middle">
+			<!-- <ul class="mui-row row-middle">
 		        <div class="mui-col-sm-4 mui-col-xs-4">
 		            <li class="first mui-table-view-cell">
 		                <a>
@@ -81,12 +81,26 @@
 		        <div class="mui-col-sm-4 mui-col-xs-4">
 		            <li class="mui-table-view-cell">
 		                <a>
-		                    	<!-- 剩余积分<br /><br /><span><number>{{user.scores}}</number></span> -->
-                          剩余积分<br /><br /><span><number>1101222</number></span>
+		                    	剩余积分<br /><br /><span><number>{{user.scores}}</number></span>
 		                </a>
 		            </li>
 		        </div>
-    		</ul>
+    		</ul> -->
+        <ul id="middle" class="middle">
+            <li class="first middle-item">
+                <h6 class="middle-head">累计收益（福币）</h6>
+                <a class="middle-text">{{user.accu_income}}</a>
+            </li>
+            <li class="middle-item">
+              <h6 class="middle-head">剩余福币（个）</h6>
+                <a class="middle-text">{{user.balance}}</a>
+            </li>
+            <li class="middle-item">
+                <h6 class="middle-head">剩余积分</h6>
+                <!-- <a class="middle-text">{{user.scores}}</a> -->
+                <a class="middle-text">1234567890</a>
+            </li>
+        </ul>
 
       <ul class="mui-row row-bottom">
         <li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3">

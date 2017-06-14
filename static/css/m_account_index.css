@@ -159,6 +159,27 @@
 .icon-11 {
 	font-weight: bold;
 }
+.middle {
+	font-size: 0;
+	box-shadow: 0 2px 2px #e4e4e4;
+}
+.middle-item {
+	display: inline-block;
+	padding: 16px 0;
+	width: 33.3333%;
+	background-color: #fff;
+	text-align: center;
+}
+.middle-head {
+	font-size: 1rem;
+}
+.middle-text {
+	display: block !important;
+	margin-top: 14px;
+	color: #ff6767 !important;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
 /*底部导航部分*/
 footer {
 	width: 100%;
