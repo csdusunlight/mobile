@@ -76,18 +76,17 @@
           var real_name = document.getElementById('real_name').value;
           var card_number = document.getElementById('card_number').value;
 
-          var select = document.getElementById("bank");
-          var options = select.options;
-          var bank_index = select.selectedIndex;
-          var bank_name = select.options[bank_index].text;
-
-          console.log(bank_index + bank_name);
+          var bank = document.getElementById("bank").value;
+          // var options = select.options;
+          // var bank = options.value;
+          // var bank_name = select.options[bank_index].text;
+          console.log("bank:" + bank);
 
           var re_account=/^[\u2E80-\u9FFF]+$/;  //验证中文
           var re_number=/^[0-9]*$/;  //验证数字
           var re_card = /^[\d\s]+$/;  //验证银行卡号
 
-          if(bank_index == 0){
+          if(bank == 0){
             mui.alert("请选择相应的开户行");
             return;
           }
@@ -107,23 +106,28 @@
             mui.alert("请输入正确格式的银行卡号");
             return;
           }
-		  var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-			alert(bank_name);
-		  mui.ajax({
-				url: '',
-				dataType:"json",
-				type:'POST',
-				data : {
-		              bank: bank_name,
-		              subbranch: subbranch,
-		              real_name: real_name,
-		              card_number: card_number,
-		              csrfmiddlewaretoken:csrfmiddlewaretoken
-		            },
-				success:function(ret){
-					mui.alert(ret.msg,callback=function(){
-						window.history.back();
-						return;
+          console.log()
+					var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+					mui.ajax({
+						url: '',
+						dataType:"json",
+						type:'POST',
+						data : {
+              bank: bank,
+              subbranch: subbranch,
+              real_name: real_name,
+              card_number: card_number,
+              csrfmiddlewaretoken:csrfmiddlewaretoken
+            },
+						success:function(ret){
+							mui.alert(ret.msg,callback=function(){
+								window.history.back();
+								return;
+							});
+						},
+						error:function(){
+							alert("请检查网络连接");
+						}
 					});
 				},
 				error:function(){

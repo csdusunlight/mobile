@@ -591,18 +591,17 @@ def bind_bankcard(request):
             raise Http404
         result={}
         user = request.user
+        if user.user_bankcard.exists():
+            raise Http404
         card_number = request.POST.get("card_number", '')
         real_name = request.POST.get("real_name", '')
         bank = request.POST.get("bank", '')
         subbranch = request.POST.get("subbranch",'')
-        if user.user_bankcard.exists():
-            raise Http404
-        print 'ddd' ,card_number,real_name
         if card_number and real_name and bank:
             user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
                                        bank=bank, subbranch=subbranch)
-            result['code'] = 0
-            result['msg'] = u'绑定成功！'
+        result['code'] = 0
+        result['msg'] = u'绑定成功！'
         # else:
         #    result['code'] = 3
         #    result['msg'] = u'您已绑定过银行卡！'
