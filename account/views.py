@@ -1004,7 +1004,7 @@ def get_user_invite_page(request):
             i = {
                  "mobile":mobile,
                  "time":con.date_joined.strftime("%Y-%m-%d %H:%M"),
-                 "is_bind":u'是' if con.zhifubao else u'否',
+                 "is_bind":u'是' if con.user_bankcard.exists() else u'否',
                  "is_with":u'是' if reg else u'否',
              }
             data.append(i)
