@@ -164,18 +164,24 @@
 	box-shadow: 0 2px 2px #e4e4e4;
 }
 .middle-item {
+	position: relative;
 	display: inline-block;
 	padding: 16px 0;
+	height: 80px;
 	width: 33.3333%;
 	background-color: #fff;
 	text-align: center;
 }
 .middle-head {
-	font-size: 1rem;
+	font-size: 12px;
+	text-align: center;
 }
 .middle-text {
-	display: block !important;
-	margin-top: 14px;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	top: 40px;
 	color: #ff6767 !important;
     font-size: 1.6rem;
     font-weight: bold;
