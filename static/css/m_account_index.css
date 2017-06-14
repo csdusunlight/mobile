@@ -183,8 +183,11 @@
 	text-align: center;
 	top: 40px;
 	color: #ff6767 !important;
-    font-size: 1.6rem;
-    font-weight: bold;
+  font-size: 1.6rem;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 /*底部导航部分*/
 footer {
