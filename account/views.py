@@ -602,7 +602,7 @@ def bind_bankcard(request):
         bank = request.GET.get("bank", '')
         subbranch = request.GET.get("subbranch",'')
         if card_number and real_name and bank:
-           user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
+            user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
                                        bank=bank, subbranch=subbranch)
             result['code'] = 0
             result['msg'] = u'绑定成功！'
@@ -621,9 +621,11 @@ def change_bankcard(request):
             raise Http404
         result={}
         user = request.user
-        zhifubao = request.POST.get("account", '')
-        zhifubao_name = request.POST.get("name", '')
-        telcode = request.POST.get("telcode", '')
+        card_number = request.GET.get("card_number", '')
+        real_name = request.GET.get("real_name", '')
+        bank = request.GET.get("bank", '')
+        subbranch = request.GET.get("subbranch",'')
+        telcode = request.POST.get("code", '')
         ret = verifymobilecode(user.mobile,telcode)
         if ret != 0:
             result['code'] = 2
@@ -713,8 +715,7 @@ def withdraw(request):
             result['code'] = -1
             result['msg'] = u'余额不足！'
             return JsonResponse(result)
-        card = user.user_bankcard.first()
-        if not card:
+        if not user.user_bankcard.exists():
             result['code'] = -1
             result['msg'] = u'请先绑定银行卡！'
         else:
