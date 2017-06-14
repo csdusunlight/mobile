@@ -595,19 +595,20 @@ def bind_bankcard(request):
         real_name = request.GET.get("real_name", '')
         bank = request.GET.get("bank", '')
         subbranch = request.GET.get("subbranch",'')
-        if not user.user_bankcard.exists():
-            card_number = request.GET.get("card_number", '')
-            real_name = request.GET.get("real_name", '')
-            bank = request.GET.get("bank", '')
-            subbranch = request.GET.get("subbranch",'')
-            if card_number and real_name and bank:
-                user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
-                                           bank=bank, subbranch=subbranch)
-            result['code'] = 0
-            result['msg'] = u'绑定成功！'
-        else:
-           result['code'] = 3
-           result['msg'] = u'您已绑定过银行卡！'
+        if user.user_bankcard.exists():
+            raise Http404
+        card_number = request.GET.get("card_number", '')
+        real_name = request.GET.get("real_name", '')
+        bank = request.GET.get("bank", '')
+        subbranch = request.GET.get("subbranch",'')
+        if card_number and real_name and bank:
+            user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
+                                       bank=bank, subbranch=subbranch)
+        result['code'] = 0
+        result['msg'] = u'绑定成功！'
+        # else:
+        #    result['code'] = 3
+        #    result['msg'] = u'您已绑定过银行卡！'
         return JsonResponse(result)
     else:
         banks = BANK
