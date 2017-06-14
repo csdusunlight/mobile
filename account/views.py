@@ -711,7 +711,8 @@ def withdraw(request):
             result['code'] = -1
             result['msg'] = u'余额不足！'
             return JsonResponse(result)
-        if not user.user_bankcard.exists():
+        card = user.user_bankcard.first()
+        if not card:
             result['code'] = -1
             result['msg'] = u'请先绑定银行卡！'
         else:
