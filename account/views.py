@@ -617,10 +617,10 @@ def change_bankcard(request):
             raise Http404
         result={}
         user = request.user
-        card_number = request.GET.get("card_number", '')
-        real_name = request.GET.get("real_name", '')
-        bank = request.GET.get("bank", '')
-        subbranch = request.GET.get("subbranch",'')
+        card_number = request.POST.get("card_number", '')
+        real_name = request.POST.get("real_name", '')
+        bank = request.POST.get("bank", '')
+        subbranch = request.POST.get("subbranch",'')
         telcode = request.POST.get("code", '')
         ret = verifymobilecode(user.mobile,telcode)
         if ret != 0:
