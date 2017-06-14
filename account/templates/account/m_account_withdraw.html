@@ -46,7 +46,7 @@
 					<div class="text">
 						{%if card %}
 							<p><span>{{card.get_bank_display}}</span><br />
-							<span><number>{{card.card_number}}</number></span></p>
+							<span><number style="color: red;">{{card.card_number}}</number></span></p>
 						{%else%}
 							<p><span>请点此绑定银行卡，并刷新该页面</span></p>
 						{%endif%}
