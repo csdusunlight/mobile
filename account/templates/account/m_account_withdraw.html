@@ -40,38 +40,10 @@
 			<div id="bank_card" class="zhanghu">
 				<div class="msg clearfix">
 					<!-- <img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" /> -->
-					{% if card.bank = "中国工商银行" %}
-              <img src="{% static 'images/gongshang.png' %}" />
-          {% elif card.bank = "中国农业银行" %}
-              <img src="{% static 'images/nongye.png' %}" />
-          {% elif card.bank = "中国银行" %}
-              <img src="{% static 'images/zhongguo.png' %}" />
-          {% elif card.bank = "中国建设银行" %}
-              <img src="{% static 'images/jianshe.png' %}" />
-          {% elif card.bank = "交通银行" %}
-              <img src="{% static 'images/jiaotong.png' %}" />
-          {% elif card.bank = "中国邮政储蓄银行" %}
-              <img src="{% static 'images/youzheng.png' %}" />
-          {% elif card.bank = "中信银行" %}
-              <img src="{% static 'images/zhongxin.png' %}" />
-          {% elif card.bank = "中国光大银行" %}
-              <img src="{% static 'images/guangda.png' %}" />
-          {% elif card.bank = "华夏银行" %}
-              <img src="{% static 'images/huaxia.png' %}" />
-          {% elif card.bank = "中国民生银行" %}
-              <img src="{% static 'images/minsheng.png' %}" />
-          {% elif card.bank = "广发银行" %}
-              <img src="{% static 'images/guangfa.png' %}" />
-          {% elif card.bank = "平安银行" %}
-              <img src="{% static 'images/pingan.png' %}" />
-          {% elif card.bank = "招商银行" %}
-              <img src="{% static 'images/zhaoshang.png' %}" />
-          {% elif card.bank = "兴业银行" %}
-              <img src="{% static 'images/xingye.png' %}" />
-          {% endif %}
+					<img src="/static/images/{{card.bank}}.png" />
 					<div class="text">
 						{%if card %}
-							<p><span>{{card.bank}}</span><br />
+							<p><span>{{card.get_bank_display}}</span><br />
 							<span><number>{{card.card_number}}</number></span></p>
 						{%else%}
 							<p><span>银行卡号：未绑定</span></p>

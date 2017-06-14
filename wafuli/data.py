@@ -24,13 +24,13 @@ STATE = (
     ('3', u'已删除'),
 )
 
-FINANCE_LEVEL = (    
+FINANCE_LEVEL = (
     ('normal', u'普通用户'),
     ('channel', u'渠道用户'),
     ('all', u'全部用户'),
 )
 
-FINANCE_TYPE = (    
+FINANCE_TYPE = (
     ('1', u'新手投资'),
     ('2', u'稳健投资'),
     ('3', u'高收益区'),
@@ -154,6 +154,18 @@ INFORMATION_TYPE = (
 )
 
 BANK = (
-    ('hxb', u'华夏银行'),
-    ('acbc', u'工商银行'),
+    ('gsyh', u'中国工商银行'),
+    ('nyyh', u'中国农业银行'),
+    ('zgyh', u'中国银行'),
+    ('jsyh', u'中国建设银行'),
+    ('jtyh', u'交通银行'),
+    ('ycyh', u'中国邮政储蓄银行'),
+    ('zxyh', u'中信银行'),
+    ('gdyh', u'中国光大银行'),
+    ('hxyh', u'华夏银行'),
+    ('msyh', u'中国民生银行'),
+    ('gfyh', u'广发银行'),
+    ('payh', u'平安银行'),
+    ('zsyh', u'招商银行'),
+    ('xyyh', u'兴业银行'),
 )

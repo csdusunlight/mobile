@@ -687,7 +687,8 @@ def withdraw(request):
         codimg_url = captcha_image_url(hashkey)
         user = request.user
         card = user.user_bankcard.first()
-        return render(request, 'account/m_account_withdraw.html', {"card":card})
+        banks = BANK
+        return render(request, 'account/m_account_withdraw.html', {"card":card, 'banks':banks})
     elif request.method == 'POST':
         user = request.user
         result = {'code':-1, 'msg':''}
@@ -706,13 +707,14 @@ def withdraw(request):
             result['code'] = -1
             result['msg'] = u'余额不足！'
             return JsonResponse(result)
-        if not user.zhifubao or not user.zhifubao_name:
+        card = user.user_bankcard.first()
+        if not card:
             result['code'] = -1
-            result['msg'] = u'请先绑定支付宝！'
+            result['msg'] = u'请先绑定银行卡！'
         else:
             translist = charge_money(user, '1', withdraw_amount, u'提现')
             if translist:
-                event = UserEvent.objects.create(user=user, event_type='2', invest_account=user.zhifubao,
+                event = UserEvent.objects.create(user=user, event_type='2', invest_account=card.card_number,
                             invest_amount=withdraw_amount, audit_state='1')
                 translist.user_event = event
                 translist.save(update_fields=['user_event'])
