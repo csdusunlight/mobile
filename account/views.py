@@ -604,8 +604,8 @@ def bind_bankcard(request):
         if card_number and real_name and bank:
            user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
                                        bank=bank, subbranch=subbranch)
-        result['code'] = 0
-        result['msg'] = u'绑定成功！'
+            result['code'] = 0
+            result['msg'] = u'绑定成功！'
         # else:
         #    result['code'] = 3
         #    result['msg'] = u'您已绑定过银行卡！'
