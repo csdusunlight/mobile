@@ -40,13 +40,15 @@
 			<div id="bank_card" class="zhanghu">
 				<div class="msg clearfix">
 					<!-- <img src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" /> -->
-					<img src="/static/images/{{card.bank}}.png" />
+          {%if card.bank %}
+					   <img src="/static/images/{{card.bank}}.png" />
+          {%endif%}
 					<div class="text">
 						{%if card %}
 							<p><span>{{card.get_bank_display}}</span><br />
 							<span><number>{{card.card_number}}</number></span></p>
 						{%else%}
-							<p><span>银行卡号：未绑定</span></p>
+							<p><span>请先绑定银行卡</span></p>
 						{%endif%}
 					</div>
 				</div>
