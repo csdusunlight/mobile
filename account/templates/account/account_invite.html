@@ -18,7 +18,7 @@ $.ajaxSetup({
     data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
 });
 var data1 = '<table width="100%"><thead><tr><th height="44">手机号</th><th>注册时间</th>'+
-'<th>是否绑定支付宝</th><th>是否提现</th></tr></thead><tbody>'+
+'<th>是否绑定银行卡</th><th>是否提现</th></tr></thead><tbody>'+
 '[data]<tr><td height="44">{mobile}</td><td>{time}</td><td>{is_bind}</td><td>{is_with}</td></tr>[/data]'
 + '</tbody></table>';
 var data2 = '<table width="100%"><thead><tr><th height="44">手机号</th><th>提现完成时间</th>'+
