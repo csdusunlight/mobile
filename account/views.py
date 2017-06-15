@@ -592,7 +592,9 @@ def bind_bankcard(request):
         result={}
         user = request.user
         if user.user_bankcard.exists():
-            raise Http404
+            result['code'] = 3
+            result['msg'] = u'您已绑定过银行卡！'
+            return JsonResponse(result)
         card_number = request.POST.get("card_number", '')
         real_name = request.POST.get("real_name", '')
         bank = request.POST.get("bank", '')

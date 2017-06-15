@@ -620,17 +620,18 @@ def withdraw(request):
 def bind_bankcard(request):
     result={}
     user = request.user
-    zhifubao = request.POST.get("account", '')
-    zhifubao_name = request.POST.get("name", '')
+    card_number = request.POST.get("card_number", '')
+    real_name = request.POST.get("real_name", '')
+    bank = request.POST.get("bank", '')
+    subbranch = request.POST.get("subbranch",'')
     if not user.zhifubao:
-        user.zhifubao = zhifubao
-        user.zhifubao_name = zhifubao_name
-        user.save(update_fields=["zhifubao","zhifubao_name",])
-        result['code'] = 0
+        if card_number and real_name and bank:
+            user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
+                                       bank=bank, subbranch=subbranch)
         result['msg'] = u'绑定成功！'
     else:
        result['code'] = 3 
-       result['msg'] = u'您已绑定过支付宝！'
+       result['msg'] = u'您已绑定过银行卡！'
     return JsonResponse(result)
 
 @csrf_exempt
@@ -638,8 +639,10 @@ def bind_bankcard(request):
 def change_bankcard(request):
     result={}
     user = request.user
-    zhifubao = request.POST.get("account", '')
-    zhifubao_name = request.POST.get("name", '')
+    card_number = request.GET.get("card_number", '')
+    real_name = request.GET.get("real_name", '')
+    bank = request.GET.get("bank", '')
+    subbranch = request.GET.get("subbranch",'')
     telcode = request.POST.get("telcode", '')
     ret = verifymobilecode(user.mobile,telcode)
     if ret != 0:
@@ -652,11 +655,14 @@ def change_bankcard(request):
             result['msg'] = u'手机验证码已过期，请重新获取'
         return JsonResponse(result)
     else:
-        user.zhifubao = zhifubao
-        user.zhifubao_name = zhifubao_name
-        user.save(update_fields=["zhifubao","zhifubao_name",])
+        card = user.user_bankcard.first()
+        card.card_number = card_number
+        card.real_name = real_name
+        card.bank = bank
+        card.subbranch = subbranch
+        card.save()
         result['code'] = 0
-        result['msg'] = u"支付宝账号更改成功！"
+        result['msg'] = u"银行卡号更改成功！"
     return JsonResponse(result)
 
 @csrf_exempt
