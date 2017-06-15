@@ -24,6 +24,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db.models import Sum,Q,F
 from wafuli_admin.models import DayStatis, GlobalStatis, RecommendRank
+from wafuli.data import BANK
 
 host = 'http://m.wafuli.cn'
 logger = logging.getLogger("wafuli")
@@ -624,7 +625,7 @@ def bind_bankcard(request):
     real_name = request.POST.get("real_name", '')
     bank = request.POST.get("bank", '')
     subbranch = request.POST.get("subbranch",'')
-    if not user.zhifubao:
+    if not user.user_bankcard.exists():
         if card_number and real_name and bank:
             user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
                                        bank=bank, subbranch=subbranch)
@@ -925,3 +926,7 @@ def account_channel(request):
             msg = u'该注册手机号已被提交过，请不要重复提交！'
         result = {'code':code, 'msg':msg}
         return JsonResponse(result)
+    
+# @app_login_required
+def get_bank_name(request):
+    return JsonResponse(BANK, safe=False)
