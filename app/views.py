@@ -599,9 +599,9 @@ def withdraw(request):
         result['code'] = -1
         result['msg'] = u'余额不足！'
         return JsonResponse(result)
-    if not user.zhifubao or not user.zhifubao_name:
+    if not user.user_bankcard.exists():
         result['code'] = -1
-        result['msg'] = u'请先绑定支付宝！'
+        result['msg'] = u'请先绑定银行卡！'
     else:
         translist = charge_money(user, '1', withdraw_amount, u'提现')
         if translist:
@@ -629,6 +629,7 @@ def bind_bankcard(request):
         if card_number and real_name and bank:
             user.user_bankcard.create(user=user, card_number=card_number, real_name=real_name,
                                        bank=bank, subbranch=subbranch)
+        result['code'] = 0
         result['msg'] = u'绑定成功！'
     else:
        result['code'] = 3 
@@ -640,10 +641,10 @@ def bind_bankcard(request):
 def change_bankcard(request):
     result={}
     user = request.user
-    card_number = request.GET.get("card_number", '')
-    real_name = request.GET.get("real_name", '')
-    bank = request.GET.get("bank", '')
-    subbranch = request.GET.get("subbranch",'')
+    card_number = request.POST.get("card_number", '')
+    real_name = request.POST.get("real_name", '')
+    bank = request.POST.get("bank", '')
+    subbranch = request.POST.get("subbranch",'')
     telcode = request.POST.get("telcode", '')
     ret = verifymobilecode(user.mobile,telcode)
     if ret != 0:
