@@ -213,6 +213,7 @@ class Finance(News):
     level = models.CharField(u"项目级别", max_length=10, choices=FINANCE_LEVEL, default="normal")
     f_type = models.CharField(u"项目类别", max_length=1, choices=FINANCE_TYPE)
 #     filter = models.CharField(u"项目系列", max_length=2, choices=FILTER)
+    is_multisub_allowed = models.BooleanField(u"是否允许同一手机号多次提交", default=False)
     introduction = models.TextField(u"平台简介",max_length=200)     #jzy
     background = models.CharField(u"平台背景", max_length=20)
     regcap = models.CharField(u"注册资本", max_length=10)
