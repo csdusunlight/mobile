@@ -396,3 +396,84 @@ footer li.on span {
 	bottom:20px;
 }
 
+/*红包活动部分*/
+.hongbao {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 1001;
+}
+.img-box .close-hb {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 4rem;
+	color: #fff;
+}
+.hongbao .img-box {
+	font-family: "华康少女文字W5(P)";
+	position: relative;
+	display: block;
+	padding-top: 14rem;
+	margin: 30% auto;
+	width: 30rem;
+	height: 36rem;
+	background: url(../images/hongbao-index.png) center bottom/auto 100% no-repeat;
+	-webkit-animation:hongbao 1s ease-in-out;
+	animation:hongbao 1s ease-in-out;
+}
+.img-box .hb-amount {
+	margin-top: 9rem;
+	font-size: 1.8rem;
+	color: #fff;
+	text-align: center;
+}
+.img-box .hb-btn {
+	display: block;
+	width: 11rem;
+	margin: 1.6rem auto 0;
+	font-size: 1.8rem;
+	color: #fff;
+	text-align: center;
+}
+.img-box .hb-btn {
+	color: #fb2a38;
+	background: #fcdb30;
+	border-color: #fcdb30;
+}
+.img-box .hb-btn:active {
+	color: #fb2a38;
+	background: #e3c42b;
+	border-color: #e3c42b;
+}
+.img-box .hb-more {
+	display: block;
+	margin-right: 20%;
+	margin-top: 1.6rem;
+	text-align: right;
+	color: #fff;
+}
+
+@-webkit-keyframes hongbao {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes hongbao {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

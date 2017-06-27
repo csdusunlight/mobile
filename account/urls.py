@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^welfare_json/$', 'account.views.get_user_welfare_json', name='get_user_welfare_json'),
 #     url(r'money/$', 'account.views.money', name='account_money'),
 #     url(r'user/$', 'account.views.user', name='account_user'),
-    url(r'^coupon/$', 'account.views.coupon', name='account_coupon'), 
+    url(r'^coupon/$', 'account.views.coupon', name='account_coupon'),
     url(r'^user_coupon_json/$', 'account.views.user_coupon_json', name='user_coupon_json'),
     url(r'^coupondetail/$', 'account.views.get_user_coupon_exchange_detail', name='get_user_coupon_exchange_detail'),
     url(r'^useCoupon/$', 'account.views.useCoupon', name='account_useCoupon'),
@@ -53,11 +53,12 @@ urlpatterns = [
     url(r'^phoneImageV/$', 'account.views.phoneImageV', name='phoneImageV'),
 #    url(r'verifytelcode/$', 'account.views.verifytelcode', name='verifytelcode'),
     url(r'^callback/$', 'account.views.callbackby189', name='callback'),
-    
+
     url(r'^customService/$', TemplateView.as_view(template_name="account/m_custom_service.html"),name='account_custom_service'),
     url(r'^joinQQGroup/$', TemplateView.as_view(template_name="account/m_join_QQGroup.html"),name='account_join_QQGroup'),
-    
+
     url(r'^channel/$', 'account.channel.account_channel',name='account_channel'),
     url(r'^vip/$', 'account.vip.vip',name='account_vip'),
     url(r'^vip_intro/$', 'account.vip.vip_intro',name='vip_intro'),
+    url(r'^bank_data/$', 'account.views.bank_data',name='bank_data'), # jzy
 ]

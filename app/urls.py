@@ -51,4 +51,6 @@ urlpatterns = [
     
     url(r'^get_channel_project', 'app.views.get_channel_project',),
     url(r'^channel/$', 'app.views.account_channel'),
+    
+    url(r'^bank_name/$', 'app.views.get_bank_name'),
 ]

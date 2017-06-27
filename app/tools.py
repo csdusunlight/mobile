@@ -72,8 +72,13 @@ def user_info(user):
     if signin_last and signin_last.date == date.today():
         isSigned = 1
     isChannel = 1 if user.is_channel else 0
+    bankcard = user.user_bankcard.first()
+    card_number = bankcard.card_number if bankcard else ''
+    bank = bankcard.bank if bankcard else ''
+    bank_name = bankcard.get_bank_display() if bankcard else ''
     result = {'accu_income':user.accu_income, 'balance':user.balance, 
               'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores,
-              'accu_scores':user.accu_scores, 'zhifubao':user.zhifubao, 'tcount_u':tcount_u,
+              'accu_scores':user.accu_scores, 'card_number':card_number,'bank':bank,'tcount_u':tcount_u,
+              'bank_name':bank_name,
               'fcount_u':fcount_u,'invite_code':user.invite_code,'isSigned':isSigned,'isChannel':isChannel}
     return result
