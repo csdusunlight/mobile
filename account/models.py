@@ -19,7 +19,7 @@ class MyUserManager(BaseUserManager):
         Creates and saves a User with the given username, email and password.
         """
         now = datetime.datetime.now()
-        if not email or not mobile or not username:
+        if not mobile or not username:
             raise ValueError('The given email, mobile and username must be set')
         email = self.normalize_email(email)
         user = self.model(email=email, mobile=mobile, username=username,
@@ -33,8 +33,8 @@ class MyUserManager(BaseUserManager):
     def create_user(self, email, mobile, username, password=None, **extra_fields):
         return self._create_user(email, mobile, username, password, False, False)
 
-    def create_superuser(self,email, mobile, username, password):
-        return self._create_user(email, mobile, username, password, True, True)
+    def create_superuser(self, mobile, username, password):
+        return self._create_user('', mobile, username, password, True, True)
     def get_by_natural_key(self, username):
         try:
             return self.get(**{'mobile': username})
