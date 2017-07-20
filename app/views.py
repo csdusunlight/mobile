@@ -416,7 +416,7 @@ def submit_finance(request):
     news = Finance.objects.get(pk=news_id)
     try:
         with transaction.atomic():
-            if news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+            if not news.is_multisub_allowed and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
                 raise ValueError('This invest_account is repective in project:' + str(news.id))
             else:
                 UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term,
@@ -914,7 +914,7 @@ def account_channel(request):
         try:
             with transaction.atomic():
                 db_key = DBlock.objects.select_for_update().get(index='event_key')
-                if news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+                if not news.is_multisub_allowed and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
                     raise ValueError('This invest_account is repective in project:' + str(news.id))
                 else:
                     UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term, invest_time=time,
