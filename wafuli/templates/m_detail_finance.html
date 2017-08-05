@@ -89,9 +89,15 @@
 		        <div class="left-btn mui-col-sm-6 mui-col-xs-6">
 		            <button id="reg_btn" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">信息登记</button>
 		        </div>
+		        {%if news.state == "1"%}
 		        <div class=" mui-col-sm-6 mui-col-xs-6">
 		            <button id="exp_btn" type="button" class="right mui-btn mui-btn-blue mui-btn-outlined">立即体验</button>
 		        </div>
+		        {%else%}
+		        <div class=" mui-col-sm-6 mui-col-xs-6">
+		            <button id="exp_btn" type="button" disabled="disabled" class="right mui-btn mui-btn-blue mui-btn-outlined">立即体验</button>
+		        </div>
+		        {%endif%}
 		    </div>
 
 		</div>
