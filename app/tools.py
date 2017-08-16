@@ -79,6 +79,6 @@ def user_info(user):
     result = {'accu_income':user.accu_income, 'balance':user.balance, 
               'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores,
               'accu_scores':user.accu_scores, 'card_number':card_number,'bank':bank,'tcount_u':tcount_u,
-              'bank_name':bank_name,
+              'bank_name':bank_name, 'with_total':user.with_total, 'level':user.level,
               'fcount_u':fcount_u,'invite_code':user.invite_code,'isSigned':isSigned,'isChannel':isChannel}
     return result
