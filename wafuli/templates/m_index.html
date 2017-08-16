@@ -20,14 +20,14 @@
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_index.css'%}"/>
 </head>
 <body>
-<div id="hongbao" class="hongbao">
+<!-- <div id="hongbao" class="hongbao-active">
     <div id="img_box" class="img-box">
         <span id="close-hb" class="mui-icon mui-icon-closeempty close-hb"></span>
         <p class="hb-amount">老板，您有红包可拆</p>
         <a id="hb_btn" href="{% url 'Christmas_open_envelope' %}" class="mui-btn mui-btn-yellow hb-btn">点我去拆啦</a>
         <a class="hb-more" href="{% url 'activity_Christmas' %}">去拆更多红包>></a>
     </div>
-</div>
+</div> -->
 <div id="pullrefresh" class="mui-scroll-wrapper">
 
 <div class="mui-content">
@@ -142,7 +142,17 @@
 
         <ul class="mui-table-view">
         {% for wel in last_wel_list %}
-			<li class="mui-table-view-cell">
+            <li class="mui-table-view-cell hongbao">
+                <a class="clearfix" href="{{wel.url}}">
+                    <img class="hongbao__img" src="{{wel.pic.url}}">
+                    <h6 class="hongbao__title">{{wel.title}}</h6><i class="icon iconfont">&#xe602;</i>
+                    <h6 class="hongbao__subtitle">{{wel.subtitle}}</h6>
+                    <p class="hongbao__detail">
+                        <span class="hongbao__source">{{wel.time_limit}}</span><span class="hongbao__time">{{wel.view_count}}</span><span class="hongbao__look">{{wel.view_count}}</span>
+                    </p>
+                </a>
+            </li>
+			<!-- <li class="mui-table-view-cell">
 				<a class="clearfix" href="{{wel.url}}">
 					<img src="{{wel.pic.url}}">
 					<div class="li-info">
@@ -156,7 +166,7 @@
 						<p><span class="s3 icon-time">{{wel.time_limit}}</span><span class="s2 icon-yanjing">{{wel.view_count}}</span></p>
 					</div>
 				</a>
-			</li>
+			</li> -->
 		{% endfor %}
         </ul>
 
@@ -248,23 +258,16 @@
 						for (var i in data) {
 							var wel = data[i];
 							var li = document.createElement('li');
-							li.className = 'mui-table-view-cell';
+							li.className = 'mui-table-view-cell hongbao';
 							var str_block = '<a class="clearfix" href="' + wel.url + '"><img src="'+
-											wel.picurl + '" /><div class="li-info"><h6>' + wel.title + '</h6>';
+											wel.picurl + '" /><h6 class="hongbao__title">' + wel.title +;
 							if (wel.is_hot){
 								str_block += '<i class="icon iconfont">&#xe621;</i>';
 							}
-							// else{
-							// 	str_block += '<span class="after-new">new</span>';
-							// }
-							str_block += '<p class="first">';
-							var marks = wel.marks;
-							for (var j in marks){
-								str_block += '<span>' + marks[j] + '</span>';
-							}
-							str_block += '</p><p><span class="s1 icon-renzhengshangjia">'+wel.provider+'</span></p>'+
-											'<p><span class="s3 icon-time">'+wel.time_limit+'</span><span class="s2 icon-yanjing">'+
-											wel.view_count +'</span></p></div></a>';
+							str_block += ' </h6><h6 class="hongbao__subtitle">这里是副标题这里是</h6>';
+							str_block += '<p class="hongbao__detail">'+
+											'<span class="hongbao__source">'+wel.source+'</span><span class="hongbao__time">'+wel.source+'</span><span class="hongbao__look">'+wel.view_count+'</span>'+
+											'</p></a>';
 							li.innerHTML = str_block;
 							table.appendChild(li);
 						}
@@ -305,11 +308,11 @@
 			interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
 		});
         // 红包活动部分
-        var hongbao = document.getElementById("hongbao"),
-            close_hb = document.getElementById("close-hb");
-        close_hb.addEventListener("tap",function(){
-            hongbao.style.display = "none";
-        })
+        // var hongbao = document.getElementById("hongbao"),
+        //     close_hb = document.getElementById("close-hb");
+        // close_hb.addEventListener("tap",function(){
+        //     hongbao.style.display = "none";
+        // })
     </script>
     <script type="text/javascript">
         var scrollToTopBox = document.getElementById('scrollToTop'); //返回按钮tap

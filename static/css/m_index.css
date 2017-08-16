@@ -165,18 +165,59 @@ header a img {
 
 /*选项卡部分*/
 .recent .today-tittle {
+  padding: 0 1.875% 0;
 	border-bottom: none;
 }
 
-.mui-table-view-cell {
+/*.mui-table-view-cell {
 	padding: 0;
 }
 
 .mui-table-view-cell>a:not(.mui-btn) {
 	margin: 0.8rem 0;
 	overflow: visible;
+}*/
+.hongbao {
+    position: relative;
 }
-.mui-table-view-cell img {
+.hongbao__img {
+    float: left;
+    width: 95px;
+    height: 95px;
+    height: 108px;
+    margin-right: 10px;
+}
+.hongbao__title {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 18px;
+    white-space: normal;
+}
+.hongbao__tag {
+    position: absolute;
+    margin-left: 0.4rem;
+    font-size: 1.6rem;
+    color: #ff6767;
+}
+.hongbao__subtitle {
+    padding: 18px 0;
+    font-size: 12px;
+    color: #f08519;
+}
+.hongbao__detail {
+    position: relative;
+    line-height: 1;
+    font-size: 9px;
+    color: #999;
+}
+.hongbao__time {
+    margin-left: 16px;
+}
+.hongbao__look {
+    float: right;
+    margin-right: 14px;
+}
+/*.mui-table-view-cell img {
 	float: left;
 	width: 13rem !important;
 	max-height: 7.5rem;
@@ -267,7 +308,7 @@ h6 + .iconfont {
 .icon-yanjing:before {
 	content: "\e601";
 	top: -0.1rem;
-}
+}*/
 /*底部导航部分*/
 footer {
 	width: 100%;
@@ -397,7 +438,7 @@ footer li.on span {
 }
 
 /*红包活动部分*/
-.hongbao {
+.hongbao-active {
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -411,7 +452,7 @@ footer li.on span {
 	font-size: 4rem;
 	color: #fff;
 }
-.hongbao .img-box {
+.hongbao-active .img-box {
 	font-family: "华康少女文字W5(P)";
 	position: relative;
 	display: block;
