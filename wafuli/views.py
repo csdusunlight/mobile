@@ -246,14 +246,13 @@ def expsubmit_finance(request):
     #         return JsonResponse(result)
         news = Finance.objects.get(pk=news_id)
         try:
-            with transaction.atomic():
-                if not news.is_multisub_allowed and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
-                    raise ValueError('This invest_account is repective in project:' + str(news.id))
-                else:
-                    UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term,
-                                     invest_amount=amount, content_object=news, audit_state='1',remark=remark,)
-                    code = '1'
-                    msg = u'提交成功，请通过用户中心查询！'
+            if not news.is_multisub_allowed and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+                raise ValueError('This invest_account is repective in project:' + str(news.id))
+            else:
+                UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term,
+                                 invest_amount=amount, content_object=news, audit_state='1',remark=remark,)
+                code = '1'
+                msg = u'提交成功，请通过用户中心查询！'
         except Exception, e:
             logger.info(e)
             code = '2'
