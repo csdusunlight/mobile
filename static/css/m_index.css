@@ -189,6 +189,8 @@ header a img {
 }
 .hongbao__title {
     margin-top: 6px;
+    height: 36px;
+    overflow: hidden;
     font-size: 12px;
     line-height: 18px;
     white-space: normal;
