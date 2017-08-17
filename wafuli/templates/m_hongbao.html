@@ -150,7 +150,15 @@
 						});
 
 						function get_hongbao_list(obj,ul,n,index){
-							var type = document.querySelectorAll('#sliderSegmentedControl .mui-scroll a')[index].innerText;
+							console.log(index);
+							// var type = document.querySelectorAll('#sliderSegmentedControl .mui-scroll a')[index].innerText;
+							var type;
+							if (index == 0) {
+		            type = '';
+		          } else {
+		              type = index - 1;
+		              newurl += '&htype=' + htype;
+		          }
 							mui.ajax(get_hongbao_url,{
 								data:{
 									count:n,
