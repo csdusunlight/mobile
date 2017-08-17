@@ -87,7 +87,7 @@ body {
 }
 .hongbao__img {
     float: left;
-    width: 95px;
+    width: 95px !important;
     height: 95px;
     margin-right: 10px;
 }

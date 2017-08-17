@@ -144,7 +144,8 @@
 							// 	type:type,
 							// },
 							dataType:'json',
-							type:'get'
+							type:'get',
+							timeout:10000,//超时时间设置为10秒；
 							success:function(data){
 								this.innerText = parseInt(this.innerText) + 1;
 	              this.className = 'support__up on'
@@ -167,7 +168,8 @@
 							// 	type:type,
 							// },
 							dataType:'json',
-							type:'get'
+							type:'get',
+							timeout:10000,//超时时间设置为10秒；
 							success:function(data){
 								this.innerText = parseInt(this.innerText) + 1;
 	              this.className = 'support__down on'

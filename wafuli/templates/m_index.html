@@ -82,15 +82,15 @@
                     </a>
                 </li>
             	<li>
-                	<a href="{% url 'activity' %}">
+                	<a href="{% url 'freshman_award' %}">
                     	<i class="icon iconfont ic-03">&#xe8f1;</i>
-                        <span>要赚福币</span>
+                        <span>新手奖励</span>
                     </a>
                 </li>
             	<li>
-                	<a href="{% url 'information' %}">
-                    	<i class="icon iconfont ic-04">&#xe648;</i>
-                        <span>我有故事</span>
+                	<a href="{% url 'freshman_award' %}">
+                    	<i class="icon iconfont ic-04">&#xe641;</i>
+                        <span>推荐有礼</span>
                     </a>
                 </li>
             	<li>
@@ -100,15 +100,15 @@
                     </a>
                 </li>
             	<li>
-                	<a href="{% url 'welfare_list' type='yhq' %}">
-                    	<i class="icon iconfont ic-06">&#xe64e;</i>
-                        <span>优惠券</span>
+                	<a href="http://fuligou.wafuli.cn/">
+                    	<i class="icon iconfont ic-06">&#xe655;</i>
+                        <span>福利购</span>
                     </a>
                 </li>
             	<li>
                 	<a href="{% url 'welfare_list' type='by' %}">
-                    	<i class="icon iconfont ic-07">&#xe655;</i>
-                        <span><number>9.9</number>包邮</span>
+                    	<i class="icon iconfont ic-07">&#xe6fe;</i>
+                        <span><number>9.9</number>信用卡</span>
                     </a>
                 </li>
             	<li id="weixin_btn">
@@ -145,7 +145,7 @@
             <li class="mui-table-view-cell hongbao">
                 <a class="clearfix" href="{{wel.url}}">
                     <img class="hongbao__img" src="{{wel.pic.url}}">
-                    <h6 class="hongbao__title">{{wel.title}}</h6><i class="icon iconfont">&#xe602;</i>
+                    <h6 class="hongbao__title">{{wel.title}}</h6><i class="hongbao__tag icon iconfont">&#xe602;</i>
                     <h6 class="hongbao__subtitle">{{wel.subtitle}}</h6>
                     <p class="hongbao__detail">
                         <span class="hongbao__source">{{wel.provider}}</span><span class="hongbao__time">{{wel.time_limit}}</span><span class="hongbao__look">阅读量:{{wel.view_count}}</span>
@@ -262,8 +262,10 @@
 							var str_block = '<a class="clearfix" href="' + wel.url + '"><img class="hongbao__img" src="'+
 											wel.picurl + '" /><h6 class="hongbao__title">' + wel.title;
 							if (wel.is_hot){
-								str_block += '<i class="icon iconfont">&#xe621;</i>';
-							}
+								str_block += '<i class="hongbao__tag icon iconfont">&#xe621;</i>';
+							} else if(wel.is_new) {
+                                str_block += '<i class="hongbao__tag icon iconfont">&#xe657;</i>';
+                            }
 							str_block += ' </h6><h6 class="hongbao__subtitle">这里是副标题这里是</h6>';
 							str_block += '<p class="hongbao__detail">'+
 											'<span class="hongbao__source">'+wel.provider+'</span><span class="hongbao__time">'+wel.time_limit+'</span><span class="hongbao__look">阅读量:'+wel.view_count+'</span>'+
