@@ -46,6 +46,9 @@
 				<h3><i class="icon iconfont">&#xe61c;</i>体验步骤</h3>
 				<div class="detail-html">{{news.strategy|safe}}</div>
 			</div>
+			<div class="support">
+			    <span id="support_up" class="support__up"><number>3455</number></span><span id="support_down" class="support__down"><number>344</number></span>
+			</div>
 			<!--温馨提示部分-->
 			<div class="prompt">
 				<h3><i class="icon iconfont">&#xe60b;</i>温馨提示</h3>
@@ -125,6 +128,29 @@
 			{% else %}
 				var is_login = false;
 			{% endif %}
+
+			//点赞部分
+			var supportFlag = 0;
+      document.getElementById('support_up').addEventListener('tap', function(){
+          if (supportFlag > 0) {
+          	return false;
+          } else{
+              this.innerText = parseInt(this.innerText) + 1;
+              this.className = 'support__up on'
+              supportFlag++;
+          }
+      })
+      document.getElementById('support_down').addEventListener('tap', function(){
+          if (supportFlag > 0) {
+              return false;
+          } else{
+              this.innerText = parseInt(this.innerText) + 1;
+              this.className = 'support__down on'
+              supportFlag++;
+          }
+
+      })
+      //点赞部分---end
 		</script>
 	{%if back %}
 		<script>
