@@ -161,19 +161,30 @@
 										for (var i in data) {
 											var wel = data[i];
 											var li = document.createElement('li');
-											li.className = 'mui-table-view-cell';
-											str_block = '<a class="clearfix" href="' + wel.url + '"><img src="'+
-															wel.picurl +
-															'" /><div class="li-info"><h6 class="after-new">'+
-															wel.title +
-															'</h6><p class="first">';
-											marks = wel.marks;
-											for (var j in marks){
-												str_block += '<span>' + marks[j] + '</span>';
+											// li.className = 'mui-table-view-cell';
+											// str_block = '<a class="clearfix" href="' + wel.url + '"><img src="'+
+											// 				wel.picurl +
+											// 				'" /><div class="li-info"><h6 class="after-new">'+
+											// 				wel.title +
+											// 				'</h6><p class="first">';
+											// marks = wel.marks;
+											// for (var j in marks){
+											// 	str_block += '<span>' + marks[j] + '</span>';
+											// }
+											// str_block += '</p><p><span class="s1 icon-renzhengshangjia">'+wel.provider+'</span></p>'+
+											// 				'<p><span class="s3 icon-time">'+wel.time_limit+'</span><span class="s2 icon-yanjing">'+
+											// 				wel.view_count +'</span></p></div></a>';
+											// li.innerHTML = str_block;
+											li.className = 'mui-table-view-cell hongbao';
+											var str_block = '<a class="clearfix" href="' + wel.url + '"><img class="hongbao__img" src="'+
+															wel.picurl + '" /><h6 class="hongbao__title">' + wel.title;
+											if (wel.is_hot){
+												str_block += '<i class="icon iconfont">&#xe621;</i>';
 											}
-											str_block += '</p><p><span class="s1 icon-renzhengshangjia">'+wel.provider+'</span></p>'+
-															'<p><span class="s3 icon-time">'+wel.time_limit+'</span><span class="s2 icon-yanjing">'+
-															wel.view_count +'</span></p></div></a>';
+											str_block += ' </h6><h6 class="hongbao__subtitle">这里是副标题这里是</h6>';
+											str_block += '<p class="hongbao__detail">'+
+															'<span class="hongbao__source">'+wel.provider+'</span><span class="hongbao__time">'+wel.time_limit+'</span><span class="hongbao__look">阅读量:'+wel.view_count+'</span>'+
+															'</p></a>';
 											li.innerHTML = str_block;
 											ul.appendChild(li);
 										}

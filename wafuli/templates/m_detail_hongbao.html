@@ -131,24 +131,53 @@
 
 			//点赞部分
 			var supportFlag = 0;
+			var supportId = document.getElementById('support').getAttribute('data-support');
+			console.log(supportId);
       document.getElementById('support_up').addEventListener('tap', function(){
           if (supportFlag > 0) {
           	return false;
           } else{
-              this.innerText = parseInt(this.innerText) + 1;
-              this.className = 'support__up on'
-              supportFlag++;
+            var newurl = '/updown_welfare/' + supportId + '/?click=up';
+        		mui.ajax(newurl,{
+							// data:{
+							// 	count:n,
+							// 	type:type,
+							// },
+							dataType:'json',
+							type:'get'
+							success:function(data){
+								this.innerText = parseInt(this.innerText) + 1;
+	              this.className = 'support__up on'
+	              supportFlag++;
+							},
+							error:function(xhr,type,errorThrown){
+								alert(type);
+							}
+						});
           }
       })
       document.getElementById('support_down').addEventListener('tap', function(){
           if (supportFlag > 0) {
               return false;
           } else{
-              this.innerText = parseInt(this.innerText) + 1;
-              this.className = 'support__down on'
-              supportFlag++;
+          	var newurl = '/updown_welfare/' + supportId + '/?click=down';
+              mui.ajax(newurl,{
+							// data:{
+							// 	count:n,
+							// 	type:type,
+							// },
+							dataType:'json',
+							type:'get'
+							success:function(data){
+								this.innerText = parseInt(this.innerText) + 1;
+	              this.className = 'support__down on'
+	              supportFlag++;
+							},
+							error:function(xhr,type,errorThrown){
+								alert(type);
+							}
+						});
           }
-
       })
       //点赞部分---end
 		</script>

@@ -82,7 +82,48 @@ body {
 }
 
 /*列表样式部分*/
-.mui-table-view {
+.hongbao {
+    position: relative;
+}
+.hongbao__img {
+    float: left;
+    width: 95px;
+    height: 95px;
+    margin-right: 10px;
+}
+.hongbao__title {
+    margin-top: 6px;
+    height: 36px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 18px;
+    white-space: normal;
+}
+.hongbao__tag {
+    position: absolute;
+    margin-left: 0.4rem;
+    font-size: 1.6rem;
+    color: #ff6767;
+}
+.hongbao__subtitle {
+    padding: 10px 0 16px;
+    font-size: 14px;
+    color: #f08519;
+}
+.hongbao__detail {
+    position: relative;
+    line-height: 1;
+    font-size: 12px;
+    color: #999;
+}
+.hongbao__time {
+    margin-left: 16px;
+}
+.hongbao__look {
+    float: right;
+    margin-right: 14px;
+}
+/*.mui-table-view {
 	padding: 0 1.875%;
 }
 .mui-table-view-cell {
@@ -186,3 +227,4 @@ body {
 	content: "\e601";
 	top: -0.1rem;
 }
+*/
