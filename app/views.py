@@ -1,7 +1,7 @@
 #coding:utf-8
 from wafuli.models import Advertisement_Mobile, Welfare, MAdvert, CouponProject,\
     Coupon, TransList, ScoreTranlist, Commodity, ExchangeRecord, UserEvent, Task,\
-    Finance, Press, UserTask, Information, MAdvert_App,UserWelfare
+    Finance, Press, UserTask, Information, MAdvert_App,UserWelfare, Hongbao
 from datetime import datetime, date, timedelta
 from django.http.response import JsonResponse, Http404
 from account.models import Userlogin, MyUser, UserSignIn, DBlock
@@ -38,8 +38,8 @@ def get_news(request):
     except:
         lastDate = datetime.now()
     logger.debug("lastdate"+str(lastDate))
-    last_wel_list = Welfare.objects.filter(is_display=True,state='1',startTime__lt=lastDate).\
-        exclude(type='baoyou').order_by("-startTime")[0:10]
+    last_wel_list = Hongbao.objects.filter(is_display=True,state='1',startTime__lt=lastDate).\
+        order_by("-startTime")[0:10]
     ret_list = []
     for wel in last_wel_list:
         marks = wel.marks.all()
@@ -55,7 +55,8 @@ def get_news(request):
             'time': wel.time_limit,
             'source': wel.provider,
             'view': wel.view_count,
-            'type':wel.type,
+            'type':wel.htype,
+            'subtitle':wel.subtitle,
         }
         ret_list.append(attr_dic)
     logger.debug(str(len(ret_list)))
@@ -140,7 +141,9 @@ def get_content_hongbao(request):
         'num': wel.view_count,
         'time': wel.time_limit,
         'url': wel.exp_url_mobile,
-        'title':wel.title
+        'title':wel.title,
+        'subtitle':wel.subtitle,
+        'htype':wel.htype,
     }
     return JsonResponse(ret_dict)
 def get_content_youhuiquan(request):
