@@ -144,6 +144,8 @@ def get_content_hongbao(request):
         'title':wel.title,
         'subtitle':wel.subtitle,
         'htype':wel.htype,
+        'up':wel.up,
+        'down':wel.down,
     }
     return JsonResponse(ret_dict)
 def get_content_youhuiquan(request):
