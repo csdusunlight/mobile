@@ -4,8 +4,16 @@
 img {
 	width: 100%;
 }
+.ad {
+    padding: 20px 0;
+	   background-color: #fff;
+    text-align: center;
+}
 .ad img {
-	width: 100%;
+	  display: block;
+    margin: 0 auto;
+    height: 150px;
+    width: auto;
 }
 .ad h5 {
 	padding: 0 1.875% 0;
@@ -47,6 +55,38 @@ img {
 	line-height: 2rem;;
 }
 
+/*点赞部分*/
+.support {
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+}
+.support__up,
+.support__down {
+    display: inline-block;
+    padding-left: 30px;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+.support__up {
+    border: 1px solid #f08519;
+    background: url(../images/support-up.png) 20px center/16px auto no-repeat;
+}
+.support__up.on {
+    background-image: url(../images/support-up-on.png);
+}
+.support__down {
+    margin-left: 50px;
+    border: 1px solid #777;
+    background: url(../images/support-down.png) 20px center/16px auto no-repeat;
+}
+.support__down.on {
+    background-image: url(../images/support-down-on.png);
+}
+/*点赞部分---end*/
 /*立即体验部分*/
 .try {
 	position: fixed;

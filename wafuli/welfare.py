@@ -193,9 +193,8 @@ def welfare_json(request):
     start = 6*count
     now = datetime.datetime.now()
     to = now - timedelta(days=1)
-    begin = now - timedelta(days=55)
-    wel_list = Welfare.objects.filter(is_display=True,state='1',startTime__range=(begin,to)).\
-        exclude(type='baoyou').order_by('-view_count')[start:start+6]
+    begin = now - timedelta(days=5)
+    wel_list = Hongbao.objects.filter(is_display=True,state='1').order_by('-startTime')[start:start+6]
     for wel in wel_list:
         marks = wel.marks.all()[0:3]
         mlist = []
@@ -209,7 +208,9 @@ def welfare_json(request):
             'provider':wel.provider,
             'time_limit':wel.time_limit,
             'marks':mlist,
-            'is_hot':wel.is_hot()
+            'is_hot':wel.is_hot(),
+            'type':wel.htype,
+            'subtitle':wel.subtitle,
         })
     return JsonResponse(data,safe=False)
 
@@ -285,22 +286,25 @@ def task_json(request):
 
 def hongbao_json(request):
     count = int(request.GET.get('count', 0))
-    type = request.GET.get('type', u"全部")
+    type = request.GET.get('type', None)
     data = []
     count = int(count)
     start = 6*count
     wel_list = Hongbao.objects
-    if type != u"全部":
-        mark = None
-        try:
-            mark = Mark.objects.get(name=type)
-        except Mark.DoesNotExist:
-            logger.error("The mark: " + type + " doesn't exists!")
-            wel_list = []
-        else:
-            wel_list = mark.welfare_set
+    if not type:
+        wel_list = wel_list.filter(is_qualified=True)
+    else:
+        wel_list = wel_list.filter(htype=type)
+#         mark = None
+#         try:
+#             mark = Mark.objects.get(name=type)
+#         except Mark.DoesNotExist:
+#             logger.error("The mark: " + type + " doesn't exists!")
+#             wel_list = []
+#         else:
+#             wel_list = mark.welfare_set
     if wel_list:
-        wel_list = wel_list.filter(is_display=True,state='1')[start:start+6]
+        wel_list = wel_list.filter(state='1').order_by("-startTime")[start:start+6]
     for wel in wel_list:
         marks = wel.marks.all()[0:3]
         mlist = []
@@ -310,6 +314,7 @@ def hongbao_json(request):
             'url':wel.url,
             'picurl':wel.pic.url,
             'title':wel.title,
+            'subtitle':wel.subtitle,        #jzy
             'view_count':wel.view_count,
             'provider':wel.provider,
             'time_limit':wel.time_limit,

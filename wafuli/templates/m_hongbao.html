@@ -40,12 +40,13 @@
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<div class="mui-scroll">
-						<a class="mui-control-item mui-active" href="#item1mobile">全部</a>
-						<a class="mui-control-item" href="#item2mobile">红包</a>
-						<a class="mui-control-item" href="#item3mobile"><number>VIP</number>会员</a>
-						<a class="mui-control-item" href="#item4mobile">话费</a>
-						<a class="mui-control-item" href="#item5mobile">免费领</a>
-						<a class="mui-control-item" href="#item6mobile">体验金</a>
+						<a class="mui-control-item mui-active" href="#item1mobile">精选</a>
+						<a class="mui-control-item" href="#item2mobile">微信</a>
+						<a class="mui-control-item" href="#item3mobile">支付宝</a>
+						<a class="mui-control-item" href="#item4mobile">购物</a>
+						<a class="mui-control-item" href="#item5mobile">话费</a>
+						<a class="mui-control-item" href="#item6mobile">流量</a>
+						<a class="mui-control-item" href="#item7mobile">理财</a>
 					</div>
 				</div>
 				<div class="mui-slider-group">
@@ -103,6 +104,15 @@
 							</div>
 						</div>
 					</div>
+					<div id="item7mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -140,7 +150,15 @@
 						});
 
 						function get_hongbao_list(obj,ul,n,index){
-							var type = document.querySelectorAll('#sliderSegmentedControl .mui-scroll a')[index].innerText;
+							console.log(index);
+							// var type = document.querySelectorAll('#sliderSegmentedControl .mui-scroll a')[index].innerText;
+							var type;
+							if (index == 0) {
+		            type = '';
+		          } else {
+		              type = index - 1;
+		          }
+		          console.log(type);
 							mui.ajax(get_hongbao_url,{
 								data:{
 									count:n,
@@ -161,19 +179,16 @@
 										for (var i in data) {
 											var wel = data[i];
 											var li = document.createElement('li');
-											li.className = 'mui-table-view-cell';
-											str_block = '<a class="clearfix" href="' + wel.url + '"><img src="'+
-															wel.picurl +
-															'" /><div class="li-info"><h6 class="after-new">'+
-															wel.title +
-															'</h6><p class="first">';
-											marks = wel.marks;
-											for (var j in marks){
-												str_block += '<span>' + marks[j] + '</span>';
+											li.className = 'mui-table-view-cell hongbao';
+											var str_block = '<a class="clearfix" href="' + wel.url + '"><img class="hongbao__img" src="'+
+															wel.picurl + '" /><h6 class="hongbao__title">' + wel.title;
+											if (wel.is_hot){
+												str_block += '<i class="icon iconfont">&#xe621;</i>';
 											}
-											str_block += '</p><p><span class="s1 icon-renzhengshangjia">'+wel.provider+'</span></p>'+
-															'<p><span class="s3 icon-time">'+wel.time_limit+'</span><span class="s2 icon-yanjing">'+
-															wel.view_count +'</span></p></div></a>';
+											str_block += ' </h6><h6 class="hongbao__subtitle">' + wel.subtitle + '</h6>';
+											str_block += '<p class="hongbao__detail">'+
+															'<span class="hongbao__source">'+wel.provider+'</span><span class="hongbao__time">'+wel.time_limit+'</span><span class="hongbao__look">阅读量:'+wel.view_count+'</span>'+
+															'</p></a>';
 											li.innerHTML = str_block;
 											ul.appendChild(li);
 										}

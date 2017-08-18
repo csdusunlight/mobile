@@ -26,9 +26,8 @@ def index(request):
     first_adv = adv_list[0] if adv_list else None
     last_adv = adv_list[-1] if adv_list else None
     now = datetime.now()
-    start = now - timedelta(days=1)
-    last_wel_list = Welfare.objects.filter(is_display=True,state='1', startTime__gte=start).\
-        exclude(type='baoyou').order_by("-startTime")
+#     start = now - timedelta(days=1)
+    last_wel_list = Hongbao.objects.filter(is_display=True,state='1').order_by("-startTime")[0:6]
     adv_today1 = MAdvert.objects.filter(location='1',is_hidden=False).first()
     adv_today2 = MAdvert.objects.filter(location='2',is_hidden=False).first()
     adv_today3 = MAdvert.objects.filter(location='3',is_hidden=False).first()
@@ -693,3 +692,14 @@ def display_screenshot(request):
         name = url.split('/')[-1]
         img_list.append({'name':name,'url':url})
     return render(request, 'screenshot.html', {'img_list':img_list})
+
+def updown_hongbao(request, id):
+    click = request.GET.get('click', 'up')
+    hongbao = Hongbao.objects.get(id=id)
+    if click == 'up':
+        hongbao.up = F('up') + 1
+        hongbao.save(update_fields=['up',])
+    elif click == 'down':
+        hongbao.down = F('down') + 1
+        hongbao.save(update_fields=['down',])
+    return JsonResponse({})

@@ -20,14 +20,14 @@
     <link rel="stylesheet" type="text/css" href="{%static 'css/m_index.css'%}"/>
 </head>
 <body>
-<div id="hongbao" class="hongbao">
+<!-- <div id="hongbao" class="hongbao-active">
     <div id="img_box" class="img-box">
         <span id="close-hb" class="mui-icon mui-icon-closeempty close-hb"></span>
         <p class="hb-amount">老板，您有红包可拆</p>
         <a id="hb_btn" href="{% url 'Christmas_open_envelope' %}" class="mui-btn mui-btn-yellow hb-btn">点我去拆啦</a>
         <a class="hb-more" href="{% url 'activity_Christmas' %}">去拆更多红包>></a>
     </div>
-</div>
+</div> -->
 <div id="pullrefresh" class="mui-scroll-wrapper">
 
 <div class="mui-content">
@@ -82,15 +82,15 @@
                     </a>
                 </li>
             	<li>
-                	<a href="{% url 'activity' %}">
+                	<a href="{% url 'freshman_award' %}">
                     	<i class="icon iconfont ic-03">&#xe8f1;</i>
-                        <span>要赚福币</span>
+                        <span>新手奖励</span>
                     </a>
                 </li>
             	<li>
-                	<a href="{% url 'information' %}">
-                    	<i class="icon iconfont ic-04">&#xe648;</i>
-                        <span>我有故事</span>
+                	<a href="{% url 'freshman_award' %}">
+                    	<i class="icon iconfont ic-04">&#xe641;</i>
+                        <span>推荐有礼</span>
                     </a>
                 </li>
             	<li>
@@ -100,15 +100,15 @@
                     </a>
                 </li>
             	<li>
-                	<a href="{% url 'welfare_list' type='yhq' %}">
-                    	<i class="icon iconfont ic-06">&#xe64e;</i>
-                        <span>优惠券</span>
+                	<a href="http://fuligou.wafuli.cn/">
+                    	<i class="icon iconfont ic-06">&#xe655;</i>
+                        <span>福利购</span>
                     </a>
                 </li>
             	<li>
-                	<a href="{% url 'welfare_list' type='by' %}">
-                    	<i class="icon iconfont ic-07">&#xe655;</i>
-                        <span><number>9.9</number>包邮</span>
+                	<a href="{% url 'task' %}">
+                    	<i class="icon iconfont ic-07">&#xe6fe;</i>
+                        <span>信用卡</span>
                     </a>
                 </li>
             	<li id="weixin_btn">
@@ -142,21 +142,16 @@
 
         <ul class="mui-table-view">
         {% for wel in last_wel_list %}
-			<li class="mui-table-view-cell">
-				<a class="clearfix" href="{{wel.url}}">
-					<img src="{{wel.pic.url}}">
-					<div class="li-info">
-						<h6>{{wel.title}}</h6><i class="icon iconfont">&#xe602;</i>
-						<p class="first">
-						{% for mark in wel.marks.all|slice:":3" %}
-							<span>{{mark.name}}</span>
-						{% endfor %}
-						</p>
-						<p><span class="s1 icon-renzhengshangjia">{{wel.provider}}</span></p>
-						<p><span class="s3 icon-time">{{wel.time_limit}}</span><span class="s2 icon-yanjing">{{wel.view_count}}</span></p>
-					</div>
-				</a>
-			</li>
+            <li class="mui-table-view-cell hongbao">
+                <a class="clearfix" href="{{wel.url}}">
+                    <img class="hongbao__img" src="{{wel.pic.url}}">
+                    <h6 class="hongbao__title">{{wel.title}}<i class="hongbao__tag icon iconfont">&#xe602;</i></h6>
+                    <h6 class="hongbao__subtitle">{{wel.subtitle}}</h6>
+                    <p class="hongbao__detail">
+                        <span class="hongbao__source">{{wel.provider}}</span><span class="hongbao__time">{{wel.time_limit}}</span><span class="hongbao__look">阅读量:{{wel.view_count}}</span>
+                    </p>
+                </a>
+            </li>
 		{% endfor %}
         </ul>
 
@@ -176,19 +171,19 @@
         	<li class="on">
             	<a href="{%url 'index'%}">
                 <i class="icon iconfont">&#xe649;</i>
-            	<span>免费福利</span>
+            	<span>红包福利</span>
                 </a>
             </li>
         	<li>
             	<a href="{%url 'task'%}">
-                <i class="icon iconfont">&#xe641;</i>
-            	<span>体验福利</span>
+                <i class="icon iconfont">&#xe63f;</i>
+            	<span>任务赚</span>
                 </a>
             </li>
         	<li>
             	<a href="{%url 'finance'%}">
-                <i class="icon iconfont">&#xe63f;</i>
-            	<span>理财福利</span>
+                <i style="font-size: 2.2rem;" class="icon iconfont">&#xe61f;</i>
+            	<span>理财返利</span>
                 </a>
             </li>
         	<li>
@@ -248,23 +243,18 @@
 						for (var i in data) {
 							var wel = data[i];
 							var li = document.createElement('li');
-							li.className = 'mui-table-view-cell';
-							var str_block = '<a class="clearfix" href="' + wel.url + '"><img src="'+
-											wel.picurl + '" /><div class="li-info"><h6>' + wel.title + '</h6>';
+							li.className = 'mui-table-view-cell hongbao';
+							var str_block = '<a class="clearfix" href="' + wel.url + '"><img class="hongbao__img" src="'+
+											wel.picurl + '" /><h6 class="hongbao__title">' + wel.title;
 							if (wel.is_hot){
-								str_block += '<i class="icon iconfont">&#xe621;</i>';
-							}
-							// else{
-							// 	str_block += '<span class="after-new">new</span>';
-							// }
-							str_block += '<p class="first">';
-							var marks = wel.marks;
-							for (var j in marks){
-								str_block += '<span>' + marks[j] + '</span>';
-							}
-							str_block += '</p><p><span class="s1 icon-renzhengshangjia">'+wel.provider+'</span></p>'+
-											'<p><span class="s3 icon-time">'+wel.time_limit+'</span><span class="s2 icon-yanjing">'+
-											wel.view_count +'</span></p></div></a>';
+								str_block += '<i class="hongbao__tag icon iconfont">&#xe621;</i>';
+							} else if(wel.is_new) {
+                                str_block += '<i class="hongbao__tag icon iconfont">&#xe657;</i>';
+                            }
+							str_block += ' </h6><h6 class="hongbao__subtitle">' + wel.subtitle + '</h6>';
+							str_block += '<p class="hongbao__detail">'+
+											'<span class="hongbao__source">'+wel.provider+'</span><span class="hongbao__time">'+wel.time_limit+'</span><span class="hongbao__look">阅读量:'+wel.view_count+'</span>'+
+											'</p></a>';
 							li.innerHTML = str_block;
 							table.appendChild(li);
 						}
@@ -305,11 +295,11 @@
 			interval: 4000 //自动轮播周期，若为0则不自动播放，默认为0；
 		});
         // 红包活动部分
-        var hongbao = document.getElementById("hongbao"),
-            close_hb = document.getElementById("close-hb");
-        close_hb.addEventListener("tap",function(){
-            hongbao.style.display = "none";
-        })
+        // var hongbao = document.getElementById("hongbao"),
+        //     close_hb = document.getElementById("close-hb");
+        // close_hb.addEventListener("tap",function(){
+        //     hongbao.style.display = "none";
+        // })
     </script>
     <script type="text/javascript">
         var scrollToTopBox = document.getElementById('scrollToTop'); //返回按钮tap

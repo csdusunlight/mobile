@@ -92,7 +92,6 @@ header a img {
 	background-color: #ff6314;
 }
 .nav-list .ic-04 {
-	padding-top: 1rem;
 	background-color: #be5dff;
 }
 .nav-list .ic-05 {
@@ -102,10 +101,11 @@ header a img {
 	background-color: #fb3456;
 }
 .nav-list .ic-06 {
+	padding-top: 1.1rem;
 	background-color: #ffac00;
 }
 .nav-list .ic-07 {
-	padding-top: 1rem;
+	padding-top: 1.1rem;
 	background-color: #14b1ff;
 }
 .nav-list .ic-08 {
@@ -165,109 +165,53 @@ header a img {
 
 /*选项卡部分*/
 .recent .today-tittle {
+  /*padding: 0 1.875% 0;*/
 	border-bottom: none;
 }
 
-.mui-table-view-cell {
-	padding: 0;
+.hongbao {
+    position: relative;
+}
+.hongbao__img {
+    float: left;
+    width: 95px;
+    height: 95px;
+    margin-right: 10px;
+    border-radius: 8px;
+}
+.hongbao__title {
+    margin-top: 6px;
+    height: 36px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 18px;
+    white-space: normal;
+}
+.hongbao__tag {
+    position: absolute;
+    margin-left: 0.4rem;
+    font-size: 1.6rem;
+    color: #ff6767;
+}
+.hongbao__subtitle {
+    padding: 10px 0 16px;
+    font-size: 14px;
+    color: #f08519;
+}
+.hongbao__detail {
+    position: relative;
+    line-height: 1;
+    font-size: 12px;
+    color: #999;
+}
+.hongbao__time {
+    margin-left: 16px;
+}
+.hongbao__look {
+    float: right;
+    margin-right: 14px;
 }
 
-.mui-table-view-cell>a:not(.mui-btn) {
-	margin: 0.8rem 0;
-	overflow: visible;
-}
-.mui-table-view-cell img {
-	float: left;
-	width: 13rem !important;
-	max-height: 7.5rem;
-	border-radius: 4px;
-	border: 1px solid #e4e4e4;
-}
-.mui-table-view-cell .li-info {
-	width: 15.8rem;
-	float: right;
-	height: auto;
-}
-.li-info h6 {
-	display: inline-block;
-	max-width: 13rem;
-	padding-top: 0.4rem;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	font-size: 1.2rem;
-	color: #222;
-}
-h6 + .iconfont {
-  position: absolute;
-	margin-left: 0.4rem;
-	font-size: 1.6rem;
-	color: #ff6767;
-}
-.li-info p {
-	line-height: 1.6rem;
-}
-.li-info p.first {
-	height: 1.8rem;
-}
-.li-info p.first span {
-	height: 1.2rem;
-	display: inline-block;
-	padding: 0 4px;
-	color: #ff6767;
-	margin: 0.6rem 1rem 0 0;
-	font-size: 0.8rem;
-	line-height: 1.2rem;
-	text-align: center;
-	border: 1px solid #fb3456;
-	border-radius: 4px;
-}
-.li-info span {
-	position: relative;
-	display: inline-block;
-	padding-left: 1.6rem;
-	font-size: 1rem;
-}
-
-.li-info .s2,
-.li-info .s3 {
-	margin-top: 0.2rem;
-	display: inline-block;
-}
-.li-info .s3 {
-	float: left;
-	width: 12rem;
-}
-.li-info .s2 {
-	float: left;
-}
-.li-info .s1 {
-	margin-top: 0.7rem;
-}
-.icon-renzhengshangjia:before,
-.icon-time:before,
-.icon-yanjing:before {
-	position: absolute;
-	left: 0;
-	top: 0;
- 	font-family: wafuli-iconfont;
-	margin-right: 0.2rem;
-	font-size: 1.4rem;
-	color: rgba(0,135,223,0.5);
-	-webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
-  -moz-osx-font-smoothing: grayscale;
-}
-.icon-renzhengshangjia:before {
-	content: "\e620";
-}
-.icon-time:before {
-	content: "\e628";
-}
-.icon-yanjing:before {
-	content: "\e601";
-	top: -0.1rem;
-}
 /*底部导航部分*/
 footer {
 	width: 100%;
@@ -397,7 +341,7 @@ footer li.on span {
 }
 
 /*红包活动部分*/
-.hongbao {
+.hongbao-active {
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -411,7 +355,7 @@ footer li.on span {
 	font-size: 4rem;
 	color: #fff;
 }
-.hongbao .img-box {
+.hongbao-active .img-box {
 	font-family: "华康少女文字W5(P)";
 	position: relative;
 	display: block;
