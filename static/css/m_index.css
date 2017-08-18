@@ -165,7 +165,7 @@ header a img {
 
 /*选项卡部分*/
 .recent .today-tittle {
-  padding: 0 1.875% 0;
+  /*padding: 0 1.875% 0;*/
 	border-bottom: none;
 }
 
