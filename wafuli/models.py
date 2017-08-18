@@ -108,7 +108,7 @@ class Welfare(Base):
                          upload_settings={"imageMaxSize":120000},settings={},command=None,blank=True)
 #     advert = models.ForeignKey("Advertisement",blank=True, null=True, on_delete=models.SET_NULL)
     isonMobile = models.BooleanField(u'是否只限移动端（pc端显示二维码）？', default= False)
-    exp_url = models.CharField(u"活动地址（已废弃）", blank=True, max_length=200)
+#     exp_url = models.CharField(u"活动地址（已废弃）", blank=True, max_length=200)
     exp_url_pc = models.CharField(u"活动地址pc", blank=True, max_length=200)
     exp_url_mobile = models.CharField(u"活动地址mobile", blank=True, max_length=200)
     exp_code = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name=u"上传二维码")
@@ -135,10 +135,24 @@ class Welfare(Base):
         return u"免费福利"
     def get_type_url(self):
         return reverse('welfare')
+HTYPE = (
+    ('0', u'微信红包'),
+    ('1', u'支付宝红包'),
+    ('2', u'购物红包'),
+    ('3', u'话费红包'),
+    ('4', u'流量红包'),
+    ('5', u'理财红包'),
+)
 class Hongbao(Welfare):
+    htype = models.CharField(u"红包类型", max_length=1, choices=HTYPE)
+    subtitle = models.CharField(u"副标题", max_length=20, blank=False)
+    is_qualified = models.BooleanField(u"精选", default=False)
+    up = models.IntegerField(u"顶", default=0)
+    down = models.IntegerField(u"踩", default=0)
     class Meta:
         verbose_name = u"红包"
         verbose_name_plural = u"红包"
+        ordering = ["-up",]
 class Baoyou(Welfare):
     mprice = models.CharField(u"市场价", max_length=10)
     nprice = models.CharField(u"现价", max_length=10)
@@ -441,6 +455,31 @@ class MAdvert_App(Base):
     def clean(self):
         if self.pic and self.pic.size > 30000:
             raise ValidationError({'pic': u'图片大小不能超过30k'})
+ADLOCATION_NEW = (
+    ('00', u'首页banner（680*380）'),
+    ('01', u'首页推荐位（200*200），配不超过20字的文字描述'),
+    ('02', u'首页发现位（280*200），配不超过30字的文字描述'),
+    ('03', u'首页中间广告位（1250*110）'),
+    ('04', u'首页下面的广告位（870*110）'),
+    ('10', u'红包页大banner（680*380）'),
+    ('11', u'红包页小banner（275*185）'),
+)
+class MAdvert_PC(Base):
+    pic = models.ImageField(upload_to='photos/%Y/%m/%d', blank=False,
+                             verbose_name=u"图片上传", help_text=u"保证图片质量的前提下，越小越好，莉萍负责图片 审核")
+    location = models.CharField(u"位置", max_length=2, choices=ADLOCATION_NEW)
+    description = models.CharField(u"文字描述", max_length=30, blank=True)
+    is_hidden = models.BooleanField(u"是否隐藏",default=False)
+    class Meta:
+        ordering = ["-news_priority","-pub_date"]
+        verbose_name = u"PC端广告位（新）"
+        verbose_name_plural = u"PC端广告位（新）"
+    def clean(self):
+        if self.pic:
+            if self.location in ['00', '10', '03'] and self.pic.size > 100000:
+                raise ValidationError({'pic': u'图片大小不能超过100k'})
+            elif self.pic.size > 50000:
+                raise ValidationError({'pic': u'图片大小不能超过50k'})
 class UserWelfare(models.Model):
     user = models.ForeignKey(MyUser, related_name="submited_welfare")
     title = models.CharField(max_length=200, verbose_name=u"标题")
@@ -501,3 +540,34 @@ class UserTask(models.Model):
         unique_together = (('user', 'task'),)
     def __unicode__(self):
         return self.user.mobile + '+' + self.task.title
+
+
+class Fuligou(models.Model):
+    is_main = models.BooleanField()
+    title = models.CharField(max_length=60)
+    buy_price = models.FloatField()
+    old_price = models.FloatField()
+    img_src = models.CharField(max_length=200)
+    href = models.CharField(max_length=200)
+    def coupon_value(self):
+        return self.old_price - self.buy_price
+    def __unicode__(self):
+        return self.title
+    
+class CreditCard(models.Model):
+    title = models.CharField(u"名称", max_length=20)
+    apply_num = models.IntegerField(u"申请人数")
+    url = models.CharField(u"地址", max_length=200)
+    pic = models.ImageField(upload_to='photos/%Y/%m/%d', verbose_name=u"标志图片上传（最大不超过30k，越小越好）",blank=False)
+    def clean(self):
+        if self.pic and self.pic.size > 30000:
+            raise ValidationError({'pic': u'图片大小不能超过30k'})
+    class Meta:
+        verbose_name = u"信用卡"
+        verbose_name_plural = u"信用卡"
+class Loan(models.Model):
+    title = models.CharField(u"名称", max_length=20)
+    url = models.CharField(u"地址", max_length=200)
+    class Meta:
+        verbose_name = u"借点钱"
+        verbose_name_plural = u"借点钱"
