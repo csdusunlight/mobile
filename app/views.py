@@ -47,7 +47,6 @@ def get_news(request):
         attr_dic = {
             'id':wel.id,
             'title':wel.title,
-            'subtitle':wel.subtitle,        #jzy
             'mark1': marks[0].name if markc > 0 else '',
             'mark2': marks[1].name if markc > 1 else '',
             'mark3': marks[2].name if markc > 2 else '',
@@ -145,6 +144,8 @@ def get_content_hongbao(request):
         'title':wel.title,
         'subtitle':wel.subtitle,
         'htype':wel.htype,
+        'up':wel.up,        #jzy
+        'down':wel.down,        #jzy
     }
     return JsonResponse(ret_dict)
 def get_content_youhuiquan(request):
