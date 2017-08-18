@@ -79,5 +79,5 @@ urlpatterns = [
     url(r'^activity/Christmas/invite_rank/$', 'wafuli.activity.invite_rank', name='Christmas_invite_rank'),
 
     url(r'^APP_download/$', TemplateView.as_view(template_name="m_app_download.html"), name='APP_download'),
-    url(r'^updown_welfare/(?:(?P<id>[0-9]*)/)?$', 'views.updown_hongbao', name='updown_welfare'),
+    url(r'^updown_welfare/(?:(?P<id>[0-9]*)/)?$', 'wafuli.views.updown_hongbao', name='updown_welfare'),
 ]
