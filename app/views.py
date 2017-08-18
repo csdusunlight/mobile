@@ -55,7 +55,7 @@ def get_news(request):
             'time': wel.time_limit,
             'source': wel.provider,
             'view': wel.view_count,
-            'type':wel.htype,
+            'type':wel.type,
             'subtitle':wel.subtitle,
         }
         ret_list.append(attr_dic)
