@@ -145,8 +145,8 @@
 							// },
 							dataType:'json',
 							type:'get',
-							timeout:10000,//超时时间设置为10秒；
-							success:function(data){
+							success:function(){
+                console.log('up success');
 								this.innerText = parseInt(this.innerText) + 1;
 	              this.className = 'support__up on'
 	              supportFlag++;
@@ -169,8 +169,8 @@
 							// },
 							dataType:'json',
 							type:'get',
-							timeout:10000,//超时时间设置为10秒；
-							success:function(data){
+							success:function(){
+                console.log('down success');
 								this.innerText = parseInt(this.innerText) + 1;
 	              this.className = 'support__down on'
 	              supportFlag++;
