@@ -47,6 +47,7 @@ def get_news(request):
         attr_dic = {
             'id':wel.id,
             'title':wel.title,
+            'subtitle':wel.subtitle,        #jzy
             'mark1': marks[0].name if markc > 0 else '',
             'mark2': marks[1].name if markc > 1 else '',
             'mark3': marks[2].name if markc > 2 else '',
@@ -94,7 +95,7 @@ def get_recom(request):
                 'image':image,
                 'type':wel.type,
                 'location': location,
-                'title':wel.title     
+                'title':wel.title
             })
     return JsonResponse({'code':0,'data':ret_list})
 
@@ -120,14 +121,14 @@ def get_content_hongbao(request):
         ret_dict['code'] = 1
         ret_dict['message'] = u"参数错误"
         return JsonResponse(ret_dict)
-    
+
     try:
         wel = Welfare.objects.get(id=id)
     except:
         ret_dict['code'] = 2
         ret_dict['message'] = u"系统错误"
         return JsonResponse(ret_dict)
-    update_view_count(wel) 
+    update_view_count(wel)
     if wel.type != "hongbao":
         ret_dict['code'] = 3
         ret_dict['message'] = u"类型错误"
@@ -153,14 +154,14 @@ def get_content_youhuiquan(request):
         ret_dict['code'] = 1
         ret_dict['message'] = u"参数错误"
         return JsonResponse(ret_dict)
-    
+
     try:
         wel = Welfare.objects.get(id=id)
     except:
         ret_dict['code'] = 2
         ret_dict['message'] = u"系统错误"
         return JsonResponse(ret_dict)
-    update_view_count(wel) 
+    update_view_count(wel)
     if wel.type != "youhuiquan":
         ret_dict['code'] = 3
         ret_dict['message'] = u"类型错误"
@@ -519,7 +520,7 @@ def charge_json(request):
     start = 6*count
     item_list = TransList.objects.filter(user=user, transType=type)[start:start+6]
     data = []
-    for con in item_list:      
+    for con in item_list:
         i = {"reason":con.reason,
              "amount":con.transAmount,
              "date":con.time.strftime("%Y-%m-%d"),
@@ -530,7 +531,7 @@ def charge_json(request):
                 state = event.get_audit_state_display()
             else:
                 state = u"无"
-            i.update({"state":state,})   
+            i.update({"state":state,})
         data.append(i)
     return JsonResponse(data, safe=False)
 
@@ -542,7 +543,7 @@ def score_json(request):
     start = 6*count
     item_list = ScoreTranlist.objects.filter(user=user, transType=type)[start:start+6]
     data = []
-    for con in item_list:      
+    for con in item_list:
         i = {"reason":con.reason,
              "amount":con.transAmount,
              "date":con.time.strftime("%Y-%m-%d"),
@@ -635,7 +636,7 @@ def bind_bankcard(request):
         result['code'] = 0
         result['msg'] = u'绑定成功！'
     else:
-       result['code'] = 3 
+       result['code'] = 3
        result['msg'] = u'您已绑定过银行卡！'
     return JsonResponse(result)
 
@@ -731,11 +732,11 @@ def get_invite_info(request):
     statis = {
         'code':0,
         'left_award':inviter.invite_account,
-        'accu_invite_award':inviter.invite_income,   
+        'accu_invite_award':inviter.invite_income,
         'accu_invite_scores':inviter.invite_scores,
         'acc_count':acc_count,
         'acc_with_count':acc_with_count,
-        'this_month_award':this_month_award, 
+        'this_month_award':this_month_award,
     }
     return JsonResponse(statis)
 
@@ -833,7 +834,7 @@ def recom_rank(request):
              "award":con.award,
              }
         data.append(i)
-    return JsonResponse(data, safe=False) 
+    return JsonResponse(data, safe=False)
 
 @app_login_required
 def recom_info(request):
@@ -860,7 +861,7 @@ def recom_info(request):
              'reason':reason
              }
         data.append(i)
-    return JsonResponse(data, safe=False) 
+    return JsonResponse(data, safe=False)
 
 def checkupdate(request):
     version = request.GET.get("version",0)
@@ -895,7 +896,7 @@ def account_channel(request):
             raise Http404
         code = -1
         url = ''
-        
+
         news_id = request.POST.get('id', None)
         telnum = request.POST.get('telnum', '').strip()
         remark = request.POST.get('remark', '')
@@ -930,7 +931,7 @@ def account_channel(request):
             msg = u'该注册手机号已被提交过，请不要重复提交！'
         result = {'code':code, 'msg':msg}
         return JsonResponse(result)
-    
+
 # @app_login_required
 def get_bank_name(request):
     return JsonResponse(BANK, safe=False)
