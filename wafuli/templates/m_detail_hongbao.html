@@ -134,6 +134,7 @@
 			var supportId = document.getElementById('support').getAttribute('data-support');
 			console.log(supportId);
       document.getElementById('support_up').addEventListener('tap', function(){
+          var self = this;
           if (supportFlag > 0) {
           	return false;
           } else{
@@ -147,8 +148,8 @@
 							type:'get',
 							success:function(){
                 console.log('up success');
-								this.innerText = parseInt(this.innerText) + 1;
-	              this.className = 'support__up on'
+								self.innerText = parseInt(self.innerText) + 1;
+	              self.className = 'support__up on'
 	              supportFlag++;
 							},
 							error:function(xhr,type,errorThrown){
@@ -158,6 +159,7 @@
           }
       })
       document.getElementById('support_down').addEventListener('tap', function(){
+          var self = this;
           if (supportFlag > 0) {
               return false;
           } else{
@@ -171,8 +173,8 @@
 							type:'get',
 							success:function(){
                 console.log('down success');
-								this.innerText = parseInt(this.innerText) + 1;
-	              this.className = 'support__down on'
+								self.innerText = parseInt(self.innerText) + 1;
+	              self.className = 'support__down on'
 	              supportFlag++;
 							},
 							error:function(xhr,type,errorThrown){
