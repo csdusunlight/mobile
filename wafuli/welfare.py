@@ -314,6 +314,7 @@ def hongbao_json(request):
             'url':wel.url,
             'picurl':wel.pic.url,
             'title':wel.title,
+            'subtitle':wel.subtitle,        #jzy
             'view_count':wel.view_count,
             'provider':wel.provider,
             'time_limit':wel.time_limit,

@@ -134,6 +134,7 @@
 			var supportId = document.getElementById('support').getAttribute('data-support');
 			console.log(supportId);
       document.getElementById('support_up').addEventListener('tap', function(){
+          var self = this;
           if (supportFlag > 0) {
           	return false;
           } else{
@@ -145,10 +146,10 @@
 							// },
 							dataType:'json',
 							type:'get',
-							timeout:10000,//超时时间设置为10秒；
-							success:function(data){
-								this.innerText = parseInt(this.innerText) + 1;
-	              this.className = 'support__up on'
+							success:function(){
+                console.log('up success');
+								self.innerText = parseInt(self.innerText) + 1;
+	              self.className = 'support__up on'
 	              supportFlag++;
 							},
 							error:function(xhr,type,errorThrown){
@@ -158,6 +159,7 @@
           }
       })
       document.getElementById('support_down').addEventListener('tap', function(){
+          var self = this;
           if (supportFlag > 0) {
               return false;
           } else{
@@ -169,10 +171,10 @@
 							// },
 							dataType:'json',
 							type:'get',
-							timeout:10000,//超时时间设置为10秒；
-							success:function(data){
-								this.innerText = parseInt(this.innerText) + 1;
-	              this.className = 'support__down on'
+							success:function(){
+                console.log('down success');
+								self.innerText = parseInt(self.innerText) + 1;
+	              self.className = 'support__down on'
 	              supportFlag++;
 							},
 							error:function(xhr,type,errorThrown){

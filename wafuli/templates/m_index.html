@@ -108,7 +108,7 @@
             	<li>
                 	<a href="{% url 'task' %}">
                     	<i class="icon iconfont ic-07">&#xe6fe;</i>
-                        <span><number>9.9</number>信用卡</span>
+                        <span>信用卡</span>
                     </a>
                 </li>
             	<li id="weixin_btn">
@@ -145,28 +145,13 @@
             <li class="mui-table-view-cell hongbao">
                 <a class="clearfix" href="{{wel.url}}">
                     <img class="hongbao__img" src="{{wel.pic.url}}">
-                    <h6 class="hongbao__title">{{wel.title}}</h6><i class="hongbao__tag icon iconfont">&#xe602;</i>
+                    <h6 class="hongbao__title">{{wel.title}}<i class="hongbao__tag icon iconfont">&#xe602;</i></h6>
                     <h6 class="hongbao__subtitle">{{wel.subtitle}}</h6>
                     <p class="hongbao__detail">
                         <span class="hongbao__source">{{wel.provider}}</span><span class="hongbao__time">{{wel.time_limit}}</span><span class="hongbao__look">阅读量:{{wel.view_count}}</span>
                     </p>
                 </a>
             </li>
-			<!-- <li class="mui-table-view-cell">
-				<a class="clearfix" href="{{wel.url}}">
-					<img src="{{wel.pic.url}}">
-					<div class="li-info">
-						<h6>{{wel.title}}</h6><i class="icon iconfont">&#xe602;</i>
-						<p class="first">
-						{% for mark in wel.marks.all|slice:":3" %}
-							<span>{{mark.name}}</span>
-						{% endfor %}
-						</p>
-						<p><span class="s1 icon-renzhengshangjia">{{wel.provider}}</span></p>
-						<p><span class="s3 icon-time">{{wel.time_limit}}</span><span class="s2 icon-yanjing">{{wel.view_count}}</span></p>
-					</div>
-				</a>
-			</li> -->
 		{% endfor %}
         </ul>
 
@@ -197,7 +182,7 @@
             </li>
         	<li>
             	<a href="{%url 'finance'%}">
-                <i class="icon iconfont">&#xe612;</i>
+                <i style="font-size: 2.2rem;" class="icon iconfont">&#xe61f;</i>
             	<span>理财福利</span>
                 </a>
             </li>
