@@ -344,10 +344,11 @@ footer li.on span {
 .wfl-act {
   position: fixed;
   right: 4px;
-  bottom: 40px;
+  bottom: 60px;
   width: 30px;
   -webkit-animation: rock 4s ease infinite;
   animation: rock 4s ease infinite;
+  z-index: 10;
 }
 .wfl-act__img {
   width: 100%;
