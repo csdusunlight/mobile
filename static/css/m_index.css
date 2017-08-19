@@ -346,8 +346,8 @@ footer li.on span {
   right: 4px;
   bottom: 60px;
   width: 30px;
-  -webkit-animation: rock 4s ease infinite;
-  animation: rock 4s ease infinite;
+  -webkit-animation: rock 4s ease;
+  animation: rock 4s ease;
   z-index: 10;
 }
 .wfl-act__img {
