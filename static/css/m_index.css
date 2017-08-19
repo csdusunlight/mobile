@@ -341,7 +341,48 @@ footer li.on span {
 }
 
 /*红包活动部分*/
-.hongbao-active {
+.wfl-act {
+  position: fixed;
+  right: 4px;
+  bottom: 40px;
+  width: 30px;
+  -webkit-animation: rock 4s ease infinite;
+  animation: rock 4s ease infinite;
+}
+.wfl-act__img {
+  width: 100%;
+}
+@-webkit-keyframes rock{
+  0% {
+  }
+  40% {
+      transform: translateX(0px) rotate(0);
+  }
+  60% {
+              transform: translateX(-100px) rotate(-360deg);
+          }
+          80% {
+              transform: translateX(-100px) rotate(-360deg);
+          }
+  100% {
+  }
+}
+@keyframes rock{
+  0% {
+  }
+  40% {
+      transform: translateX(0px) rotate(0);
+  }
+  60% {
+              transform: translateX(-100px) rotate(-360deg);
+          }
+          80% {
+              transform: translateX(-100px) rotate(-360deg);
+          }
+  100% {
+  }
+}
+/*.hongbao-active {
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -420,4 +461,4 @@ footer li.on span {
         transform: scale(1);
         opacity: 1;
     }
-}
+}*/
