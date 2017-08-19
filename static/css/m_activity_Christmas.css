@@ -199,9 +199,9 @@ body {
 	position: absolute;
 	padding: 10px;
 }
-.mui-icon-back:before, .mui-icon-left-nav:before {
+/*.mui-icon-back:before, .mui-icon-left-nav:before {
 	color: #fff;
-}
+}*/
 .contain .mark-red {
 	color: #fa1407;
 }
