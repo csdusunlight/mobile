@@ -571,3 +571,18 @@ class Loan(models.Model):
     class Meta:
         verbose_name = u"借点钱"
         verbose_name_plural = u"借点钱"
+        
+class MediaProject(models.Model):
+    title = models.CharField(max_length=200, verbose_name=u"标题")
+    pub_date = models.DateField(u"创建日期", default=timezone.now)
+    state = models.CharField(u"项目状态", max_length=1, choices=STATE)
+    is_vip_bonus = models.BooleanField(u'适用VIP奖励', default=True)
+    is_multisub_allowed = models.BooleanField(u"是否允许同一手机号多次提交", default=False)
+    is_need_screenshot = models.BooleanField(u'是否需要截图', default=True)
+    attention = models.TextField(u'注意事项', max_length=500)
+    user_event = GenericRelation("UserEvent",related_query_name='mediaproject')
+    class Meta:
+        verbose_name = u"媒体单项目"
+        verbose_name_plural = u"媒体单项目"
+    def __unicode__(self):
+        return self.title
