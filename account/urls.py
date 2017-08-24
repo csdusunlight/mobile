@@ -60,5 +60,4 @@ urlpatterns = [
     url(r'^channel/$', 'account.channel.account_channel',name='account_channel'),
     url(r'^vip/$', 'account.vip.vip',name='account_vip'),
     url(r'^vip_intro/$', 'account.vip.vip_intro',name='vip_intro'),
-    url(r'^bank_data/$', 'account.views.bank_data',name='bank_data'), # jzy
 ]

@@ -1180,7 +1180,4 @@ def message(request, id=None):
         context={'content':msg.content}
         return render(request, 'account/m_detail_message.html', context)
 
-# app获取银行卡名称    jzy
-def bank_data(request):
-    banks = bank
-    return JsonResponse(banks, safe=False)
+
