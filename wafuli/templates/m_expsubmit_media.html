@@ -326,7 +326,7 @@
 				formdata.append('telnum', telnum);
 				formdata.append('remark', remark);
 				formdata.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
-				xhr.open('post', '/expsubmit/task/');
+				xhr.open('post', '/media_submit/');
 				xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 				document.getElementById("img_mask").style.display = "block";
 				xhr.onreadystatechange = function() {

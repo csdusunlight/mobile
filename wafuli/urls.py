@@ -5,6 +5,7 @@ Created on 20160222
 '''
 from django.conf.urls import url,include
 from django.views.generic.base import TemplateView
+from wafuli import mediaproject
 # url_about = [
 #     url(r'^aboutus/$', 'wafuli.views.aboutus', name="about"),
 #     url(r'^report/$', 'wafuli.views.report'),
@@ -80,4 +81,6 @@ urlpatterns = [
 
     url(r'^APP_download/$', TemplateView.as_view(template_name="m_app_download.html"), name='APP_download'),
     url(r'^updown_welfare/(?:(?P<id>[0-9]*)/)?$', 'wafuli.views.updown_hongbao', name='updown_welfare'),
+    
+    url(r'^media_submit/$', mediaproject.media_submit, name='media_submit'),
 ]
