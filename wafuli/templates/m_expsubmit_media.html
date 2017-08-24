@@ -25,20 +25,26 @@
 		<link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
     	<link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
     	<link rel="stylesheet" type="text/css" href="{%static 'css/m_expsubmit_task.css'%}"/>
-
+		<style>
+			.mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {
+				width: 55%;
+			}
+			.mui-input-row label {
+				width: 45%;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">任务提交</h1>
+			<h1 class="mui-title">媒体单提交</h1>
 		</header>
 		<div class="mui-content">
 			<form class="mui-input-group">
 				{% csrf_token %}
 				<div class="mui-input-row">
 					<label>投资平台</label>
-					<!-- <input id="project_id" type="text" placeholder="请选择投资平台"> -->
 					<select id='project_id'>
                 <option value ="0">请选择投资平台</option>
                 {% for x in projects %}
@@ -56,11 +62,11 @@
 					<input id="telnum" type="text" placeholder="请输入注册手机号">
 				</div>
 				<div class="mui-input-row">
-					<label>投资金额</label>
+					<label>投资金额（元）</label>
 					<input id="amount" type="text" onkeyup="this.value =this.value.replace(/[^\0-9\.]/g,'');" placeholder="请输入投资金额">
 				</div>
 				<div class="mui-input-row">
-					<label>投资标期</label>
+					<label>投资标期（天）</label>
 					<input id="term" type="text" onkeyup="this.value =this.value.replace(/[^\0-9\.]/g,'');" placeholder="请输入投资标期">
 				</div>
 
@@ -83,6 +89,14 @@
 				<textarea id="remark" rows="3" placeholder="请输入备注信息"></textarea>
 			</div>
 			<button id="submit" type="button" class="mui-btn mui-btn-blue">确认提交</button>
+			<p style="margin-top: 20px">注意事项：<br>
+			1、同一个手机号同一个项目只限提交一次，如有提示重复提交，表示之前该账号已经被提交过了；<br>
+			2、投资金额请填写纯数字，如10000，勿填“一万”；<br>
+			3、投资标期是指投资的期限，请换算成天数。如投资的是3月标，请填：90；<br>
+			4、备注可以选填自己的qq号码，或者其他提醒平台工作者的信息，以便能更快速审核；<br>
+			5、截图上传的时候，确保自己上传的图片可以看到投资日期、投资时间、注册账号等信息。<br>
+			6、提交后，正常是次日进行数据审核，周末和国家法定假期顺延。如有其它特殊情况会另行通知。<br>
+			</p>
 		</div>
 		<div id="img_mask" class="img-mask">
 			<div class="loader-inner ball-triangle-path">
