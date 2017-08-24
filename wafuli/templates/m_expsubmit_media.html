@@ -41,11 +41,11 @@
 					<!-- <input id="project_id" type="text" placeholder="请选择投资平台"> -->
 					<select id='project_id'>
                 <option value ="0">请选择投资平台</option>
-                <option value="1" data-is_need_screenshot="True">大风过后</option>
-                <option value="2" data-is_need_screenshot="False">鬼画符就</option>
+                {% for x in projects %}
+                <option value="{{x.id}}" data-is_need_screenshot="{{x.is_need_screenshot}}">{{x.title}}</option>
+                {%endfor%}
             </select>
-                <!-- {% for x in banks %} -->
-                <!-- {%endfor%} -->
+
 				</div>
 				<div class="mui-input-row">
 					<label>投资时间</label>
@@ -322,8 +322,11 @@
 				for (i in file_list){
 					formdata.append(file_list[i].name, file_list[i].blob);
 				}
-				formdata.append('id', id);
+				formdata.append('id', project_id);
+				formdata.append('date', date);
 				formdata.append('telnum', telnum);
+				formdata.append('amount', amount);
+				formdata.append('term', term);
 				formdata.append('remark', remark);
 				formdata.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
 				xhr.open('post', '/media_submit/');
@@ -340,7 +343,7 @@
 							});
 						}else if(ret.code==1){
 							mui.alert("上传成功！审核通过后可获得2个红包","温馨提示",function(){
-								mui.back();
+								history.go(0);
 							});
 						}else{
 							mui.alert(ret.msg,"抱歉");
