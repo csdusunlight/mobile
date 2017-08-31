@@ -45,11 +45,21 @@
 				{% csrf_token %}
 				<div class="mui-input-row">
 					<label>投资平台</label>
-					<select id='project_id'>
+					<!-- <select id='project_id'>
                 <option value ="0">请选择投资平台</option>
                 {% for x in projects %}
                 <option value="{{x.id}}" data-is_need_screenshot="{{x.is_need_screenshot}}">{{x.title}}</option>
                 {%endfor%}
+            </select> -->
+          <select id="project_id">
+                <option value="0">请选择投资平台</option>
+
+                <option value="2" data-is_need_screenshot="True">媒体2斯蒂芬</option>
+
+                <option value="3" data-is_need_screenshot="True">媒体3as发放</option>
+
+                <option value="4" data-is_need_screenshot="False">媒体4 订购方式度过</option>
+
             </select>
 
 				</div>
@@ -307,9 +317,9 @@
 				};
 			}
 			document.getElementById("submit").addEventListener('tap',function() {
-				var project_id = document.getElementById("project_id").value;
-
-				var isNeedImg = document.getElementById("project_id").options[project_id].getAttribute('data-is_need_screenshot');
+				var projects = document.getElementById("project_id");
+				var project_id = projects.value;
+	      var isNeedImg = projects.options[projects.selectedIndex].getAttribute('data-is_need_screenshot');
 				console.log(isNeedImg);
 
 				var date = document.getElementById("date").value;
@@ -374,8 +384,9 @@
 			});
 
 			document.getElementById('project_id').onchange = function(){
-			var project_id = document.getElementById("project_id").value;
-      var isNeedImg = document.getElementById("project_id").options[project_id].getAttribute('data-is_need_screenshot');
+			var projects = document.getElementById("project_id");
+			var project_id = projects.value;
+      var isNeedImg = projects.options[projects.selectedIndex].getAttribute('data-is_need_screenshot');
       console.log(isNeedImg);
       if (isNeedImg == 'True') {
           document.getElementById('img_up').style.display = 'block';
