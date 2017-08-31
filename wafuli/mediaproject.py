@@ -38,7 +38,7 @@ def media_submit(request):
             if news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
                 raise ValueError('This invest_account is repective in project:' + str(news.id))
             else:
-                userlog = UserEvent.objects.create(user=request.user, event_type='8', invest_account=telnum,
+                userlog = UserEvent.objects.create(user=request.user, event_type='9', invest_account=telnum,
                                  invest_image='', content_object=news, audit_state='1',remark=remark,
                                  invest_amount=amount, invest_term=term,invest_time=invest_time)
                 code = 1
