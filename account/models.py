@@ -46,7 +46,6 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(u'用户昵称', max_length=30, unique=True)
     level = models.SmallIntegerField(u'用户等级', default=0)
     with_total = models.IntegerField(u'提现总额度（VIP晋级用）', default = 0)
-     = models.CharField(u'公众号关注者编号', max_length=30, unique=True)
     inviter = models.ForeignKey('self', related_name = 'invitees',
                                 blank=True, null=True, on_delete=models.SET_NULL)
     invite_code = models.CharField(u"邀请码", unique=True, blank=True, max_length=20)
