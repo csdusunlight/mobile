@@ -4,10 +4,13 @@ import hashlib
 from django.http.response import HttpResponse,Http404, JsonResponse
 import logging
 from account.models import MyUser, WeiXinUser
+from django.views.decorators.csrf import csrf_exempt
 logger = logging.getLogger('wafuli')
 from account.varify import httpconn, verifymobilecode
 from django.conf import settings
 from django.contrib.auth import login as auth_login
+
+@csrf_exempt
 def weixin(request):
     token = '1hblsqTsdfsdfsd'
     timestamp = str(request.GET.get('timestamp'))
