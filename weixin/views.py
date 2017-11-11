@@ -67,9 +67,10 @@ def bind_user(request):
             else:
                 user.backend = 'django.contrib.auth.backends.ModelBackend'#为了略过用户名和密码验证
                 auth_login(request, user)
-                result['url'] = "/weixin/bind-user/success/"
-                weixinuser.user = user
-                weixinuser.save(update_fields=['user'])
+                result['url'] = "/account/"
+                if not weixinuser.user:
+                    weixinuser.user = user
+                    weixinuser.save(update_fields=['user'])
         return JsonResponse(result)    
     else:
         code = request.GET.get('code','')
