@@ -7,7 +7,7 @@ Created on 2016年8月29日
 import logging
 from wafuli.models import Welfare
 from django.core.management.base import BaseCommand
-from account.models import MyUser
+from account.models import MyUser, WeiXinUser
 from django.db.models import F
 import datetime
 import time
@@ -63,3 +63,17 @@ def update_jsapi_ticket(access_token):
         Dict.objects.update_or_create(key='jsapi_ticket', defaults=defaults)
     else:
         logger.error('Getting access_token error:' + str(json_ret) )
+
+def sendTemplate(access_token, template_id):
+    url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' + access_token
+    kwarg = {}
+    kwarg.update(access_token=access_token, template_id=access_token, template_id='XKGoq0xWvXrg5alO_3pc4f4F5wKR7EDnfvzPoUlh-wY')
+    to_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx76aa03447c27f99d&redirect_uri=http%3A%2F%2Ftest.wafuli.cn%2Fweixin%2Fbind-user%2F&response_type=code&scope=snsapi_userinfo"
+    kwarg.update(url=to_url, topcolor="#FF0000")
+    wusers = WeiXinUser.objects.all()
+    for wu in wusers:
+        openid = wu.openid
+        data = {'user':{'value':wu.user.username, 'color':"#173177"},}
+        kwarg.update(data=data, touser=openid)
+        httpconn(url, data, 1)
+    
