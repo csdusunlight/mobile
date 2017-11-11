@@ -45,31 +45,31 @@ def bind_user(request):
                 result['msg'] = u'手机验证码已过期，请重新获取'
         else:
             result['code'] = 0
+            weixinuser = WeiXinUser.objects.filter(openid=openid).first()
+            if not weixinuser:
+                params = {
+                    'access_token':access_token,
+                    'openid':openid,
+                    'lang':'zh_CN',
+                    'code':'',
+                }
+                url = 'https://api.weixin.qq.com/sns/userinfo'
+                json_ret = httpconn(url, params, 0)
+                weixinuser = WeiXinUser.objects.create(openid=json_ret['openid'], nickname=json_ret['nickname'], sex=json_ret['sex'],
+                                          province=json_ret['province'], city=json_ret['city'], 
+                                          country=json_ret['country'], headimgurl=json_ret['headimgurl'],
+                                          unionid=json_ret['unionid'],)
             try:
                 user = MyUser.objects.get(mobile=mobile)
-                weixinuser = WeiXinUser.objects.filter(openid=openid).first()
             except MyUser.DoesNotExist:
-                if not weixinuser:
-                    params = {
-                        'access_token':access_token,
-                        'openid':openid,
-                        'lang':'zh_CN',
-                        'code':'',
-                    }
-                    url = 'https://api.weixin.qq.com/sns/userinfo'
-                    json_ret = httpconn(url, params, 0)
-                    WeiXinUser.objects.create(openid=json_ret['openid'], nickname=json_ret['nickname'], sex=json_ret['sex'],
-                                              province=json_ret['province'], city=json_ret['city'], 
-                                              country=json_ret['country'], headimgurl=json_ret['headimgurl'],
-                                              unionid=json_ret['unionid'],)
                 request.session['mobile'] = mobile
                 result['url'] = "/weixin/bind-user/setpasswd/"
             else:
-                weixinuser.user = user
-                weixinuser.save(update_fields=['user'])
                 user.backend = 'django.contrib.auth.backends.ModelBackend'#为了略过用户名和密码验证
                 auth_login(request, user)
                 result['url'] = "/weixin/bind-user/success/"
+                weixinuser.user = user
+                weixinuser.save(update_fields=['user'])
         return JsonResponse(result)    
     else:
         code = request.GET.get('code','')
