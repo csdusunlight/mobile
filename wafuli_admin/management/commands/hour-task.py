@@ -75,5 +75,6 @@ def sendTemplate(access_token):
         openid = wu.openid
         data = {'user':{'value':wu.user.username, 'color':"#173177"},}
         kwarg.update(data=data, touser=openid)
-        httpconn(url, data, 1)
+        ret = httpconn(url, data, 1)
+        logger.info(str(ret))
     
