@@ -185,6 +185,7 @@ header a img {
     overflow: hidden;
     font-size: 14px;
     line-height: 18px;
+    color: #222;
     white-space: normal;
 }
 .hongbao__tag {
@@ -341,7 +342,49 @@ footer li.on span {
 }
 
 /*红包活动部分*/
-.hongbao-active {
+.wfl-act {
+  position: fixed;
+  right: 4px;
+  bottom: 120px;
+  width: 30px;
+  -webkit-animation: rock 4s ease;
+  animation: rock 4s ease;
+  z-index: 10;
+}
+.wfl-act__img {
+  width: 100%;
+}
+@-webkit-keyframes rock{
+  0% {
+  }
+  40% {
+      transform: translateX(0px) rotate(0);
+  }
+  60% {
+              transform: translateX(-100px) rotate(-360deg);
+          }
+          80% {
+              transform: translateX(-100px) rotate(-360deg);
+          }
+  100% {
+  }
+}
+@keyframes rock{
+  0% {
+  }
+  40% {
+      transform: translateX(0px) rotate(0);
+  }
+  60% {
+              transform: translateX(-100px) rotate(-360deg);
+          }
+          80% {
+              transform: translateX(-100px) rotate(-360deg);
+          }
+  100% {
+  }
+}
+/*.hongbao-active {
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -420,4 +463,4 @@ footer li.on span {
         transform: scale(1);
         opacity: 1;
     }
-}
+}*/

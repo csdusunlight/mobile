@@ -32,7 +32,7 @@ import time as ttime
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from wafuli.models import (UserEvent, Finance, Task, ExchangeRecord,
-    ScoreTranlist, TransList, Coupon, Message, Commodity)
+    ScoreTranlist, TransList, Coupon, Message, Commodity, MediaProject)
 from django.db.models import Sum, Count
 from .transaction import charge_money, charge_score
 from account.tools import send_mail, get_client_ip
@@ -473,8 +473,10 @@ def get_user_welfare_json(request):
     item_list = []
     if type == 0:
         etype = ContentType.objects.get_for_model(Task)
-    else:
+    elif type == 1:
         etype = ContentType.objects.get_for_model(Finance)
+    else:
+        etype = ContentType.objects.get_for_model(MediaProject)
 
     start = 12*count
     item_list = UserEvent.objects.filter(user=request.user, content_type = etype)[start:start+12]
@@ -1178,7 +1180,4 @@ def message(request, id=None):
         context={'content':msg.content}
         return render(request, 'account/m_detail_message.html', context)
 
-# app获取银行卡名称    jzy
-def bank_data(request):
-    banks = bank
-    return JsonResponse(banks, safe=False)
+
