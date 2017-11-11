@@ -26,7 +26,7 @@ class Command(BaseCommand):
         
         access_token = update_accesstoken()
         update_jsapi_ticket(access_token)
-
+        sendTemplate(access_token)
         end_time = time.time()
         logger.info("******Hour-task is finished, time:%s*********",end_time-begin_time)
         
@@ -64,10 +64,10 @@ def update_jsapi_ticket(access_token):
     else:
         logger.error('Getting access_token error:' + str(json_ret) )
 
-def sendTemplate(access_token, template_id):
+def sendTemplate(access_token):
     url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' + access_token
     kwarg = {}
-    kwarg.update(access_token=access_token, template_id=access_token, template_id='XKGoq0xWvXrg5alO_3pc4f4F5wKR7EDnfvzPoUlh-wY')
+    kwarg.update(access_token=access_token, template_id='XKGoq0xWvXrg5alO_3pc4f4F5wKR7EDnfvzPoUlh-wY')
     to_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx76aa03447c27f99d&redirect_uri=http%3A%2F%2Ftest.wafuli.cn%2Fweixin%2Fbind-user%2F&response_type=code&scope=snsapi_userinfo"
     kwarg.update(url=to_url, topcolor="#FF0000")
     wusers = WeiXinUser.objects.all()
