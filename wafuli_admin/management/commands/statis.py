@@ -120,7 +120,6 @@ class Command(BaseCommand):
             n = r.num
             r.save(update_fields=['rank'])
         ranks = Invite_Rank.objects.all().order_by("-num")
-        print ranks
 #         dict_with = UserEvent.objects.filter(event_type='2',audit_state='0').\
 #             aggregate(cou=Count('user',distinct=True),sum=Sum('translist__transAmount'))
         total_award = MyUser.objects.aggregate(sum=Sum('accu_income'))
