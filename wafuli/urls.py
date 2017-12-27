@@ -5,7 +5,7 @@ Created on 20160222
 '''
 from django.conf.urls import url,include
 from django.views.generic.base import TemplateView
-from wafuli import mediaproject
+from wafuli import mediaproject, rest
 # url_about = [
 #     url(r'^aboutus/$', 'wafuli.views.aboutus', name="about"),
 #     url(r'^report/$', 'wafuli.views.report'),
@@ -83,4 +83,8 @@ urlpatterns = [
     url(r'^updown_welfare/(?:(?P<id>[0-9]*)/)?$', 'wafuli.views.updown_hongbao', name='updown_welfare'),
     
     url(r'^media_submit/$', mediaproject.media_submit, name='media_submit'),
+    
+    url(r'^usereventlist/$', rest.UserEventList.as_view()),
+    
+    url(r'^userevent/(?P<pk>[0-9]+)/$', rest.UserEventDetail.as_view(), kwargs={'partial':True}),
 ]
