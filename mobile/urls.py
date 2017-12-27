@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^statistic/', include('statistics.urls', namespace='statistic'),),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^weixin/', include('weixin.urls')),
+    url(r'^restapi/', include('restapi.urls')),
 #     url(r'^test/$', 'wafuli.views.index', name='captcha-refresh'),
 ]
 

@@ -3,11 +3,14 @@ from django.shortcuts import render, redirect
 import hashlib
 from django.http.response import HttpResponse,Http404, JsonResponse
 import logging
-from account.models import MyUser
+from account.models import MyUser, WeiXinUser
+from django.views.decorators.csrf import csrf_exempt
 logger = logging.getLogger('wafuli')
 from account.varify import httpconn, verifymobilecode
 from django.conf import settings
 from django.contrib.auth import login as auth_login
+
+@csrf_exempt
 def weixin(request):
     token = '1hblsqTsdfsdfsd'
     timestamp = str(request.GET.get('timestamp'))
@@ -27,7 +30,8 @@ def bind_user(request):
     if request.method == 'POST':
         result = {}
         openid = request.session['openid']
-        if not openid:
+        access_token = request.session['access_token']
+        if not openid or not access_token:
             result['code'] = '3'
             result['msg'] = u'请在微信中提交'
             return JsonResponse(result)
@@ -44,17 +48,32 @@ def bind_user(request):
                 result['msg'] = u'手机验证码已过期，请重新获取'
         else:
             result['code'] = 0
+            weixinuser = WeiXinUser.objects.filter(openid=openid).first()
+            if not weixinuser:
+                params = {
+                    'access_token':access_token,
+                    'openid':openid,
+                    'lang':'zh_CN',
+                    'code':'',
+                }
+                url = 'https://api.weixin.qq.com/sns/userinfo'
+                json_ret = httpconn(url, params, 0)
+                weixinuser = WeiXinUser.objects.create(openid=json_ret['openid'], nickname=json_ret['nickname'], sex=json_ret['sex'],
+                                          province=json_ret['province'], city=json_ret['city'], 
+                                          country=json_ret['country'], headimgurl=json_ret['headimgurl'],
+                                          unionid=json_ret['unionid'],)
             try:
                 user = MyUser.objects.get(mobile=mobile)
             except MyUser.DoesNotExist:
                 request.session['mobile'] = mobile
                 result['url'] = "/weixin/bind-user/setpasswd/"
             else:
-                user.open_id = openid
-                user.save(update_fields=['open_id'])
                 user.backend = 'django.contrib.auth.backends.ModelBackend'#为了略过用户名和密码验证
                 auth_login(request, user)
-                result['url'] = "/weixin/bind-user/success/"
+                result['url'] = "/account/"
+                if not weixinuser.user:
+                    weixinuser.user = user
+                    weixinuser.save(update_fields=['user'])
         return JsonResponse(result)    
     else:
         code = request.GET.get('code','')
@@ -71,17 +90,21 @@ def bind_user(request):
         json_ret = httpconn(url, params, 0)
         if 'openid' in json_ret:
             openid = json_ret['openid']
+            access_token = json_ret['access_token']
             request.session['openid'] = openid
+            request.session['access_token'] = access_token
             try:
-                user = MyUser.objects.get(open_id=openid)
-            except MyUser.DoesNotExist:
+                user = WeiXinUser.objects.get(openid=openid).user
+            except WeiXinUser.DoesNotExist:
                 return render(request, 'm_bind.html')
             else:
+                if not user:
+                    return render(request, 'm_bind.html')
                 user.backend = 'django.contrib.auth.backends.ModelBackend'#为了略过用户名和密码验证
                 auth_login(request, user)
                 return redirect('account_index')
         else:
-            logger.error('（zhuanfa?）Getting access_token error:' + str(json_ret) )
+            logger.error('Getting access_token error:' + str(json_ret) )
             return HttpResponse(u"本页面转发或刷新无效，请在微信公众号中重新打开")
 
 def bind_user_success(request):

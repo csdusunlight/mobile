@@ -46,7 +46,6 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(u'用户昵称', max_length=30, unique=True)
     level = models.SmallIntegerField(u'用户等级', default=0)
     with_total = models.IntegerField(u'提现总额度（VIP晋级用）', default = 0)
-    open_id = models.CharField(u'公众号关注者编号', max_length=30)
     inviter = models.ForeignKey('self', related_name = 'invitees',
                                 blank=True, null=True, on_delete=models.SET_NULL)
     invite_code = models.CharField(u"邀请码", unique=True, blank=True, max_length=20)
@@ -116,6 +115,17 @@ class Channel(models.Model):
     join_time = models.DateTimeField(u"加入渠道时间", default=timezone.now)
     def __unicode__(self):
         return self.user.mobile
+    
+class WeiXinUser(models.Model):
+    user = models.ForeignKey(MyUser, null=True)
+    openid = models.CharField(u'公众号关注者编号', max_length=30, unique=True)
+    nickname = models.CharField(u'微信昵称', max_length=30)
+    sex = models.CharField(u'性别', max_length=1)
+    province = models.CharField(u'省', max_length=20)
+    city = models.CharField(u'城市', max_length=20)
+    country = models.CharField(u'国家', max_length=50)
+    headimgurl = models.CharField(u'头像', max_length=200)
+    unionid = models.CharField(u'unionid', max_length=50, unique=True)
 class BankCard(models.Model):
     user = models.ForeignKey(MyUser, related_name="user_bankcard")
     card_number = models.CharField(u"银行卡号",max_length=23)

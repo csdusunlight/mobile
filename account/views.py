@@ -625,7 +625,7 @@ def change_bankcard(request):
         real_name = request.POST.get("real_name", '')
         bank = request.POST.get("bank", '')
         subbranch = request.POST.get("subbranch",'')
-        telcode = request.POST.get("code", '')
+        telcode = request.POST.get("telcode", '')
         ret = verifymobilecode(user.mobile,telcode)
         if ret != 0:
             result['code'] = 2
