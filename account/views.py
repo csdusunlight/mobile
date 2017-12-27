@@ -459,11 +459,13 @@ def welfare_finance(request):
     return render(request, 'account/m_account_welfare_finance.html',)
 def welfare_media(request):
     return render(request, 'account/m_account_welfare_media.html',)
-def detail_finance(request):
-    kwargs = {'id':id}
+def detail_finance(request, id):
+    obj = Finance.objects.get(id=id)
+    kwargs = {'id':id, 'obj':obj}
     return render(request, 'account/m_account_detail_finance.html',kwargs)
-def detail_media(request):
-    kwargs = {'id':id}
+def detail_media(request, id):
+    obj = MediaProject.objects.get(id=id)
+    kwargs = {'id':id, 'obj':obj}
     return render(request, 'account/m_account_detail_media.html',kwargs)
 def get_user_welfare_json(request):
     if not request.is_ajax():
