@@ -292,8 +292,15 @@ class Message(models.Model):
         verbose_name = u"消息"
         verbose_name_plural = u"消息"
         ordering = ['-time']
+
+SUB_TYPE = (
+    ('1', u'首投'),
+    ('2', u'复投'),
+)
+submit_type = models.CharField(max_length=10, choices=SUB_TYPE, verbose_name=u"首投/复投")
 class UserEvent(models.Model):
     user = models.ForeignKey(MyUser, related_name="user_event_history")
+    submit_type = models.CharField(max_length=10, choices=SUB_TYPE, verbose_name=u"首投/复投")
 #    event_level = models.PositiveIntegerField(u'事件级别（决定是否需审核）')
     event_type = models.CharField(max_length=10, choices=USER_EVENT_TYPE, verbose_name=u"用户事件类型")
     invest_account = models.CharField(u"第三方注册账号/提现账号", max_length=100)
@@ -476,8 +483,9 @@ class MAdvert_PC(Base):
         verbose_name_plural = u"PC端广告位（新）"
     def clean(self):
         if self.pic:
-            if self.location in ['00', '10', '03'] and self.pic.size > 100000:
-                raise ValidationError({'pic': u'图片大小不能超过100k'})
+            if self.location in ['00', '10', '03']:
+                if self.pic.size > 100000:
+                    raise ValidationError({'pic': u'图片大小不能超过100k'})
             elif self.pic.size > 50000:
                 raise ValidationError({'pic': u'图片大小不能超过50k'})
 class UserWelfare(models.Model):
