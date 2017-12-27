@@ -1,0 +1,227 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>数据管理</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="{% static 'css/mui.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/m_audit.css' %}">
+		<script type="text/javascript" src="{% static  'js/rem.js'%}"></script>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a id="anchor" href="{% url 'account_index' %}" class="mui-action-back2 mui-icon mui-icon-left-nav mui-pull-left" style="color: #656565;"></a>
+			<h1 class="mui-title">数据管理</h1>
+		</header>
+
+		<ul class="nav__head clearfix tc">
+            <li class="nav__item on">理财福利</li>
+            <li class="nav__item"><a class="nav__link" href="#">体验福利</a></li>
+            <li class="nav__item"><a class="nav__link" href="#">媒体单</a></li>
+        </ul>
+
+		<div id="pullrefresh" class="mui-scroll-wrapper">
+				<div class="mui-table-view">
+					<ul class="mui-table-view-left">
+						<li class="item_line m-head">
+						    <div class="column_0 column m-head">序号</div>
+						    <div class="column_1 column m-head">名称/<br />手机号</div>
+						</li>
+					</ul>
+					<div class="mui-scroll-wrapper2" style="width: 75%; float: right;">
+            			<div class="mui-scroll" style="width: 56rem;position: static;">
+        					<ul class="mui-table-view-right">
+        						<li class="item_line m-head m-right" >
+        							<div class="column_2 column m-head">提交日期</div>
+        							<div class="column_3 column m-head">投资金额/<br />投资标期</div>
+        							<div class="column_6 column m-head">审核状态/<br />返现福币</div>
+        							<div class="column_4 column m-head">审核信息</div>
+        							<div class="column_7 column m-head">备注</div>
+        							<div class="column_8 column m-head">操作</div>
+        						</li>
+        					</ul>
+            			</div>
+        			</div>
+				</div>
+		</div>
+       
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<script>
+		    var count = 1;
+		    var num = 1;
+			mui.init({
+			    pullRefresh: {
+                    container: '#pullrefresh',
+                    up: {
+                        auto:true,
+                        contentrefresh: '正在加载...',
+                        contentnomore:'—— 暂无更多数据 ——',//可选，请求完毕若没有更多数据时显示的提醒内容；
+                        callback: function() {
+                            var self = this;
+                            var ul_left = self.element.querySelector('.mui-table-view-left');
+                            var ul_right = self.element.querySelector('.mui-table-view-right');
+                            if (count == 1){
+                                mui('#pullrefresh').pullRefresh().scrollTo(0,0);
+                            }
+                            getList(this, ul_left, ul_right, count++);
+                        }
+                    }
+                }
+			}); //是否显示滚动条,默认是true
+			mui('.mui-scroll-wrapper2').scroll({
+			    scrollX: true,
+			    scrollY: false,
+//			    startX: 100,
+                bounce: true,
+                indicators: true, //是否显示滚动条
+//              deceleration: deceleration
+            });
+
+
+					function getList(obj, ul_left, ul_right, n) {
+						console.log(obj);
+						var url = '/usereventlist/?content_type=11&user={{user.id}}';
+						mui.ajax(url, {
+							data: {
+								page: n,
+								pageSize: 30,
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'get', //HTTP请求类型
+							timeout: 3000, //超时时间设置为10秒；
+							success: function(data) {
+								console.log("ajax数据：", data.results);
+								if(!data.results.length) {
+									mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+								} else {
+									mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
+									//var table = document.body.querySelector('.mui-table-view');
+									for(var i in data.results) {
+									    console.log(data.results[i].id);
+										var li_left = document.createElement('li');
+										var li_right = document.createElement('li');
+										li_left.className = 'item_line item' + data.results[i].id;
+										li_right.className = 'item_line m-right item' + data.results[i].id;
+										var left_html = '<div class="column_0 column">'+ (num++) +'</div>' +
+										                '<div data-id="' + data.results[i].id + '" class="column_1 column"><span class="item">' + data.results[i].project +
+											            '</span><span class="item">' + data.results[i].invest_account + '</span></div>';
+
+										var right_html = '<div data-id="' + data.results[i].id + '" class="column_2 column"><span class="item">' + data.results[i].invest_time.split('T')[0] + '</span>' +
+											'</div>' +
+											//投资金额/投资标期
+											'<div class="column_3 column"><span class="item">' + data.results[i].invest_amount + '</span>' +
+											'<span class="item">' + data.results[i].invest_term + '</span></div>' +
+											//审核状态/审核信息
+											'<div class="column_6 column"><span class="item state_'+ data.results[i].id +' state' + data.results[i].audit_state + ' ">' + data.results[i].state_des + '</span>' +
+											'<span class="item">' + data.results[i].ret_money + '</span></div>' +
+											//返现福币
+											'<div class="column_4 column"><span>' + data.results[i].refuse_reason + '</span></div>' +
+											//备注及其他
+											'<div class="column_7 column"><span>' + data.results[i].remark + '</div>' +
+											//操作
+											'<div class="column_8 column">';
+											if (data.results[i].audit_state == 1) {
+                                                right_html += '<span data-id="' + data.results[i].id + '" class="item deleteItem">删除</span>' +
+                                                               '<span data-id="' + data.results[i].id + '" class="item pro_editor">编辑</span></div>';
+                                            } else {
+                                                right_html += '<span data-id="' + data.results[i].id + '" class="item">——</span></div>';
+                                            }
+										li_left.innerHTML = left_html;
+										li_right.innerHTML = right_html;
+										ul_left.appendChild(li_left);
+										ul_right.appendChild(li_right);
+									}
+
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								console.log("没有数据")
+								//没有数据 显示没有更多数据
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);;
+							}
+
+						});
+					}
+
+            
+            var _that;
+            var _id;
+            var confirm_pass = document.getElementById('confirm_pass'),
+                confirm_pass_02 = document.getElementById('confirm_pass_02'),
+                confirm_refuse_02 = document.getElementById('confirm_refuse_02');
+			mui(".mui-table-view-right").on('tap', '.deleteItem', function() {
+				var dataId = this.getAttribute('data-id'); //获取当前span标签的data-id
+				console.log('dataId:', dataId);
+				//					console.log(mui(".item" + dataId));
+				var btnArry = ['否', '是'];
+				mui.confirm("是否要删除该条数据", "提示", btnArry, function(e) {
+					if(e.index == 1) {
+
+						mui.ajax("/usereventlist/" + dataId + "/", {
+							dataType: 'json', //服务器返回json格式数据
+							type: 'delete', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(data) {
+								mui(".item" + dataId).each(function() {
+									console.log(this.parentNode); //当前父节点 
+									this.parentNode.removeChild(this);
+								})
+							},
+							error: function(xhr, type, errorThrown) {
+								console.log(xhr.resoponseText);
+							}
+						});
+
+					} else {
+						return;
+					}
+				});
+			});
+            mui('.mui-bar').on('tap', '.mui-action-back2', function() {
+                var href = this.getAttribute("href");
+                mui.openWindow({
+                    url: href,
+                    styles: {
+                        top: 0,
+                        bottom: 0
+                    },
+                    show: {
+                        aniShow: 'slide-in-right',
+                    },
+                    waiting: {
+                        autoShow: false, //自动显示等待框
+                        title: '正在加载...', //等待对话框上显示的提示内容
+                    }
+                });
+            });
+			mui('.mui-table-view-right').on('tap', '.pro_editor', function() {
+
+				var project_id = this.getAttribute('data-id'); //获取自定义data-id属性
+				mui.openWindow({
+					url: "/account/detail_finance/" + project_id,
+					styles: {
+						top: 0,
+						bottom: 0
+					},
+					show: {
+						aniShow: 'slide-in-right',
+					},
+					waiting: {
+						autoShow: false, //自动显示等待框
+						title: '正在加载...', //等待对话框上显示的提示内容
+					}
+				});
+			});
+			
+            
+		</script>
+
+	</body>
+
+</html>
