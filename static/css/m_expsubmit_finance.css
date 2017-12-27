@@ -23,12 +23,27 @@ body {
 .mui-radio input[type=radio] {
 	top: -6px;
 }
+.radio-box {
+    font-size: 0;
+}
+.radio-box label {
+    position: absolute;
+    top: -8px;
+    font-size: 14px;
+}
+.mui-radio {
+    display: inline-block;
+    width: 50%;
+}
 .mui-radio label {
 	margin-left: 40px;
 }
 .mui-radio label {
 	padding-right: 0;
-	margin-left: 40px;
+	margin-left: 20px;
+}
+.mui-radio input[name="is_futou"] {
+    right: 50px !important;
 }
 .mui-checkbox label, .mui-radio label {
 	display: inline;

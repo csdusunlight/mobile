@@ -40,14 +40,24 @@
 					<label>注册手机号&nbsp;&nbsp;</label>
 					<input id="telnum" type="text" maxlength=11 placeholder="请输入注册手机号">
 				</div>
-        <div class="mui-input-row">
-          <label>投资金额（元）</label>
-          <input type="text" placeholder="请输入投资金额（仅限数字）" id="amount">
-        </div>
-        <div class="mui-input-row">
-          <label>投资标期（天）</label>
-          <input type="text" placeholder="请输入投资标期（仅限数字）" id="term">
-        </div>
+				<div class="mui-input-row isfutou-item radio-box" style="display: block;">
+                    <div class="mui-input-row mui-radio">
+                        <label style="display: inline-block;">首投</label>
+                        <input name="is_futou" type="radio" value="1" checked="checked">
+                    </div>
+                    <div class="mui-input-row mui-radio">
+                        <label style="display: inline-block;">复投</label>
+                        <input name="is_futou" type="radio" value="2">
+                    </div>
+                </div>
+                <div class="mui-input-row">
+                  <label>投资金额（元）</label>
+                  <input type="text" placeholder="请输入投资金额（仅限数字）" id="amount">
+                </div>
+                <div class="mui-input-row">
+                  <label>投资标期（天）</label>
+                  <input type="text" placeholder="请输入投资标期（仅限数字）" id="term">
+                </div>
 
 			</form>
 			<div class="mui-input-row beizhu" style="margin: 10px 5px;">
@@ -68,6 +78,7 @@
 					var telnum = document.getElementById('telnum').value;
 					var remark = document.getElementById('remark').value;
 					var amount = document.getElementById('amount').value;
+					var is_futou = mui('input[name="is_futou"]:checked')[0].value;
 					// amount = parseFloat(amount);
 					var term = document.getElementById('term').value;
 					var re=/^1[1,2,3,4,6,5,7,8,9]\d{9}$/;
@@ -89,7 +100,7 @@
 						url:"{%url 'expsubmit_finance' %}",
 						type:'post',
 						data:{
-							'type':type,
+							'submit_type':is_futou,
 							'id':id,
 							'amount':amount,
 							'term':term,

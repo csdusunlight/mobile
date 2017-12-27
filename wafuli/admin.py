@@ -1,5 +1,6 @@
 #coding:utf-8
 from django.contrib import admin
+
 # Register your models here.
 from .models import *
 from .tools import writeHtml,createUrl
@@ -20,6 +21,12 @@ class NewsAdmin(admin.ModelAdmin):
 class FinanceAdmin(NewsAdmin):
     readonly_fields = ('url','pub_date','change_user')
     filter_horizontal = ('marks',)
+    list_display = ('title','state','news_priority')
+    list_priority=('news_priority',)
+#     def formfield_for_foreignkey(self, db_field, request, **kwargs): 
+#         if db_field.name == "company": 
+#             kwargs["queryset"] = Company.objects.order_by("pinyin") 
+#         return super(FinanceAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
     def save_model(self, request, obj, form, change):
         super(FinanceAdmin,self).save_model (request, obj, form, change)
         if not change:
@@ -29,6 +36,7 @@ class TaskAdmin(NewsAdmin):
     readonly_fields = ('url','pub_date','change_user')
     list_display = ('title','is_forbidden',)
     list_filter = ['is_forbidden',]
+    list_display = ('title','state',)
     def save_model(self, request, obj, form, change):
         super(TaskAdmin,self).save_model (request, obj, form, change)      
         if not change:
@@ -61,8 +69,11 @@ class PressAdmin(NewsAdmin):
 class ComAdmin(admin.ModelAdmin):
     search_fields = ['name', 'level','site','capital','address','launch_date','trusteeship','background',]
 class UserEventAdmin(admin.ModelAdmin):
+    raw_id_fields = ['user',]
     search_fields = ()
     list_display = ('user','content_object', 'invest_account','time','event_type','audit_state')
+class AdminEventAdmin(admin.ModelAdmin):
+    raw_id_fields = ['admin_user','custom_user']
 class ActivityAdmin(admin.ModelAdmin):
 #     fields = ('title', 'pic1', 'pic2', 'pic3', 'content', 'url')
     search_fields = ['title',]
@@ -76,6 +87,7 @@ class ActivityAdmin(admin.ModelAdmin):
             return fields  
 class TransListAdmin(admin.ModelAdmin):
     search_fields = ['user__mobile',]
+    raw_id_fields = ['user','user_event','admin_event']
 class CouponAdmin(admin.ModelAdmin):
     list_display = ('project','user', 'exchange_code','is_used',)
     search_fields = ['user__mobile',]
@@ -87,7 +99,7 @@ admin.site.register(Task, TaskAdmin)
 admin.site.register(Commodity,CommodityAdmin)
 admin.site.register(UserEvent, UserEventAdmin)
 admin.site.register(AuditLog)
-admin.site.register(AdminEvent)
+admin.site.register(AdminEvent,AdminEventAdmin)
 admin.site.register(ScoreTranlist,TransListAdmin)
 admin.site.register(TransList,TransListAdmin)
 admin.site.register(ExchangeRecord)
@@ -105,17 +117,17 @@ admin.site.register(LotteryRecord)
 
 class WelfareAdmin(admin.ModelAdmin):
     search_fields = ['title',]
-    list_filter = ['news_priority', 'change_user',]
+    list_filter = ['news_priority', 'state',]
     readonly_fields = ('pub_date','change_user','url')
     filter_horizontal = ('marks',)
+    list_display = ('title','state','id')
     def save_model(self, request, obj, form, change):
         obj.change_user = str(request.user)
 #         if obj.advert is None:
 #             obj.advert = Advertisement.objects.filter(location='7',is_hidden=False).first()
         super(WelfareAdmin,self).save_model (request, obj, form, change)
-        if not change:
-            obj.url = reverse('welfare', kwargs={'id': obj.pk})
-            obj.save(update_fields=['url',])
+        obj.url = reverse('welfare', kwargs={'id': obj.pk})
+        obj.save(update_fields=['url',])
 class HongbaoAdmin(WelfareAdmin):
     def save_model(self, request, obj, form, change):
         if not change:
@@ -153,3 +165,8 @@ class InformationAdmin(NewsAdmin):
             obj.save(update_fields=['url',])
 admin.site.register(Information,InformationAdmin)
 admin.site.register(UserTask)
+admin.site.register(Fuligou)
+admin.site.register(CreditCard)
+admin.site.register(Loan)
+admin.site.register(MAdvert_PC)
+admin.site.register(MediaProject)

@@ -162,7 +162,7 @@
 				mui.confirm("是否要删除该条数据", "提示", btnArry, function(e) {
 					if(e.index == 1) {
 
-						mui.ajax("/usereventlist/" + dataId + "/", {
+						mui.ajax("/userevent/" + dataId + "/", {
 							dataType: 'json', //服务器返回json格式数据
 							type: 'delete', //HTTP请求类型
 							timeout: 10000, //超时时间设置为10秒；
