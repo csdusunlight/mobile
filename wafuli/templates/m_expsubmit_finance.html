@@ -51,6 +51,10 @@
                     </div>
                 </div>
                 <div class="mui-input-row">
+                  <label>投资日期</label>
+                  <input type="date" placeholder="请输入投资日期" id="invest_date">
+                </div>
+                <div class="mui-input-row">
                   <label>投资金额（元）</label>
                   <input type="text" placeholder="请输入投资金额（仅限数字）" id="amount">
                 </div>
@@ -76,6 +80,7 @@
 				});
 				document.getElementById("submit_btn").addEventListener('tap', function() {
 					var telnum = document.getElementById('telnum').value;
+					var invest_date = document.getElementById('invest_date').value;
 					var remark = document.getElementById('remark').value;
 					var amount = document.getElementById('amount').value;
 					var is_futou = mui('input[name="is_futou"]:checked')[0].value;
@@ -88,11 +93,15 @@
             return;
           }
           if(!re_amount.test(amount)){
-            alert("投资金额不能为空且必须为纯数字格式！")
+            mui.alert("投资金额不能为空且必须为纯数字格式！")
             return;
           }
           if(!re_amount.test(term)){
-            alert("投资标期不能为空且必须为纯数字格式！")
+            mui.alert("投资标期不能为空且必须为纯数字格式！")
+            return;
+          }
+          if(!invest_date){
+            mui.alert("投资日期不能为空")
             return;
           }
 	                var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
@@ -101,6 +110,7 @@
 						type:'post',
 						data:{
 							'submit_type':is_futou,
+							'invest_date': invest_date,
 							'id':id,
 							'amount':amount,
 							'term':term,
