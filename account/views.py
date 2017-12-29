@@ -449,22 +449,19 @@ def signin_record(request):
 @login_required
 def welfare_task(request):
     ttype = ContentType.objects.get_for_model(Task)
-    ftype = ContentType.objects.get_for_model(Finance)
-    tcount_u = UserEvent.objects.filter(user=request.user.id, content_type = ttype.id).count()
-    fcount_u = UserEvent.objects.filter(user=request.user.id, content_type = ftype.id).count()
-    statis = {'tcount_u':tcount_u,'fcount_u':fcount_u }
-    return render(request, 'account/m_account_welfare_task.html', {'statis':statis})
+    return render(request, 'account/m_account_welfare_task.html',{'ttype':ttype.id,})
 @login_required
 def welfare_finance(request):
-    return render(request, 'account/m_account_welfare_finance.html',)
+    ftype = ContentType.objects.get_for_model(Finance)
+    return render(request, 'account/m_account_welfare_finance.html',{'ftype':ftype.id,})
 def welfare_media(request):
     return render(request, 'account/m_account_welfare_media.html',)
 def detail_finance(request, id):
-    obj = Finance.objects.get(id=id)
+    obj = UserEvent.objects.get(id=id)
     kwargs = {'id':id, 'obj':obj}
     return render(request, 'account/m_account_detail_finance.html',kwargs)
 def detail_media(request, id):
-    obj = MediaProject.objects.get(id=id)
+    obj = UserEvent.objects.get(id=id)
     kwargs = {'id':id, 'obj':obj}
     return render(request, 'account/m_account_detail_media.html',kwargs)
 def get_user_welfare_json(request):
