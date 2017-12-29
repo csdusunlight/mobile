@@ -65,11 +65,12 @@ ul,li {
 	font-size: 12px;
 }
 .column_0 {
-    width: 20%;
+    width: 0%;
+    display: none;
     font-size: 12px;
 }
 .column_1 {
-	width: 80%;
+	width: 100%;
 }
 
 .column_2 {
@@ -270,13 +271,13 @@ ul,li {
 
 }
 .nav__item.on {
-    color: #91C11D;
+    color: #008fd7;
 }
 .nav__link {
     display: block;
     color: #333;
 }
 .m-head{
-    background: RGB(145,193,29);
+    background: #008fd7;
     color: white;
 }
