@@ -158,8 +158,8 @@
                 }
                 mui.ajax('/userevent/{{id}}/',{
                     data: {
-                        'invest_date': date.value,
-                        'invest_mobile': invest_mobile.value,
+                        'invest_time': date.value + "T00:00",
+                        'mobile': invest_mobile.value,
                         'invest_term': invest_term.value,
                         'invest_amount': invest_amount.value,
                         'remark': remark.value,
