@@ -4,7 +4,11 @@ Created on 2017年7月3日
 
 @author: lch
 '''
+
+import time
+
 from rest_framework import permissions
+from app.tools import is_authenticated_app
 class IsAdmin(permissions.BasePermission):
     def has_permission(self, request, view):
 #         if request.method in permissions.SAFE_METHODS:
@@ -43,3 +47,11 @@ class IsSelfOrStaff(permissions.BasePermission):
         if not request.user.is_authenticated():
             return False
         return request.user.is_staff or obj == request.user
+    
+class IsAuthenticated_APP(permissions.BasePermission):
+    """
+    Allows access only to authenticated users.
+    """
+
+    def has_permission(self, request, view):
+        return is_authenticated_app(request) or request.user.is_authenticated()
