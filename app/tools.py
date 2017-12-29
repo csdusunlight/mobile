@@ -76,7 +76,7 @@ def user_info(user):
     card_number = bankcard.card_number if bankcard else ''
     bank = bankcard.bank if bankcard else ''
     bank_name = bankcard.get_bank_display() if bankcard else ''
-    result = {'accu_income':user.accu_income, 'balance':user.balance, 
+    result = {'accu_income':user.accu_income, 'balance':user.balance, 'userid':user.id,
               'mobile':user.mobile, 'userimg':user.id%4, 'scores':user.scores,
               'accu_scores':user.accu_scores, 'card_number':card_number,'bank':bank,'tcount_u':tcount_u,
               'bank_name':bank_name, 'with_total':user.with_total, 'level':user.level,

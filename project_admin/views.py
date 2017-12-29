@@ -2,7 +2,7 @@
 from project_admin.serializers import *
 # Create your views here.
 
-from rest_framework import generics, permissions
+from rest_framework import generics
 from project_admin.permissions import CsrfExemptSessionAuthentication, IsAdmin
 import django_filters
 from project_admin.Filters import ProjectFilter, ProjectInvestDateFilter,\
@@ -25,10 +25,11 @@ import traceback
 from project_admin.tools import has_permission
 from django.contrib.auth.decorators import login_required
 from datetime import timedelta
+from restapi.permissions import IsAuthenticated_APP
 logger = logging.getLogger('wafuli')
 class BaseViewMixin(object):
     authentication_classes = (CsrfExemptSessionAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,IsAdmin)
+    permission_classes = (IsAuthenticated_APP,)
 
 class ContactList(BaseViewMixin,generics.ListCreateAPIView):
     queryset = Contact.objects.all()
