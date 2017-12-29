@@ -29,7 +29,7 @@ from restapi.permissions import IsAuthenticated_APP
 logger = logging.getLogger('wafuli')
 class BaseViewMixin(object):
     authentication_classes = (CsrfExemptSessionAuthentication,)
-    permission_classes = (IsAuthenticated_APP,IsAdmin)
+    permission_classes = (IsAuthenticated_APP,)
 
 class ContactList(BaseViewMixin,generics.ListCreateAPIView):
     queryset = Contact.objects.all()
