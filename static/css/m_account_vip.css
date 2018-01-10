@@ -18,11 +18,15 @@
 .user-logo img {
 	width: 100%;
 }
-.user-logo .vip-logo {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	width: 18px;
+.vip-level {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 0 4px;
+    font-size: 12px;
+    line-height: 16px;
+    background-color: #ffbe00;
+    border-radius: 4px;
+    vertical-align: middle;
 }
 .top a {
 	display: block;
@@ -75,7 +79,7 @@
 /*进度条部分---end*/
 .vip-content-box {
 	margin-top: 10px;
-	padding-top: 10px;
+	padding: 10px 0;
 	background: #fff;
 }
 .vip-title {
