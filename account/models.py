@@ -45,7 +45,8 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     mobile = models.CharField('mobile number', max_length=11, unique=True,)
     username = models.CharField(u'用户昵称', max_length=30, unique=True)
     level = models.SmallIntegerField(u'用户等级', default=0)
-    with_total = models.IntegerField(u'提现总额度（VIP晋级用）', default = 0)
+    with_total = models.IntegerField(u'提现总额度', default = 0)
+    with_level = models.IntegerField(u'当前等级的经验（VIP晋级用）', default = 0)
     inviter = models.ForeignKey('self', related_name = 'invitees',
                                 blank=True, null=True, on_delete=models.SET_NULL)
     invite_code = models.CharField(u"邀请码", unique=True, blank=True, max_length=20)
@@ -63,7 +64,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     invite_scores = models.IntegerField(u'邀请奖励积分', default = 0)
     balance = models.IntegerField(u'现金余额', default = 0)
     scores = models.IntegerField(u'积分余额', default = 0)
-    isSigned = models.BooleanField('是否签到', default=False,
+    isSigned = models.BooleanField(u'是否签到', default=False,
         help_text='Designates whether the user had signed in today.')
     last_login_time =  models.DateTimeField(u'上一次登录时间', null=True, blank=True)
     this_login_time =  models.DateTimeField(u'最近登录时间', null=True, blank=True, default=timezone.now)
