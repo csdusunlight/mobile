@@ -403,6 +403,9 @@ def submit_finance(request):
     term = request.POST.get('term', '').strip()
     amount = request.POST.get('amount',0)
     amount = Decimal(amount)
+    submit_type = request.POST.get('submit_type', '1')
+    invest_data = request.POST.get('invest_date', None)
+    invest_time = datetime.strptime(invest_data, '%Y-%m-%d') if invest_data else datetime.now()
     if not (news_id and telnum):
         logger.error("news_id or telnum is missing!!!")
         ret['code'] = 1
@@ -420,13 +423,12 @@ def submit_finance(request):
 #         return JsonResponse(result)
     news = Finance.objects.get(pk=news_id)
     try:
-        with transaction.atomic():
-            if not news.is_multisub_allowed and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+        if not news.is_multisub_allowed or submit_type=='1':
+            if news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
                 raise ValueError('This invest_account is repective in project:' + str(news.id))
-            else:
-                UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term,
-                                 invest_amount=amount, content_object=news, audit_state='1',remark=remark,)
-                ret['code'] = 0
+        UserEvent.objects.create(user=request.user, event_type='1', invest_account=telnum, invest_term=term,submit_type=submit_type,
+                         invest_amount=amount, invest_time=invest_time, content_object=news, audit_state='1',remark=remark,)
+        ret['code'] = 0
     except Exception, e:
         logger.info(e)
         ret['code'] = '2'

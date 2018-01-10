@@ -14,4 +14,4 @@ class UserEventFilter(django_filters.rest_framework.FilterSet):
     mobile = django_filters.CharFilter(name="user", lookup_expr='mobile')
     class Meta:
         model = UserEvent
-        fields = ['content_type', 'event_type','audittime', 'project_title_contains', 'investtime','audit_state', 'invest_account', 'mobile']
+        fields = ['user','content_type', 'event_type','audittime', 'project_title_contains', 'investtime','audit_state', 'invest_account', 'mobile']
