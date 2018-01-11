@@ -155,3 +155,6 @@
 .vip-finance .vip-rank-now {
 	color: #ffc601;
 }
+.mui-bar {
+    z-index: 100;
+}
