@@ -24,7 +24,7 @@
             <div class="top">
                 <div id="user_logo" class="user-logo">
                     <!--<img src="{% static 'images/user-03.png' %}" />-->
-                    <img id="userimg" src="/static/images/user-0{{user.id}}.png" alt="用户头像" />
+                    <img id="userimg" src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
                 </div>
                 <a>
                     <number>{{user.mobile}}<span class="vip-level">Lv.{{user.level}}</span></number>
