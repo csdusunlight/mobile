@@ -35,20 +35,9 @@
         <a id="settings" class="diannao" href="{% url 'account_settings' %}"><i class="icon iconfont">&#xe631;</i></a>
         <div  id="user_logo" class="user-logo">
           <img id="userimg" src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
-          {% if user.level = 1 %}
-              <img id="Vip_logo" class="vip-logo" src="{% static 'images/vip1.png' %}" />
-          {% elif user.level = 2 %}
-              <img id="Vip_logo" class="vip-logo" src="{% static 'images/vip2.png' %}" />
-          {% elif user.level = 3 %}
-              <img id="Vip_logo" class="vip-logo" src="{% static 'images/vip3.png' %}" />
-          {% elif user.level = 4 %}
-              <img id="Vip_logo" class="vip-logo" src="{% static 'images/vip4.png' %}" />
-          {% elif user.level = 5 %}
-              <img id="Vip_logo" class="vip-logo" src="{% static 'images/vip5.png' %}" />
-          {% endif %}
         </div>
         <a>
-          <number id="mobile">{{user.mobile}}</number>
+          <number id="mobile">{{user.mobile}}<span class="vip-level">Lv.{{user.level}}</span></number>
         </a>
         {% if isSigned %}
         	<button id="qiandao" type="button" disabled="disabled" class="mui-btn qiandao">今日已签到</button>
