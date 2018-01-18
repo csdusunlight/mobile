@@ -117,8 +117,8 @@
                         });
                     },
                     error:function(xhr, type, errorThrown){
-                        console.log(xhr.response);
-                        mui.alert(xhr.response);
+                        console.log(JSON.parse(xhr.response));
+                        mui.alert(JSON.parse(xhr.response).detail);
                     }
                 });
 			})
