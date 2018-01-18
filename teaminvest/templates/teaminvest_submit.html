@@ -1,0 +1,127 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<!-- 优先使用 IE 最新版本和 Chrome -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<!-- 为移动设备添加 viewport -->
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<!-- 添加到主屏后的标题（iOS 6 新增） -->
+		<meta name="apple-mobile-web-app-title" content="">
+		<!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!-- 设置苹果工具栏颜色 -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+		<meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+		<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+		<meta name="format-detection" content="telphone=no, email=no" />
+		<!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<title>组队单提交</title>
+		<link href="{%static 'css/mui.min.css'%}" rel="stylesheet"/>
+    	<link rel="stylesheet" type="text/css" href="{%static 'css/m_common.css'%}"/>
+    	<link rel="stylesheet" type="text/css" href="{%static 'css/m_expsubmit_task.css'%}"/>
+		<style>
+			.mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {
+				width: 55%;
+			}
+			.mui-input-row label {
+				width: 45%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">组队单提交</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				{% csrf_token %}
+				<div class="mui-input-row">
+					<label>投资平台</label>
+        			<select id='project_id'>
+                        <option value ="">请选择投资平台</option>
+                        {% for x in projects %}
+                        <option value="{{x.id}}">{{x.title}}</option>
+                        {%endfor%}
+                    </select> 
+				</div>
+				<div class="mui-input-row">
+					<label>投资时间</label>
+					<input id="date" type="date" placeholder="请选择投资时间">
+				</div>
+				<div class="mui-input-row">
+					<label>投资金额（元）</label>
+					<input id="amount" type="text" onkeyup="this.value =this.value.replace(/[^\0-9\.]/g,'');" placeholder="请输入投资金额，限数字格式">
+				</div>
+				<div class="mui-input-row">
+					<label>QQ/昵称</label>
+					<input id="qqname" type="text" placeholder="请输入投资QQ号或QQ昵称">
+				</div>
+				<div class="mui-input-row">
+                    <label>备注</label>
+                    <input id="remark" type="text" placeholder="请输入备注信息，选填">
+                </div>
+			</form>
+			<button id="submit" type="button" class="mui-btn mui-btn-blue">确认提交</button>
+			<p style="margin-top: 20px">注意事项：<br>
+			1、请务必使用自己的挖福利账号交单<br>
+			2、组队之后的本息汇款，默认汇款至挖福利绑定的银行卡账号，请确保自己的账号正确性
+			</p>
+		</div>
+		<script src="{% static 'js/mui.min.js' %}"></script>
+		<!--弹窗部分-->
+		<script type="text/javascript">
+			mui.init();
+			document.getElementById('submit').addEventListener('tap', function(){
+    		    var project_id = document.getElementById("project_id").value;
+    			var date = document.getElementById("date").value;
+    			var amount = document.getElementById("amount").value;
+    			var qqname = document.getElementById("qqname").value;
+    			var remark = document.getElementById('remark').value;
+    			console.log(project_id+', '+date+', '+amount+', '+qqname+', '+remark);
+    			var re = /^1[1,2,3,4,6,5,7,8,9]\d{9}$/;
+    //				var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+                if (!project_id || !date || !amount || !qqname) {
+                	mui.alert('必填项不能为空')
+                	return;
+                }
+                var re_amount=/^\d+(\.\d+)?$/;
+                if(!re_amount.test(amount)){
+                    mui.alert("投资金额必须为纯数字格式！")
+                    return;
+                }
+    			mui.ajax({
+                    url: "/restapi/investlog/",
+                    type:'post',
+                    data:{
+                        "qq": qqname,
+                        "project": project_id,
+                        "invest_date": date,
+                        "invest_amount": amount,
+                        "remark": remark
+    //                      csrfmiddlewaretoken:csrfmiddlewaretoken
+                    },
+                    dataType:"json",
+                    async:false,
+                    success:function(ret){
+                        mui.alert("任务提交成功，可在【个人中心】-【福利管理】查看。请耐心等待工作人员审核。","温馨提示",function(){
+                            history.go(0);
+                        });
+                    },
+                    error:function(xhr,type,errorThrown){
+                        console.log('数据错误');
+                    }
+                });
+			})
+		</script>
+
+	</body>
+
+</html>

@@ -12,19 +12,24 @@
 		<link rel="stylesheet" href="{% static 'css/mui.min.css' %}">
 		<link rel="stylesheet" href="{% static 'css/m_audit.css' %}">
 		<script type="text/javascript" src="{% static  'js/rem.js'%}"></script>
+		<style type="text/css">
+            .item_line.m-right {
+                width: 48rem;
+            }
+        </style>
 	</head>
 
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a id="anchor" href="{% url 'account_index' %}" class="mui-action-back2 mui-icon mui-icon-left-nav mui-pull-left" style="color: #656565;"></a>
-			<h1 class="mui-title">理财福利管理</h1>
+			<h1 class="mui-title">组队交单管理</h1>
 		</header>
 
 		<ul class="nav__head clearfix tc">
-            <li class="nav__item on">理财福利</li>
+            <li class="nav__item"><a class="nav__link" href="{% url 'account_welfare_finance' %}">理财福利</a></li>
             <li class="nav__item"><a class="nav__link" href="{% url 'account_welfare_task' %}">体验福利</a></li>
             <li class="nav__item"><a class="nav__link" href="{% url 'account_welfare_media' %}">媒体单</a></li>
-            <li class="nav__item"><a class="nav__link" href="{% url 'account_welfare_team' %}">组队单</a></li>
+            <li class="nav__item on">组队单</li>
         </ul>
 
 		<div id="pullrefresh" class="mui-scroll-wrapper">
@@ -32,18 +37,17 @@
 					<ul class="mui-table-view-left">
 						<li class="item_line m-head">
 						    <div class="column_0 column m-head">序号</div>
-						    <div class="column_1 column m-head">名称/<br />手机号</div>
+						    <div class="column_1 column m-head">名称</div>
 						</li>
 					</ul>
 					<div class="mui-scroll-wrapper2" style="width: 75%; float: right;">
-            			<div class="mui-scroll" style="width: 56rem;position: static;">
+            			<div class="mui-scroll" style="width: 48rem;position: static;">
         					<ul class="mui-table-view-right">
         						<li class="item_line m-head m-right" >
         							<div class="column_2 column m-head">投资时间</div>
-        							<div class="column_3 column m-head">投资金额/<br />投资标期</div>
-        							<div class="column_6 column m-head">审核状态/<br />返现福币</div>
-        							<div class="column_4 column m-head">审核信息</div>
-        							<div class="column_7 column m-head">备注</div>
+        							<div class="column_3 column m-head">投资金额</div>
+        							<div class="column_4 column m-head">审核状态</div>
+        							<div class="column_5 column m-head">备注</div>
         							<div class="column_8 column m-head">操作</div>
         						</li>
         					</ul>
@@ -87,7 +91,7 @@
 
 					function getList(obj, ul_left, ul_right, n) {
 						console.log(obj);
-						var url = '/usereventlist/?content_type={{ftype}}&user={{user.id}}';
+						var url = '/restapi/investlog/?user_mobile={{user.mobile}}';
 						mui.ajax(url, {
 							data: {
 								page: n,
@@ -110,20 +114,18 @@
 										li_right.className = 'item_line m-right item' + data.results[i].id;
 										var left_html = '<div class="column_0 column">'+ (num++) +'</div>' +
 										                '<div data-id="' + data.results[i].id + '" class="column_1 column"><span class="item">' + data.results[i].project +
-											            '</span><span class="item">' + data.results[i].invest_account + '</span></div>';
+											            '</span></div>';
 
 										var right_html = '<div data-id="' + data.results[i].id + '" class="column_2 column"><span class="item">' + data.results[i].invest_time.split('T')[0] + '</span>' +
 											'</div>' +
 											//投资金额/投资标期
 											'<div class="column_3 column"><span class="item">' + data.results[i].invest_amount + '</span>' +
-											'<span class="item">' + data.results[i].invest_term + '</span></div>' +
+											'</div>' +
 											//审核状态/审核信息
-											'<div class="column_6 column"><span class="item state_'+ data.results[i].id +' state' + data.results[i].audit_state + ' ">' + data.results[i].state_des + '</span>' +
-											'<span class="item">' + (data.results[i].ret_money==null?'':data.results[i].ret_money) + '</span></div>' +
-											//返现福币
-											'<div class="column_4 column"><span>' + (data.results[i].refuse_reason==null?'':data.results[i].refuse_reason) + '</span></div>' +
+											'<div class="column_4 column"><span class="item state_'+ data.results[i].id +' state' + data.results[i].audit_state + ' ">' + data.results[i].state_des + '</span>' +
+											'</div>' +
 											//备注及其他
-											'<div class="column_7 column"><span>' + data.results[i].remark + '</div>' +
+											'<div class="column_5 column"><span>' + data.results[i].remark + '</div>' +
 											//操作
 											'<div class="column_8 column">';
 											if (data.results[i].audit_state == 1) {
@@ -204,7 +206,7 @@
 
 				var project_id = this.getAttribute('data-id'); //获取自定义data-id属性
 				mui.openWindow({
-					url: "/account/detail_finance/" + project_id,
+					url: "/account/detail_team/" + project_id,
 					styles: {
 						top: 0,
 						bottom: 0
