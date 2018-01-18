@@ -35,7 +35,7 @@ class BackLogFilter(django_filters.rest_framework.FilterSet):
     project_title = django_filters.CharFilter('project', lookup_expr='title__contains')
     class Meta:
         model = Backlog
-        fields = ['back_date_ft', 'user_mobile', 'username', 'project_title']        
+        fields = ['back_date_ft', 'user_mobile', 'username', 'project_title', 'investlog']
 # class UserEventFilter(django_filters.rest_framework.FilterSet):
 #     investtime = django_filters.DateFromToRangeFilter(name="invest_date")
 #     submittime = django_filters.DateFromToRangeFilter(name="submit_time")
