@@ -240,7 +240,7 @@
                                 console.log(data.results);
                                 var look_html = '';
                                 for(var i in data.results) {
-                                    look_html += '<p class="look-line"><span class="look-item">回款时间：'+data.results[i].invest_date+'</span><span class="look-item">回款金额：'+data.results[i].invest_amount+'</span></p>';
+                                    look_html += '<p class="look-line"><span class="look-item">时间：'+data.results[i].invest_date+'</span><span class="look-item">金额：'+data.results[i].back_amount+'</span></p>';
                                 }
                                 console.log(look_html);
                                 document.getElementById('look_detail').innerHTML = look_html;
