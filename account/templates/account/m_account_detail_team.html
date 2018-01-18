@@ -153,7 +153,8 @@
                     timeout:10000,//超时时间设置为10秒；
                     success:function(ret){
                             mui.alert('修改成功',function(){
-                                mui.back();
+//                              mui.back();
+                                mui.openWindow('/account/welfare_team/');
                             });
                     },
                     error:function(xhr,type,errorThrown){

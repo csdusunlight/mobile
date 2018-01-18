@@ -147,17 +147,18 @@
 											'</div>' +
 											//投资金额/投资标期
 											'<div class="column_3 column"><span class="item">' + data.results[i].invest_amount + '</span>' +
-											'</div>' +
-											//审核状态/审核信息
-											'<div class="column_4 column"><span class="item state_'+ data.results[i].id +' state' + data.results[i].audit_state + ' ">' + data.results[i].state_desc + '</span>' +
 											'</div>';
-											//备注及其他
+											//审核状态/审核信息
 											if (data.results[i].audit_state == 2) {
-												right_html += '<div class="column_5 column"><span class="item">' + data.results[i].remark + '</span>'+
-												'<span class="item">' + data.results[i].audit_reason + '</span></div>';
-											} else{
-											    right_html += '<div class="column_5 column"><span class="item">' + data.results[i].remark + '</span></div>';
-											}
+                                                right_html += '<div class="column_4 column"><span class="item state_'+ data.results[i].id +' state' + data.results[i].audit_state + ' ">' + data.results[i].state_desc + '</span>' +
+                                            '<span class="item">' + data.results[i].audit_reason + '</span></div>';
+                                            } else{
+                                                right_html += '<div class="column_4 column"><span class="item state_'+ data.results[i].id +' state' + data.results[i].audit_state + ' ">' + data.results[i].state_desc + '</span>' +
+                                            '</div>';
+                                            }
+											
+											//备注及其他
+											right_html += '<div class="column_5 column"><span class="item">' + data.results[i].remark + '</span></div>';
 											//操作
 											right_html += '<div class="column_8 column">';
 											if (data.results[i].audit_state == 1) {
