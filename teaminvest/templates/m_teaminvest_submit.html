@@ -70,7 +70,7 @@
                 </div>
 			</form>
 			<button id="submit" type="button" class="mui-btn mui-btn-blue">确认提交</button>
-			<p style="margin-top: 20px">注意事项：<br>
+			<p style="margin-top: 20px;margin-left: 10px;">注意事项：<br>
 			1、请务必使用自己的挖福利账号交单<br>
 			2、组队之后的本息汇款，默认汇款至挖福利绑定的银行卡账号，请确保自己的账号正确性
 			</p>
@@ -111,12 +111,14 @@
                     dataType:"json",
                     async:false,
                     success:function(ret){
-                        mui.alert("任务提交成功，可在【个人中心】-【福利管理】查看。请耐心等待工作人员审核。","温馨提示",function(){
+                        console.log('成功');
+                        mui.alert("任务提交成功，可在【个人中心】-【交单记录】查看。请耐心等待工作人员审核。","温馨提示",function(){
                             history.go(0);
                         });
                     },
-                    error:function(xhr,type,errorThrown){
-                        console.log('数据错误');
+                    error:function(xhr, type, errorThrown){
+                        console.log(xhr.response);
+                        mui.alert(xhr.response);
                     }
                 });
 			})

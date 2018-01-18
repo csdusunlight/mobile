@@ -43,6 +43,7 @@ from wafuli.tools import get_weixin_params
 from wafuli.data import BANK
 from wafuli_admin.models import Invite_Rank
 from app.tools import is_authenticated_app
+from teaminvest.models import Investlog
 logger = logging.getLogger('wafuli')
 
 def user_guide(request):
@@ -464,7 +465,7 @@ def detail_finance(request, id):
     kwargs = {'id':id, 'obj':obj}
     return render(request, 'account/m_account_detail_finance.html',kwargs)
 def detail_team(request, id):
-    obj = UserEvent.objects.get(id=id)
+    obj = Investlog.objects.get(id=id)
     kwargs = {'id':id, 'obj':obj}
     return render(request, 'account/m_account_detail_team.html',kwargs)
 def detail_media(request, id):

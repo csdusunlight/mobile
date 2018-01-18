@@ -90,7 +90,7 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #656565;"></a>
-			<h1 class="mui-title" style="color: RGB(102,102,102);">编辑理财福利数据</h1>
+			<h1 class="mui-title" style="color: RGB(102,102,102);">编辑组队数据</h1>
 		</header>
 		<div class="mui-content" style="background: white;">
 			<form>
@@ -98,25 +98,13 @@
 					<tr>
 						<td><span>项目名称</span></td>
 						<td> 
-							<input id="project" type="text" class="ipt" value="{{obj.content_object}}" disabled="disabled" />
+							<input id="project" type="text" class="ipt" value="{{obj.project}}" disabled="disabled" />
 						</td>
 					</tr>
 					<tr>
 						<td><span>投资日期</span></td>
 						<td>
-							<input id="date" type="date" class="ipt" value='{{obj.invest_time|date:"Y-m-d"}}' />
-						</td>
-					</tr>
-					<tr>
-						<td><span>提交手机号</span></td>
-						<td>
-							<input id="invest_mobile" disabled="disabled" type="text" maxlength="11" class="ipt" value="{{obj.invest_account}}" />
-						</td>
-					</tr>
-					<tr>
-						<td><span>投资标期（天）</span></td>
-						<td>
-							<input id="invest_term" type="number" class="ipt" value="{{obj.invest_term}}" />
+							<input id="date" type="date" class="ipt" value='{{obj.invest_date|date:"Y-m-d"}}' />
 						</td>
 					</tr>
 					<tr>
@@ -135,7 +123,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<button type="button" id="submit" class="mui-btn btn1">确定</button>
+							<button style="width: 10rem; display: block;margin: 0 auto;" type="button" id="submit" class="mui-btn mui-btn-yellow">确定</button>
 						</td>
 					</tr>
 				</table>
@@ -148,19 +136,15 @@
 			document.getElementById('submit').addEventListener('tap',function (){
                 var project = document.getElementById('project'),
                     date = document.getElementById('date'),
-                    invest_mobile = document.getElementById('invest_mobile'),
-                    invest_term = document.getElementById('invest_term'),
                     invest_amount = document.getElementById('invest_amount'),
                     remark = document.getElementById('remark');
-                if (!date.value || !invest_mobile.value || !invest_term.value || !invest_amount.value ) {
-                    mui.alert('投资手机号不能为空');
+                if (!date.value || !invest_amount.value ) {
+                    mui.alert('投资日期和投资金额不能为空');
                     return;
                 }
-                mui.ajax('/userevent/{{id}}/',{
+                mui.ajax('/restapi/investlog/{{id}}/',{
                     data: {
-                        'invest_time': date.value + "T00:00",
-                        'mobile': invest_mobile.value,
-                        'invest_term': invest_term.value,
+                        'invest_date': date.value,
                         'invest_amount': invest_amount.value,
                         'remark': remark.value,
                     },
