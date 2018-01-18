@@ -1,14 +1,17 @@
+#coding:utf-8
 from django.shortcuts import render
 from wafuli.models import TransList, UserEvent
 from rest_framework import generics, permissions
 from permissions import CsrfExemptSessionAuthentication
 from restapi.permissions import IsOwnerOrStaff, IsAdmin
 from restapi.serializers import TransListSerializer, TeamInvestLogSerializer,\
-    TeamInvestLogSerializer, BackLogSerializer
+    TeamInvestLogSerializer, BackLogSerializer, BankcardSerializer
 from restapi.Paginations import MyPageNumberPagination
 import django_filters
 from restapi.Filters import TranslistFilter, TeamInvestLogFilter, BackLogFilter
 from teaminvest.models import Project, Investlog, Backlog
+from account.models import BankCard
+from rest_framework.exceptions import ValidationError
 
 class BaseViewMixin(object):
     authentication_classes = (CsrfExemptSessionAuthentication,)
@@ -39,7 +42,12 @@ class TeamProjectInvestLogList(BaseViewMixin, generics.ListCreateAPIView):
         else:
             return Investlog.objects.filter(user=user)
     def perform_create(self, serializer):
-        serializer.save(audit_state='1', user=self.request.user)
+        project = serializer.validated_data['project']
+        if Investlog.objects.filter(user=self.request.user, project=project).exclude(audit_state='2').exists():
+            raise ValidationError({'detail': u'同一个项目只能参与1次'})
+        else:
+            serializer.save(audit_state='1', user=self.request.user)
+            
 
 # class AdminTeamProjectInvestLogList(TeamProjectInvestLogList):
 #     def get_queryset(self):
@@ -74,3 +82,11 @@ class BackLogDetail(BaseViewMixin, generics.RetrieveUpdateDestroyAPIView):
     queryset = Investlog.objects.all()
     serializer_class = TeamInvestLogSerializer
     permission_classes = (IsAdmin,)
+    
+class BankcardList(BaseViewMixin, generics.ListAPIView):
+    serializer_class = BankcardSerializer
+    pagination_class = MyPageNumberPagination
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_fields = ['user']
+    queryset = BankCard.objects.all()
+    permission_classes = (permissions.IsAuthenticated, IsAdmin)
