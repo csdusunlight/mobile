@@ -1,51 +1,120 @@
 {% load staticfiles %}
+{% load myfilter %}
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <title>会员中心</title>
-    <script src="{% static 'js/mui.min.js' %}"></script>
-    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/m_account_vip.css' %}"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-    </script>
-</head>
 
-	<body>
-		<header id="header" class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">会员中心</h1>
-		</header>
-		<div class="mui-content">
-			<div class="top">
-				<div  id="user_logo" class="user-logo">
-					<img src="{% static 'images/user-03.png' %}" />
-					<img id="Vip_logo" class="vip-logo" src="{% static 'images/vip1.png' %}" />
-				</div>
-				<a><number>{{user.mobile}}</number></a>
-				<p class="top-tips">
-					<a>累计提现：<span id="vip_get">1000</span>福币</a>
-					<a>升级奖励：<span id="vip_reward">1000</span>福币</a>
-				</p>
-			</div>
-			<div class="vip-content-box">
-				<div class="nr-title vip-title clearfix">
-					<h2>我的等级</h2>
-					<a class="vip-rank-news">再提现<span id="fubi_need" class="fubi-need">90000</span>福币达到<span class="vip-rank-next">vip2</span></a>
-				</div>
-				<div class="process-content vip-content clearfix">
-					<p class="clearfix"><span class="vip-rank-now fl"></span><span class="vip-rank-next fr"></span></p>
-					<div id="vip_rank" class="vip-process-rank">
-						<span id="progress" class="progress"></span>
-						<span class="fubi-num">500</span>
-					</div>
-					<p class="clearfix"><span id="vip_left2" class="fl"></span><span id="vip_right2" class="fr"></span></p>
-				</div>
-			</div>
-			<div class="my-right vip-content-box">
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+        <title>会员中心</title>
+        <script src="{% static 'js/mui.min.js' %}"></script>
+        <link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/m_common.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/m_account_vip.css' %}" />
+        <script type="text/javascript" charset="utf-8">
+            mui.init();
+        </script>
+    </head>
+
+    <body>
+        <header id="header" class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+            <h1 class="mui-title">会员中心</h1>
+        </header>
+        <div class="mui-content">
+            <div class="top">
+                <div id="user_logo" class="user-logo">
+                    <!--<img src="{% static 'images/user-03.png' %}" />-->
+                    <img id="userimg" src="/static/images/user-0{{user.id| modulo:'4'}}.png" alt="用户头像" />
+                </div>
+                <a>
+                    <number>{{user.mobile}}<span class="vip-level">Lv.{{user.level}}</span></number>
+                </a>
+                <p class="top-tips">
+                    <a>累计提现：<span id="vip_get">{{user.with_total}}</span>福币</a>
+                    <a>升级奖励：<span id="fubi_get2"></span>福币</a>
+                </p>
+            </div>
+            <div class="vip-content-box">
+                <div class="nr-title vip-title clearfix">
+                    <h2>我的等级</h2>
+                    <a class="vip-rank-news">还需提现<span id="fubi_need" class="fubi-need"></span>福币达到<span class="vip-rank-next">Lv.<span id="Vip_next"></span></span>
+                    </a>
+                </div>
+                <div class="process-content vip-content clearfix">
+                    <p class="clearfix"><span class="vip-rank-now fl">Lv.{{user.level}}</span><span class="vip-rank-next fr">Lv.<span id="Vip_next2"></span></span>
+                        </span>
+                    </p>
+                    <div id="vip_rank" class="vip-process-rank">
+                        <span id="progress" class="progress"></span>
+                        <span class="fubi-num">500</span>
+                    </div>
+                    <p class="clearfix"><span class="fl">0</span><span id="next_need" class="fr">1000000</span></p>
+                </div>
+            </div>
+            <div class="vip-content-box">
+                <div class="mr-title vip-title clearfix">
+                    <h2>会员奖励</h2>
+                </div>
+                <table style="width: 90%; height: 400px; margin: 10px auto; text-align: center;" border="" cellspacing="" cellpadding="">
+                    <tr>
+                        <th>会员等级</th>
+                        <th>提现福币</th>
+                        <th>升级奖励</th>
+                    </tr>
+                    <tr>
+                        <td>LV.1</td>
+                        <td>100000</td>
+                        <td>2000</td>
+                    </tr>
+                    <tr>
+                        <td>LV.2</td>
+                        <td>500000</td>
+                        <td>5000</td>
+                    </tr>
+                    <tr>
+                        <td>LV.3</td>
+                        <td>1000000</td>
+                        <td>10000</td>
+                    </tr>
+                    <tr>
+                        <td>LV.4</td>
+                        <td>1000000</td>
+                        <td>11000</td>
+                    </tr>
+                    <tr>
+                        <td>LV.5</td>
+                        <td>1000000</td>
+                        <td>12000</td>
+                    </tr>
+                    <tr>
+                        <td>LV.6</td>
+                        <td>1000000</td>
+                        <td>13000</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>LV.13</td>
+                        <td>1000000</td>
+                        <td>20000</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>LV.n</td>
+                        <td>1000000</td>
+                        <td>20000</td>
+                    </tr>
+                </table>
+            </div>
+            <!--<div class="my-right vip-content-box">
 				<div class="mr-title vip-title clearfix">
 					<h2>我的特权</h2>
 					<a href="/press/8/">如何提升会员等级></a>
@@ -84,156 +153,148 @@
 						<span class="vip-rank-next vip-rank">VIP1</span>
 					</div>
 				</div>
-			</div>
+			</div>-->
+            <div class="vip-intro vip-content-box">
+                <div class="nr-title vip-title clearfix">
+                    <h2>会员奖励制度说明</h2>
+                </div>
+                <div class="vip-content vip-intro-content clearfix">
+                    <p>1、挖福利会员等级进行重新修改，取消理财福利、体验福利的额外奖励</p>
+                    <p>2、初注册的用户等级为LV.0，会员升级等级不限，提现越多，等级越高，特权越多。</p>
+                    <p>3、LV.3级会员之后，每提现10,000元可提升一个等级，升级奖励多增加10元，当升级至LV.13后，奖励金额不再增加。</p>
+                </div>
+            </div>
+        </div>
 
-		</div>
+        <script type="text/javascript">
+            window.onload = function() {
+                    //				var progress = document.getElementById("progress"),
+                    //					Vip_logo = mui(".vip-logo")[0],
+                    //					fubi_need = document.getElementById("fubi_need"),
+                    //
+                    //					vip_rank_now = mui(".vip-rank-now"),
+                    //					vip_rank_next = mui(".vip-rank-next"),
+                    //
+                    //					task_reward_now = mui(".my-right .task-reward")[0],
+                    //					finance_reward_now = mui(".my-right .finance-reward")[0],
+                    //					task_reward_next = mui(".next-right .task-reward")[0],
+                    //					finance_reward_next = mui(".next-right .finance-reward")[0],
+                    //					vip_reward = mui("#vip_reward")[0];
+                    // 会员等级制度
+                    var progress = document.getElementById("progress");
+                    var fubi_need = document.getElementById("fubi_need"),
+                        next_need = document.getElementById("next_need"),
+                        fubi_get2 = document.getElementById("fubi_get2"),
+                        Vip_logo = document.getElementById("Vip_logo"),
+                        Vip_next = document.getElementById("Vip_next"),
+                        Vip_next2 = document.getElementById("Vip_next2"),
+                        Vip_next_hint = document.getElementById("Vip_next_hint");
+                    var with_total = {{user.with_total}}; //总提现福币
+                    var with_level = {{user.with_level}}; //当前等级提现福币
+                    var percent = 0;
+                    var level = {{user.level}}; //VIP等级
 
-		<script type="text/javascript">
-			window.onload=function() {
-				var progress = document.getElementById("progress"),
-					Vip_logo = mui(".vip-logo")[0],
-					fubi_need = document.getElementById("fubi_need"),
-
-					vip_rank_now = mui(".vip-rank-now"),
-					vip_rank_next = mui(".vip-rank-next"),
-
-					task_reward_now = mui(".my-right .task-reward")[0],
-					finance_reward_now = mui(".my-right .finance-reward")[0],
-					task_reward_next = mui(".next-right .task-reward")[0],
-					finance_reward_next = mui(".next-right .finance-reward")[0],
-					vip_reward = mui("#vip_reward")[0];
-
-				var fubi_num = {{user.with_total}}; //提现福币
-			  var level = {{user.level}};
-				var percent = 0;
-
-				vip_left2.innerText = fubi_num;
-				mui("#vip_get")[0].innerText = fubi_num;
-
-				switch(level)
-				{
-				case 0:
-					percent = parseInt(fubi_num/100);
-					progress.style.width = percent + "%";
-					vip_right2.innerText = "10000";
-					vip_reward.innerText = 500;
-					fubi_need.innerText = 10000-fubi_num;
-					Vip_logo.style.display = "none";
-
-					mui(".my-right")[0].style.display = "none";
-
-					vip_rank_now.each(function(){
-						this.innerText = "VIP0";
-					})
-					vip_rank_next.each(function(){
-						this.innerText = "VIP1";
-					})
-
-					task_reward_next.innerText = "10%";
-					finance_reward_next.innerText = "1%";
-					break;
-				case 1:
-					percent = parseInt((fubi_num - 10000)/900);
-					progress.style.width = percent + "%";
-					vip_right2.innerText = "100000";
-					vip_reward.innerText = 3000;
-					fubi_need.innerText = 100000-fubi_num;
-					Vip_logo.setAttribute("src","{% static 'images/vip1.png' %}");
-
-					vip_rank_now.each(function(){
-						this.innerText = "VIP1";
-					})
-					vip_rank_next.each(function(){
-						this.innerText = "VIP2";
-					})
-
-					task_reward_now.innerText = "10%";
-					finance_reward_now.innerText = "1%";
-					task_reward_next.innerText = "15%";
-					finance_reward_next.innerText = "2%";
-					break;
-				case 2:
-					percent = parseInt((fubi_num - 100000)/9000);
-					progress.style.width = percent + "%";
-					vip_right2.innerText = "1000000";
-					vip_reward.innerText = 20000;
-					fubi_need.innerText = 1000000-fubi_num;
-					Vip_logo.setAttribute("src","{% static 'images/vip2.png' %}");
-
-					vip_rank_now.each(function(){
-						this.innerText = "VIP2";
-					})
-					vip_rank_next.each(function(){
-						this.innerText = "VIP3";
-					})
-
-					task_reward_now.innerText = "15%";
-					finance_reward_now.innerText = "2%";
-					task_reward_next.innerText = "16%";
-					finance_reward_next.innerText = "3%";
-					break;
-				case 3:
-					percent = parseInt((fubi_num - 1000000)/40000);
-					progress.style.width = percent + "%";
-					vip_right2.innerText = "5000000";
-					vip_reward.innerText = 80000;
-					fubi_need.innerText = 5000000-fubi_num;
-					Vip_logo.setAttribute("src","{% static 'images/vip3.png' %}");
-
-					vip_rank_now.each(function(){
-						this.innerText = "VIP3";
-					})
-					vip_rank_next.each(function(){
-						this.innerText = "VIP4";
-					})
-
-					task_reward_now.innerText = "16%";
-					finance_reward_now.innerText = "3%";
-					task_reward_next.innerText = "18%";
-					finance_reward_next.innerText = "4%";
-					break;
-				case 4:
-					percent = parseInt((fubi_num - 5000000)/50000);
-					progress.style.width = percent + "%";
-					vip_right2.innerText = "10000000";
-					vip_reward.innerText = 120000;
-					fubi_need.innerText = 10000000-fubi_num;
-					Vip_logo.setAttribute("src","{% static 'images/vip4.png' %}");
-
-					vip_rank_now.each(function(){
-						this.innerText = "VIP4";
-					})
-					vip_rank_next.each(function(){
-						this.innerText = "VIP5";
-					})
-
-					task_reward_now.innerText = "18%";
-					finance_reward_now.innerText = "4%";
-					task_reward_next.innerText = "20%";
-					finance_reward_next.innerText = "5%";
-					break;
-				case 5:
-					percent = parseInt(fubi_num/500000);
-					progress.style.width = "100%";
-					vip_right2.innerText = "10000000";
-					vip_reward.innerText = 0;
-					Vip_logo.setAttribute("src","{% static 'images/vip5.png' %}");
-
-					vip_rank_now.each(function(){
-						this.innerText = "VIP5";
-					})
-					vip_rank_next.each(function(){
-						this.innerText = "VIP5";
-					})
-					mui(".vip-rank-news")[0].innerHTML = "已达到最高VIP等级";
-					mui(".next-right")[0].style.display = "none";
-
-					task_reward_now.innerText.innerText = "20%";
-					finance_reward_now.innerText = "5%";
-					break;
-				}
-			}
-		</script>
-	</body>
+                    Vip_next.innerText = level + 1;
+                    Vip_next2.innerText = level + 1;
+                    switch(level) {
+                        case 0:
+                            fubi_need.innerText = 100000 - with_level;
+                            next_need.innerText = 100000;
+                            fubi_get2.innerText = 2000;
+                            percent = parseInt(with_level / 1000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 1:
+                            fubi_need.innerText = 500000 - with_level;
+                            next_need.innerText = 500000;
+                            fubi_get2.innerText = 5000;
+                            percent = parseInt(with_level / 5000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 2:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 10000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 3:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 11000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 4:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 12000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 5:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 13000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 6:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 14000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 7:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 15000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 8:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 16000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 9:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 17000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 10:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 18000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 11:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 19000;
+                            percent = parseInt(with_level / 10000);
+                            console.log(with_level);
+                            console.log(percent);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 12:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 20000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        case 13:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 20000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                        default:
+                            fubi_need.innerText = 1000000 - with_level;
+                            fubi_get2.innerText = 20000;
+                            percent = parseInt(with_level / 10000);
+                            progress.style.width = percent + "%";
+                            break;
+                    }
+                    // 会员等级制度---------end
+            }
+        </script>
+    </body>
 
 </html>
