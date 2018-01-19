@@ -12,46 +12,77 @@
 		<link rel="stylesheet" href="{% static 'css/mui.min.css' %}">
 		<link rel="stylesheet" href="{% static 'css/m_audit.css' %}">
 		<script type="text/javascript" src="{% static  'js/rem.js'%}"></script>
+		<style type="text/css">
+            .item_line.m-right {
+                width: 48rem;
+            }
+            .look-item {
+                display: inline-block;
+                padding-left: 6%;
+                font-size: 12px;
+                width: 50%;
+                text-align: left;
+                color: #666;
+            }
+            .look-line {
+                margin-bottom: 0;
+                font-size: 0;
+            }
+            .popup__btn.cancel {
+                width: 40%;
+            }
+        </style>
 	</head>
 
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a id="anchor" href="{% url 'account_index' %}" class="mui-action-back2 mui-icon mui-icon-left-nav mui-pull-left" style="color: #656565;"></a>
-			<h1 class="mui-title">理财福利管理</h1>
+			<h1 class="mui-title">组队交单管理</h1>
 		</header>
 
 		<ul class="nav__head clearfix tc">
-            <li class="nav__item on">理财福利</li>
+            <li class="nav__item"><a class="nav__link" href="{% url 'account_welfare_finance' %}">理财福利</a></li>
             <li class="nav__item"><a class="nav__link" href="{% url 'account_welfare_task' %}">体验福利</a></li>
             <li class="nav__item"><a class="nav__link" href="{% url 'account_welfare_media' %}">媒体单</a></li>
-            <li class="nav__item"><a class="nav__link" href="{% url 'account_welfare_team' %}">组队单</a></li>
+            <li class="nav__item on">组队单</li>
         </ul>
 
 		<div id="pullrefresh" class="mui-scroll-wrapper">
-				<div class="mui-table-view">
-					<ul class="mui-table-view-left">
-						<li class="item_line m-head">
-						    <div class="column_0 column m-head">序号</div>
-						    <div class="column_1 column m-head">名称/<br />手机号</div>
-						</li>
-					</ul>
-					<div class="mui-scroll-wrapper2" style="width: 75%; float: right;">
-            			<div class="mui-scroll" style="width: 56rem;position: static;">
-        					<ul class="mui-table-view-right">
-        						<li class="item_line m-head m-right" >
-        							<div class="column_2 column m-head">投资时间</div>
-        							<div class="column_3 column m-head">投资金额/<br />投资标期</div>
-        							<div class="column_6 column m-head">审核状态/<br />返现福币</div>
-        							<div class="column_4 column m-head">审核信息</div>
-        							<div class="column_7 column m-head">备注</div>
-        							<div class="column_8 column m-head">操作</div>
-        						</li>
-        					</ul>
-            			</div>
+			<div class="mui-table-view">
+				<ul class="mui-table-view-left">
+					<li class="item_line m-head">
+					    <div class="column_0 column m-head">序号</div>
+					    <div class="column_1 column m-head">名称</div>
+					</li>
+				</ul>
+				<div class="mui-scroll-wrapper2" style="width: 75%; float: right;">
+        			<div class="mui-scroll" style="width: 48rem;position: static;">
+    					<ul class="mui-table-view-right">
+    						<li class="item_line m-head m-right" >
+    							<div class="column_2 column m-head">投资时间</div>
+    							<div class="column_3 column m-head">投资金额</div>
+    							<div class="column_4 column m-head">审核状态</div>
+    							<div class="column_5 column m-head">备注</div>
+    							<div class="column_8 column m-head">操作</div>
+    						</li>
+    					</ul>
         			</div>
-				</div>
+    			</div>
+			</div>
 		</div>
-       
+       <div id="popup_look" class="popup">
+            <div class="popup__content" style="max-width: 80%;">
+                <div class="popup__top">
+                    <h2 class="popup__title">回款详情</h2><span class="popup__close popup__close-btn" onclick="canclePopup(this)">×</span>
+                </div>
+                <div id="look_detail" class="popup__detail">
+                    
+                </div>
+                <div class="popup__btnbox">
+                    <button class="cancel popup__btn mui-btn mui-btn-yellow" onclick="canclePopup(this)">确定</button>
+                </div>
+            </div>
+        </div>
 		<script src="{% static 'js/mui.min.js' %}"></script>
 		<script>
 		    var count = 1;
@@ -87,7 +118,7 @@
 
 					function getList(obj, ul_left, ul_right, n) {
 						console.log(obj);
-						var url = '/usereventlist/?content_type={{ftype}}&user={{user.id}}';
+						var url = '/restapi/investlog/?user_mobile={{user.mobile}}';
 						mui.ajax(url, {
 							data: {
 								page: n,
@@ -109,26 +140,32 @@
 										li_left.className = 'item_line item' + data.results[i].id;
 										li_right.className = 'item_line m-right item' + data.results[i].id;
 										var left_html = '<div class="column_0 column">'+ (num++) +'</div>' +
-										                '<div data-id="' + data.results[i].id + '" class="column_1 column"><span class="item">' + data.results[i].project +
-											            '</span><span class="item">' + data.results[i].invest_account + '</span></div>';
+										                '<div data-id="' + data.results[i].id + '" class="column_1 column"><span class="item">' + data.results[i].project_title +
+											            '</span></div>';
 
-										var right_html = '<div data-id="' + data.results[i].id + '" class="column_2 column"><span class="item">' + data.results[i].invest_time.split('T')[0] + '</span>' +
+										var right_html = '<div data-id="' + data.results[i].id + '" class="column_2 column"><span class="item">' + data.results[i].invest_date + '</span>' +
 											'</div>' +
 											//投资金额/投资标期
 											'<div class="column_3 column"><span class="item">' + data.results[i].invest_amount + '</span>' +
-											'<span class="item">' + data.results[i].invest_term + '</span></div>' +
+											'</div>';
 											//审核状态/审核信息
-											'<div class="column_6 column"><span class="item state_'+ data.results[i].id +' state' + data.results[i].audit_state + ' ">' + data.results[i].state_des + '</span>' +
-											'<span class="item">' + (data.results[i].ret_money==null?'':data.results[i].ret_money) + '</span></div>' +
-											//返现福币
-											'<div class="column_4 column"><span>' + (data.results[i].refuse_reason==null?'':data.results[i].refuse_reason) + '</span></div>' +
+											if (data.results[i].audit_state == 2) {
+                                                right_html += '<div class="column_4 column"><span class="item state_'+ data.results[i].id +' state' + data.results[i].audit_state + ' ">' + data.results[i].state_desc + '</span>' +
+                                            '<span class="item">' + data.results[i].audit_reason + '</span></div>';
+                                            } else{
+                                                right_html += '<div class="column_4 column"><span class="item state_'+ data.results[i].id +' state' + data.results[i].audit_state + ' ">' + data.results[i].state_desc + '</span>' +
+                                            '</div>';
+                                            }
+											
 											//备注及其他
-											'<div class="column_7 column"><span>' + data.results[i].remark + '</div>' +
+											right_html += '<div class="column_5 column"><span class="item">' + data.results[i].remark + '</span></div>';
 											//操作
-											'<div class="column_8 column">';
+											right_html += '<div class="column_8 column">';
 											if (data.results[i].audit_state == 1) {
                                                 right_html += '<span data-id="' + data.results[i].id + '" class="item deleteItem">删除</span>' +
                                                                '<span data-id="' + data.results[i].id + '" class="item pro_editor">编辑</span></div>';
+                                            } else if (data.results[i].audit_state == 0 || data.results[i].audit_state == 3) {
+                                                right_html += '<span data-id="' + data.results[i].id + '" class="item lookItem">查看</span></div>';
                                             } else {
                                                 right_html += '<span data-id="' + data.results[i].id + '" class="item">——</span></div>';
                                             }
@@ -163,7 +200,7 @@
 				mui.confirm("是否要删除该条数据", "提示", btnArry, function(e) {
 					if(e.index == 1) {
 
-						mui.ajax("/userevent/" + dataId + "/", {
+						mui.ajax("/restapi/investlog/" + dataId + "/", {
 							dataType: 'json', //服务器返回json格式数据
 							type: 'delete', //HTTP请求类型
 							timeout: 10000, //超时时间设置为10秒；
@@ -183,6 +220,43 @@
 					}
 				});
 			});
+			var canclePopup = function(obj) {       //取消自定义弹窗
+                mui('.popup').each(function(){
+                    this.className = 'popup';
+                })
+            }
+			mui(".mui-table-view-right").on('tap', '.lookItem', function() {
+                var dataId = this.getAttribute('data-id'); //获取当前span标签的data-id
+                console.log('dataId:', dataId);
+                //                  console.log(mui(".item" + dataId));
+//              var btnArry = ['否', '是'];
+//              mui.confirm("是否要删除该条数据", "提示", btnArry, function(e) {
+//                  if(e.index == 1) {
+
+                        mui.ajax("/restapi/backlog/?user_mobile={{user.mobile}}&investlog=" + dataId, {
+                            dataType: 'json', //服务器返回json格式数据
+                            type: 'get', //HTTP请求类型
+                            timeout: 10000, //超时时间设置为10秒；
+                            success: function(data) {
+                                console.log(data.results);
+                                var look_html = '';
+                                for(var i in data.results) {
+                                    look_html += '<p class="look-line"><span class="look-item">时间：'+data.results[i].invest_date+'</span><span class="look-item">金额：'+data.results[i].back_amount+'</span></p>';
+                                }
+                                console.log(look_html);
+                                document.getElementById('look_detail').innerHTML = look_html;
+                                document.getElementById('popup_look').className = 'popup in';
+                            },
+                            error: function(xhr, type, errorThrown) {
+                                console.log(xhr.resoponseText);
+                            }
+                        });
+
+//                  } else {
+//                      return;
+//                  }
+//              });
+            });
             mui('.mui-bar').on('tap', '.mui-action-back2', function() {
                 var href = this.getAttribute("href");
                 mui.openWindow({
@@ -204,7 +278,7 @@
 
 				var project_id = this.getAttribute('data-id'); //获取自定义data-id属性
 				mui.openWindow({
-					url: "/account/detail_finance/" + project_id,
+					url: "/account/detail_team/" + project_id,
 					styles: {
 						top: 0,
 						bottom: 0

@@ -29,19 +29,20 @@ class Project(models.Model):
 def get_today():
     return datetime.date.today()
 AUDIT_STATE = (
-    ('0', u'审核通过'),
+    ('0', u'待回款'),
     ('1', u'待审核'),
     ('2', u'审核未通过'),
-    ('3', u'复审'),
+    ('3', u'已结清'),
 )
 class Investlog(models.Model):
     user = models.ForeignKey(MyUser, related_name="investlog_submit")
+    qq = models.CharField(u"QQ", max_length=15)
     project = models.ForeignKey(Project, related_name="investlogs")
     submit_time = models.DateTimeField(u'提交时间', default=timezone.now)
     invest_amount = models.DecimalField(u'投资金额', max_digits=10, decimal_places=2)
     invest_date = models.DateField(u'投资日期', default=get_today)
     remark = models.CharField(u"备注", max_length=100, blank=True)
-    settle_amount = models.DecimalField(u'结算金额', max_digits=10, decimal_places=2, null=True)
+    settle_amount = models.IntegerField(u'结算金额', default=0)
     audit_time = models.DateTimeField(u'审核时间', default=timezone.now)
     audit_state = models.CharField(max_length=10, choices=AUDIT_STATE, verbose_name=u"审核状态")
     audit_reason = models.CharField(max_length=100, verbose_name=u"审核说明", blank=True)
@@ -49,7 +50,6 @@ class Investlog(models.Model):
         return u"用户：%s 投资项目：%s 投资金额：%s" % (self.user, self.project.title, self.invest_amount)
     class Meta:
         ordering = ["-submit_time",]
-        unique_together = (('user', 'project'),)
     def get_encrypt_mobile(self):
         mobile = self.mobile
         if len(mobile)>=7:
