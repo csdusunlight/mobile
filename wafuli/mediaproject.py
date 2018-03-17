@@ -35,7 +35,7 @@ def media_submit(request):
         msg = ''
         userlog = None
         try:
-            if news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
+            if not news.is_multisub_allowed and news.user_event.filter(invest_account=telnum).exclude(audit_state='2').exists():
                 raise ValueError('This invest_account is repective in project:' + str(news.id))
             else:
                 userlog = UserEvent.objects.create(user=request.user, event_type='9', invest_account=telnum,
